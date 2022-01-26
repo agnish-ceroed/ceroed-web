@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux'
 
-import useStyles from "./styles";
 import { userLogin } from "../../redux/actions";
+import useStyles from "./styles";
 
 const Login = () => {
     const classes = useStyles();
