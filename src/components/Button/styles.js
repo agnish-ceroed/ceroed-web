@@ -2,8 +2,6 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     button: {
-        width: 40,
-        height: 26,
         border: '1px solid',
         borderColor: theme.palette.Primary.border,
         color: theme.palette.text.secondary,

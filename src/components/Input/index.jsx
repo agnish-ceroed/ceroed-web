@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import useStyles from "./styles";
 
-const Input = (props) => {
+const CeroInput = (props) => {
     const classes = useStyles();
     return (
         <Box className={clsx(classes.container, props.classes?.container)} >
@@ -28,4 +28,4 @@ const Input = (props) => {
     );
 };
 
-export default Input;
+export default CeroInput;

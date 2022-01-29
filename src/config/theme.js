@@ -3,14 +3,15 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
     spacing: 4,
     status: {
-      danger: '#FF4500',
+        danger: '#FF4500',
     },
+    backgroundColor: '#D9E4CD',
     palette: {
         divider: '#E1E1E1',
         text: {
             primary: '#1D1D1D',
             secondary: '#686868',
-            disabled: '#8D8D8D'
+            disabled: '#8D8D8D',
         },
         Primary: {
             main: '#F15927',
