@@ -1,20 +1,24 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-    login: {
+    signup: {
         background: theme.backgroundColor,
         minHeight: '100vh'
     },
-    loginCard: {
-        borderRadius: "16px !important",
+    signupContainer: {
         padding: theme.spacing(10),
         margin: theme.spacing(10, 0),
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(5),
         }
     },
-    button: {
-        margin: '12px 0 20px 0 !important'
+    stepper: {
+        padding: theme.spacing(10, 0)
+    },
+    cardFooter: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        padding: theme.spacing(5, 0, 0, 0)
     }
 }));
 

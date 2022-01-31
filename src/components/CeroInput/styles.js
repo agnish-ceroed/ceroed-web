@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(3, 0),
         display: 'flex',
         flexDirection: 'column',
     },
@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: theme.palette.Other.stroke,
+                borderColor: theme.palette.Other.stroke,
             },
             '&:hover fieldset': {
-              borderColor: theme.palette.Primary.main,
+                borderColor: theme.palette.Primary.main,
             },
             '&.Mui-focused fieldset': {
-              borderWidth: 2,
-              borderColor: theme.palette.Primary.main,
+                borderWidth: 2,
+                borderColor: theme.palette.Primary.main,
             },
         },
         '& input[type=number]': {
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
             margin: 0,
         },
     },
-    text:{
+    text: {
         fontSize: 12,
         lineHeight: 1.5,
         fontWeight: 400,

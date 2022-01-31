@@ -16,12 +16,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(10),
         borderRadius: '16px !important',
     },
-    cardContainer: {
-        textAlign: 'center',
-    },
     cardTitle: {
         padding: theme.spacing(0, 0, 10, 0),
-        fontWeight: 700
+        fontWeight: 700,
     },
     button: {
         width: 200,

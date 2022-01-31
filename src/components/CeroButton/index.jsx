@@ -8,9 +8,10 @@ const CeroButton = (props) =>  {
     return (
         <Button
             variant={props.variant || "contained"}
-            disabled={props.disabled}
+            disabled={!!props.disabled}
             onClick={props.onClick}
             className={clsx(classes.button, props.className)}
+            fullWidth={!!props.fullWidth}
         >
             {props.buttonText}
         </Button>
