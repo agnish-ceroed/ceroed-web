@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '100vh'
     },
     loginCard: {
-        borderRadius: "16px !important",
+        borderRadius: 16,
         padding: theme.spacing(10),
         margin: theme.spacing(10, 0),
         [theme.breakpoints.down('md')]: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     button: {
-        margin: '12px 0 20px 0 !important'
+        margin: theme.spacing(3, 0, 5, 0),
     }
 }));
 

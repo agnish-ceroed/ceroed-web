@@ -11,6 +11,7 @@ const CeroButton = (props) =>  {
             disabled={!!props.disabled}
             onClick={props.onClick}
             className={clsx(classes.button, props.className)}
+            classes={props.classes}
             fullWidth={!!props.fullWidth}
         >
             {props.buttonText}
