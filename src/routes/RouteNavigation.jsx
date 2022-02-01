@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Signup from '../pages/Signup';
 import Dashboard from '../pages/Dashboard';
+import Emissions from '../pages/EmissionList';
 import Contacts from '../pages/Contacts';
 import Email from '../pages/Email';
 import Tasks from '../pages/Tasks';
@@ -22,6 +23,7 @@ const RootNavigation = () => {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/dashboard" element={< Dashboard/>} />
+                    <Route path="/emissions" element={< Emissions/>} />
                     <Route path="/contacts" element={< Contacts/>} />
                     <Route path="/email" element={< Email/>} />
                     <Route path="/tasks" element={< Tasks/>} />

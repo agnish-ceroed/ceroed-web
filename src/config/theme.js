@@ -39,6 +39,15 @@ const theme = createTheme({
             activeRating: '#FFB400',
             background: '#F6F6F6',
         },
+        Warning: {
+            main: '#FF9800',
+            dark: '#C77700',
+            light: '#FFB547',
+            textDark: '#663D00',
+            lightBg: '#FFF5E5',
+            border: '#F1BD71',
+            contrastText: '#1D1D1D',
+        },
         Error: {
             main: '#F44336',
             dark: '#E31B0C',

@@ -5,10 +5,9 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         display: 'flex',
         width: '100%'
-
     },
     rightContainer:{
-        flex:1,
+        width: 'calc(100vw - 250px)',
         display: 'flex',
         flexDirection: 'column'
     },

@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -11,7 +12,6 @@ import PropTypes from 'prop-types';
 import Header from '../../components/Header'
 import SideMenu from '../../components/SideMenu'
 import useStyles from "./styles";
-import { Box } from '@mui/material';
 
 const DasboardLayout = ({children}) => {
     
@@ -22,6 +22,11 @@ const DasboardLayout = ({children}) => {
             text: 'Dashboard',
             icon: <DashboardOutlinedIcon/>,
             path: '/dashboard'
+        },
+        {
+            text: 'Emissions',
+            icon: <DashboardOutlinedIcon/>,
+            path: '/emissions'
         },
         {
             text: 'Tasks',
