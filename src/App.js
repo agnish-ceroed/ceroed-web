@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import { Provider } from 'react-redux'
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,12 +10,14 @@ import theme from "./config/theme";
 function App() {
   return (
     <Provider store={store}>
-      <CssBaseline/>
-      <ThemeProvider theme={theme} >
-        <SnackbarProvider maxSnack={5} anchorOrigin={{ veritcal: 'top', horizontal: 'right' }} >
-          <RootNavigation />
-        </SnackbarProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <CssBaseline/>
+        <ThemeProvider theme={theme} >
+          <SnackbarProvider maxSnack={5} anchorOrigin={{ veritcal: 'top', horizontal: 'right' }} >
+            <RootNavigation />
+          </SnackbarProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>
   );
 }

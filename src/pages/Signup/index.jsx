@@ -9,19 +9,6 @@ import useStyles from "./styles";
 
 const steps = ['User', 'Company', 'Goal'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <UserDetails />;
-        case 1:
-            return <CompanyDetails />;
-        case 2:
-            return <GoalSelection />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
-
 const Signup = () => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
@@ -32,6 +19,19 @@ const Signup = () => {
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+
+    const getStepContent = (step) => {
+        switch (step) {
+            case 0:
+                return <UserDetails />;
+            case 1:
+                return <CompanyDetails />;
+            case 2:
+                return <GoalSelection />;
+            default:
+                throw new Error('Unknown step');
+        }
     };
 
     return (
@@ -57,16 +57,16 @@ const Signup = () => {
                                 {activeStep !== 0 && (
                                     <CeroButton
                                         onClick={handleBack}
-                                        sx={{ mt: 3, ml: 1 }}
                                         buttonText='Back'
+                                        className={classes.button}
                                     />
                                 )}
 
                                 <CeroButton
                                     variant="contained"
                                     onClick={handleNext}
-                                    sx={{ mt: 3, ml: 1 }}
                                     buttonText={activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                                    classes={{ root: classes.button }}
                                 />
                             </Box>
                         </>

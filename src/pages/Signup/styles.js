@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
         padding: theme.spacing(5, 0, 0, 0)
+    },
+    button: {
+        margin: theme.spacing(0, 2),
     }
 }));
 
