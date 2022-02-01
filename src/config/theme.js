@@ -12,6 +12,8 @@ const theme = createTheme({
             primary: '#1D1D1D',
             secondary: '#686868',
             disabled: '#8D8D8D',
+            accent: '#109CF1',
+            darkBlue: '#334D6E'
         },
         Primary: {
             main: '#F15927',
@@ -54,7 +56,17 @@ const theme = createTheme({
             disabledBackground: '#E0E0E0',
             focus: '#F15927',
         },
-    }
+        background: {
+            white: '#fff',
+            gray: '#E5E5E5'
+        },
+        icon: {
+            gray: '#C2CFE0'
+        },
+        border: {
+            gray: '#EBEFF2'
+        }
+    },
 });
 
 export default theme;
