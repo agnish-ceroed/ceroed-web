@@ -2,6 +2,9 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from '../pages/Login';
+import Signup from '../pages/Signup';
+import Home from '../pages/Home'
+import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../pages/Dashboard';
 import Goals from '../pages/Goals';
 import Simulations from '../pages/Simulations';
@@ -20,6 +23,9 @@ const RootNavigation = () => {
             <Suspense fallback={<div>Loading</div>} >
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/dashboard" element={< Dashboard/>} />
                     <Route path="/emissions" element={< Emissions/>} />
                     <Route path="/goals" element={< Goals/>} />

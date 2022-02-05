@@ -23,6 +23,8 @@ const CeroInput = (props) => {
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 classes={clsx(classes.input, props.classes?.input)}
+                type={props.type || "text"}
+                helperText={props.helperText}
                 InputProps={{...props.inputProps}}
             />
             {!!props.error && <Typography className={clsx(classes.text, classes.error, props.classes?.error)} >{props.error}</Typography>}

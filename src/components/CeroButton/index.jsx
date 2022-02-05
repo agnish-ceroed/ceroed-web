@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Button } from "@mui/material";
 import useStyles from "./styles";
 
-const CeroButton = (props) =>  {
+const CeroButton = (props) => {
     const classes = useStyles();
     return (
         <Button

@@ -10,7 +10,22 @@ export const userState = {
   status: STATUS.IDLE,
   authParams: {},
   userInfo: {},
-  message: ''
+  message: '',
+  forgot: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
+  otpVerify: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
+  changePassword: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
 }
 
 export default {
@@ -32,6 +47,69 @@ export default {
           isAuthenticated: { $set: false },
           message: { $set: parseError(payload) },
           status: { $set: STATUS.ERROR }
+        }),
+
+      [ActionTypes.GET_FORGOT_PASSWORD_OTP]: (state, { payload }) =>
+        immutable(state, {
+          forgot: {
+            status: { $set: STATUS.RUNNING }
+          }
+        }),
+      [ActionTypes.GET_FORGOT_PASSWORD_OTP_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          forgot: {
+            data: { $set: payload },
+            status: { $set: STATUS.READY }
+          }
+        }),
+      [ActionTypes.GET_FORGOT_PASSWORD_OTP_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          forgot: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload }
+          }
+        }),
+
+      [ActionTypes.VERIFY_FORGOT_PASSWORD_OTP]: (state, { payload }) =>
+        immutable(state, {
+          otpVerify: {
+            status: { $set: STATUS.RUNNING }
+          }
+        }),
+      [ActionTypes.VERIFY_FORGOT_PASSWORD_OTP_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          otpVerify: {
+            data: { $set: payload },
+            status: { $set: STATUS.READY }
+          }
+        }),
+      [ActionTypes.VERIFY_FORGOT_PASSWORD_OTP_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          otpVerify: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload }
+          }
+        }),
+
+      [ActionTypes.CHANGE_PASSWORD]: (state, { payload }) =>
+        immutable(state, {
+          changePassword: {
+            status: { $set: STATUS.RUNNING }
+          }
+        }),
+      [ActionTypes.CHANGE_PASSWORD_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          changePassword: {
+            data: { $set: payload },
+            status: { $set: STATUS.READY }
+          }
+        }),
+      [ActionTypes.CHANGE_PASSWORD_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          changePassword: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload }
+          }
         }),
     },
     userState
