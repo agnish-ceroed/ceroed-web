@@ -1,7 +1,8 @@
 import { Container } from "@mui/material";
-import DasboardLayout from '../../layouts/DasboardLayout/'
 
+import DashboardLayout from '../../layouts/DashboardLayout'
 import EmissionTable from "./EmissionTable";
+import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
 
 const savedPage = { // To be used from the api response
@@ -44,11 +45,12 @@ const EmissionList = () => {
     };
 
     return (
-        <DasboardLayout>
+        <DashboardLayout>
             <Container className={classes.container}>
+                <EmissionHeader />
                 <EmissionTable emissionData={emissonData} onLoadMore={onLoadMore} />
             </Container>
-        </DasboardLayout>
+        </DashboardLayout>
     );
 };
 

@@ -3,16 +3,16 @@ import DashboardLayout from '../../layouts/DashboardLayout'
 
 import useStyles from "./styles";
 
-const Settings = () => {
+const Goals = () => {
     const classes = useStyles();
 
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h1" component="h2" >Settings Page</Typography>
+                <Typography variant="h1" component="h2" >Goals Page</Typography>
             </Container>
         </DashboardLayout>
     );
 };
 
-export default Settings;
+export default Goals;

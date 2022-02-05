@@ -13,18 +13,20 @@ const CeroSelect = (props) => {
                 name={props.name}
                 label={props.label}
                 variant={props.variant || "outlined"}
-                value={props.value}
+                value={props.selectedValue}
                 required={!!props.required}
                 disabled={!!props.disabled}
                 error={!!props.error}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
-                classes={clsx(classes.input, props.classes?.input)}
+                className={classes.input}
+                classes={{ root: props.classes?.root }}
+                SelectProps={{ classes: { select: props.classes?.select } }}
                 select
             >
-                {props.selectValues && props.selectValues.map((option) => (
-                    <MenuItem key={option} value={option}>
-                        {option}
+                {props.options && props.options.map((option) => (
+                    <MenuItem key={option.key} value={option.key}>
+                        {option.value}
                     </MenuItem>
                 ))}
             </TextField>

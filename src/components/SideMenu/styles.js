@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
     },
     drawer: {
-        width: '100%',
+        width: '256px',
         height: '100%'
     },
     drawerCanvas: {
@@ -25,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
         height: '60px',
         padding: '16px',
         color: theme.palette.text.accent,
-        borderBottom: `1px solid ${theme.palette.border.gray}`
+        borderBottom: `1px solid ${theme.palette.border.gray}`,
+    },
+    titleText: {
+        fontStyle: 'normal',
+        fontWeight: 600,
+        fontSize: '18px',
     },
     userContainer: {
         padding: '30px 16px',

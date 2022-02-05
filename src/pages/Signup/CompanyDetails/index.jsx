@@ -14,21 +14,21 @@ const CompanyDetails = () => {
         id="country"
         label="Country"
         fullWidth
-        selectValues={["india"]}
+        options={[{key: "india", value: "India"}]}
       />
       <CeroSelect
         required
         id="estabhlishedYear"
         label="Year of establishment"
         fullWidth
-        selectValues={[2010, 2020]}
+        options={[{key: "2010", value: "2010"}, {key: "2020", value: "2020"}]}
       />
       <CeroSelect
         required
         id="industryType"
         label="Type of industry"
         fullWidth
-        selectValues={["Manufacturing", "Reclycling"]}
+        options={[{key: "Manufacturing", value: "Manufacturing"},{key: "Reclycling", value: "Reclycling"}]}
       />
     </>
   );

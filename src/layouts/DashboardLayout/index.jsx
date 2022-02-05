@@ -5,7 +5,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import SplitscreenIcon from '@mui/icons-material/Splitscreen';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import PropTypes from 'prop-types';
 
 //components
@@ -13,7 +13,7 @@ import Header from '../../components/Header'
 import SideMenu from '../../components/SideMenu'
 import useStyles from "./styles";
 
-const DasboardLayout = ({children}) => {
+const DashboardLayout = ({children}) => {
     
     const classes = useStyles();
     
@@ -25,42 +25,48 @@ const DasboardLayout = ({children}) => {
         },
         {
             text: 'Emissions',
-            icon: <DashboardOutlinedIcon/>,
+            icon: <MoreHorizIcon/>,
             path: '/emissions'
         },
         {
-            text: 'Tasks',
-            icon: <SplitscreenIcon/>,
-            path: '/tasks'
-        },
-        {
-            text: 'Email',
+            text: 'Simulations',
             icon: <MailOutlineIcon/>,
-            path: '/email'
+            path: '/simulations'
         },
         {
-            text: 'Contacts',
+            text: 'Goals',
             icon: <PersonOutlineIcon/>,
-            path: '/contacts'
+            path: '/goals'
         },
         {
-            text: 'Chat',
+            text: 'Reports',
             icon: <ChatBubbleOutlineOutlinedIcon/>,
-            path: '/chat'
+            path: '/reports'
         },
         {
-            text: 'Deals',
+            text: 'Benchmarking',
             icon: <ViewColumnOutlinedIcon/>,
-            path: '/deals'
+            path: '/benchmarking'
         }
     ]
 
     const settingsOption = [
         {
+            text: 'My Profile',
+            icon: <ManageAccountsOutlinedIcon/>,
+            path: '/profile'
+        },
+        {
+            text: 'Help',
+            icon: <ViewColumnOutlinedIcon/>,
+            path: '/help'
+        },
+        {
             text: 'Settings',
-            icon: <MoreHorizIcon/>,
+            icon: <ManageAccountsOutlinedIcon/>,
             path: '/settings'
-        }]
+        },
+    ]
 
     return <Box className={classes.dasboardContainer}>
         <SideMenu options={sideMenuItems} secondaryOptions={settingsOption}/>
@@ -71,8 +77,8 @@ const DasboardLayout = ({children}) => {
     </Box>
 };
 
-export default DasboardLayout;
+export default DashboardLayout;
 
-DasboardLayout.propTypes = {
+DashboardLayout.propTypes = {
     children: PropTypes.any
 };

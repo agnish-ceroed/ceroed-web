@@ -21,7 +21,7 @@ const SideMenu = ({options, secondaryOptions}) => {
             classes={{paper: classes.drawerCanvas}}
             >
             <Box className={classes.title}>
-                <Typography variant="h5" component="h5" >Saas Kit</Typography>
+                <Box className={classes.titleText}>CeroED</Box>
             </Box>
             <Box className={classes.userContainer}>
                 <Box className={classes.avatarContainer}>

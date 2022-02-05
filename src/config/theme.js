@@ -37,7 +37,7 @@ const theme = createTheme({
             backdrop: '#717171',
             snackbar: '#323232',
             activeRating: '#FFB400',
-            background: '#F6F6F6',
+            background: '#E3E3E3',
         },
         Warning: {
             main: '#FF9800',

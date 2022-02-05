@@ -9,11 +9,13 @@ const useStyles = makeStyles((theme) => ({
     rightContainer:{
         width: 'calc(100vw - 250px)',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     childContainer: {
         flex: 1,
-        backgroundColor: theme.palette.background.gray,
+        background: theme.palette.Secondary.background,
+        padding: '20px',
+        boxShadow: `inset 0 4px 4px rgba(0, 0, 0, 0.25)`
     }
 }));
 
