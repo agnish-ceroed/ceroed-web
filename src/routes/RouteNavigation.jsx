@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
-import Home from '../pages/Home'
 import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../pages/Dashboard';
 import Goals from '../pages/Goals';
@@ -14,7 +13,6 @@ import Benchmarking from '../pages/Benchmarking';
 import Reports from '../pages/Reports';
 import Help from '../pages/Help';
 import Profile from '../pages/Profile';
-import Signup from '../pages/Signup';
 
 const RootNavigation = () => {
 
@@ -24,7 +22,6 @@ const RootNavigation = () => {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/home" element={<Home />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/dashboard" element={< Dashboard/>} />
                     <Route path="/emissions" element={< Emissions/>} />
