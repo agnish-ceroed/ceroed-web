@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions'
 import immutable from 'immutability-helper'
-import _ from 'lodash';
 
-import { ActionTypes, STATUS } from '../constants'
+import { ActionTypes } from '../constants/actions';
+import { STATUS } from '../constants'
 import { parseError } from '../../services/client';
 
 export const userState = {
@@ -26,10 +26,15 @@ export const userState = {
     status: STATUS.IDLE,
     message: ''
   },
+  signup: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
 }
 
-export default {
-  user: handleActions(
+const authActions = {
+  auth: handleActions(
     {
       [ActionTypes.USER_LOGIN]: (state, { payload }) =>
         immutable(state, {
@@ -111,7 +116,30 @@ export default {
             message: { $set: payload }
           }
         }),
+
+      [ActionTypes.USER_SIGN_UP_PASSWORD]: (state, { payload }) =>
+        immutable(state, {
+          signup: {
+            status: { $set: STATUS.RUNNING }
+          }
+        }),
+      [ActionTypes.USER_SIGN_UP_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          signup: {
+            data: { $set: payload },
+            status: { $set: STATUS.READY }
+          }
+        }),
+      [ActionTypes.USER_SIGN_UP_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          signup: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload }
+          }
+        }),
     },
     userState
   )
 }
+
+export default authActions;

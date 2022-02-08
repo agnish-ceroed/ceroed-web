@@ -1,8 +1,9 @@
 import { all, put, call, takeLatest, select } from 'redux-saga/effects'
 
-import { setCookie, getCookie, deleteCookie } from '../../services/cookie'
+import { setCookie } from '../../services/cookie'
 import { request } from '../../services/client'
-import { APIEndpoints, ActionTypes } from '../constants'
+import { ActionTypes } from '../constants/actions';
+import { APIEndpoints } from '../constants';
 
 /**
  * Login
@@ -91,11 +92,32 @@ export function* changePassword(action) {
   }
 }
 
+export function* signup(action) {
+  try {
+    const { signupDetails } = action.payload
+    const response = yield call(request, APIEndpoints.SIGN_UP, {
+      method: 'POST',
+      payload: { ...signupDetails }
+    })
+    yield put({
+      type: ActionTypes.USER_SIGN_UP_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.USER_SIGN_UP_FAILURE,
+      payload: err.error
+    })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.USER_LOGIN, login),
     takeLatest(ActionTypes.GET_FORGOT_PASSWORD_OTP, getForgotPasswordOtp),
     takeLatest(ActionTypes.VERIFY_FORGOT_PASSWORD_OTP, verifyForgotPasswordOtp),
-    takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword)
+    takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
+    takeLatest(ActionTypes.USER_SIGN_UP, signup),
   ])
 }

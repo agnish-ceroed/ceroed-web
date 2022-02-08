@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Grid, Box, Typography, Paper, Container } from '@mui/material';
+import { Grid, Typography, Paper, Container } from '@mui/material';
 
 import { userLogin } from "../../redux/actions";
 import CeroButton from '../../components/CeroButton';
@@ -13,8 +13,6 @@ const Login = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const loginData = useSelector((state) => state.user);
-
-    console.log('login data', loginData);
 
     useEffect(() => {
         dispatch(userLogin("ajesh", "passowrd"));

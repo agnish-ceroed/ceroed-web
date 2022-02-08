@@ -1,37 +1,56 @@
-import React, { useState } from 'react';
-import { Box, Container, Paper, Stepper, Step, StepLabel, Typography, Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Container, Paper, Stepper, Step, StepLabel, Typography, Grid } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router';
 
-import CeroButton from '../../components/CeroButton';
 import CompanyDetails from './CompanyDetails';
 import UserDetails from './UserDetails';
-import GoalSelection from './GoalSelection'
+import GoalSelection from './GoalSelection';
+import { userSignUp } from '../../redux/actions/auth';
+import { STATUS } from '../../redux/constants';
 import useStyles from "./styles";
 
 const steps = ['User', 'Company', 'Goal'];
 
 const Signup = () => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(0);
+    const dispatch = useDispatch();
+    const signupData = useSelector((state) => state.auth.signup);
+    const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate();
 
-    const handleNext = () => {
+    const [userDetails, setUserDetails] = useState({});
+    const [companyDetails, setCompanyDetails] = useState({});
+    const [activeStep, setActiveStep] = useState(0);
+    
+    useEffect(() => {
+        if(signupData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Successfully Signedup', { variant: 'success' });
+            navigate('/emissions');
+        } else if(signupData.status === STATUS.ERROR) {
+            enqueueSnackbar('Failed to signup', { variant: 'error' });
+        }
+    }, [signupData.status]);
+
+    const handleNext = (step, data) => {
         setActiveStep(activeStep + 1);
+        if(step === 0) {
+            setUserDetails(data);
+        } else if(step === 1) {
+            setCompanyDetails(data);
+        } else {
+            const request = {
+                userDetails,
+                companyDetails,
+                goal: data
+            }
+            dispatch(userSignUp(request));
+        }
     };
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
-    };
-
-    const getStepContent = (step) => {
-        switch (step) {
-            case 0:
-                return <UserDetails />;
-            case 1:
-                return <CompanyDetails />;
-            case 2:
-                return <GoalSelection />;
-            default:
-                throw new Error('Unknown step');
-        }
     };
 
     return (
@@ -48,29 +67,9 @@ const Signup = () => {
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === steps.length ? (
-                        <Typography variant="h5" gutterBottom>Thank you !! Registration completed.</Typography>
-                    ) : (
-                        <>
-                            {getStepContent(activeStep)}
-                            <Box className={classes.cardFooter}>
-                                {activeStep !== 0 && (
-                                    <CeroButton
-                                        onClick={handleBack}
-                                        buttonText='Back'
-                                        className={classes.button}
-                                    />
-                                )}
-
-                                <CeroButton
-                                    variant="contained"
-                                    onClick={handleNext}
-                                    buttonText={activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                                    classes={{ root: classes.button }}
-                                />
-                            </Box>
-                        </>
-                    )}
+                    { activeStep === 0 && <UserDetails userDetails={userDetails} onNext={handleNext} /> }
+                    { activeStep === 1 && <CompanyDetails companyDetails={companyDetails} onNext={handleNext} onBack={handleBack} /> }
+                    { activeStep === 2 && <GoalSelection onNext={handleNext} onBack={handleBack} /> }
                 </Paper>
             </Container>
         </Grid >

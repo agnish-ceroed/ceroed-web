@@ -1,7 +1,7 @@
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
-import { SnackbarProvider } from "notistack";
 import { Provider } from 'react-redux'
 import CssBaseline from '@mui/material/CssBaseline';
+import { SnackbarProvider } from "notistack";
 
 import RootNavigation from "./routes/RouteNavigation";
 import { store } from "./redux/store";
@@ -13,7 +13,7 @@ function App() {
       <StyledEngineProvider injectFirst>
         <CssBaseline/>
         <ThemeProvider theme={theme} >
-          <SnackbarProvider maxSnack={5} anchorOrigin={{ veritcal: 'top', horizontal: 'right' }} >
+          <SnackbarProvider maxSnack={3} >
             <RootNavigation />
           </SnackbarProvider>
         </ThemeProvider>

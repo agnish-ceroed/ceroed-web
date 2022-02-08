@@ -22,7 +22,7 @@ const CeroInput = (props) => {
                 placeholder={props.placeholder}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
-                classes={clsx(classes.input, props.classes?.input)}
+                className={clsx(classes.input, props.classes?.input)}
                 type={props.type || "text"}
                 helperText={props.helperText}
                 InputProps={{...props.inputProps}}
