@@ -67,7 +67,8 @@ const theme = createTheme({
         },
         background: {
             white: '#fff',
-            gray: '#E5E5E5'
+            gray: '#E5E5E5',
+            darkGray: '#707683'
         },
         icon: {
             gray: '#C2CFE0'

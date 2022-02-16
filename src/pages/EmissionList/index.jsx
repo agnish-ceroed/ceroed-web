@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { Container } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
@@ -13,6 +15,7 @@ const DEFAULT_ITEMS_PER_PAGE = 20;
 
 const EmissionList = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
     const emissonData = [{
         fuel: 'CNC',
         count: 10,
@@ -47,7 +50,7 @@ const EmissionList = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <EmissionHeader />
+                <EmissionHeader onAddData={() => navigate('/emissions/add/emissiontype') }/>
                 <EmissionTable emissionData={emissonData} onLoadMore={onLoadMore} />
             </Container>
         </DashboardLayout>

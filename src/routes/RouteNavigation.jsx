@@ -13,6 +13,7 @@ import Benchmarking from '../pages/Benchmarking';
 import Reports from '../pages/Reports';
 import Help from '../pages/Help';
 import Profile from '../pages/Profile';
+import AddEmissions from '../pages/AddEmissions';
 
 const RootNavigation = () => {
 
@@ -25,6 +26,7 @@ const RootNavigation = () => {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/dashboard" element={< Dashboard/>} />
                     <Route path="/emissions" element={< Emissions/>} />
+                    <Route path="/emissions/add/:type" element={< AddEmissions/>} />
                     <Route path="/goals" element={< Goals/>} />
                     <Route path="/simulations" element={< Simulations/>} />
                     <Route path="/benchmarking" element={< Benchmarking/>} />

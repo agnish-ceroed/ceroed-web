@@ -4,7 +4,7 @@ import useStyles from "./styles";
 
 import EmissionTableFilter from '../EmissionTableFilter';
 
-const EmissionHeader = (props) => {
+const EmissionHeader = ({onAddData}) => {
     const classes = useStyles();
 
     const onApplyFilter = (filter) => {
@@ -12,9 +12,6 @@ const EmissionHeader = (props) => {
         console.log(filter);
     };
 
-    const onAddData = () => {
-        //Trigger add data action
-    };
     return (
         <Box className={classes.container}>
             <EmissionTableFilter onAddData = {onAddData} onApplyFilter={onApplyFilter}/>
