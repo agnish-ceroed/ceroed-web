@@ -92,6 +92,26 @@ export function* changePassword(action) {
   }
 }
 
+export function* changeUserPassword(action) {
+  try {
+    const { oldPassword, password } = action.payload
+    const response = yield call(request, APIEndpoints.CHANGE_USER_PASSWORD, {
+      method: 'POST',
+      payload: { oldPassword, password }
+    })
+    yield put({
+      type: ActionTypes.CHANGE_USER_PASSWORD_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.CHANGE_USER_PASSWORD_FAILURE,
+      payload: err.error
+    })
+  }
+}
+
 export function* signup(action) {
   try {
     const { signupDetails } = action.payload
@@ -118,6 +138,7 @@ export default function* root() {
     takeLatest(ActionTypes.GET_FORGOT_PASSWORD_OTP, getForgotPasswordOtp),
     takeLatest(ActionTypes.VERIFY_FORGOT_PASSWORD_OTP, verifyForgotPasswordOtp),
     takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
-    takeLatest(ActionTypes.USER_SIGN_UP, signup),
+    takeLatest(ActionTypes.CHANGE_USER_PASSWORD, changeUserPassword),
+    takeLatest(ActionTypes.USER_SIGN_UP, signup)
   ])
 }

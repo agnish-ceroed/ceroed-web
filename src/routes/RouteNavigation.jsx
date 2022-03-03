@@ -9,6 +9,7 @@ import Goals from '../pages/Goals';
 import Simulations from '../pages/Simulations';
 import Emissions from '../pages/EmissionList';
 import Settings from '../pages/Settings';
+import ChangePassword from '../pages/ChangePassword'
 import Benchmarking from '../pages/Benchmarking';
 import Reports from '../pages/Reports';
 import Help from '../pages/Help';
@@ -21,6 +22,7 @@ const RootNavigation = () => {
         <BrowserRouter>
             <Suspense fallback={<div>Loading</div>} >
                 <Routes>
+                    <Route path="/change-password" element={<ChangePassword />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -35,7 +37,8 @@ const RootNavigation = () => {
                     <Route path="/profile" element={< Profile/>} />
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/settings" element={< Settings/>} />
+                    <Route path="/settings" element={< Settings />} />
+                    <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>

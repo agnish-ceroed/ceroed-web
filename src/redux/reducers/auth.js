@@ -26,6 +26,11 @@ export const userState = {
     status: STATUS.IDLE,
     message: ''
   },
+  changeUserPassword: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
   signup: {
     data: {},
     status: STATUS.IDLE,
@@ -117,6 +122,27 @@ const authActions = {
           }
         }),
 
+      [ActionTypes.CHANGE_USER_PASSWORD]: (state, { payload }) =>
+        immutable(state, {
+          changeUserPassword: {
+            status: { $set: STATUS.RUNNING }
+          }
+        }),
+      [ActionTypes.CHANGE_USER_PASSWORD_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          changeUserPassword: {
+            data: { $set: payload },
+            status: { $set: STATUS.READY }
+          }
+        }),
+      [ActionTypes.CHANGE_USER_PASSWORD_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          changeUserPassword: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload }
+          }
+        }),
+
       [ActionTypes.USER_SIGN_UP_PASSWORD]: (state, { payload }) =>
         immutable(state, {
           signup: {
@@ -130,6 +156,7 @@ const authActions = {
             status: { $set: STATUS.READY }
           }
         }),
+
       [ActionTypes.USER_SIGN_UP_FAILURE]: (state, { payload }) =>
         immutable(state, {
           signup: {
