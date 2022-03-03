@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box } from "@mui/material";
-import useStyles from "./styles";   
 
 import EmissionTableFilter from '../EmissionTableFilter';
+import EmissionSelection from '../EmissionSelection';
+import useStyles from "./styles";   
 
 const EmissionHeader = ({onAddData}) => {
     const classes = useStyles();
@@ -14,6 +15,7 @@ const EmissionHeader = ({onAddData}) => {
 
     return (
         <Box className={classes.container}>
+            <EmissionSelection />
             <EmissionTableFilter onAddData = {onAddData} onApplyFilter={onApplyFilter}/>
         </Box>
     )

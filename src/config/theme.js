@@ -66,7 +66,7 @@ const theme = createTheme({
             focus: '#F15927',
         },
         background: {
-            white: '#fff',
+            white: '#FFFFFF',
             gray: '#E5E5E5',
             darkGray: '#707683'
         },
