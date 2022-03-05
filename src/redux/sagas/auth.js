@@ -54,52 +54,32 @@ export function* getForgotPasswordOtp(action) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_FORGOT_PASSWORD_OTP_FAILURE,
-      payload: err.error
+      payload: err
     })
   }
 }
 
-export function* verifyForgotPasswordOtp(action) {
+export function* resetPassword(action) {
   try {
-    const { otp } = action.payload
-    const response = yield call(request, APIEndpoints.VERIFY_OTP, {
+    const { email, otp, password } = action.payload
+    const response = yield call(request, APIEndpoints.RESET_PASSWORD, {
       method: 'POST',
-      payload: { otp }
+      payload: { email, otp, new_password: password }
     })
     yield put({
-      type: ActionTypes.VERIFY_FORGOT_PASSWORD_OTP_SUCCESS,
+      type: ActionTypes.RESET_PASSWORD_SUCCESS,
       payload: response
     })
   } catch (err) {
     /* istanbul ignore next */
     yield put({
-      type: ActionTypes.VERIFY_FORGOT_PASSWORD_OTP_FAILURE,
-      payload: err.error
+      type: ActionTypes.RESET_PASSWORD_FAILURE,
+      payload: err
     })
   }
 }
 
 export function* changePassword(action) {
-  try {
-    const { password } = action.payload
-    const response = yield call(request, APIEndpoints.CHANGE_PASSWORD, {
-      method: 'POST',
-      payload: { password }
-    })
-    yield put({
-      type: ActionTypes.CHANGE_PASSWORD_SUCCESS,
-      payload: response
-    })
-  } catch (err) {
-    /* istanbul ignore next */
-    yield put({
-      type: ActionTypes.CHANGE_PASSWORD_FAILURE,
-      payload: err.error
-    })
-  }
-}
-
-export function* changeUserPassword(action) {
   try {
     const { oldPassword, password } = action.payload
     const response = yield call(request, APIEndpoints.CHANGE_USER_PASSWORD, {
@@ -230,10 +210,9 @@ export default function* root() {
   yield all([
     takeLatest(ActionTypes.USER_LOGIN, login),
     takeLatest(ActionTypes.GET_FORGOT_PASSWORD_OTP, getForgotPasswordOtp),
-    takeLatest(ActionTypes.VERIFY_FORGOT_PASSWORD_OTP, verifyForgotPasswordOtp),
-    takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
+    takeLatest(ActionTypes.RESET_PASSWORD, resetPassword),
     takeLatest(ActionTypes.USER_SIGN_UP, signup),
     takeLatest(ActionTypes.REFRESH_TOKEN, refreshToken),
-    takeLatest(ActionTypes.CHANGE_USER_PASSWORD, changeUserPassword),
+    takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
   ])
 }

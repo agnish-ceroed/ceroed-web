@@ -4,20 +4,20 @@ import { ActionTypes } from '../constants/actions';
 
 export const {
   userLogin,
-  getForgotPasswordOtp,
-  verifyForgotPasswordOtp,
-  changePassword,
   userSignUp,
+  getForgotPasswordOtp,
+  resetPassword,
+  changePassword,
   refreshToken,
   userLogout,
-  changeUserPassword,
+  resetForgotStatus,
 } = createActions({
   [ActionTypes.USER_LOGIN]: (email, password) => ({ email, password }),
-  [ActionTypes.GET_FORGOT_PASSWORD_OTP]: (email) => ({ email }),
-  [ActionTypes.VERIFY_FORGOT_PASSWORD_OTP]: (otp) => ({ otp }),
-  [ActionTypes.CHANGE_PASSWORD]: (password) => ({ password }),
   [ActionTypes.USER_SIGN_UP]: (signupDetails) => ({ signupDetails }),
+  [ActionTypes.GET_FORGOT_PASSWORD_OTP]: (email) => ({ email }),
+  [ActionTypes.RESET_PASSWORD]: (email, otp, password) => ({ email, otp, password }),
+  [ActionTypes.CHANGE_PASSWORD]: (oldPassword, password) => ({ oldPassword, password }),
   [ActionTypes.REFRESH_TOKEN]: () => ({}),
   [ActionTypes.USER_LOGOUT]: () => ({}),
-  [ActionTypes.CHANGE_USER_PASSWORD]: (oldPassword, password) => ({ oldPassword, password }),
+  [ActionTypes.RESET_FORGOT_STATUS]: () => ({}),
 })

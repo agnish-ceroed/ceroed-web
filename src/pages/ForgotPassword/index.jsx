@@ -1,151 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Container, Paper, Typography, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Container, Paper, Typography, Grid } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
-import { changePassword, getForgotPasswordOtp, verifyForgotPasswordOtp } from '../../redux/actions';
-import ValidationSchema from './ValidationSchema';
+import { STATUS } from '../../redux/constants';
+import { resetPassword, getForgotPasswordOtp, resetForgotStatus } from '../../redux/actions';
 import EmailSection from './EmailSection'
 import OtpValidation from './OtpValidation'
 import ChangePassword from './ChangePassword'
-import CeroButton from '../../components/CeroButton'
 import useStyles from "./styles";
-
-const steps = ['User', 'Company', 'Goal'];
-
-function getTitle(step) {
-    switch (step) {
-        case 0:
-            return 'Forgot Password';
-        case 1:
-            return 'Enter OTP';
-        case 2:
-            return 'Change Password';
-        default:
-            throw new Error('Unknown step');
-    }
-}
 
 const ForgotPassword = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [activeStep, setActiveStep] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
 
-    const sentEmailData = useSelector((state) => state.user.forgot);
-    const otpVerifyData = useSelector((state) => state.user.otpVerify);
-    const changePasswordData = useSelector((state) => state.user.changePassword);
-    const currentValidationSchema = ValidationSchema[activeStep]
-    let isLastStep = activeStep === steps.length - 1
-    let isButtonEnabled = true
+    const [isProgress, setProgress] = useState(0);
+    const [email, setEmail] = useState('')
+    const [otp, setOtp] = useState('')
 
-    // useEffect(() => {
-    //     if (activeStep === 0 && sentEmailData.status === 'success') {
-    //         setActiveStep(activeStep + 1);
-    //     } else if (activeStep === 1 && otpVerifyData.status === 'success') {
-    //         setActiveStep(activeStep + 1);
-    //     } else if (activeStep === 2 && changePasswordData.status === 'success') {
-    //         setActiveStep(activeStep + 1);
-    //     }
-    // }, [sentEmailData, activeStep])
+    const sentEmailData = useSelector((state) => state?.auth?.forgot);
+    const resetPasswordData = useSelector((state) => state?.auth?.resetPassword);
 
-    const forgotPasswordForm = useFormik({
-        initialValues: {
-            email: '',
-            otp: '',
-            password: '',
-            confirmPassword: ''
-        },
-        validationSchema: currentValidationSchema
-    });
-
-    const handleNext = () => {
-        if (activeStep === 0) {
-            dispatch(getForgotPasswordOtp(forgotPasswordForm.values.email));
-        } else if (activeStep === 1) {
-            dispatch(verifyForgotPasswordOtp(forgotPasswordForm.values.otp))
-        } else if (isLastStep) {
-            dispatch(changePassword(forgotPasswordForm.values.password))
+    useEffect(() => {
+        if (isProgress === 0 && sentEmailData?.status === STATUS.SUCCESS) {
+            setProgress(isProgress + 1);
+        } else if (isProgress === 2 && resetPassword.status === STATUS.SUCCESS) {
+            setProgress(isProgress + 1);
+            enqueueSnackbar("Password changed successfully", { variant: 'success' });
+            navigate('/login')
+        } else if (isProgress === 0 && sentEmailData?.status === STATUS.ERROR) {
+            enqueueSnackbar(sentEmailData.message.message, { variant: 'error' });
+        } else if (isProgress === 2 && resetPasswordData?.status === STATUS.ERROR) {
+            enqueueSnackbar(resetPasswordData.message.message, { variant: 'error' });
+            setProgress(1);
+            dispatch(resetForgotStatus())
         }
-        setActiveStep(activeStep + 1);
+    }, [sentEmailData, resetPasswordData, isProgress, dispatch, enqueueSnackbar, navigate])
+
+    const handleNext = (step, data) => {
+        if (step === 0) {
+            setEmail(data.email)
+            dispatch(getForgotPasswordOtp(data.email));
+        } else if (step === 1) {
+            setOtp(data.otp)
+            setProgress(isProgress + 1);
+        } else if (step === 2) {
+            dispatch(resetPassword(email, otp, data))
+        }
     };
 
-    const getStepContent = (step) => {
-        switch (step) {
+
+    const getTitle = () => {
+        switch (isProgress) {
             case 0:
-                return (
-                    <EmailSection
-                        email={forgotPasswordForm.values.email}
-                        onChangeEmail={forgotPasswordForm.handleChange}
-                        onBlur={forgotPasswordForm.handleBlur}
-                        onError={forgotPasswordForm.errors.email}
-                    />
-                );
+                return 'Forgot Password';
             case 1:
-                return (
-                    <OtpValidation
-                        otp={forgotPasswordForm.values.otp}
-                        onChangeOtp={forgotPasswordForm.handleChange}
-                        onBlur={forgotPasswordForm.handleBlur}
-                        onError={forgotPasswordForm.errors.otp}
-                    />
-                );
+                return 'Enter OTP';
             case 2:
-                return (
-                    <ChangePassword
-                        password={forgotPasswordForm.values.password}
-                        confirmPassword={forgotPasswordForm.values.confirmPassword}
-                        onChangePassword={forgotPasswordForm.handleChange}
-                        onChangeConfirmPassword={forgotPasswordForm.handleChange}
-                        onBlurPassword={forgotPasswordForm.handleBlur}
-                        onBlurConfirmPassword={forgotPasswordForm.handleBlur}
-                        onPasswordError={forgotPasswordForm.errors.password}
-                        onConfirmPasswordError={forgotPasswordForm.errors.confirmPassword}
-                    />
-                );
+                return 'Change Password';
             default:
                 throw new Error('Unknown step');
         }
     }
-
-    isButtonEnabled =
-        (activeStep === 0 &&
-            forgotPasswordForm.values.email &&
-            !Boolean(forgotPasswordForm.errors.email)) ||
-        (activeStep === 1 &&
-            forgotPasswordForm.values.otp &&
-            !Boolean(forgotPasswordForm.errors.otp)) ||
-        (activeStep === 2 &&
-            forgotPasswordForm.values.password &&
-            forgotPasswordForm.values.confirmPassword &&
-            !Boolean(forgotPasswordForm.errors.password) &&
-            !Boolean(forgotPasswordForm.errors.confirmPassword));
 
     return (
         <Grid container justifyContent='center' alignContent='center' className={classes.forgotPassword}>
             <Container component="main" maxWidth="sm">
                 <Paper variant="outlined" className={classes.container}>
                     <Typography component="h1" variant="h5" className={classes.cardTitle} align="center">
-                        {activeStep > 2 ? 'Password Changed!' : getTitle(activeStep)}
+                        {getTitle(isProgress)}
                     </Typography>
-                    {activeStep === steps.length ? (
-                        <Typography variant='subtitle1' gutterBottom align='center'>
-                            Your password has been changed successfully,
-                            you can now sign in with new password
-                        </Typography>
-                    ) : (
-                        <React.Fragment>
-                            {getStepContent(activeStep)}
-                            <Box className={classes.buttonContainer}>
-                                <CeroButton
-                                    variant="contained"
-                                    onClick={handleNext}
-                                    fullWidth
-                                    buttonText={isLastStep ? 'Submit' : activeStep === 0 ? 'SENT OTP' : 'VERIFY OTP'}
-                                    disabled={!isButtonEnabled}
-                                />
-                            </Box>
-                        </React.Fragment>
-                    )}
+                    <>
+                        {isProgress === 0 && <EmailSection onNext={handleNext} />}
+                        {isProgress === 1 && <OtpValidation onNext={handleNext} />}
+                        {isProgress === 2 && <ChangePassword onNext={handleNext} />}
+
+                    </>
                 </Paper>
             </Container>
         </Grid >

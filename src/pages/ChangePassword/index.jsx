@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate  } from "react-router-dom";
 import { Box, Container, Paper, Typography, CircularProgress } from '@mui/material';
 
-import { changeUserPassword } from '../../redux/actions';
+import { changePassword } from '../../redux/actions';
 import DashboardLayout from '../../layouts/DashboardLayout'
 import CeroButton from '../../components/CeroButton'
 import CeroInput from '../../components/CeroInput'
@@ -37,7 +37,7 @@ const ChangePassword = () => {
     });
 
     const handleSubmit = () => {
-        dispatch(changeUserPassword(changePasswordForm.values.oldPassword, changePasswordForm.values.password))
+        dispatch(changePassword(changePasswordForm.values.oldPassword, changePasswordForm.values.password))
         setProgress(isProgress + 1);
     };
 
