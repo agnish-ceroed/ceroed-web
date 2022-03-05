@@ -23,27 +23,40 @@ const Signup = () => {
     const [userDetails, setUserDetails] = useState({});
     const [companyDetails, setCompanyDetails] = useState({});
     const [activeStep, setActiveStep] = useState(0);
-    
+
     useEffect(() => {
-        if(signupData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Successfully Signedup', { variant: 'success' });
+        if (signupData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Successfully Signed up', { variant: 'success' });
             navigate('/emissions');
-        } else if(signupData.status === STATUS.ERROR) {
-            enqueueSnackbar('Failed to signup', { variant: 'error' });
+        } else if (signupData.status === STATUS.ERROR) {
+            enqueueSnackbar(signupData.message, { variant: 'error' });
+            setActiveStep(0)
         }
-    }, [signupData.status]);
+    }, [signupData.status, signupData.message, enqueueSnackbar, navigate]);
 
     const handleNext = (step, data) => {
         setActiveStep(activeStep + 1);
-        if(step === 0) {
+        if (step === 0) {
             setUserDetails(data);
-        } else if(step === 1) {
+        } else if (step === 1) {
             setCompanyDetails(data);
         } else {
             const request = {
-                userDetails,
-                companyDetails,
-                goal: data
+                name: userDetails.name,
+                email: userDetails.email,
+                phone: userDetails.phone,
+                password: userDetails.password,
+                company: {
+                    company_name: companyDetails.company,
+                    company_phone: companyDetails.phone,
+                    company_est_year: companyDetails.establishedYear,
+                    company_address: companyDetails.address,
+                    company_website: companyDetails.website,
+                    company_country: companyDetails.country,
+                    company_email: companyDetails.email,
+                    company_industry_type: companyDetails.industryType,
+                    emission_goal: data
+                }
             }
             dispatch(userSignUp(request));
         }
@@ -67,9 +80,9 @@ const Signup = () => {
                             </Step>
                         ))}
                     </Stepper>
-                    { activeStep === 0 && <UserDetails userDetails={userDetails} onNext={handleNext} /> }
-                    { activeStep === 1 && <CompanyDetails companyDetails={companyDetails} onNext={handleNext} onBack={handleBack} /> }
-                    { activeStep === 2 && <GoalSelection onNext={handleNext} onBack={handleBack} /> }
+                    {activeStep === 0 && <UserDetails userDetails={userDetails} onNext={handleNext} />}
+                    {activeStep === 1 && <CompanyDetails companyDetails={companyDetails} onNext={handleNext} onBack={handleBack} />}
+                    {activeStep === 2 && <GoalSelection onNext={handleNext} onBack={handleBack} />}
                 </Paper>
             </Container>
         </Grid >

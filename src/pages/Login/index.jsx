@@ -3,31 +3,38 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Grid, Typography, Paper, Container } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 import { userLogin } from "../../redux/actions";
+import { STATUS } from '../../redux/constants';
 import CeroButton from '../../components/CeroButton';
 import CeroInput from '../../components/CeroInput'
+import ValidationSchema from './ValidationSchema';
 import useStyles from "./styles";
 
 const Login = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const loginData = useSelector((state) => state.user);
+    const loginData = useSelector((state) => state.auth);
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
-        dispatch(userLogin("ajesh", "passowrd"));
-    }, []);
+        if (loginData.status === STATUS.ERROR && loginData.message) {
+            enqueueSnackbar(loginData.message, { variant: 'error' })
+        }
+    }, [loginData.message, loginData.status, enqueueSnackbar])
 
-    const formik = useFormik({
+    const loginForm = useFormik({
         initialValues: {
-            name: '',
             email: '',
             password: '',
         },
-        onSubmit: (values) => {
-            console.log(values)
-        },
+        validationSchema: ValidationSchema
     });
+
+    const handleLogin = () => {
+        dispatch(userLogin(loginForm.values.email, loginForm.values.password))
+    }
 
     return (
         <Grid container justifyContent='center' alignItems='center' className={classes.login}>
@@ -37,42 +44,34 @@ const Login = () => {
                         Login
                     </Typography>
                     <CeroInput
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoFocus
-                        values={formik.values.name}
-                        onChange={formik.handleChange}
-                    />
-                    <CeroInput
-                        margin="normal"
                         required
                         fullWidth
                         id="email"
                         label="Email Address"
-                        name="email"
                         autoComplete="email"
-                        values={formik.values.email}
-                        onChange={formik.handleChange}
+                        values={loginForm.values.email}
+                        onChange={loginForm.handleChange}
+                        onBlur={loginForm.handleBlur}
+                        error={loginForm.errors.email}
                     />
                     <CeroInput
-                        margin="normal"
+                        type="password"
                         required
                         fullWidth
                         name="password"
                         label="Password"
-                        id="password"
                         autoComplete="current-password"
-                        values={formik.values.password}
-                        onChange={formik.handleChange}
+                        values={loginForm.values.password}
+                        onChange={loginForm.handleChange}
+                        onBlur={loginForm.handleBlur}
+                        error={loginForm.errors.password}
                     />
                     <CeroButton
                         fullWidth
                         buttonText='Login'
                         className={classes.button}
+                        onClick={handleLogin}
+                        disabled={!loginForm.dirty || !loginForm.isValid}
                     />
                     <Link to="/signup" variant="body2">Don't have an account? Sign Up</Link>
                 </Paper>

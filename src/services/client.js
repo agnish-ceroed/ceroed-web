@@ -6,7 +6,7 @@ import { getCookie } from './cookie'
  */
 
 export class ServerError extends Error {
-  constructor (message) {
+  constructor(message) {
     super(message)
 
     Error.captureStackTrace(this, ServerError)
@@ -33,7 +33,6 @@ export const parseError = (error) => {
  * @returns {Promise}
  */
 export const request = (url, options = {}) => {
-  console.log('inside request')
   const config = {
     method: 'GET',
     ...options
@@ -84,19 +83,18 @@ export const request = (url, options = {}) => {
       if (contentType && contentType.includes('application/json')) {
         const res = await response.json()
         // error.response = await response.json()
-        const error = new Error(res.error)
+        const error = new Error(res.error || res.detail || res.message)
         throw error
       } else {
         const res = await response.text()
         // error.response = await response.json()
-        const error = new Error(res.error)
+        const error = new Error(res.error || res.detail || res.message)
         throw error
       }
     } else {
       if (contentType && contentType.includes('application/json')) {
         return response.json()
       }
-
       return response.text()
     }
   })

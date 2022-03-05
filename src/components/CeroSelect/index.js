@@ -24,9 +24,12 @@ const CeroSelect = (props) => {
                 SelectProps={{ classes: { select: props.classes?.select } }}
                 select
             >
-                {props.options && props.options.map((option) => (
-                    <MenuItem key={option.key} value={option.key}>
-                        {option.value}
+                <MenuItem value="">
+                    Select option
+                </MenuItem>
+                {props.options.length && props.options.map((option) => (
+                    <MenuItem key={option.code} value={option.code}>
+                        {option.name}
                     </MenuItem>
                 ))}
             </TextField>

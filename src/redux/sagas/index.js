@@ -1,13 +1,15 @@
 import { all, fork } from 'redux-saga/effects'
 
 import auth from './auth'
+import listing from './listings'
 
 /**
  * rootSaga
  */
-export default function * root () {
+export default function* root() {
   yield all([
     fork(auth),
+    fork(listing)
     // fork(app),
   ])
 }

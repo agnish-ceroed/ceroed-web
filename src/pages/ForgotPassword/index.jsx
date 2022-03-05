@@ -59,7 +59,6 @@ const ForgotPassword = () => {
     });
 
     const handleNext = () => {
-        console.log(forgotPasswordForm)
         if (activeStep === 0) {
             dispatch(getForgotPasswordOtp(forgotPasswordForm.values.email));
         } else if (activeStep === 1) {

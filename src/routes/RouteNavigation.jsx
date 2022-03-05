@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import ForgotPassword from '../pages/ForgotPassword';
@@ -17,27 +19,115 @@ import Profile from '../pages/Profile';
 import AddEmissions from '../pages/AddEmissions';
 
 const RootNavigation = () => {
-
     return (
         <BrowserRouter>
             <Suspense fallback={<div>Loading</div>} >
                 <Routes>
-                    <Route path="/change-password" element={<ChangePassword />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <PublicRoute redirectTo="/dashboard">
+                                <Login />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/signup"
+                        element={
+                            <PublicRoute redirectTo="/dashboard">
+                                <Signup />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/change-password"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <ChangePassword />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Dashboard />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/emissions"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Emissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/emissions/add/:type"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <AddEmissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/goals"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Goals />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/simulations"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Simulations />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/benchmarking"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Benchmarking />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/reports"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Reports />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/help"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Help />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Profile />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Settings />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/dashboard" element={< Dashboard/>} />
-                    <Route path="/emissions" element={< Emissions/>} />
-                    <Route path="/emissions/add/:type" element={< AddEmissions/>} />
-                    <Route path="/goals" element={< Goals/>} />
-                    <Route path="/simulations" element={< Simulations/>} />
-                    <Route path="/benchmarking" element={< Benchmarking/>} />
-                    <Route path="/reports" element={< Reports/>} />
-                    <Route path="/help" element={< Help/>} />
-                    <Route path="/profile" element={< Profile/>} />
-                    <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/settings" element={< Settings />} />
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </Suspense>
