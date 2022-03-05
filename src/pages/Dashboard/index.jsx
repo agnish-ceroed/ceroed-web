@@ -1,6 +1,12 @@
-import { Container, Typography } from "@mui/material";
-import DashboardLayout from '../../layouts/DashboardLayout';
+import React from 'react'
+import { Container, Grid } from "@mui/material";
 
+import DashboardLayout from '../../layouts/DashboardLayout';
+import DashboardHeader from "./DashboardHeader";
+import TotalEmissionChart from './TotalEmissionChart';
+import EmissionChart from './EmissionChart';
+import LineChart from './LineChart';
+import GeographicalChart from './GeographicalChart';
 import useStyles from "./styles";
 
 const Dashboard = () => {
@@ -9,7 +15,21 @@ const Dashboard = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h1" component="h2" >Dashboard Page</Typography>
+                <DashboardHeader />
+                <Grid container spacing={6}>
+                    <Grid xs={6} item>
+                        <TotalEmissionChart />
+                    </Grid>
+                    <Grid xs={6} item>
+                        <EmissionChart />
+                    </Grid>
+                    <Grid xs={6} item>
+                        <LineChart />
+                    </Grid>
+                    <Grid xs={6} item>
+                        <GeographicalChart />
+                    </Grid>
+                </Grid>
             </Container>
         </DashboardLayout>
     );

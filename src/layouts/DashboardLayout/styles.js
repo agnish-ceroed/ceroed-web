@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         width: '100%'
     },
-    rightContainer:{
+    rightContainer: {
         width: 'calc(100vw - 250px)',
         display: 'flex',
         flexDirection: 'column',
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '20px',
         boxShadow: `inset 0 4px 4px rgba(0, 0, 0, 0.25)`,
         height: 'calc(100% - 60px)',
+        overflowY: 'scroll',
     }
 }));
 
