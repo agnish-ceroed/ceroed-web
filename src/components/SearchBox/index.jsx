@@ -9,8 +9,13 @@ const SearchBox = (props) => {
 
     return (
         <Box className={classes.searchBoxContainer}>
-            <SearchOutlinedIcon fontSize='small' className={classes.icon}/>
-            <CeroInput {...props} inputProps={{classes: {input: classes.inputBox}}} variant="standard"/>
+            <CeroInput
+                {...props}
+                inputProps={{
+                    startAdornment: <SearchOutlinedIcon fontSize='small' className={classes.icon} />,
+                    classes: { input: classes.inputBox }
+                }}
+            />
         </Box>
     );
 };

@@ -10,13 +10,13 @@ const EmissionTable = (props) => {
     const navigate = useNavigate();
 
     const columns = [{
-        columnKey: 'fuel',
+        columnKey: 'fuel_id',
         columnId: 'fuel',
         columnHeader: 'Fuel',
     }, {
-        columnKey: 'count',
-        columnId: 'count',
-        columnHeader: 'Active Data',
+        columnKey: 'amount',
+        columnId: 'amount',
+        columnHeader: 'Amount',
     }, {
         columnKey: 'co2',
         columnId: 'co2',
@@ -34,8 +34,8 @@ const EmissionTable = (props) => {
         columnId: 'co2e',
         columnHeader: 'CO2e(tonnes)',
     }, {
-        columnKey: 'bioFuel',
-        columnId: 'bioFuel',
+        columnKey: 'biofuel',
+        columnId: 'biofuel',
         columnHeader: 'BioFuel CO2(tonnes)',
     }, {
         columnKey: 'ef',

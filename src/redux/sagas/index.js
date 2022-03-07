@@ -1,7 +1,8 @@
 import { all, fork } from 'redux-saga/effects'
 
 import auth from './auth'
-import listing from './listings'
+import emission from './emission'
+import listings from './listings'
 
 /**
  * rootSaga
@@ -9,7 +10,8 @@ import listing from './listings'
 export default function* root() {
   yield all([
     fork(auth),
-    fork(listing)
+    fork(emission),
+    fork(listings)
     // fork(app),
   ])
 }

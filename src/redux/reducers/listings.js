@@ -6,6 +6,11 @@ import { STATUS } from '../constants'
 import { parseError } from '../../services/client';
 
 export const listState = {
+    listFacilities: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
     industryTypes: {
         data: {},
         status: STATUS.IDLE,
@@ -21,6 +26,27 @@ export const listState = {
 const listActions = {
     listings: handleActions(
         {
+            [ActionTypes.LIST_FACILITIES]: (state, { payload }) =>
+                immutable(state, {
+                    listFacilities: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.LIST_FACILITIES_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    listFacilities: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.LIST_FACILITIES_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    listFacilities: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
             [ActionTypes.GET_INDUSTRY_TYPES]: (state, { payload }) =>
                 immutable(state, {
                     industryTypes: {

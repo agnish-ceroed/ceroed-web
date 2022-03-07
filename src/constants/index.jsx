@@ -93,3 +93,14 @@ export const sampleFacility = [
         value: 'Facility 2'
     },
 ]
+
+export const emissionTypes = [
+    {
+        key: 'stationary_combustion',
+        value: 'Stationary combustion'
+    },
+    {
+        key: 'mobile_combustion',
+        value: 'Mobile combustion'
+    },
+]

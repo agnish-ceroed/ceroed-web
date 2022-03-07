@@ -2,19 +2,19 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     searchBoxContainer: {
-        padding: theme.spacing(2),
-        backgroundColor: theme.palette.background.white,
         display: 'flex',
-        alignItems: 'center',
-        height: '36px',
+        alignItems: 'center'
     },
     icon: {
         color: `${theme.palette.icon.gray}!important`,
+        marginRight: theme.spacing(1)
     },
     inputBox: {
         border: 'none',
         outline: 'none',
-        width: '100%'
+        width: '100%',
+        height: theme.spacing(2)
+
     }
 }));
 

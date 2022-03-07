@@ -1,8 +1,10 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { Container } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
+import { getEmissionList } from "../../redux/actions";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
@@ -14,27 +16,16 @@ const savedPage = { // To be used from the api response
 const DEFAULT_ITEMS_PER_PAGE = 20;
 
 const EmissionList = () => {
+    const dispatch = useDispatch()
     const classes = useStyles();
     const navigate = useNavigate();
-    const emissonData = [{
-        fuel: 'CNC',
-        count: 10,
-        co2: '0.05',
-        ch4: '',
-        n2o: '',
-        co2e: '',
-        bioFuel: '',
-        ef: '',
-    }, {
-        fuel: 'CNC',
-        count: 10,
-        co2: '0.05',
-        ch4: '0.045',
-        n2o: '0.54',
-        co2e: '0.01',
-        bioFuel: '0.43',
-        ef: '1.006',
-    }];
+    const emissionData = useSelector(state => state.emission.emissionList.data)
+
+    const [emissionType, setEmissionType] = useState('stationary_combustion')
+
+    useEffect(() => {
+        dispatch(getEmissionList(emissionType))
+    }, [emissionType])
 
     const onLoadMore = (pageSize = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
         const filter = {
@@ -50,8 +41,8 @@ const EmissionList = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <EmissionHeader onAddData={() => navigate('/emissions/add/emissiontype') }/>
-                <EmissionTable emissionData={emissonData} onLoadMore={onLoadMore} />
+                <EmissionHeader onAddData={() => navigate(`/emissions/add/${emissionType}`)} emissionType={emissionType} setEmissionType={setEmissionType} />
+                <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} />
             </Container>
         </DashboardLayout>
     );

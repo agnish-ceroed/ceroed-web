@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Table, TableCell, TableHead, TableRow, TableBody, TableContainer, TableFooter, CircularProgress,
+  Table, TableCell, TableHead, TableRow, TableBody, TableContainer, TableFooter, CircularProgress, Typography
 } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import clsx from 'clsx';
@@ -12,7 +12,7 @@ const CeroTable = (props) => {
 
   const getHeaders = () => props.columns.map((column, index) => (
     <TableCell className={clsx(classes.headerCell, column.classes?.header)} key={column.columnId || index} align={column.align}>
-      { column.columnHeader }
+      {column.columnHeader}
     </TableCell>
   ));
 
@@ -26,13 +26,13 @@ const CeroTable = (props) => {
       )}
       onClick={() => props.onSelectRow(rowData)}
     >
-      { props.columns.map((column, columnIndex) => (
+      {props.columns.map((column, columnIndex) => (
         <TableCell
           key={`${rowData.id || rowIndex}-${column.columnId || columnIndex}`}
           className={clsx(classes.tableBodyCell, column.classes?.column)}
           align={column.align}
         >
-          { rowData[column.columnKey]}
+          {rowData[column.columnKey]}
         </TableCell>
       ))}
     </TableRow>
@@ -50,13 +50,13 @@ const CeroTable = (props) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow className={clsx(classes?.tableHeader, props.classes?.tableHeader)}>
-              { getHeaders() }
+              {getHeaders()}
             </TableRow>
           </TableHead>
           <TableBody className={props.classes?.tableBody}>
-            { getTableRows() }
+            {getTableRows()}
           </TableBody>
-          { props.loading && (
+          {props.loading && (
             <TableFooter className={classes.tableFooter}>
               <TableRow>
                 <TableCell variant="footer" colSpan={props.columns.length} className={classes.footerCell}>

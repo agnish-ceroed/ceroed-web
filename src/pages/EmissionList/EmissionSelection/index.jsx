@@ -51,6 +51,7 @@ const EmissionSelection = (props) => {
     };
 
     const onSelectEmission = (emissionType, emissionSubType) => {
+        props.onSelectEmission(emissionSubType)
         setSelectedEmission(emissionType);
         setSelectedSubEmission(emissionSubType);
         setIsOpenEmissionType(false);

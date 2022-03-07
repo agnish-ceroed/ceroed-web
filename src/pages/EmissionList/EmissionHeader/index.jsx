@@ -1,11 +1,13 @@
 import React from 'react';
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
+import { emissionTypes } from '../../../constants';
 import EmissionTableFilter from '../EmissionTableFilter';
 import EmissionSelection from '../EmissionSelection';
-import useStyles from "./styles";   
+import Dropdown from '../../../components/Dropdown';
+import useStyles from "./styles";
 
-const EmissionHeader = ({onAddData}) => {
+const EmissionHeader = ({ onAddData, emissionType, setEmissionType }) => {
     const classes = useStyles();
 
     const onApplyFilter = (filter) => {
@@ -15,8 +17,8 @@ const EmissionHeader = ({onAddData}) => {
 
     return (
         <Box className={classes.container}>
-            <EmissionSelection />
-            <EmissionTableFilter onAddData = {onAddData} onApplyFilter={onApplyFilter}/>
+            <EmissionSelection emissionType={emissionType} onSelectEmission={setEmissionType} />
+            <EmissionTableFilter onAddData={onAddData} onApplyFilter={onApplyFilter} />
         </Box>
     )
 }
