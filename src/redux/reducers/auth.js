@@ -113,7 +113,7 @@ const authActions = {
         }),
       [ActionTypes.CHANGE_PASSWORD_FAILURE]: (state, { payload }) =>
         immutable(state, {
-          changeUserPassword: {
+          changePassword: {
             status: { $set: STATUS.ERROR },
             message: { $set: payload }
           }

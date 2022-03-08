@@ -82,19 +82,19 @@ export function* resetPassword(action) {
 export function* changePassword(action) {
   try {
     const { oldPassword, password } = action.payload
-    const response = yield call(request, APIEndpoints.CHANGE_USER_PASSWORD, {
+    const response = yield call(request, APIEndpoints.CHANGE_PASSWORD, {
       method: 'POST',
-      payload: { oldPassword, password }
+      payload: { current_password: oldPassword, new_password: password }
     })
     yield put({
-      type: ActionTypes.CHANGE_USER_PASSWORD_SUCCESS,
+      type: ActionTypes.CHANGE_PASSWORD_SUCCESS,
       payload: response
     })
   } catch (err) {
     /* istanbul ignore next */
     yield put({
-      type: ActionTypes.CHANGE_USER_PASSWORD_FAILURE,
-      payload: err.error
+      type: ActionTypes.CHANGE_PASSWORD_FAILURE,
+      payload: err
     })
   }
 }

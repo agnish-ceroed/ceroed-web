@@ -12,8 +12,7 @@ export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
   SIGN_UP: `${API_BASE_URL}/business/signup`,
   LOGOUT: `${API_BASE_URL}/log_out`,
-  CHANGE_PASSWORD: `${API_BASE_URL}/forgot-password/change`,
-
+  CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
     
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,
   RESET_PASSWORD: `${API_BASE_URL}/business/reset_password`,
