@@ -1,32 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, Typography } from "@mui/material";
-import { Box } from '@mui/system';
+import { Container, Grid, Typography, Box } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 import { sampleYear, sampleFilterType } from "../../../constants";
-import { addEmissionValidation } from './schema';
-import { listFacilities } from '../../../redux/actions';
+import { addStationaryCombutionValidation } from './schema';
+import { addStationaryCombustion, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
+import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
-const AddEmissionForm = (props) => {
+const AddStationaryCombustionForm = (props) => {
+    const dispatch = useDispatch();
+    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
+
     const [isCalculateDone, setIsCalculateDone] = useState(false);
 
-    const facilitiesData = useSelector(state => state.listings.listFacilities.data)
-    const { pathname } = useLocation();
-    const dispatch = useDispatch()
-    const classes = useStyles();
-
-    const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
+    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
+    const addEmissionData = useSelector(state => state.emission)
 
     useEffect(() => {
         dispatch(listFacilities())
     }, [])
+
+    useEffect(() => {
+        if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            props.onCancelAdd();
+        } else if (addEmissionData.addStationaryCombustion.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus())
+        }
+    }, [addEmissionData.addStationaryCombustion, enqueueSnackbar])
 
     const formik = useFormik({
         initialValues: {
@@ -39,7 +50,7 @@ const AddEmissionForm = (props) => {
             fuelUnit: '',
             amountOfFuel: '',
         },
-        validationSchema: addEmissionValidation,
+        validationSchema: addStationaryCombutionValidation,
         onSubmit: () => { },
     });
 
@@ -55,6 +66,20 @@ const AddEmissionForm = (props) => {
         };
     });
 
+    const onAddStationaryData = () => {
+        const requestData = {
+            facility_id: formik.values.facility,
+            emission_type: formik.values.emissionType,
+            year: formik.values.year,
+            month: formik.values.month,
+            fuel_type_id: formik.values.fuelType,
+            fuel_id: formik.values.fuel,
+            unit: formik.values.fuelUnit,
+            amount: formik.values.amountOfFuel,
+            save: true
+        }
+        dispatch(addStationaryCombustion(requestData))
+    };
 
     return (
         <Container className={classes.container}>
@@ -73,7 +98,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['facility'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.facility}
+                                error={formik.touched.facility && formik.errors.facility}
                             />
                             <CeroSelect
                                 required
@@ -85,7 +110,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['month'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.month}
+                                error={formik.touched.month && formik.errors.month}
                             />
                             <CeroSelect
                                 required
@@ -97,7 +122,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['fuel'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.fuel}
+                                error={formik.touched.fuel && formik.errors.fuel}
                             />
                             <CeroInput
                                 required
@@ -108,7 +133,7 @@ const AddEmissionForm = (props) => {
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.amountOfFuel}
+                                error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
                         <Grid item container direction={'column'} xs={6}>
@@ -122,7 +147,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['emissionType'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.emissionType}
+                                error={formik.touched.emissionType && formik.errors.emissionType}
                             />
                             <CeroSelect
                                 required
@@ -134,7 +159,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['year'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.year}
+                                error={formik.touched.year && formik.errors.year}
                             />
                             <CeroSelect
                                 required
@@ -146,7 +171,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['fuelType'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.fuelType}
+                                error={formik.touched.fuelType && formik.errors.fuelType}
                             />
                             <CeroSelect
                                 required
@@ -158,7 +183,7 @@ const AddEmissionForm = (props) => {
                                 selectedValue={formik.values['fuelUnit'] || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.fuelUnit}
+                                error={formik.touched.fuelUnit && formik.errors.fuelUnit}
                             />
                         </Grid>
                     </Grid>
@@ -231,10 +256,10 @@ const AddEmissionForm = (props) => {
                     buttonText="Add Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => props.onAddEmissionData(emissionType, formik.values)} />
+                    onClick={() => onAddStationaryData(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default AddEmissionForm;
+export default AddStationaryCombustionForm;

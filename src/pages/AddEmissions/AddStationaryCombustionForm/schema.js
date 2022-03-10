@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const addEmissionValidation = yup.object({
+export const addStationaryCombutionValidation = yup.object({
     facility: yup
         .string('Facility is required')
         .required('Facility is required'),
