@@ -2,41 +2,8 @@ import React, { useState } from 'react';
 import { Box, Checkbox, Typography } from "@mui/material";
 
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
+import { emissionTypeData } from '../../../constants';
 import useStyles from "./styles";  
-
-const emissionTypes = [
-    {
-        id: 'environmental',
-        title: 'Environmental',
-        subItems: [
-            {
-                id: 'stationary_combustion',
-                title: 'Stationary combustion',
-            }, {
-                id: 'mobile_combustion',
-                title: 'Mobile combustion',
-            }
-        ]
-    }, {
-        id: 'social',
-        title: 'Social',
-        subItems: [
-            {
-                id: 'refridgerants',
-                title: 'Refridgerants',
-            }
-        ]
-    }, {
-        id: 'governance',
-        title: 'Governance',
-        subItems: [
-            {
-                id: 'purchased_electricity',
-                title: 'Purchased electricity',
-            }
-        ]
-    }
-];
 
 const EmissionSelectionDrawer = (props) => {
     const classes = useStyles();
@@ -64,7 +31,7 @@ const EmissionSelectionDrawer = (props) => {
     const getPrimaryPaymentDrawer = () => {
         return (
             <Box className={classes.mainContainer}>
-                {emissionTypes.map(type => (<Box className={classes.typeItem}>
+                {emissionTypeData.map(type => (<Box className={classes.typeItem}>
                     <Typography >{type.title}</Typography>
                     <Checkbox checked={selectedEmission === type.id} onChange={handleEmissionChange} name={type.id} />
                 </Box>))}
@@ -73,13 +40,15 @@ const EmissionSelectionDrawer = (props) => {
     };
 
     const getSecondaryDrawer = () => {
-        const subEmissions = emissionTypes.find(item => item.id === selectedEmission);
-        console.log('selectedEmission', selectedEmission, subEmissions)
+        const subEmissions = emissionTypeData.find(item => item.id === selectedEmission);
         return (
             <Box className={classes.mainContainer}>
-                {subEmissions?.subItems.map(type => (<Box className={classes.typeItem}>
-                    <Typography >{type.title}</Typography>
-                    <Checkbox checked={selectedSubEmission === type.id} onChange={handleSubEmissionChange} name={type.id} />
+                {subEmissions?.subItems.map(group => (<Box className={classes.typeItemGroup}>
+                    <Typography className={classes.tyupeItemGroupTitle}>{group.title}</Typography>
+                    {group?.subItems.map(type => (<Box className={classes.typeItem}>
+                        <Typography >{type.title}</Typography>
+                        <Checkbox checked={selectedSubEmission === type.id} onChange={handleSubEmissionChange} name={type.id} />
+                    </Box>))}
                 </Box>))}
             </Box>
         )

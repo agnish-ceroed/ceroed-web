@@ -23,6 +23,7 @@ export const APIEndpoints = {
 
   ADD_STATIONARY_COMBUSTION: `${API_BASE_URL}/business/emissions/stationary_combustion`,
   ADD_MOBILE_COMBUSTION: `${API_BASE_URL}/business/emissions/mobile_combustion`,
+  ADD_TRANSPORTATION_COMBUSTION: `${API_BASE_URL}/business/emissions/transportation`,
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
