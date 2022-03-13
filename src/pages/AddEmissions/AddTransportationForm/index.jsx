@@ -64,7 +64,7 @@ const AddTransportationForm = (props) => {
         if (addEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
             enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus());
-            props.onCancel();
+            props.onCancel('transportation');
         } else if (addEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
@@ -292,7 +292,7 @@ const AddTransportationForm = (props) => {
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={props.onCancel} />
+                    onClick={() => props.onCancel('transportation')} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}

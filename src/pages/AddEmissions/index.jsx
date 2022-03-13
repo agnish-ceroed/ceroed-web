@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import DashboardLayout from '../../layouts/DashboardLayout'
 import AddStationaryCombustionForm from './AddStationaryCombustionForm';
 import AddTransportationForm from './AddTransportationForm';
+import AddPurchasedElectricityForm from './AddPurchasedElectricityForm';
 import useStyles from "./styles";
 
 const AddEmissions = () => {
@@ -14,8 +15,8 @@ const AddEmissions = () => {
 
     const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
     
-    const onCancelAdd = () => {
-        navigate('/emissions');
+    const onCancelAdd = (type) => {
+        navigate('/emissions/'+type);
     };
 
     return (
@@ -23,6 +24,7 @@ const AddEmissions = () => {
             <Container className={classes.container}>
                 { emissionType === 'stationary_combustion' && <AddStationaryCombustionForm onCancel={onCancelAdd} /> }
                 { emissionType === 'transportation' && <AddTransportationForm onCancel={onCancelAdd} /> }
+                { emissionType === 'purchased_electricity' && <AddPurchasedElectricityForm onCancel={onCancelAdd} /> }
             </Container>
         </DashboardLayout>
     );

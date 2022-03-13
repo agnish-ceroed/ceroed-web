@@ -16,7 +16,10 @@ const emissionTypes = [
             }, {
                 id: 'mobile_combustion',
                 title: 'Mobile combustion',
-            }
+            }, {
+                id: 'purchased_electricity',
+                title: 'Purchased Electricity',
+            },
         ]
     }, {
         id: 'social',

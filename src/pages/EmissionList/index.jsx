@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Container } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
@@ -19,14 +19,15 @@ const EmissionList = () => {
     const dispatch = useDispatch()
     const classes = useStyles();
     const navigate = useNavigate();
+    const {pathname} = useLocation();
     const emissionData = useSelector(state => state.emission.emissionList.data)
+    const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
 
-    const [emissionType, setEmissionType] = useState('stationary_combustion')
+    // const [emissionType, setEmissionType] = useState('stationary_combustion')
 
     useEffect(() => {
-        dispatch(getEmissionList(emissionType))
+        emissionType !== 'emissions'  ? dispatch(getEmissionList(emissionType)) : navigate('stationary_combustion')
     }, [emissionType])
-
     const onLoadMore = (pageSize = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
         const filter = {
             emissionFilter: {},
@@ -41,7 +42,7 @@ const EmissionList = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <EmissionHeader onAddData={() => navigate(`/emissions/add/${emissionType}`)} emissionType={emissionType} setEmissionType={setEmissionType} />
+                <EmissionHeader onAddData={() => navigate(`/emissions/add/${emissionType}`)} emissionType={emissionType} setEmissionType={(type) => navigate(`/emissions/${type}`)} />
                 <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} />
             </Container>
         </DashboardLayout>

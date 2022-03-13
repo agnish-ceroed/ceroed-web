@@ -1,51 +1,63 @@
 export const months = [
     {
-        key: 'january',
+        id: 'january',
         value: 'January',
+        key: 1,
     },
     {
-        key: 'february',
+        id: 'february',
         value: 'February',
+        key: 2,
     },
     {
-        key: 'march',
+        id: 'march',
         value: 'March',
+        key: 3,
     },
     {
-        key: 'april',
+        id: 'april',
         value: 'April',
+        key: 4,
     },
     {
-        key: 'may',
+        id: 'may',
         value: 'May',
+        key: 5,
     },
     {
-        key: 'june',
+        id: 'june',
         value: 'June',
+        key: 6,
     },
     {
-        key: 'july',
+        id: 'july',
         value: 'July',
+        key: 7,
     },
     {
-        key: 'august',
+        id: 'august',
         value: 'August',
+        key: 8,
     },
     {
-        key: 'september',
+        id: 'september',
         value: 'September',
+        key: 9,
     },
     {
-        key: 'october',
+        id: 'october',
         value: 'October',
+        key: 10,
     },
     {
-        key: 'november',
+        id: 'november',
         value: 'November',
+        key: 12,
     },
     {
-        key: 'december',
+        id: 'december',
         value: 'December',
+        key: 12,
     },
 ];
 
@@ -116,7 +128,10 @@ export const emissionTypes = [
     }, {
         id: 'waste',
         title: 'Waste',
-    },
+    }, {
+        id: 'purchased_electricity',
+        title: 'Purchased Electricity',
+    }, 
 ]
 
 export const emissionTypeData = [

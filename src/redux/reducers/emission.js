@@ -11,7 +11,21 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    emissionInputs: {
+        data: {
+            calculation_approach:[],
+            types_of_emission_factors:[],
+            units:[],
+        },
+        status: STATUS.IDLE,
+        message: ''
+    },
     addStationaryCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addPurchasedElectricity: {
         data: {},
         status: STATUS.IDLE,
         message: ''
@@ -47,6 +61,48 @@ const emissionActions = {
             [ActionTypes.GET_EMISSION_LIST_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     emissionList: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.GET_EMISSION_INPUT_FORMAT]: (state, { payload }) =>
+                immutable(state, {
+                    emissionInputs: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_EMISSION_INPUT_FORMAT_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    emissionInputs: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    }
+                }),
+            [ActionTypes.GET_EMISSION_INPUT_FORMAT_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    emissionInputs: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_PURCHASED_ELECTRICITY]: (state, { payload }) =>
+                immutable(state, {
+                    addPurchasedElectricity: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    addPurchasedElectricity: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    }
+                }),
+            [ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addPurchasedElectricity: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -121,6 +177,9 @@ const emissionActions = {
                         status: { $set: STATUS.IDLE },
                     },
                     addMobileCombustion: {
+                        status: { $set: STATUS.IDLE },
+                    },
+                    addPurchasedElectricity: {
                         status: { $set: STATUS.IDLE },
                     },
                 }),
