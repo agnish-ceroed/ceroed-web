@@ -6,10 +6,12 @@ export const {
     getEmissionList,
     addStationaryCombustion,
     addMobileCombustion,
+    addTransportationCombustion,
     resetAddCombustionStatus
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType) => ({ emissionType }),
     [ActionTypes.ADD_STATIONARY_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_MOBILE_COMBUSTION]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_TRANSPORTATION_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.RESET_ADD_COMBUSTION_STATUS]: () => ({}),
 })

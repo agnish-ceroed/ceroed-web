@@ -9,6 +9,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(5),
         borderTop: `1px solid ${theme.palette.background.gray}`,
     },
+    typeItemGroup: {
+        borderBottom: `1px solid ${theme.palette.background.gray}`,
+    },
+    tyupeItemGroupTitle: {
+        backgroundColor: theme.palette.Other.background,
+        height: 44,
+        padding: theme.spacing(2),
+    },
     typeItem: {
         padding: theme.spacing(0, 3),
         borderBottom: `1px solid ${theme.palette.background.gray}`,

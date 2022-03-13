@@ -96,11 +96,87 @@ export const sampleFacility = [
 
 export const emissionTypes = [
     {
-        key: 'stationary_combustion',
-        value: 'Stationary combustion'
-    },
-    {
-        key: 'mobile_combustion',
-        value: 'Mobile combustion'
+        id: 'stationary_combustion',
+        title: 'Stationary combustion',
+    }, {
+        id: 'mobile_combustion',
+        title: 'Mobile combustion',
+    }, {
+        id: 'refrigerants',
+        title: 'Refrigerants',
+    }, {
+        id: 'transportation',
+        title: 'Transportation',
+    }, {
+        id: 'purchased_electricity',
+        title: 'Purchased electricity',
+    }, {
+        id: 'water',
+        title: 'Water',
+    }, {
+        id: 'waste',
+        title: 'Waste',
     },
 ]
+
+export const emissionTypeData = [
+    {
+        id: 'environmental',
+        title: 'Environmental',
+        subItems: [
+            {
+                id: 'energy_and_materials',
+                title: 'Energy and Materials',
+                subItems: [
+                    {
+                        id: 'stationary_combustion',
+                        title: 'Stationary combustion',
+                    }, {
+                        id: 'mobile_combustion',
+                        title: 'Mobile combustion',
+                    }, {
+                        id: 'refrigerants',
+                        title: 'Refrigerants',
+                    }, {
+                        id: 'transportation',
+                        title: 'Transportation',
+                    }, {
+                        id: 'purchased_electricity',
+                        title: 'Purchased electricity',
+                    },
+                ]
+            }, {
+                id: 'water',
+                title: 'Water',
+                subItems: [
+                    {
+                        id: 'water',
+                        title: 'Water',
+                    },
+                ]
+            }, {
+                id: 'waste',
+                title: 'Waste',
+                subItems: [
+                    {
+                        id: 'waste',
+                        title: 'Waste',
+                    },
+                ]
+            },
+        ]
+    }, {
+        id: 'social',
+        title: 'Social',
+        subItems: [
+            
+        ]
+    }, {
+        id: 'governance',
+        title: 'Governance',
+        subItems: [
+            
+        ]
+    }
+];
+
