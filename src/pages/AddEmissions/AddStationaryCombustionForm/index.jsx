@@ -22,20 +22,22 @@ const AddStationaryCombustionForm = (props) => {
     const [isCalculateDone, setIsCalculateDone] = useState(false);
 
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const addEmissionData = useSelector(state => state.emission)
+    const addEmissionData = useSelector(state => state.emission);
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item?.id,value: item?.name }));
 
     useEffect(() => {
-        dispatch(listFacilities())
-    }, [])
+        dispatch(listFacilities());
+    }, []);
 
     useEffect(() => {
         if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
             enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
-            dispatch(resetAddCombustionStatus())
+            dispatch(resetAddCombustionStatus());
             props.onCancelAdd();
         } else if (addEmissionData.addStationaryCombustion.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus())
+            dispatch(resetAddCombustionStatus());
         }
     }, [addEmissionData.addStationaryCombustion, enqueueSnackbar])
 
@@ -58,13 +60,6 @@ const AddStationaryCombustionForm = (props) => {
         //API for calculation
         setIsCalculateDone(true);
     };
-
-    const facilitiesList = facilitiesData.map(item => {
-        return {
-            key: item?.id,
-            value: item?.name
-        };
-    });
 
     const onAddStationaryData = () => {
         const requestData = {
@@ -95,7 +90,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Facility"
                                 fullWidth
                                 options={facilitiesList}
-                                selectedValue={formik.values['facility'] || ''}
+                                selectedValue={formik.values.facility}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.facility && formik.errors.facility}
@@ -107,7 +102,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Month"
                                 fullWidth
                                 options={sampleYear}
-                                selectedValue={formik.values['month'] || ''}
+                                selectedValue={formik.values.month}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.month && formik.errors.month}
@@ -119,7 +114,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Fuel"
                                 fullWidth
                                 options={sampleFilterType}
-                                selectedValue={formik.values['fuel'] || ''}
+                                selectedValue={formik.values.fuel}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.fuel && formik.errors.fuel}
@@ -129,7 +124,7 @@ const AddStationaryCombustionForm = (props) => {
                                 id="amountOfFuel"
                                 name="amountOfFuel"
                                 label="Amount of Fuel"
-                                value={formik.values['amountOfFuel'] || ''}
+                                value={formik.values.amountOfFuel}
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -144,7 +139,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Custom Emission Filter"
                                 fullWidth
                                 options={[{ key: "yes", value: "Yes" }, { key: "no", value: "No" }]}
-                                selectedValue={formik.values['emissionType'] || ''}
+                                selectedValue={formik.values.emissionType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.emissionType && formik.errors.emissionType}
@@ -156,7 +151,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Year"
                                 fullWidth
                                 options={sampleYear}
-                                selectedValue={formik.values['year'] || ''}
+                                selectedValue={formik.values.year}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
@@ -168,7 +163,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Fuel Type"
                                 fullWidth
                                 options={sampleFilterType}
-                                selectedValue={formik.values['fuelType'] || ''}
+                                selectedValue={formik.values.fuelType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.fuelType && formik.errors.fuelType}
@@ -180,7 +175,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Fuel Unit"
                                 fullWidth
                                 options={sampleFilterType}
-                                selectedValue={formik.values['fuelUnit'] || ''}
+                                selectedValue={formik.values.fuelUnit}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.fuelUnit && formik.errors.fuelUnit}

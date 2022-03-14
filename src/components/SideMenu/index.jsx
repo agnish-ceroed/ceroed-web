@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { Drawer, Typography } from "@mui/material";
+import { Avatar, Drawer, Typography } from "@mui/material";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Box } from '@mui/system';
-
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
+import CeroEdLogo from '../../assets/images/Logo';
 import useStyles from "./styles";
 
 const SideMenu = ({options, secondaryOptions}) => {
@@ -12,6 +13,9 @@ const SideMenu = ({options, secondaryOptions}) => {
     const classes = useStyles();
     const location = useLocation();
     const navigate = useNavigate();
+
+    const userInfo = useSelector(state => state.auth.userInfo);
+
 
     return <Box className={classes.drawerConainer}>
         <Drawer 
@@ -21,15 +25,15 @@ const SideMenu = ({options, secondaryOptions}) => {
             classes={{paper: classes.drawerCanvas}}
             >
             <Box className={classes.title}>
-                <Box className={classes.titleText}>CeroED</Box>
+                <Box className={classes.titleText}><CeroEdLogo /></Box>
             </Box>
             <Box className={classes.userContainer}>
                 <Box className={classes.avatarContainer}>
-                    <img alt='userImage' src={userImage} className={classes.avatar}/>
+                    <Avatar alt={userInfo.name} src={userInfo.logo} children={userInfo.name.charAt(0).toUpperCase()} className={classes.avatar} />
                 </Box>
                 <Box className={classes.userInfoContainer}>
-                    <Typography variant="subtitle2" component="div" >{'Sierra Ferguson'}</Typography>
-                    <Typography variant="caption" >{'s.ferguson@gmail.com'}</Typography>
+                    <Typography variant="subtitle2" component="div" >{userInfo.name}</Typography>
+                    <Typography variant="caption" >{userInfo.email}</Typography>
                 </Box>
             </Box>
             <List>
