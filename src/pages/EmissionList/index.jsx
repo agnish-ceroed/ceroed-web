@@ -43,7 +43,7 @@ const EmissionList = () => {
         <DashboardLayout>
             <Container className={classes.container}>
                 <EmissionHeader onAddData={() => navigate(`/emissions/add/${emissionType}`)} emissionType={emissionType} setEmissionType={(type) => navigate(`/emissions/${type}`)} />
-                <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} />
+                <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} emissionType={emissionType} />
             </Container>
         </DashboardLayout>
     );

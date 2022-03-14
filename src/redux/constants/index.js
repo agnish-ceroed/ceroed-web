@@ -18,12 +18,14 @@ export const APIEndpoints = {
   RESET_PASSWORD: `${API_BASE_URL}/business/reset_password`,
 
   GET_EMISSION_LIST: emissionType => `${API_BASE_URL}/business/emissions/${emissionType}`,
+  GET_EMISSION: (emissionType, emissionId) => `${API_BASE_URL}/business/emissions/${emissionType}/${emissionId}`,
   GET_EMISSION_INPUT_FORMAT: emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
 
   LIST_FACILITIES: `${API_BASE_URL}/facilities/`,
 
   ADD_STATIONARY_COMBUSTION: `${API_BASE_URL}/business/emissions/stationary_combustion`,
   ADD_PURCHASED_ELECTRICITY: `${API_BASE_URL}/business/emissions/purchased_electricity`,
+  UPDATE_PURCHASED_ELECTRICITY: `${API_BASE_URL}/business/emissions/update/purchased_electricity`,
   ADD_MOBILE_COMBUSTION: `${API_BASE_URL}/business/emissions/mobile_combustion`,
   ADD_TRANSPORTATION_COMBUSTION: `${API_BASE_URL}/business/emissions/transportation`,
 

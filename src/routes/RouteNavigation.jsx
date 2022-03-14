@@ -17,6 +17,7 @@ import Reports from '../pages/Reports';
 import Help from '../pages/Help';
 import Profile from '../pages/Profile';
 import AddEmissions from '../pages/AddEmissions';
+import EditEmissions from '../pages/EditEmissions';
 
 const RootNavigation = () => {
     return (
@@ -76,6 +77,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <AddEmissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/emissions/edit/:type/:id"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <EditEmissions />
                             </PrivateRoute>
                         }
                     />

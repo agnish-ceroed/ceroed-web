@@ -23,6 +23,25 @@ export function* getEmissionList(action) {
     }
 }
 
+export function* getEmission(action) {
+    try {
+        const { emissionType, emissionId } = action.payload
+        const response = yield call(request, APIEndpoints.GET_EMISSION(emissionType, emissionId), {
+            method: 'GET',
+        })
+        yield put({
+            type: ActionTypes.GET_EMISSION_SUCCESS,
+            payload: response.emission
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.GET_EMISSION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* getEmissionInputFormat(action) {
     try {
         const { emissionType } = action.payload
@@ -57,6 +76,26 @@ export function* addPurchasedElectricity(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* updatePurchasedElectricity(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_PURCHASED_ELECTRICITY, {
+            method: 'POST',
+            payload: requestData 
+        })
+        yield put({
+            type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS,
+            payload: response
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE,
             payload: err
         })
     }
@@ -128,9 +167,11 @@ export function* addTransportationCombustion(action) {
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_EMISSION_LIST, getEmissionList),
+        takeLatest(ActionTypes.GET_EMISSION, getEmission),
         takeLatest(ActionTypes.GET_EMISSION_INPUT_FORMAT, getEmissionInputFormat),
         takeLatest(ActionTypes.ADD_STATIONARY_COMBUSTION, addStationaryCombustion),
         takeLatest(ActionTypes.ADD_PURCHASED_ELECTRICITY, addPurchasedElectricity),
+        takeLatest(ActionTypes.UPDATE_PURCHASED_ELECTRICITY, updatePurchasedElectricity),
         takeLatest(ActionTypes.ADD_MOBILE_COMBUSTION, addMobileCombustion),
         takeLatest(ActionTypes.ADD_TRANSPORTATION_COMBUSTION, addTransportationCombustion),
     ])

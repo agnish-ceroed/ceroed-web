@@ -78,6 +78,10 @@ export const sampleYear  = [
         key: 2020,
         value: '2020'
     },
+    {
+        key: 2022,
+        value: '2022'
+    },
 ];
 
 export const sampleFilterType = [
