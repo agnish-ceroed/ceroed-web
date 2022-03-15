@@ -13,7 +13,12 @@ export const APIEndpoints = {
   SIGN_UP: `${API_BASE_URL}/business/signup`,
   LOGOUT: `${API_BASE_URL}/log_out`,
   CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
-    
+
+  GET_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/account-details`,
+  UPDATE_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/update`,
+  GET_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
+  UPDATE_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
+
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,
   RESET_PASSWORD: `${API_BASE_URL}/business/reset_password`,
 
