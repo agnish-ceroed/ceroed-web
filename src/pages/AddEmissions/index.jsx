@@ -7,6 +7,7 @@ import AddStationaryCombustionForm from './AddStationaryCombustionForm';
 import AddTransportationForm from './AddTransportationForm';
 import AddPurchasedElectricityForm from './AddPurchasedElectricityForm';
 import useStyles from "./styles";
+import AddMobileCombustionForm from "./AddMobileCumbustionForm";
 
 const AddEmissions = () => {
     const classes = useStyles();
@@ -14,17 +15,18 @@ const AddEmissions = () => {
     const { pathname } = useLocation();
 
     const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
-    
-    const onCancelAdd = (type) => {
-        navigate('/emissions/'+type);
+
+    const onCancelAdd = () => {
+        navigate('/emissions/' + emissionType);
     };
 
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                { emissionType === 'stationary_combustion' && <AddStationaryCombustionForm onCancel={onCancelAdd} /> }
-                { emissionType === 'transportation' && <AddTransportationForm onCancel={onCancelAdd} /> }
-                { emissionType === 'purchased_electricity' && <AddPurchasedElectricityForm onCancel={onCancelAdd} /> }
+                {emissionType === 'stationary_combustion' && <AddStationaryCombustionForm onCancel={onCancelAdd} />}
+                {emissionType === 'mobile_combustion' && <AddMobileCombustionForm onCancel={onCancelAdd} />}
+                {emissionType === 'transportation' && <AddTransportationForm onCancel={onCancelAdd} />}
+                {emissionType === 'purchased_electricity' && <AddPurchasedElectricityForm onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );

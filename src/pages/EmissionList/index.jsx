@@ -19,15 +19,14 @@ const EmissionList = () => {
     const dispatch = useDispatch()
     const classes = useStyles();
     const navigate = useNavigate();
-    const {pathname} = useLocation();
+    const { pathname } = useLocation();
     const emissionData = useSelector(state => state.emission.emissionList.data)
     const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
 
-    // const [emissionType, setEmissionType] = useState('stationary_combustion')
-
     useEffect(() => {
-        emissionType !== 'emissions'  ? dispatch(getEmissionList(emissionType)) : navigate('stationary_combustion')
+        emissionType !== 'emissions' ? dispatch(getEmissionList(emissionType)) : navigate('stationary_combustion')
     }, [emissionType])
+
     const onLoadMore = (pageSize = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
         const filter = {
             emissionFilter: {},
@@ -43,7 +42,7 @@ const EmissionList = () => {
         <DashboardLayout>
             <Container className={classes.container}>
                 <EmissionHeader onAddData={() => navigate(`/emissions/add/${emissionType}`)} emissionType={emissionType} setEmissionType={(type) => navigate(`/emissions/${type}`)} />
-                <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} />
+                <EmissionTable emissionData={emissionData} onLoadMore={onLoadMore} emissionType={emissionType} />
             </Container>
         </DashboardLayout>
     );

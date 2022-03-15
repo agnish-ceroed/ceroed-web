@@ -7,58 +7,67 @@ import { useSnackbar } from 'notistack';
 
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
-import { addStationaryCombustionValidation } from './schema';
-import { addStationaryCombustion, getEmissionFuelList, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addMobileCombustionValidation } from './schema';
+import { addMobileCombustion, calculateMobileCombustion, getMobileCombustionInputs, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
-const AddStationaryCombustionForm = (props) => {
+const AddMobileCombustionForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const isCalculateDone = useSelector(state => state.emission.addStationaryCombustion.isCalculateDone)
+    const isCalculateDone = useSelector(state => state.emission.addMobileCombustion.isCalculateDone)
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const fuelData = useSelector(state => state.emission.fuelList.data);
-    const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
-    const addEmissionData = useSelector(state => state.emission.addStationaryCombustion)
-
-    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = fuelUnitData.map(item => ({ key: item.name, value: item.name }));
+    const activityTypesData = useSelector(state => state.emission.mobileCombustionInputs.data.activity_types);
+    const fuelSourceData = useSelector(state => state.emission.mobileCombustionInputs.data.fuel_sources);
+    const vehicleTypeData = useSelector(state => state.emission.mobileCombustionInputs.data.vehicle_types);
+    const fuelUnitData = useSelector(state => state.emission.mobileCombustionInputs.data.units);
+    const addEmissionData = useSelector(state => state.emission.addMobileCombustion)
 
     const formik = useFormik({
         initialValues: {
             facility: '',
             year: '',
             month: '',
-            emissionType: '',
-            fuel: '',
-            fuelUnit: '',
+            activityType: '',
+            fuelSource: '',
+            vehicleType: '',
             amountOfFuel: '',
+            fuelUnit: ''
         },
-        validationSchema: addStationaryCombustionValidation,
+        validationSchema: addMobileCombustionValidation,
         onSubmit: () => { },
     });
 
+    const selectedUnitType = activityTypesData.find(item => item.id === formik.values.activityType)
+    const filteredUnitData = fuelUnitData.filter(unit => unit?.type === selectedUnitType?.unit_type)
+    const filteredVehicleType = vehicleTypeData.filter(vehicle => vehicle.fuel_source_id === formik.values.fuelSource)
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
+    const activityType = activityTypesData.map(item => ({ key: item.id, value: item.name }));
+    const fuelUnits = filteredUnitData.map(unit => ({ key: unit.name, value: unit.name }))
+    const vehicleTypes = filteredVehicleType.map(item => ({ key: item.id, value: item.name }));
+    const fuelSource = fuelSourceData.map(item => ({ key: item.id, value: item.name }));
+
     useEffect(() => {
         dispatch(listFacilities())
-        dispatch(getEmissionFuelList('stationary_combustion'))
+        dispatch(getMobileCombustionInputs('mobile_combustion'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])
 
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+            enqueueSnackbar('Mobile combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             props.onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus());
+            dispatch(resetAddCombustionStatus())
         }
-    }, [addEmissionData, dispatch, enqueueSnackbar])
+    }, [addEmissionData, dispatch, enqueueSnackbar, props.onCancel])
 
     const onCalculate = () => {
         const requestData = {
@@ -66,26 +75,30 @@ const AddStationaryCombustionForm = (props) => {
             emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_id: formik.values.fuel,
-            unit: formik.values.fuelUnit,
+            activity_type_id: formik.values.activityType,
+            fuel_source_id: formik.values.fuelSource,
+            vehicle_type_id: formik.values.vehicleType,
             amount: formik.values.amountOfFuel,
+            unit: formik.values.fuelUnit,
             save: false
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(addMobileCombustion(requestData))
     };
 
-    const onAddStationaryData = () => {
+    const onAddMobileCombustionData = () => {
         const requestData = {
             facility_id: formik.values.facility,
             emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_id: formik.values.fuel,
-            unit: formik.values.fuelUnit,
+            activity_type_id: formik.values.activityType,
+            fuel_source_id: formik.values.fuelSource,
+            vehicle_type_id: formik.values.vehicleType,
             amount: formik.values.amountOfFuel,
+            unit: formik.values.fuelUnit,
             save: true
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(addMobileCombustion(requestData))
     };
 
     return (
@@ -121,15 +134,15 @@ const AddStationaryCombustionForm = (props) => {
                             />
                             <CeroSelect
                                 required
-                                id="fuel"
-                                name="fuel"
-                                label="Fuel"
+                                id="fuelSource"
+                                name="fuelSource"
+                                label="Fuel Source"
                                 fullWidth
-                                options={fuelList}
-                                selectedValue={formik.values.fuel}
+                                options={fuelSource}
+                                selectedValue={formik.values.fuelSource}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.fuel && formik.errors.fuel}
+                                error={formik.touched.fuelSource && formik.errors.fuelSource}
                             />
                             <CeroInput
                                 required
@@ -146,15 +159,15 @@ const AddStationaryCombustionForm = (props) => {
                         <Grid item container direction={'column'} xs={6}>
                             <CeroSelect
                                 required
-                                id="emissionType"
-                                name="emissionType"
-                                label="Custom Emission Filter"
+                                id="activityType"
+                                name="activityType"
+                                label="Activity Type"
                                 fullWidth
-                                options={[{ key: "yes", value: "Yes" }, { key: "no", value: "No" }]}
-                                selectedValue={formik.values.emissionType}
+                                options={activityType}
+                                selectedValue={formik.values.activityType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.emissionType && formik.errors.emissionType}
+                                error={formik.touched.activityType && formik.errors.activityType}
                             />
                             <CeroSelect
                                 required
@@ -170,11 +183,23 @@ const AddStationaryCombustionForm = (props) => {
                             />
                             <CeroSelect
                                 required
+                                id="vehicleType"
+                                name="vehicleType"
+                                label="Vehicle Type"
+                                fullWidth
+                                options={vehicleTypes}
+                                selectedValue={formik.values.vehicleType}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.vehicleType && formik.errors.vehicleType}
+                            />
+                            <CeroSelect
+                                required
                                 id="fuelUnit"
                                 name="fuelUnit"
                                 label="Fuel Unit"
                                 fullWidth
-                                options={fuelUnits}
+                                options={fuelUnits || [{ name: 'select' }]}
                                 selectedValue={formik.values.fuelUnit}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -210,15 +235,15 @@ const AddStationaryCombustionForm = (props) => {
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={() => props.onCancel('stationary_combustion')} />
+                    onClick={props.onCancel} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onAddStationaryData(formik.values)} />
+                    onClick={() => onAddMobileCombustionData(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default AddStationaryCombustionForm;
+export default AddMobileCombustionForm;

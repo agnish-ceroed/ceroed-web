@@ -23,6 +23,7 @@ export const APIEndpoints = {
   RESET_PASSWORD: `${API_BASE_URL}/business/reset_password`,
 
   GET_EMISSION_LIST: emissionType => `${API_BASE_URL}/business/emissions/${emissionType}`,
+  GET_EMISSION_FUEL_LIST : emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
   GET_EMISSION_INPUT_FORMAT: emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
 
   LIST_FACILITIES: `${API_BASE_URL}/facilities/`,

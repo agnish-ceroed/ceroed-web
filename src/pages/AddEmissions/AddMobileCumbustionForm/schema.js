@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const addStationaryCombustionValidation = yup.object({
+export const addMobileCombustionValidation = yup.object({
     facility: yup
         .string('Facility is required')
         .required('Facility is required'),
@@ -10,12 +10,15 @@ export const addStationaryCombustionValidation = yup.object({
     year: yup
         .string('Year is required')
         .required('Year is required'),
-    emissionType: yup
-        .string('Emission Type is required')
-        .required('Emission Type is required'),
-    fuel: yup
-        .string('Fuel is required')
-        .required('Fuel is required'),
+    activityType: yup
+        .string('Activity Type is required')
+        .required('Activity Type is required'),
+    vehicleType: yup
+        .string('Vehicle Type is required')
+        .required('Vehicle Type is required'),
+    fuelSource: yup
+        .string('Fuel Source is required')
+        .required('Fuel Source is required'),
     fuelUnit: yup
         .string('Fuel unit is required')
         .required('Fuel unit is required'),
