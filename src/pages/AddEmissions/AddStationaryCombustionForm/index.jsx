@@ -33,8 +33,8 @@ const AddStationaryCombustionForm = (props) => {
     useEffect(() => {
         if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
             enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
-            dispatch(resetAddCombustionStatus());
-            props.onCancelAdd();
+            dispatch(resetAddCombustionStatus())
+            props.onCancel('stationary_combustion');
         } else if (addEmissionData.addStationaryCombustion.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
@@ -246,7 +246,7 @@ const AddStationaryCombustionForm = (props) => {
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={props.onCancel} />
+                    onClick={() => props.onCancel('stationary_combustion')} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}

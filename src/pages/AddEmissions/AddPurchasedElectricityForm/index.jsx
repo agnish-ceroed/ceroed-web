@@ -5,106 +5,85 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
-import { sampleYear } from "../../../constants";
-import { addTransportationCombutionValidation } from './schema';
-import { addTransportationCombustion, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { sampleYear, months } from "../../../constants";
+import { addPurchasedElectricityValidation } from './schema';
+import { addPurchasedElectricity, listFacilities, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
-const sampleCategory = [
-    {
-        key: 'upstream',
-        value: 'Upstream T&D',
-    }, {
-        key: 'business_travel',
-        value: 'Business Travel',
-    }, {
-        key: 'employee_commute',
-        value: 'Employee Commute',
-    }
-];
-
-const sampleEmissionFactorDataset = [
-    {
-        key: 'custom_emission_factor',
-        value: 'Custom Emission Factor',
-    }, {
-        key: 'us_epa',
-        value: 'US EPA',
-    }
-];
-
-const sampleActivityType = [
-    {
-        key: "example_s3",
-        value: "Example S#",
-    }, {
-        key: 'distance',
-        value: 'Distance',
-    },
-]
-
-const AddTransportationForm = (props) => {
+const AddPurchasedElectricityForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
     const [isCalculateDone, setIsCalculateDone] = useState(false);
+    const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
 
-    const addEmissionData = useSelector(state => state.emission)
+    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
+    const addEmissionData = useSelector(state => state.emission);
+    const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
+    const calculationApproach = (emissionInputs.calculation_approaches||[]).map(item => ({ key: item?.id, value: item?.name }));
+    const units = (emissionInputs.units||[]).map(item => ({ key: item?.name, value: item?.name }));
+
+    const formik = useFormik({
+        initialValues: {
+            facility: '',
+            year: '',
+            month: '',
+            calculationApproach: '',
+            typeOfEmissionFactor: '',
+            unit: '',
+            amountOfFuel: '',
+        },
+        validationSchema: addPurchasedElectricityValidation,
+        onSubmit: () => { },
+    });
 
     useEffect(() => {
+        dispatch(getEmissionInputFormat('purchased_electricity'))
         dispatch(listFacilities())
     }, [])
 
     useEffect(() => {
-        if (addEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
-            dispatch(resetAddCombustionStatus());
-            props.onCancel('transportation');
-        } else if (addEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus());
-        }
-    }, [addEmissionData.addTransportationCombustion, enqueueSnackbar])
+        const selectedTypesOfEmissionFactors = (emissionInputs.types_of_emission_factors||[])
+        .filter(item => item.calculation_approach_id === formik.values.calculationApproach)
+        .map(item => ({ key: item?.id, value: item?.name }));
+        setTypesOfEmissionFactors(selectedTypesOfEmissionFactors)
+    }, [formik.values.calculationApproach, emissionInputs.types_of_emission_factors])
 
-    const formik = useFormik({
-        initialValues: {
-            description: '',
-            category: '',
-            emissionFactorDataset: '',
-            activityType: '',
-            year: '',
-            modeOfTransport: '',
-            vehicleType: '',
-            amount: '',
-            unit: '',
-        },
-        validationSchema: addTransportationCombutionValidation,
-        onSubmit: () => { },
-    });
+    useEffect(() => {
+        if (addEmissionData.addPurchasedElectricity.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Purchased electricity added successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            props.onCancel('purchased_electricity');
+        } else if (addEmissionData.addPurchasedElectricity.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus())
+        }
+    }, [addEmissionData.addPurchasedElectricity, enqueueSnackbar])
 
     const onCalculate = () => {
         //API for calculation
         setIsCalculateDone(true);
     };
 
-    const onAddStationaryData = () => {
+    const onAddPurchasedElectricity = () => {
         const requestData = {
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
+            calculation_approach_id: formik.values.calculationApproach,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_type_id: formik.values.fuelType,
-            fuel_id: formik.values.fuel,
-            unit: formik.values.fuelUnit,
-            amount: formik.values.amountOfFuel,
+            type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
+            unit: formik.values.unit + '',
+            amount: parseInt(formik.values.amountOfFuel),
             save: true
         }
-        dispatch(addTransportationCombustion(requestData))
+        dispatch(addPurchasedElectricity(requestData))
     };
 
     return (
@@ -116,43 +95,35 @@ const AddTransportationForm = (props) => {
                         <Grid item container direction={'column'} xs={6}>
                             <CeroSelect
                                 required
-                                id="category"
-                                name="category"
-                                label="Category"
+                                id="facility"
+                                key="facility"
+                                name="facility"
+                                label="Facility"
                                 fullWidth
-                                options={sampleCategory}
-                                selectedValue={formik.values.category || ''}
+                                options={facilitiesList}
+                                selectedValue={formik.values.facility || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.category && formik.errors.category}
+                                error={formik.touched.facility && formik.errors.facility}
                             />
                             <CeroSelect
                                 required
-                                id="emissionFactorDataset"
-                                name="emissionFactorDataset"
-                                label="Emission Factor Dataset"
+                                id="typeOfEmissionFactor"
+                                key="typeOfEmissionFactor"
+                                name="typeOfEmissionFactor"
+                                label="Types of Emission Factor"
                                 fullWidth
-                                options={sampleEmissionFactorDataset}
-                                selectedValue={formik.values.emissionFactorDataset || ''}
+                                options={typesOfEmissionFactors}
+                                selectedValue={formik.values.typeOfEmissionFactor || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.emissionFactorDataset && formik.errors.emissionFactorDataset}
-                            />
-                            <CeroSelect
-                                required
-                                id="activityType"
-                                name="activityType"
-                                label="Activity Type"
-                                fullWidth
-                                options={sampleActivityType}
-                                selectedValue={formik.values.activityType || ''}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.activityType && formik.errors.activityType}
+                                error={formik.touched.typeOfEmissionFactor && formik.errors.typeOfEmissionFactor}
+                                disabled={!formik.values.calculationApproach}
                             />
                             <CeroSelect
                                 required
                                 id="year"
+                                key="year"
                                 name="year"
                                 label="Year"
                                 fullWidth
@@ -162,69 +133,56 @@ const AddTransportationForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
                             />
+                            <CeroInput
+                                required
+                                id="amountOfFuel"
+                                key="amountOfFuel"
+                                name="amountOfFuel"
+                                label="Amount of Fuel"
+                                value={formik.values.amountOfFuel || ''}
+                                fullWidth
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
+                            />
                         </Grid>
                         <Grid item container direction={'column'} xs={6}>
                             <CeroSelect
                                 required
-                                id="modeOfTransport"
-                                name="modeOfTransport"
-                                label="Mode of Transport"
+                                id="calculationApproach"
+                                name="calculationApproach"
+                                label="Calculation Approach"
                                 fullWidth
-                                options={[{ key: "car", value: "Car" }, { key: "bus", value: "Bus" }]}
-                                selectedValue={formik.values.modeOfTransport || ''}
+                                options={calculationApproach}
+                                selectedValue={formik.values.calculationApproach || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.modeOfTransport && formik.errors.modeOfTransport}
+                                error={formik.touched.calculationApproach && formik.errors.calculationApproach}
                             />
                             <CeroSelect
                                 required
-                                id="vehicleType"
-                                name="vehicleType"
-                                label="Vehicle Type"
+                                id="month"
+                                name="month"
+                                label="Month"
                                 fullWidth
-                                options={[{ key: "type_a", value: "Type A" }, { key: "type_b", value: "Type B" }]}
-                                selectedValue={formik.values.vehicleType || ''}
+                                options={months}
+                                selectedValue={formik.values.month || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.vehicleType && formik.errors.vehicleType}
-                            />
-                            <CeroInput
-                                required
-                                id="amount"
-                                name="amount"
-                                label="Amount of Activity Type"
-                                value={formik.values.amount || ''}
-                                fullWidth
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.amount && formik.errors.amount}
+                                error={formik.touched.month && formik.errors.month}
                             />
                             <CeroSelect
                                 required
                                 id="unit"
+                                key="unit"
                                 name="unit"
                                 label="Unit"
                                 fullWidth
-                                options={[{ key: "mile", value: "Mile" }, { key: "passenger_mile", value: "Passenger Mile" }]}
+                                options={units}
                                 selectedValue={formik.values.unit || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.unit && formik.errors.unit}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={12}>
-                            <CeroInput
-                                required
-                                id="description"
-                                name="description"
-                                label="Description"
-                                value={formik.values.description || ''}
-                                fullWidth
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.description && formik.errors.description}
                             />
                         </Grid>
                     </Grid>
@@ -292,15 +250,15 @@ const AddTransportationForm = (props) => {
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={() => props.onCancel('transportation')} />
+                    onClick={() => props.onCancel('purchased_electricity')} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onAddStationaryData(formik.values)} />
+                    onClick={() => onAddPurchasedElectricity(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default AddTransportationForm;
+export default AddPurchasedElectricityForm;

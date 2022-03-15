@@ -56,6 +56,14 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
+                        path="/emissions/:type"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Emissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
                         path="/emissions"
                         element={
                             <PrivateRoute redirectTo="/login">
