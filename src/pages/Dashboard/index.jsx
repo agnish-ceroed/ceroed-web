@@ -23,9 +23,9 @@ const Dashboard = () => {
                     <Grid xs={6} item>
                         <EmissionChart />
                     </Grid>
-                    <Grid xs={6} item>
+                    {/* <Grid xs={6} item>
                         <LineChart />
-                    </Grid>
+                    </Grid> */}
                     <Grid xs={6} item>
                         <GeographicalChart />
                     </Grid>

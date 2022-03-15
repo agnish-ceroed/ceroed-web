@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
+import _ from 'lodash';
+import { getEmissionRegion } from '../../../redux/actions';
 
 import useStyles from './styles'
 
@@ -9,6 +12,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const GeographicalChart = () => {
     const classes = useStyles()
+    const dispatch = useDispatch();
+
+    const emissionData = useSelector(state => state.dashboard.getEmissionRegion.data);
+
+    useEffect(() => {
+        dispatch(getEmissionRegion());
+    }, []);
 
     const options = {
         responsive: true,
@@ -34,11 +44,11 @@ const GeographicalChart = () => {
     };
 
     const data = {
-        labels: ['India', 'Singapore', 'China'],
+        labels: _.map(emissionData, item => item.country),
         datasets: [
             {
                 label: 'Emissions',
-                data: [60, 30, 10],
+                data: _.map(emissionData, item => item.total_ef),
                 backgroundColor: [
                     '#e60049',
                     '#7c1158',

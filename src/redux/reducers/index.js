@@ -1,9 +1,13 @@
 import auth from './auth'
 import emission from './emission'
 import listings from './listings'
+import dashboard from './dashboard'
 
-export default {
+const rootReducer = {
     ...auth,
     ...emission,
-    ...listings
+    ...listings,
+    ...dashboard
 }
+
+export default rootReducer
