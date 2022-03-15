@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { Paper, Stack, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 
-import { getAccountDetails, resetAccountStatus, updateAccountDetails } from '../../../redux/actions'
+import { getAccountDetails, resetAccountStatus, updateAccountDetails, userLogout } from '../../../redux/actions'
 import { STATUS } from '../../../redux/constants'
 import { accountSchema } from '../schema'
 import CeroInput from '../../../components/CeroInput'
@@ -13,7 +12,6 @@ import CeroButton from '../../../components/CeroButton'
 import useStyles from './styles'
 
 const AccountSettings = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const classes = useStyles()
     const { enqueueSnackbar } = useSnackbar();
@@ -46,6 +44,10 @@ const AccountSettings = () => {
             console.log(values)
         },
     });
+
+    const logout = () => {
+        dispatch(userLogout());
+    };
 
     const handleUpdate = () => {
         dispatch(updateAccountDetails(accountForm.values.name, accountForm.values.email))
@@ -82,7 +84,7 @@ const AccountSettings = () => {
                 alignItems="center"
                 spacing={2}
             >
-                <CeroButton variant='outlined' buttonText='CHANGE PASSWORD' onClick={() => navigate('/change-password')} />
+                <CeroButton variant='outlined' buttonText='LOGOUT' onClick={logout} />
                 <CeroButton buttonText='SAVE' onClick={handleUpdate} disabled={!accountForm.dirty || !accountForm.isValid} />
             </Stack>
         </Paper>

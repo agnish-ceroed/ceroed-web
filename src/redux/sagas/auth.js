@@ -193,6 +193,7 @@ export function* logout() {
     }
     yield deleteCookie('auth_token_admin')
     yield deleteCookie('access_token_expiry')
+    yield deleteCookie('user_details')
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS
     })
@@ -214,6 +215,7 @@ export default function* root() {
     takeLatest(ActionTypes.RESET_PASSWORD, resetPassword),
     takeLatest(ActionTypes.USER_SIGN_UP, signup),
     takeLatest(ActionTypes.REFRESH_TOKEN, refreshToken),
+    takeLatest(ActionTypes.USER_LOGOUT, logout),
     takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
   ])
 }
