@@ -26,6 +26,10 @@ export const APIEndpoints = {
   GET_EMISSION_INPUT_FORMAT: emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
 
   LIST_FACILITIES: `${API_BASE_URL}/facilities/`,
+  ADD_FACILITY: `${API_BASE_URL}/facilities/`,
+  GET_FACILITY: facilityId => `${API_BASE_URL}/facilities/${facilityId}`,
+  EDIT_FACILITY: facilityId => `${API_BASE_URL}/facilities/${facilityId}`,
+  DELETE_FACILITY: facilityId => `${API_BASE_URL}/facilities/${facilityId}`,
 
   ADD_STATIONARY_COMBUSTION: `${API_BASE_URL}/business/emissions/stationary_combustion`,
   ADD_PURCHASED_ELECTRICITY: `${API_BASE_URL}/business/emissions/purchased_electricity`,

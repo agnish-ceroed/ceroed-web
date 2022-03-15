@@ -4,6 +4,7 @@ import auth from './auth'
 import account from './account'
 import emission from './emission'
 import listings from './listings'
+import facility from './facility'
 import dashboard from './dashboard'
 
 /**
@@ -15,6 +16,7 @@ export default function* root() {
     fork(account),
     fork(emission),
     fork(listings),
+    fork(facility),
     fork(dashboard)
     // fork(app),
   ])

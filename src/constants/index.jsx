@@ -61,7 +61,7 @@ export const months = [
     },
 ];
 
-export const sampleYear  = [
+export const sampleYear = [
     {
         key: 2000,
         value: '2000'
@@ -104,6 +104,17 @@ export const sampleFacility = [
         key: 'Facility2',
         value: 'Facility 2'
     },
+]
+
+export const sampleCountryList = [
+    {
+        key: 'Afghanistan',
+        value: 'Afghanistan'
+    },
+    {
+        key: 'India',
+        value: 'india'
+    }
 ]
 
 export const emissionTypes = [

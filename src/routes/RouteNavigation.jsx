@@ -17,6 +17,7 @@ import Reports from '../pages/Reports';
 import Help from '../pages/Help';
 import Profile from '../pages/Profile';
 import AddEmissions from '../pages/AddEmissions';
+import Facilities from '../pages/Facilities';
 
 const RootNavigation = () => {
     return (
@@ -132,6 +133,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <Settings />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/facilities"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <Facilities />
                             </PrivateRoute>
                         }
                     />
