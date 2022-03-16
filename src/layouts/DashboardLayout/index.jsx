@@ -6,6 +6,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import CategoryIcon from '@mui/icons-material/Category';
 import PropTypes from 'prop-types';
 
 //components
@@ -47,7 +48,12 @@ const DashboardLayout = ({children}) => {
             text: 'Benchmarking',
             icon: <ViewColumnOutlinedIcon/>,
             path: '/benchmarking'
-        }
+        },
+        {
+            text: 'Facilities',
+            icon: <CategoryIcon/>,
+            path: '/facilities'
+        },
     ]
 
     const settingsOption = [
