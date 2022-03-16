@@ -10,13 +10,17 @@ import { companyDetailsSchema } from "../schema";
 import { getIndustryTypes, getCountryList } from "../../../redux/actions";
 import useStyles from './styles';
 import { useSelector } from "react-redux";
+import { sampleYear } from "../../../constants";
 
 
 const CompanyDetails = (props) => {
   const dispatch = useDispatch()
   const classes = useStyles();
-  const industryType = useSelector(state => state.listings.industryTypes.data)
-  const countryList = useSelector(state => state.listings.countryList.data)
+  const industryTypeData = useSelector(state => state.listings.industryTypes.data)
+  const countryListData = useSelector(state => state.listings.countryList.data)
+  
+  const countryList = countryListData.map(item => ({ key: item.code, value: item.name }));
+  const industryType = industryTypeData.map(item => ({ key: item.code, value: item.name }));
 
   useEffect(() => {
     dispatch(getIndustryTypes())
@@ -112,7 +116,7 @@ const CompanyDetails = (props) => {
         name="establishedYear"
         label="Year of establishment"
         fullWidth
-        options={[{ code: "2010", name: "2010" }, { code: "2020", name: "2020" }]}
+        options={sampleYear}
         selectedValue={companyDetailsForm.values.establishedYear}
         onChange={companyDetailsForm.handleChange}
         onBlur={companyDetailsForm.handleBlur}
