@@ -17,10 +17,12 @@ const AddFacilityDrawer = (props) => {
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
 
-    const countryList = useSelector(state => state.listings.countryList.data)
+    const countryListData = useSelector(state => state.listings.countryList.data)
     const addFacilityStatus = useSelector(state => state.facility.addFacility)
     const facilityData = useSelector(state => state.facility.facilityDetails.data)
     const editFacilityStatus = useSelector(state => state.facility.editFacility)
+
+    const countryList = countryListData.map(item => ({ key: item.code, value: item.name }));
 
     const facilityForm = useFormik({
         initialValues: {
@@ -86,7 +88,7 @@ const AddFacilityDrawer = (props) => {
                     name="name"
                     label="Name"
                     fullWidth
-                    value={facilityForm.values.name}
+                    value={facilityForm.values.name || ''}
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.name}
@@ -97,7 +99,7 @@ const AddFacilityDrawer = (props) => {
                     name="phone"
                     label="Phone"
                     fullWidth
-                    value={facilityForm.values.phone}
+                    value={facilityForm.values.phone || ''}
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.phone}
