@@ -4,6 +4,7 @@ import emission from './emission'
 import listings from './listings'
 import facility from './facility'
 import dashboard from './dashboard'
+import users from './users'
 
 const rootReducer = {
     ...auth,
@@ -11,7 +12,8 @@ const rootReducer = {
     ...emission,
     ...listings,
     ...facility,
-    ...dashboard
+    ...dashboard,
+    ...users
 }
 
 export default rootReducer

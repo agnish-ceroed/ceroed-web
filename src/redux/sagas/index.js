@@ -6,6 +6,7 @@ import emission from './emission'
 import listings from './listings'
 import facility from './facility'
 import dashboard from './dashboard'
+import users from './users'
 
 /**
  * rootSaga
@@ -17,7 +18,8 @@ export default function* root() {
     fork(emission),
     fork(listings),
     fork(facility),
-    fork(dashboard)
+    fork(dashboard),
+    fork(users),
     // fork(app),
   ])
 }

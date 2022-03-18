@@ -23,7 +23,7 @@ export const APIEndpoints = {
   RESET_PASSWORD: `${API_BASE_URL}/business/reset_password`,
 
   GET_EMISSION_LIST: emissionType => `${API_BASE_URL}/business/emissions/${emissionType}`,
-  GET_EMISSION_FUEL_LIST : emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
+  GET_EMISSION_FUEL_LIST: emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
   GET_EMISSION_INPUT_FORMAT: emissionType => `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
 
   LIST_FACILITIES: `${API_BASE_URL}/facilities/`,
@@ -39,8 +39,14 @@ export const APIEndpoints = {
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
-  
+
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,
   GET_EMISSION_REGION: `${API_BASE_URL}/business/graph/emission_region`,
+
+  LIST_USERS: `${API_BASE_URL}/business/users/`,
+  ADD_USER: `${API_BASE_URL}/business/users/`,
+  GET_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
+  EDIT_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
+  DELETE_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
 }
