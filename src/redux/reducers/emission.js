@@ -18,9 +18,9 @@ export const emissionState = {
     },
     emissionInputs: {
         data: {
-            calculation_approach:[],
-            types_of_emission_factors:[],
-            units:[],
+            calculation_approach: [],
+            types_of_emission_factors: [],
+            units: [],
         },
         status: STATUS.IDLE,
         message: ''
@@ -36,15 +36,11 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
-    addPurchasedElectricity: {
-        data: {},
-        status: STATUS.IDLE,
-        message: ''
-    },
     updatePurchasedElectricity: {
         data: {},
         status: STATUS.IDLE,
-        message: ''
+        message: '',
+        isCalculateDone: false,
     },
     addMobileCombustion: {
         data: {},
@@ -172,13 +168,17 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                console.log(save)
+                return immutable(state, {
                     updatePurchasedElectricity: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS }
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     updatePurchasedElectricity: {

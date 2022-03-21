@@ -90,7 +90,8 @@ export function* updatePurchasedElectricity(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS,
-            payload: response
+            payload: response,
+            save: requestData.save
         })
     } catch (err) {
         /* istanbul ignore next */
