@@ -84,8 +84,8 @@ export function* addPurchasedElectricity(action) {
 export function* updatePurchasedElectricity(action) {
     try {
         const { requestData } = action.payload
-        const response = yield call(request, APIEndpoints.UPDATE_PURCHASED_ELECTRICITY, {
-            method: 'POST',
+        const response = yield call(request, APIEndpoints.UPDATE_PURCHASED_ELECTRICITY(requestData.id), {
+            method: 'PUT',
             payload: requestData 
         })
         yield put({

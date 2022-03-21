@@ -16,6 +16,7 @@ const EditEmissions = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const emissionData = useSelector(state => state.emission.emissionDetails.data)
+    const emissionDataStatus = useSelector(state => state.emission.emissionDetails.status)
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
 
@@ -36,13 +37,16 @@ const EditEmissions = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                { emissionType === 'purchased_electricity' && !_.isEmpty(emissionData) && 
+                {emissionDataStatus === 'running' ? <div>Loading</div> :
+                emissionDataStatus === 'error' ? <div>Something went wrong, realod again</div> 
+                : (emissionType === 'purchased_electricity' && 
                     <EditPurchasedElectricityForm
                         onCancel={onCancel}
                         emissionId={emissionId}
                         facilitiesData={facilitiesData}
                         emissionInputs={emissionInputs}
-                        emissionData={emissionData}/> }
+                        emissionData={emissionData}/>)
+                } 
             </Container>
         </DashboardLayout>
     );

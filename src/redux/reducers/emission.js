@@ -307,6 +307,14 @@ const emissionActions = {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
+                    addPurchasedElectricity: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updatePurchasedElectricity: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
                 }),
 
             [ActionTypes.GET_EMISSION_FUEL_LIST]: (state, { payload }) =>
@@ -359,12 +367,6 @@ const emissionActions = {
                     mobileCombustionInputs: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
-                    },
-                    addPurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
-                    },
-                    addPurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
                     },
                 }),
         },

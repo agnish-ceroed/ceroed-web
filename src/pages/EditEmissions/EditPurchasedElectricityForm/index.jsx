@@ -21,6 +21,7 @@ const EditPurchasedElectricityForm = (props) => {
     const {emissionId, emissionData, facilitiesData, emissionInputs} = props
 
     const [isCalculateDone, setIsCalculateDone] = useState(false);
+    const [isFiltered, setIsFiltered] = useState(false);
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
 
     
@@ -34,11 +35,10 @@ const EditPurchasedElectricityForm = (props) => {
             year: emissionData.year || '',
             month: emissionData.month || '',
             calculationApproach: emissionData.calculation_approach_id || '',
-            typeOfEmissionFactor: '',
+            typeOfEmissionFactor: emissionData.type_of_emission_factors_id || '',
             unit: emissionData.unit || '',
             amountOfFuel: emissionData.amount || '',
         },
-        //     typeOfEmissionFactor: emissionData.type_of_emission_factors_id || '',
         validationSchema: editPurchasedElectricityValidation,
         onSubmit: () => { },
     });
@@ -53,6 +53,7 @@ const EditPurchasedElectricityForm = (props) => {
             };
         });
         setTypesOfEmissionFactors(selectedTypesOfEmissionFactors)
+        !!selectedTypesOfEmissionFactors && setTimeout(() => setIsFiltered(true), 200)
     }, [formik.values.calculationApproach, emissionInputs.types_of_emission_factors])
 
     useEffect(() => {
@@ -127,7 +128,7 @@ const EditPurchasedElectricityForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.facility && formik.errors.facility}
                             />
-                            <CeroSelect
+                            {isFiltered && <CeroSelect
                                 required
                                 id="typeOfEmissionFactor"
                                 key="typeOfEmissionFactor"
@@ -140,7 +141,7 @@ const EditPurchasedElectricityForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.typeOfEmissionFactor && formik.errors.typeOfEmissionFactor}
                                 disabled={!formik.values.calculationApproach}
-                            />
+                            />}
                             <CeroSelect
                                 required
                                 id="year"

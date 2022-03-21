@@ -47,6 +47,7 @@ const AddPurchasedElectricityForm = (props) => {
     useEffect(() => {
         dispatch(getEmissionInputFormat('purchased_electricity'))
         dispatch(listFacilities())
+        return () => { dispatch(resetAddCombustionStatus()) }
     }, [])
 
     useEffect(() => {
@@ -71,27 +72,6 @@ const AddPurchasedElectricityForm = (props) => {
         //API for calculation
         setIsCalculateDone(true);
     };
-
-    const facilitiesList = facilitiesData.map(item => {
-        return {
-            key: item?.id,
-            value: item?.name
-        };
-    });
-
-    const calculationApproach = (emissionInputs.calculation_approaches||[]).map(item => {
-        return {
-            key: item?.id,
-            value: item?.name
-        };
-    });
-
-    const units = (emissionInputs.units||[]).map(item => {
-        return {
-            key: item?.name,
-            value: item?.name
-        };
-    });
 
     const onAddPurchasedElectricity = () => {
         const requestData = {
