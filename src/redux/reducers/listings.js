@@ -12,15 +12,15 @@ export const listState = {
         message: ''
     },
     industryTypes: {
-        data: {},
+        data: [],
         status: STATUS.IDLE,
         message: ''
     },
     countryList: {
-        data: {},
+        data: [],
         status: STATUS.IDLE,
         message: ''
-    }
+    },
 }
 
 const listActions = {
@@ -88,6 +88,7 @@ const listActions = {
                         message: { $set: parseError(payload) }
                     }
                 }),
+
         },
         listState
     )

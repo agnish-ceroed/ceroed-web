@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
-import { sampleYear, sampleFilterType } from "../../../constants";
-import { addStationaryCombutionValidation } from './schema';
-import { addStationaryCombustion, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { months, sampleYear } from "../../../constants";
+import { STATUS } from "../../../redux/constants";
+import { addStationaryCombustionValidation } from './schema';
+import { addStationaryCombustion, getEmissionFuelList, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
 const AddStationaryCombustionForm = (props) => {
@@ -19,14 +19,14 @@ const AddStationaryCombustionForm = (props) => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const [isCalculateDone, setIsCalculateDone] = useState(false);
-
+    const isCalculateDone = useSelector(state => state.emission.addStationaryCombustion.isCalculateDone)
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const addEmissionData = useSelector(state => state.emission)
-
-    useEffect(() => {
-        dispatch(listFacilities())
-    }, [])
+    const fuelData = useSelector(state => state.emission.fuelList.data);
+    const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
+    const addEmissionData = useSelector(state => state.emission.addStationaryCombustion)
+    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
+    const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
+    const fuelUnits = fuelUnitData.map(item => ({ key: item.name, value: item.name }));
 
     useEffect(() => {
         if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
@@ -45,26 +45,44 @@ const AddStationaryCombustionForm = (props) => {
             year: '',
             month: '',
             emissionType: '',
-            fuelType: '',
             fuel: '',
             fuelUnit: '',
             amountOfFuel: '',
         },
-        validationSchema: addStationaryCombutionValidation,
+        validationSchema: addStationaryCombustionValidation,
         onSubmit: () => { },
     });
 
-    const onCalculate = () => {
-        //API for calculation
-        setIsCalculateDone(true);
-    };
+    useEffect(() => {
+        dispatch(listFacilities())
+        dispatch(getEmissionFuelList('stationary_combustion'))
+        return () => { dispatch(resetAddCombustionStatus()) }
+    }, [dispatch])
 
-    const facilitiesList = facilitiesData.map(item => {
-        return {
-            key: item?.id,
-            value: item?.name
-        };
-    });
+    useEffect(() => {
+        if (addEmissionData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            props.onCancel();
+        } else if (addEmissionData.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus());
+        }
+    }, [addEmissionData, dispatch, enqueueSnackbar])
+
+    const onCalculate = () => {
+        const requestData = {
+            facility_id: formik.values.facility,
+            emission_type: formik.values.emissionType,
+            year: formik.values.year,
+            month: formik.values.month,
+            fuel_id: formik.values.fuel,
+            unit: formik.values.fuelUnit,
+            amount: formik.values.amountOfFuel,
+            save: false
+        }
+        dispatch(addStationaryCombustion(requestData))
+    };
 
     const onAddStationaryData = () => {
         const requestData = {
@@ -72,7 +90,6 @@ const AddStationaryCombustionForm = (props) => {
             emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_type_id: formik.values.fuelType,
             fuel_id: formik.values.fuel,
             unit: formik.values.fuelUnit,
             amount: formik.values.amountOfFuel,
@@ -86,8 +103,8 @@ const AddStationaryCombustionForm = (props) => {
             <Box className={classes.innerContainer}>
                 <Typography variant="h6" component="div" >Add emission data</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' xs={6}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -95,7 +112,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Facility"
                                 fullWidth
                                 options={facilitiesList}
-                                selectedValue={formik.values['facility'] || ''}
+                                selectedValue={formik.values.facility}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.facility && formik.errors.facility}
@@ -106,8 +123,8 @@ const AddStationaryCombustionForm = (props) => {
                                 name="month"
                                 label="Month"
                                 fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values['month'] || ''}
+                                options={months}
+                                selectedValue={formik.values.month}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.month && formik.errors.month}
@@ -118,8 +135,8 @@ const AddStationaryCombustionForm = (props) => {
                                 name="fuel"
                                 label="Fuel"
                                 fullWidth
-                                options={sampleFilterType}
-                                selectedValue={formik.values['fuel'] || ''}
+                                options={fuelList}
+                                selectedValue={formik.values.fuel}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.fuel && formik.errors.fuel}
@@ -129,7 +146,7 @@ const AddStationaryCombustionForm = (props) => {
                                 id="amountOfFuel"
                                 name="amountOfFuel"
                                 label="Amount of Fuel"
-                                value={formik.values['amountOfFuel'] || ''}
+                                value={formik.values.amountOfFuel}
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -144,7 +161,7 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Custom Emission Filter"
                                 fullWidth
                                 options={[{ key: "yes", value: "Yes" }, { key: "no", value: "No" }]}
-                                selectedValue={formik.values['emissionType'] || ''}
+                                selectedValue={formik.values.emissionType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.emissionType && formik.errors.emissionType}
@@ -156,22 +173,10 @@ const AddStationaryCombustionForm = (props) => {
                                 label="Year"
                                 fullWidth
                                 options={sampleYear}
-                                selectedValue={formik.values['year'] || ''}
+                                selectedValue={formik.values.year}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
-                            />
-                            <CeroSelect
-                                required
-                                id="fuelType"
-                                name="fuelType"
-                                label="Fuel Type"
-                                fullWidth
-                                options={sampleFilterType}
-                                selectedValue={formik.values['fuelType'] || ''}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.fuelType && formik.errors.fuelType}
                             />
                             <CeroSelect
                                 required
@@ -179,8 +184,8 @@ const AddStationaryCombustionForm = (props) => {
                                 name="fuelUnit"
                                 label="Fuel Unit"
                                 fullWidth
-                                options={sampleFilterType}
-                                selectedValue={formik.values['fuelUnit'] || ''}
+                                options={fuelUnits}
+                                selectedValue={formik.values.fuelUnit}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.fuelUnit && formik.errors.fuelUnit}
@@ -195,53 +200,17 @@ const AddStationaryCombustionForm = (props) => {
                     />
                 </Box>
                 {isCalculateDone && <Box className={classes.bottomContainer}>
-                    <Typography variant="subtitle2" component="div" >Emission Preview</Typography>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="co2"
-                                label="CO2 : 0 (tonnes)"
-                                value="0"
-                                fullWidth
-                                disabled />
-                            <CeroInput
-                                required
-                                id="n2o"
-                                label="N2O : 0 (tonnes)"
-                                value="0"
-                                fullWidth
-                                disabled />
-                            <CeroInput
-                                required
-                                id="biofuel"
-                                label="Biofuel : 0 tonnes"
-                                value="0"
-                                fullWidth
-                                disabled />
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' xs={6}>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
+                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography>
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="co4"
-                                label="CO4 : 0 (tonnes)"
-                                value="0"
-                                fullWidth
-                                disabled />
-                            <CeroInput
-                                required
-                                id="co2e"
-                                label="CO2e : 0 (tonnes)"
-                                value="0"
-                                fullWidth
-                                disabled />
-                            <CeroInput
-                                required
-                                id="ef"
-                                label="EF(kgCO2e/unit)"
-                                value="0"
-                                fullWidth
-                                disabled />
+                        <Grid item container direction='column' xs={6}>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
+                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
                         </Grid>
                     </Grid>
                 </Box>}

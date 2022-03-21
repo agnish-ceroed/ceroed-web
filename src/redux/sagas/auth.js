@@ -130,9 +130,7 @@ export function* refreshToken() {
     const userDetails = JSON.parse(getCookie('user_details'))
     const password = localStorage.getItem('password')
     const now = new Date().getTime()
-    console.log(accessTokenExpiry)
     if (accessTokenExpiry > now) {
-      // set user as logged in
       yield put({
         type: ActionTypes.USER_LOGIN_SUCCESS,
         payload: userDetails
@@ -178,6 +176,9 @@ export function* refreshToken() {
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS
     })
+    yield put({
+      type: ActionTypes.REFRESH_TOKEN_FAILURE
+    })
   }
 }
 
@@ -192,6 +193,7 @@ export function* logout() {
     }
     yield deleteCookie('auth_token_admin')
     yield deleteCookie('access_token_expiry')
+    yield deleteCookie('user_details')
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS
     })
@@ -213,6 +215,7 @@ export default function* root() {
     takeLatest(ActionTypes.RESET_PASSWORD, resetPassword),
     takeLatest(ActionTypes.USER_SIGN_UP, signup),
     takeLatest(ActionTypes.REFRESH_TOKEN, refreshToken),
+    takeLatest(ActionTypes.USER_LOGOUT, logout),
     takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
   ])
 }

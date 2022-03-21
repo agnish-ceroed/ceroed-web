@@ -11,7 +11,7 @@ export const userState = {
   authParams: {},
   userInfo: {},
   message: '',
-  refreshStatus: {},
+  refreshStatus: STATUS.RUNNING,
   logoutStatus: STATUS.IDLE,
   forgot: {
     data: {},
@@ -161,7 +161,7 @@ const authActions = {
         }),
       [ActionTypes.REFRESH_TOKEN_SUCCESS]: state =>
         immutable(state, {
-          refreshStatus: { $set: STATUS.READY }
+          refreshStatus: { $set: STATUS.SUCCESS }
         }),
       [ActionTypes.REFRESH_TOKEN_FAILURE]: state =>
         immutable(state, {

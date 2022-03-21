@@ -28,7 +28,7 @@ const ChangePassword = () => {
         } else if (changePasswordData.status === STATUS.ERROR) {
             enqueueSnackbar(changePasswordData.message.message, { variant: 'error' });
         }
-    }, [changePasswordData])
+    }, [changePasswordData, enqueueSnackbar, navigate])
 
     const changePasswordForm = useFormik({
         initialValues: {

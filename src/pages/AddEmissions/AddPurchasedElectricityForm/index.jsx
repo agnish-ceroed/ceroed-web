@@ -23,8 +23,12 @@ const AddPurchasedElectricityForm = (props) => {
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
 
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const addEmissionData = useSelector(state => state.emission)
-    const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
+    const addEmissionData = useSelector(state => state.emission);
+    const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
+    const calculationApproach = (emissionInputs.calculation_approaches||[]).map(item => ({ key: item?.id, value: item?.name }));
+    const units = (emissionInputs.units||[]).map(item => ({ key: item?.name, value: item?.name }));
 
     const formik = useFormik({
         initialValues: {
@@ -48,12 +52,7 @@ const AddPurchasedElectricityForm = (props) => {
     useEffect(() => {
         const selectedTypesOfEmissionFactors = (emissionInputs.types_of_emission_factors||[])
         .filter(item => item.calculation_approach_id === formik.values.calculationApproach)
-        .map(item => {
-            return {
-                key: item?.id,
-                value: item?.name
-            };
-        });
+        .map(item => ({ key: item?.id, value: item?.name }));
         setTypesOfEmissionFactors(selectedTypesOfEmissionFactors)
     }, [formik.values.calculationApproach, emissionInputs.types_of_emission_factors])
 
@@ -123,7 +122,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Facility"
                                 fullWidth
                                 options={facilitiesList}
-                                selectedValue={formik.values['facility'] || ''}
+                                selectedValue={formik.values.facility || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.facility && formik.errors.facility}
@@ -136,7 +135,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Types of Emission Factor"
                                 fullWidth
                                 options={typesOfEmissionFactors}
-                                selectedValue={formik.values['typeOfEmissionFactor'] || ''}
+                                selectedValue={formik.values.typeOfEmissionFactor || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.typeOfEmissionFactor && formik.errors.typeOfEmissionFactor}
@@ -150,7 +149,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Year"
                                 fullWidth
                                 options={sampleYear}
-                                selectedValue={formik.values['year'] || ''}
+                                selectedValue={formik.values.year || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
@@ -161,7 +160,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 key="amountOfFuel"
                                 name="amountOfFuel"
                                 label="Amount of Fuel"
-                                value={formik.values['amountOfFuel'] || ''}
+                                value={formik.values.amountOfFuel || ''}
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -176,7 +175,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Calculation Approach"
                                 fullWidth
                                 options={calculationApproach}
-                                selectedValue={formik.values['calculationApproach'] || ''}
+                                selectedValue={formik.values.calculationApproach || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.calculationApproach && formik.errors.calculationApproach}
@@ -188,7 +187,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Month"
                                 fullWidth
                                 options={months}
-                                selectedValue={formik.values['month'] || ''}
+                                selectedValue={formik.values.month || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.month && formik.errors.month}
@@ -201,7 +200,7 @@ const AddPurchasedElectricityForm = (props) => {
                                 label="Unit"
                                 fullWidth
                                 options={units}
-                                selectedValue={formik.values['unit'] || ''}
+                                selectedValue={formik.values.unit || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.unit && formik.errors.unit}

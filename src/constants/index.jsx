@@ -61,22 +61,94 @@ export const months = [
     },
 ];
 
-export const sampleYear  = [
+export const sampleYear = [
     {
         key: 2000,
         value: '2000'
+    },
+    {
+        key: 2001,
+        value: '2001'
+    },
+    {
+        key: 2002,
+        value: '2002'
+    },
+    {
+        key: 2003,
+        value: '2003'
+    },
+    {
+        key: 2004,
+        value: '2004'
+    },
+    {
+        key: 2005,
+        value: '2005'
+    },
+    {
+        key: 2006,
+        value: '2006'
+    },
+    {
+        key: 2007,
+        value: '2007'
+    },
+    {
+        key: 2008,
+        value: '2008'
+    },
+    {
+        key: 2009,
+        value: '2009'
     },
     {
         key: 2010,
         value: '2010'
     },
     {
+        key: 2011,
+        value: '2011'
+    },
+    {
+        key: 2012,
+        value: '2012'
+    },
+    {
+        key: 2013,
+        value: '2013'
+    },
+    {
+        key: 2014,
+        value: '2014'
+    },
+    {
         key: 2015,
         value: '2015'
     },
     {
+        key: 2016,
+        value: '2016'
+    },
+    {
+        key: 2017,
+        value: '2017'
+    },
+    {
+        key: 2018,
+        value: '2018'
+    },
+    {
+        key: 2019,
+        value: '2019'
+    },
+    {
         key: 2020,
         value: '2020'
+    },
+    {
+        key: 2021,
+        value: '2021'
     },
     {
         key: 2022,
@@ -108,6 +180,17 @@ export const sampleFacility = [
         key: 'Facility2',
         value: 'Facility 2'
     },
+]
+
+export const sampleCountryList = [
+    {
+        key: 'Afghanistan',
+        value: 'Afghanistan'
+    },
+    {
+        key: 'India',
+        value: 'india'
+    }
 ]
 
 export const emissionTypes = [
@@ -188,14 +271,13 @@ export const emissionTypeData = [
         id: 'social',
         title: 'Social',
         subItems: [
-            
+
         ]
     }, {
         id: 'governance',
         title: 'Governance',
         subItems: [
-            
+
         ]
     }
 ];
-

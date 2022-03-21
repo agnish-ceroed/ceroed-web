@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Bar } from 'react-chartjs-2';
 import {
@@ -10,6 +11,9 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import _ from 'lodash';
+
+import { getEmissionYear } from '../../../redux/actions';
 
 import useStyles from './styles'
 
@@ -24,6 +28,13 @@ ChartJS.register(
 
 const TotalEmissionChart = () => {
     const classes = useStyles()
+    const dispatch = useDispatch();
+
+    const emissionData = useSelector(state => state.dashboard.getEmissionYear.data);
+
+    useEffect(() => {
+        dispatch(getEmissionYear());
+    }, []);
 
     const options = {
         responsive: true,
@@ -47,14 +58,12 @@ const TotalEmissionChart = () => {
         }
     };
 
-    const labels = ['2019', '2020', '2021', '2022'];
-
     const data = {
-        labels,
+        labels: _.map(emissionData, (item) => item.year),
         datasets: [
             {
-                label: 'CO2',
-                data: [150, 400, 800, 300, 750],
+                label: 'Total Emission (tonnes)',
+                data: _.map(emissionData, (item) => item.total_ef),
                 backgroundColor: '#b33dc6',
                 maxBarThickness: 20,
                 borderRadius: 3

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
+import _ from 'lodash';
+import { getEmissionTypes } from '../../../redux/actions';
+import { emissionTypes } from '../../../constants';
 
 import useStyles from './styles'
 
@@ -9,6 +13,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const EmissionChart = () => {
     const classes = useStyles()
+    const dispatch = useDispatch();
+
+    const emissionData = useSelector(state => state.dashboard.getEmissionTypes.data);
+
+    useEffect(() => {
+        dispatch(getEmissionTypes());
+    }, []);
 
     const options = {
         responsive: true,
@@ -34,11 +45,11 @@ const EmissionChart = () => {
     };
 
     const data = {
-        labels: ['Stationary combustion', 'Mobile combustion', 'Transport combustion'],
+        labels: _.map(emissionData, (item) => emissionTypes.find(data => data.id === item.type).title),
         datasets: [
             {
                 label: 'Emissions',
-                data: [60, 30, 10],
+                data: _.map(emissionData, item => item.total_ef),
                 backgroundColor: [
                     '#ea5545',
                     '#5ad45a',

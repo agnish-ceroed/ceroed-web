@@ -4,6 +4,8 @@ import { IconButton } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 import CeroButton from '../../../components/CeroButton';
 
+import { StationaryColumns, MobileColumns } from './TableColumns'
+import CeroButton from '../../../components/CeroButton';
 import CeroTable from '../../../components/CeroTable';
 import {getEmissionsColumnConfig} from '../../../config/emission-table-column-config'
 import useStyles from "./styles";
@@ -13,21 +15,25 @@ const EmissionTable = (props) => {
     const navigate = useNavigate();
     const {emissionType, emissionData, onLoadMore} = props
 
+    const getTableColumn = {
+        stationary_combustion: StationaryColumns,
+        mobile_combustion: MobileColumns
+    }
+
     const onSelectEmissionData = (emission) => {
         navigate(`/emissions/edit/${emissionType}/${emission.id}`);
     };
 
-    const getEmissionData = () => emissionData.map(item => ({
+    const getEmissionData = () => props.emissionData.map((item) => ({
         ...item,
-        action: emissionType === 'purchased_electricity' ? <IconButton>
-        <CreateIcon  />
-    </IconButton> : <CeroButton className={classes.button} buttonText="Audited" />
-    }))
+        amount: `${item.amount}  ${item.unit}`,
+        action: <CeroButton className={classes.button} buttonText={item.status} />,
+    }));
 
 
     return (
         <CeroTable
-            columns={getEmissionsColumnConfig(emissionType)}
+            columns={getTableColumn[props.emissionType] || []}
             data={getEmissionData()}
             hasMore={false}
             loading={false}

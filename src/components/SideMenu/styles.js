@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         width: '100%',
         height: '60px',
-        padding: '16px',
+        padding: theme.spacing(2, 4),
         color: theme.palette.text.accent,
         borderBottom: `1px solid ${theme.palette.border.gray}`,
     },
@@ -33,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '18px',
     },
     userContainer: {
-        padding: '30px 16px',
+        padding: theme.spacing(8, 4),
         display: 'flex',
         alignItems: 'center',
     },
     avatarContainer: {
         height: '46px',
         width: '46px',
-        marginRight: '20px'
+        marginRight: theme.spacing(5),
     },
     avatar: {
         height: '100%',
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
     },
     secodaryOptions: {
         borderTop: `1px solid ${theme.palette.border.gray}`,
-        marginTop: '10px',
-        paddingTop: '10px',
+        marginTop: theme.spacing(2.5),
+        paddingTop: theme.spacing(2.5),
     }
 }));
 
