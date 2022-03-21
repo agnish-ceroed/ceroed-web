@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
+import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { editPurchasedElectricityValidation } from './schema';
 import { updatePurchasedElectricity, resetAddCombustionStatus } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
 const EditPurchasedElectricityForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const { emissionId, emissionData, facilitiesData, emissionInputs } = props
+    const { emissionId, emissionData, facilitiesData, emissionInputs, onCancel } = props
 
     const [isFiltered, setIsFiltered] = useState(false);
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
@@ -54,18 +55,18 @@ const EditPurchasedElectricityForm = (props) => {
             });
         setTypesOfEmissionFactors(selectedTypesOfEmissionFactors)
         !!selectedTypesOfEmissionFactors && setTimeout(() => setIsFiltered(true), 200)
-    }, [formik.values.calculationApproach, emissionInputs.types_of_emission_factors])
-    console.log(updateEmissionData)
+    }, [formik.values.calculationApproach, emissionInputs.types_of_emission_factors, emissionData.calculation_approach_id])
+
     useEffect(() => {
         if (updateEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Purchased electricity updated successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
-            props.onCancel();
+            onCancel();
         } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
-    }, [updateEmissionData, enqueueSnackbar])
+    }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
 
     const onCalculate = () => {
         const requestData = {
