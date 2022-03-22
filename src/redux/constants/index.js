@@ -36,6 +36,7 @@ export const APIEndpoints = {
   ADD_STATIONARY_COMBUSTION: `${API_BASE_URL}/business/emissions/stationary_combustion`,
   ADD_PURCHASED_ELECTRICITY: `${API_BASE_URL}/business/emissions/purchased_electricity`,
   UPDATE_PURCHASED_ELECTRICITY: emissionId => `${API_BASE_URL}/business/emissions/purchased_electricity/${emissionId}`,
+  DELETE_EMISSIONS: emissionId => `${API_BASE_URL}/business/emissions/${emissionId}`,
   ADD_MOBILE_COMBUSTION: `${API_BASE_URL}/business/emissions/mobile_combustion`,
   ADD_TRANSPORTATION_COMBUSTION: `${API_BASE_URL}/business/emissions/transportation`,
 

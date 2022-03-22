@@ -102,6 +102,26 @@ export function* updatePurchasedElectricity(action) {
     }
 }
 
+export function* deleteEmissions(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.DELETE_EMISSIONS(requestData.id), {
+            method: 'DELETE',
+        })
+        yield put({
+            type: ActionTypes.DELETE_EMISSIONS_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.DELETE_EMISSIONS_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* addStationaryCombustion(action) {
     try {
         const { requestData } = action.payload
@@ -212,6 +232,7 @@ export default function* root() {
         takeLatest(ActionTypes.GET_EMISSION_INPUT_FORMAT, getEmissionInputFormat),
         takeLatest(ActionTypes.ADD_PURCHASED_ELECTRICITY, addPurchasedElectricity),
         takeLatest(ActionTypes.UPDATE_PURCHASED_ELECTRICITY, updatePurchasedElectricity),
+        takeLatest(ActionTypes.DELETE_EMISSIONS, deleteEmissions),
         takeLatest(ActionTypes.ADD_MOBILE_COMBUSTION, addMobileCombustion),
         takeLatest(ActionTypes.GET_EMISSION_FUEL_LIST, getEmissionFuelList),
         takeLatest(ActionTypes.GET_MOBILE_COMBUSTION_INPUTS, getMobileCombustionInputs),

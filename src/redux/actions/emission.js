@@ -13,7 +13,8 @@ export const {
     getMobileCombustionInputs,
     getEmissionInputFormat,
     addPurchasedElectricity,
-    updatePurchasedElectricity
+    updatePurchasedElectricity,
+    deleteEmissions,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType) => ({ emissionType }),
     [ActionTypes.GET_EMISSION]: (params) => (params),
@@ -26,4 +27,5 @@ export const {
     [ActionTypes.GET_EMISSION_INPUT_FORMAT]: (emissionType) => ({emissionType}),
     [ActionTypes.ADD_PURCHASED_ELECTRICITY]: (requestData) => ({requestData}),
     [ActionTypes.UPDATE_PURCHASED_ELECTRICITY]: (requestData) => ({requestData}),
+    [ActionTypes.DELETE_EMISSIONS]: (requestData) => ({requestData}),
 })

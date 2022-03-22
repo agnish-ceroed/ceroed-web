@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { editPurchasedElectricityValidation } from './schema';
-import { updatePurchasedElectricity, resetAddCombustionStatus } from '../../../redux/actions';
+import { updatePurchasedElectricity, resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
@@ -26,6 +26,7 @@ const EditPurchasedElectricityForm = (props) => {
 
     const isCalculateDone = useSelector(state => state.emission.updatePurchasedElectricity.isCalculateDone)
     const updateEmissionData = useSelector(state => state.emission.updatePurchasedElectricity)
+    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
     const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
     const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
     const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
@@ -68,6 +69,17 @@ const EditPurchasedElectricityForm = (props) => {
         }
     }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
 
+    useEffect(() => {
+        if (deleteEmissionData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Purchased electricity deleted successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            onCancel();
+        } else if (deleteEmissionData.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus())
+        }
+    }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
+
     const onCalculate = () => {
         const requestData = {
             id: emissionId,
@@ -96,6 +108,13 @@ const EditPurchasedElectricityForm = (props) => {
             save: true
         }
         dispatch(updatePurchasedElectricity(requestData))
+    };
+
+    const onDeletePurchasedElectricity = () => {
+        const requestData = {
+            id: emissionId
+        }
+        dispatch(deleteEmissions(requestData))
     };
 
     return (
@@ -222,6 +241,10 @@ const EditPurchasedElectricityForm = (props) => {
                 </Box>}
             </Box>
             <Box className={classes.buttonContainer}>
+                <CeroButton
+                    buttonText="Delete Data"
+                    className={clsx(classes.button, classes.buttonPrimary)}
+                    onClick={() => onDeletePurchasedElectricity(formik.values)} />
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"

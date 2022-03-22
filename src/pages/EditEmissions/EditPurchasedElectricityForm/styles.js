@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     buttonSeconday: {
         color: theme.palette.text.accent,
         marginRight: theme.spacing(5),
+        marginLeft: theme.spacing(5),
     },
     topContainer: {
         width: '75%'

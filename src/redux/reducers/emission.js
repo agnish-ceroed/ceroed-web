@@ -42,6 +42,11 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    deleteEmissions: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+    },
     addMobileCombustion: {
         data: {},
         status: STATUS.IDLE,
@@ -170,7 +175,6 @@ const emissionActions = {
                 }),
             [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload, save }) => {
                 let status = save ? STATUS.SUCCESS : STATUS.IDLE
-                console.log(save)
                 return immutable(state, {
                     updatePurchasedElectricity: {
                         data: { $set: payload },
@@ -182,6 +186,28 @@ const emissionActions = {
             [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     updatePurchasedElectricity: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.DELETE_EMISSIONS]: (state, { payload }) =>
+                immutable(state, {
+                    deleteEmissions: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.DELETE_EMISSIONS_SUCCESS]: (state, { payload }) => {
+                return immutable(state, {
+                    deleteEmissions: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    }
+                })
+            },
+            [ActionTypes.DELETE_EMISSIONS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    deleteEmissions: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -314,6 +340,9 @@ const emissionActions = {
                     updatePurchasedElectricity: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
+                    },
+                    deleteEmissions: {
+                        status: { $set: STATUS.IDLE }
                     },
                 }),
 
