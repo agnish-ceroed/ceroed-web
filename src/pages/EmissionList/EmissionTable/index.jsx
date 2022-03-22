@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import { StationaryColumns, MobileColumns, PurchasedElectricityColumns } from './TableColumns'
@@ -11,7 +11,7 @@ import useStyles from "./styles";
 const EmissionTable = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const {emissionType, emissionData, onLoadMore} = props
+    const { emissionType, emissionData, onLoadMore } = props
 
     const getTableColumn = {
         stationary_combustion: StationaryColumns,
@@ -23,14 +23,18 @@ const EmissionTable = (props) => {
         navigate(`/emissions/edit/${emissionType}/${emission.id}`);
     };
 
-    const getEmissionData = () => props.emissionData.map((item) => ({
+    const getEmissionData = () => emissionData.map((item) => ({
         ...item,
         amount: `${item.amount}  ${item.unit}`,
-        action: emissionType === 'purchased_electricity' ? <IconButton>
-        <CreateIcon  />
-        </IconButton> : <CeroButton className={classes.button} buttonText={item.status} />,
+        action: (
+            <Box className={classes.actionContainer}>
+                <CeroButton className={classes.button} buttonText={item.status} />
+                <IconButton className={classes.editIcon}>
+                    <CreateIcon />
+                </IconButton>
+            </Box>
+        ),
     }));
-
 
     return (
         <CeroTable

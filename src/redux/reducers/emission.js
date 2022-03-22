@@ -34,7 +34,8 @@ export const emissionState = {
     addPurchasedElectricity: {
         data: {},
         status: STATUS.IDLE,
-        message: ''
+        message: '',
+        isCalculateDone: false,
     },
     updatePurchasedElectricity: {
         data: {},
@@ -152,13 +153,16 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
                     addPurchasedElectricity: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS }
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addPurchasedElectricity: {
@@ -228,27 +232,6 @@ const emissionActions = {
             [ActionTypes.GET_EMISSION_INPUT_FORMAT_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     emissionInputs: {
-                        message: { $set: parseError(payload) },
-                        status: { $set: STATUS.ERROR }
-                    }
-                }),
-
-            [ActionTypes.ADD_PURCHASED_ELECTRICITY]: (state, { payload }) =>
-                immutable(state, {
-                    addPurchasedElectricity: {
-                        status: { $set: STATUS.RUNNING }
-                    }
-                }),
-            [ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
-                    addPurchasedElectricity: {
-                        data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS }
-                    }
-                }),
-            [ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
-                immutable(state, {
-                    addPurchasedElectricity: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
