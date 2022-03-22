@@ -66,7 +66,7 @@ export function* addPurchasedElectricity(action) {
         const { requestData } = action.payload
         const response = yield call(request, APIEndpoints.ADD_PURCHASED_ELECTRICITY, {
             method: 'POST',
-            payload: requestData 
+            payload: requestData
         })
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS,
@@ -87,7 +87,7 @@ export function* updatePurchasedElectricity(action) {
         const { requestData } = action.payload
         const response = yield call(request, APIEndpoints.UPDATE_PURCHASED_ELECTRICITY(requestData.id), {
             method: 'PUT',
-            payload: requestData 
+            payload: requestData
         })
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS,
@@ -98,6 +98,27 @@ export function* updatePurchasedElectricity(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* updateStationaryCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_STATIONARY_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_STATIONARY_COMBUSTION_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_STATIONARY_COMBUSTION_FAILURE,
             payload: err
         })
     }
@@ -233,6 +254,7 @@ export default function* root() {
         takeLatest(ActionTypes.GET_EMISSION_INPUT_FORMAT, getEmissionInputFormat),
         takeLatest(ActionTypes.ADD_PURCHASED_ELECTRICITY, addPurchasedElectricity),
         takeLatest(ActionTypes.UPDATE_PURCHASED_ELECTRICITY, updatePurchasedElectricity),
+        takeLatest(ActionTypes.UPDATE_STATIONARY_COMBUSTION, updateStationaryCombustion),
         takeLatest(ActionTypes.DELETE_EMISSIONS, deleteEmissions),
         takeLatest(ActionTypes.ADD_MOBILE_COMBUSTION, addMobileCombustion),
         takeLatest(ActionTypes.GET_EMISSION_FUEL_LIST, getEmissionFuelList),
