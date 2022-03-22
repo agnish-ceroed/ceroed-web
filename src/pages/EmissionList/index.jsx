@@ -19,14 +19,15 @@ const EmissionList = () => {
     const dispatch = useDispatch()
     const classes = useStyles();
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const {pathname} = useLocation();
     const emissionData = useSelector(state => state.emission.emissionList.data)
     const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1)
 
-    useEffect(() => {
-        emissionType !== 'emissions' ? dispatch(getEmissionList(emissionType)) : navigate('stationary_combustion')
-    }, [emissionType])
+    // const [emissionType, setEmissionType] = useState('stationary_combustion')
 
+    useEffect(() => {
+        emissionType !== 'emissions'  ? dispatch(getEmissionList(emissionType)) : navigate('stationary_combustion')
+    }, [emissionType])
     const onLoadMore = (pageSize = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
         const filter = {
             emissionFilter: {},

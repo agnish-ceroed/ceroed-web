@@ -24,10 +24,20 @@ const AddStationaryCombustionForm = (props) => {
     const fuelData = useSelector(state => state.emission.fuelList.data);
     const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
     const addEmissionData = useSelector(state => state.emission.addStationaryCombustion)
-
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
     const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
     const fuelUnits = fuelUnitData.map(item => ({ key: item.name, value: item.name }));
+
+    useEffect(() => {
+        if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            props.onCancel('stationary_combustion');
+        } else if (addEmissionData.addStationaryCombustion.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus())
+        }
+    }, [addEmissionData.addStationaryCombustion, enqueueSnackbar])
 
     const formik = useFormik({
         initialValues: {
