@@ -5,26 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
-import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
-import { addStationaryCombustionValidation } from './schema';
-import { addStationaryCombustion, getEmissionFuelList, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { sampleYear, months } from "../../../constants";
+import { updateStationaryCombustionValidation } from './schema';
+import { updateStationaryCombustion, resetAddCombustionStatus, deleteEmissions, getEmissionFuelList } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
-const AddStationaryCombustionForm = (props) => {
-    const { onCancel } = props
+const EditStationaryCombustionForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
+    const { emissionId, emissionData, facilitiesData, onCancel } = props
 
-    const isCalculateDone = useSelector(state => state.emission.addStationaryCombustion.isCalculateDone)
-    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
+    const isCalculateDone = useSelector(state => state.emission.updateStationaryCombustion.isCalculateDone)
+    const updateEmissionData = useSelector(state => state.emission.updateStationaryCombustion)
+    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
     const fuelData = useSelector(state => state.emission.fuelList.data);
     const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
-    const addEmissionData = useSelector(state => state.emission.addStationaryCombustion)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
     const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
@@ -32,37 +33,47 @@ const AddStationaryCombustionForm = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            facility: '',
-            year: '',
-            month: '',
-            emissionType: '',
-            fuel: '',
-            fuelUnit: '',
-            amountOfFuel: '',
+            facility: emissionData.facility_id || '',
+            year: emissionData.year || '',
+            month: emissionData.month || '',
+            emissionType: emissionData.emission_type || 'no',
+            fuel: emissionData.fuel_id || '',
+            fuelUnit: emissionData.unit || '',
+            amountOfFuel: emissionData.amount || ''
         },
-        validationSchema: addStationaryCombustionValidation,
+        validationSchema: updateStationaryCombustionValidation,
         onSubmit: () => { },
     });
 
     useEffect(() => {
-        dispatch(listFacilities())
         dispatch(getEmissionFuelList('stationary_combustion'))
-        return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])
 
     useEffect(() => {
-        if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+        if (updateEmissionData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion updated successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
-        } else if (addEmissionData.status === STATUS.ERROR) {
+        } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus());
+            dispatch(resetAddCombustionStatus())
         }
-    }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
+    }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
+
+    useEffect(() => {
+        if (deleteEmissionData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion deleted successfully', { variant: 'success' });
+            dispatch(resetAddCombustionStatus())
+            onCancel();
+        } else if (deleteEmissionData.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetAddCombustionStatus())
+        }
+    }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
 
     const onCalculate = () => {
         const requestData = {
+            id: emissionId,
             facility_id: formik.values.facility,
             emission_type: formik.values.emissionType,
             year: formik.values.year,
@@ -72,11 +83,12 @@ const AddStationaryCombustionForm = (props) => {
             amount: formik.values.amountOfFuel,
             save: false
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(updateStationaryCombustion(requestData))
     };
 
-    const onAddStationaryData = () => {
+    const onUpdateStationaryCombustion = () => {
         const requestData = {
+            id: emissionId,
             facility_id: formik.values.facility,
             emission_type: formik.values.emissionType,
             year: formik.values.year,
@@ -86,15 +98,22 @@ const AddStationaryCombustionForm = (props) => {
             amount: formik.values.amountOfFuel,
             save: true
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(updateStationaryCombustion(requestData))
+    };
+
+    const onDeleteStationaryCombustion = () => {
+        const requestData = {
+            id: emissionId
+        }
+        dispatch(deleteEmissions(requestData))
     };
 
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add emission data</Typography>
+                <Typography variant="h6" component="div" >Edit emission data</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction='column' xs={6}>
                             <CeroSelect
                                 required
@@ -194,32 +213,36 @@ const AddStationaryCombustionForm = (props) => {
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {updateEmissionData.data.co2} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {updateEmissionData.data.ch4} tonnes</Typography>
+                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {updateEmissionData.data.biofuel_co2} tonnes</Typography>
                         </Grid>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {updateEmissionData.data.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {updateEmissionData.data.n2o} tonnes</Typography>
+                            <Typography className={classes.previewItem}>EF: {updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
                         </Grid>
                     </Grid>
                 </Box>}
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
+                    buttonText="Delete Data"
+                    className={clsx(classes.button, classes.buttonPrimary)}
+                    onClick={() => onDeleteStationaryCombustion(formik.values)} />
+                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={() => props.onCancel('stationary_combustion')} />
+                    onClick={props.onCancel} />
                 <CeroButton
-                    buttonText="Add Data"
+                    buttonText="Update Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onAddStationaryData(formik.values)} />
+                    onClick={() => onUpdateStationaryCombustion(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default AddStationaryCombustionForm;
+export default EditStationaryCombustionForm;
