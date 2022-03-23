@@ -45,17 +45,6 @@ const AddStationaryCombustionForm = (props) => {
     });
 
     useEffect(() => {
-        if (addEmissionData.addStationaryCombustion.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
-            dispatch(resetAddCombustionStatus())
-            onCancel('stationary_combustion');
-        } else if (addEmissionData.addStationaryCombustion.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus())
-        }
-    }, [addEmissionData.addStationaryCombustion, dispatch, enqueueSnackbar, onCancel])
-
-    useEffect(() => {
         dispatch(listFacilities())
         dispatch(getEmissionFuelList('stationary_combustion'))
         return () => { dispatch(resetAddCombustionStatus()) }
