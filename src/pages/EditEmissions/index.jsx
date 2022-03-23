@@ -9,6 +9,7 @@ import DashboardLayout from '../../layouts/DashboardLayout'
 import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
 import useStyles from "./styles";
 import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
+import EditMobileCombustionForm from "./EditMobileCombustionForm";
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -35,36 +36,46 @@ const EditEmissions = () => {
     }, [emissionType, emissionId, dispatch])
 
     return (
-      <DashboardLayout>
-        <Container className={classes.container}>
-          {emissionDataStatus === "running" ? (
-            <div>Loading</div>
-          ) : emissionDataStatus === "error" ? (
-            <div>Something went wrong, reload again</div>
-          ) : (
-            <>
-              {emissionType === "purchased_electricity" && (
-                <EditPurchasedElectricityForm
-                  onCancel={onCancel}
-                  emissionId={emissionId}
-                  facilitiesData={facilitiesData}
-                  emissionInputs={emissionInputs}
-                  emissionData={emissionData}
-                />
-              )}
+        <DashboardLayout>
+            <Container className={classes.container}>
+                {emissionDataStatus === "running" ? (
+                    <div>Loading</div>
+                ) : emissionDataStatus === "error" ? (
+                    <div>Something went wrong, reload again</div>
+                ) : (
+                    <>
+                        {emissionType === "purchased_electricity" && (
+                            <EditPurchasedElectricityForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
 
-              {emissionType === "stationary_combustion" && (
-                <EditStationaryCombustionForm
-                  onCancel={onCancel}
-                  emissionId={emissionId}
-                  facilitiesData={facilitiesData}
-                  emissionData={emissionData}
-                />
-              )}
-            </>
-          )}
-        </Container>
-      </DashboardLayout>
+                        {emissionType === "stationary_combustion" && (
+                            <EditStationaryCombustionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionData={emissionData}
+                            />
+                        )}
+
+                        {emissionType === "mobile_combustion" && (
+                            <EditMobileCombustionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                    </>
+                )}
+            </Container>
+        </DashboardLayout>
     );
 };
 

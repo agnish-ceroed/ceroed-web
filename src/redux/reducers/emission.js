@@ -49,6 +49,12 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    updateMobileCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
     deleteEmissions: {
         data: {},
         status: STATUS.IDLE,
@@ -225,6 +231,30 @@ const emissionActions = {
                     }
                 }),
 
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    updateMobileCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateMobileCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateMobileCombustion: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
             [ActionTypes.DELETE_EMISSIONS]: (state, { payload }) =>
                 immutable(state, {
                     deleteEmissions: {
@@ -355,6 +385,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     updateStationaryCombustion: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateMobileCombustion: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
