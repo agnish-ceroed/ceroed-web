@@ -8,13 +8,15 @@ import { useSnackbar } from 'notistack';
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
 import { addMobileCombustionValidation } from './schema';
-import { addMobileCombustion, calculateMobileCombustion, getMobileCombustionInputs, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addMobileCombustion, getMobileCombustionInputs, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const AddMobileCombustionForm = (props) => {
+    const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
@@ -62,12 +64,12 @@ const AddMobileCombustionForm = (props) => {
         if (addEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Mobile combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
-            props.onCancel();
+            onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
-    }, [addEmissionData, dispatch, enqueueSnackbar, props.onCancel])
+    }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
 
     const onCalculate = () => {
         const requestData = {
