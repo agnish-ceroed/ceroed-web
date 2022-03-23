@@ -42,6 +42,7 @@ export const APIEndpoints = {
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
+  LIST_GRID_REGIONS: countryId => `${API_BASE_URL}/business/listings/countries/${countryId}/grid_regions`,
 
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,

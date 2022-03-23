@@ -6,10 +6,10 @@ import { APIEndpoints } from '../constants';
 
 export function* addFacility(action) {
     try {
-        const { name, phone, country } = action.payload
+        const { name, phone, country, gridRegion } = action.payload
         const response = yield call(request, APIEndpoints.ADD_FACILITY, {
             method: 'POST',
-            payload: { name, phone, country }
+            payload: { name, phone, country, grid_region: gridRegion }
         })
         yield put({
             type: ActionTypes.ADD_FACILITY_SUCCESS,
@@ -45,10 +45,10 @@ export function* getFacility(action) {
 
 export function* editFacility(action) {
     try {
-        const { facilityId, name, phone, country } = action.payload
+        const { facilityId, name, phone, country, gridRegion } = action.payload
         const response = yield call(request, APIEndpoints.EDIT_FACILITY(facilityId), {
             method: 'PUT',
-            payload: { name, phone, country }
+            payload: { name, phone, country, grid_region: gridRegion }
         })
         yield put({
             type: ActionTypes.EDIT_FACILITY_SUCCESS,

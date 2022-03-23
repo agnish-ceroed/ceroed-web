@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 
 import { addFacilityValidation } from './schema';
 import { STATUS } from '../../../redux/constants';
-import { addFacility, editFacility, getCountryList, getFacility, listFacilities, resetAddFacilityStatus } from '../../../redux/actions';
+import { addFacility, editFacility, getCountryList, getFacility, listFacilities, listGridRegions, resetAddFacilityStatus } from '../../../redux/actions';
 import CeroInput from '../../../components/CeroInput';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
@@ -21,19 +21,28 @@ const AddFacilityDrawer = (props) => {
     const addFacilityStatus = useSelector(state => state.facility.addFacility)
     const facilityData = useSelector(state => state.facility.facilityDetails.data)
     const editFacilityStatus = useSelector(state => state.facility.editFacility)
+    const gridRegions = useSelector(state => state.listings.gridRegions.data)
 
     const countryList = countryListData.map(item => ({ key: item.code, value: item.name }));
+    const gridRegionList = gridRegions.map(item => ({ key: item.name, value: item.name }))
 
     const facilityForm = useFormik({
         initialValues: {
-            name: facilityData.name,
-            phone: facilityData.phone,
-            country: facilityData.country,
+            name: facilityData.name || '',
+            phone: facilityData.phone || '',
+            country: facilityData.country || '',
+            gridRegion: facilityData.grid_region || ''
         },
         validationSchema: addFacilityValidation,
         enableReinitialize: true,
         onSubmit: () => { },
     });
+
+    useEffect(() => {
+        if (facilityForm.values.country) {
+            dispatch(listGridRegions(facilityForm.values.country))
+        }
+    }, [facilityForm.values.country, dispatch])
 
     useEffect(() => {
         if (props.editItem) {
@@ -73,9 +82,9 @@ const AddFacilityDrawer = (props) => {
 
     const onSubmitFacilityData = () => {
         if (props.editItem) {
-            dispatch(editFacility(props.editItem, facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country))
+            dispatch(editFacility(props.editItem, facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country, facilityForm.values.gridRegion))
         } else {
-            dispatch(addFacility(facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country))
+            dispatch(addFacility(facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country, facilityForm.values.gridRegion))
         }
     };
 
@@ -88,7 +97,7 @@ const AddFacilityDrawer = (props) => {
                     name="name"
                     label="Name"
                     fullWidth
-                    value={facilityForm.values.name || ''}
+                    value={facilityForm.values.name}
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.name}
@@ -99,7 +108,7 @@ const AddFacilityDrawer = (props) => {
                     name="phone"
                     label="Phone"
                     fullWidth
-                    value={facilityForm.values.phone || ''}
+                    value={facilityForm.values.phone}
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.phone}
@@ -111,10 +120,22 @@ const AddFacilityDrawer = (props) => {
                     label="Country"
                     fullWidth
                     options={countryList}
-                    selectedValue={facilityForm.values.country || ''}
+                    selectedValue={facilityForm.values.country}
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
+                />
+                <CeroSelect
+                    required
+                    id="gridRegion"
+                    name="gridRegion"
+                    label="Grid region"
+                    fullWidth
+                    options={gridRegionList}
+                    selectedValue={facilityForm.values.gridRegion}
+                    onChange={facilityForm.handleChange}
+                    onBlur={facilityForm.handleBlur}
+                    error={facilityForm.errors.gridRegion}
                 />
             </Box>
         )
