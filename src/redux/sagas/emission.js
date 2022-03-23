@@ -166,6 +166,27 @@ export function* updateMobileCombustion(action) {
     }
 }
 
+export function* updateWaterDischargeCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_WATER_DISCHARGE_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTIOn_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* deleteEmissions(action) {
     try {
         const { requestData } = action.payload
@@ -299,6 +320,7 @@ export default function* root() {
         takeLatest(ActionTypes.UPDATE_PURCHASED_ELECTRICITY, updatePurchasedElectricity),
         takeLatest(ActionTypes.UPDATE_STATIONARY_COMBUSTION, updateStationaryCombustion),
         takeLatest(ActionTypes.UPDATE_MOBILE_COMBUSTION, updateMobileCombustion),
+        takeLatest(ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION, updateWaterDischargeCombustion),
         takeLatest(ActionTypes.DELETE_EMISSIONS, deleteEmissions),
         takeLatest(ActionTypes.ADD_MOBILE_COMBUSTION, addMobileCombustion),
         takeLatest(ActionTypes.GET_EMISSION_FUEL_LIST, getEmissionFuelList),

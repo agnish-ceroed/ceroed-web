@@ -7,9 +7,10 @@ import { getEmission, getEmissionInputFormat, listFacilities } from '../../redux
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
-import useStyles from "./styles";
 import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
 import EditMobileCombustionForm from "./EditMobileCombustionForm";
+import EditWaterDistributionForm from "./EditWaterDistributionForm";
+import useStyles from "./styles";
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -62,9 +63,17 @@ const EditEmissions = () => {
                                 emissionData={emissionData}
                             />
                         )}
-
                         {emissionType === "mobile_combustion" && (
                             <EditMobileCombustionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "water_discharge" && (
+                            <EditWaterDistributionForm
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
