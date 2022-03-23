@@ -32,6 +32,10 @@ export const StationaryColumns = [{
     columnId: 'ef',
     columnHeader: 'EF (kgCO2e/unit)',
 }, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
     columnKey: 'action',
     columnId: 'action',
     columnHeader: '',
@@ -77,6 +81,10 @@ export const MobileColumns = [{
     columnKey: 'ef',
     columnId: 'ef',
     columnHeader: 'EF (kgCO2e/unit)',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
 }, {
     columnKey: 'action',
     columnId: 'action',
@@ -127,6 +135,10 @@ export const PurchasedElectricityColumns = [{
     columnKey: 'ef',
     columnId: 'ef',
     columnHeader: 'EF (kgCO2e/unit)',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
 }, {
     columnKey: 'action',
     columnId: 'action',

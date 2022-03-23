@@ -1,10 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Chip } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import { StationaryColumns, MobileColumns, PurchasedElectricityColumns } from './TableColumns'
-import CeroButton from '../../../components/CeroButton';
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
 
@@ -23,12 +22,25 @@ const EmissionTable = (props) => {
         navigate(`/emissions/edit/${emissionType}/${emission.id}`);
     };
 
+    const getStatus = (status) => {
+        if(status === 'approved') {
+            return <Chip label={status} color="primary" variant='outlined'/>
+        }else if(status === 'audited') {
+            return <Chip label={status} color="secondary" variant='outlined'/>
+        }else if(status === 'reported') {
+            return <Chip label={status} color="warning" variant='outlined'/>
+        } else {
+            return <Chip label={status} color="info" variant='outlined'/>
+        }
+    };
+
     const getEmissionData = () => emissionData.map((item) => ({
         ...item,
         amount: `${item.amount}  ${item.unit}`,
+        status: getStatus(item.status),
         action: (
             <Box className={classes.actionContainer}>
-                <CeroButton className={classes.button} buttonText={item.status} />
+                {/* <CeroButton className={classes.button} buttonText={item.status} /> */}
                 <IconButton className={classes.editIcon}>
                     <CreateIcon />
                 </IconButton>
