@@ -215,7 +215,15 @@ export const emissionTypes = [
     }, {
         id: 'purchased_electricity',
         title: 'Purchased Electricity',
-    }, 
+    },
+    {
+        id: 'water_consumption',
+        title: 'Water consumption',
+    },
+    {
+        id: 'water_discharge',
+        title: 'Water discharge',
+    },
 ]
 
 export const emissionTypeData = [
@@ -249,8 +257,12 @@ export const emissionTypeData = [
                 title: 'Water',
                 subItems: [
                     {
-                        id: 'water',
-                        title: 'Water',
+                        id: 'water_consumption',
+                        title: 'Water consumption',
+                    },
+                    {
+                        id: 'water_discharge',
+                        title: 'Water discharge',
                     },
                 ]
             }, {
