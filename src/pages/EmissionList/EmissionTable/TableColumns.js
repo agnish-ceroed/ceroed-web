@@ -245,10 +245,6 @@ export const RefrigerantsColumns = [{
     columnId: 'amount',
     columnHeader: 'Amount',
 }, {
-    columnKey: 'water_source_name',
-    columnId: 'water_source_name',
-    columnHeader: 'Source name',
-}, {
     columnKey: 'gas_type_name',
     columnId: 'gas_type_name',
     columnHeader: 'Gas Type',
