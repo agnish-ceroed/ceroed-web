@@ -27,10 +27,10 @@ const EditWaterDistributionForm = (props) => {
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = emissionInputs.units.map(item => ({ key: item.name, value: item.name }));
-    const waterDestinationList = emissionInputs.water_destinations.map(item => ({ key: item.id, value: item.name }))
-    const stressTypeList = emissionInputs.water_destination_stress_types.map(item => ({ key: item.id, value: item.name }))
-    const destinationTypeList = emissionInputs.water_destination_types.map(item => ({ key: item.id, value: item.name }))
+    const fuelUnits = emissionInputs && (emissionInputs.units||[]).map(item => ({ key: item.name, value: item.name }));
+    const waterDestinationList = emissionInputs && (emissionInputs.water_destinations||[]).map(item => ({ key: item.id, value: item.name }))
+    const stressTypeList = emissionInputs && (emissionInputs.water_destination_stress_types||[]).map(item => ({ key: item.id, value: item.name }))
+    const destinationTypeList = emissionInputs && (emissionInputs.water_destination_types||[]).map(item => ({ key: item.id, value: item.name }))
 
     const formik = useFormik({
         initialValues: {
