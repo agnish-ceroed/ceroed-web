@@ -38,6 +38,17 @@ const CeroTable = (props) => {
     </TableRow>
   ));
 
+  const noTableRows = () => (
+    <TableRow>
+      <TableCell className={classes.noDataWarning}>
+        <Typography>
+          No data
+        </Typography>
+      </TableCell>
+    </TableRow>
+  )
+
+  console.log()
   return (
     <InfiniteScroll
       dataLength={props.data.length}
@@ -55,6 +66,7 @@ const CeroTable = (props) => {
           </TableHead>
           <TableBody className={props.classes?.tableBody}>
             {getTableRows()}
+            {!getTableRows().length && noTableRows()}
           </TableBody>
           {props.loading && (
             <TableFooter className={classes.tableFooter}>

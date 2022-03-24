@@ -61,5 +61,10 @@ const useStyles = makeStyles((theme) => ({
     height: 52,
     backgroundColor: theme.palette.Primary.contrastText,
   },
+  noDataWarning: {
+    position: 'absolute',
+    textAlign: 'center',
+    width: '75%'
+  }
 }));
 export default useStyles;
