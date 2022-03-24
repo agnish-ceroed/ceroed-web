@@ -8,6 +8,7 @@ import AddTransportationForm from './AddTransportationForm';
 import AddPurchasedElectricityForm from './AddPurchasedElectricityForm';
 import AddMobileCombustionForm from "./AddMobileCombustionForm";
 import AddWaterDischargeForm from "./AddWaterDischargeForm";
+import AddRefrigerantsForm from "./AddRefrigerantsForm";
 import useStyles from "./styles";
 
 const AddEmissions = () => {
@@ -29,6 +30,7 @@ const AddEmissions = () => {
                 {emissionType === 'transportation' && <AddTransportationForm onCancel={onCancelAdd} />}
                 {emissionType === 'purchased_electricity' && <AddPurchasedElectricityForm onCancel={onCancelAdd} />}
                 {emissionType === 'water_discharge' && <AddWaterDischargeForm onCancel={onCancelAdd} />}
+                {emissionType === 'refrigerants' && <AddRefrigerantsForm onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );
