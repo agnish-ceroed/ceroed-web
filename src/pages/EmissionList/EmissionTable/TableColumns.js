@@ -198,3 +198,37 @@ export const WaterDischargeColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const RefrigerantsColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'gas_type_name',
+    columnId: 'gas_type_name',
+    columnHeader: 'Gas Type',
+}, {
+    columnKey: 'refrigerant_name',
+    columnId: 'refrigerant_name',
+    columnHeader: 'Refrigerant',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

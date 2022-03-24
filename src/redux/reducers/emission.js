@@ -40,6 +40,12 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    addRefrigerants: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
     addWaterDischarge: {
         data: {},
         status: STATUS.IDLE,
@@ -193,6 +199,30 @@ const emissionActions = {
             [ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addPurchasedElectricity: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_REFRIGERANTS]: (state, { payload }) =>
+                immutable(state, {
+                    addRefrigerants: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_REFRIGERANTS_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    addRefrigerants: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_REFRIGERANTS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addRefrigerants: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -440,6 +470,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     addPurchasedElectricity: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    addRefrigerants: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },

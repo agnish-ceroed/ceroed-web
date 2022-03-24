@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, IconButton, Chip } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
-import { StationaryColumns, MobileColumns, PurchasedElectricityColumns, WaterDischargeColumns } from './TableColumns'
+import { StationaryColumns, MobileColumns, PurchasedElectricityColumns, WaterDischargeColumns, RefrigerantsColumns } from './TableColumns'
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
 
@@ -16,7 +16,8 @@ const EmissionTable = (props) => {
         stationary_combustion: StationaryColumns,
         mobile_combustion: MobileColumns,
         purchased_electricity: PurchasedElectricityColumns,
-        water_discharge: WaterDischargeColumns
+        water_discharge: WaterDischargeColumns,
+        refrigerants: RefrigerantsColumns,
     }
 
     const onSelectEmissionData = (emission) => {
