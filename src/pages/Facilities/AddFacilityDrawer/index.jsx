@@ -13,6 +13,7 @@ import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
 import useStyles from "./styles";
 
 const AddFacilityDrawer = (props) => {
+    const { editItem, onClose } = props
     const classes = useStyles();
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
@@ -36,13 +37,13 @@ const AddFacilityDrawer = (props) => {
     });
 
     useEffect(() => {
-        if (props.editItem) {
-            dispatch(getFacility(props.editItem))
+        if (editItem) {
+            dispatch(getFacility(editItem))
         }
         return () => {
             dispatch(resetAddFacilityStatus())
         }
-    }, [props.editItem, dispatch])
+    }, [editItem, dispatch])
 
     useEffect(() => {
         dispatch(getCountryList())
@@ -52,24 +53,24 @@ const AddFacilityDrawer = (props) => {
         if (addFacilityStatus.status === STATUS.SUCCESS) {
             enqueueSnackbar('Facility added successfully', { variant: 'success' });
             dispatch(resetAddFacilityStatus())
-            props.onClose(false)
+            onClose(false)
             dispatch(listFacilities())
         } else if (addFacilityStatus.status === STATUS.ERROR) {
             enqueueSnackbar(addFacilityStatus.message, { variant: 'error' });
         }
-    }, [addFacilityStatus, enqueueSnackbar, dispatch, props.onClose])
+    }, [addFacilityStatus, enqueueSnackbar, dispatch, onClose])
 
 
     useEffect(() => {
         if (editFacilityStatus.status === STATUS.SUCCESS) {
             enqueueSnackbar('Facility edited successfully', { variant: 'success' });
             dispatch(resetAddFacilityStatus())
-            props.onClose(false)
+            onClose(false)
             dispatch(listFacilities())
         } else if (editFacilityStatus.status === STATUS.ERROR) {
             enqueueSnackbar(editFacilityStatus.message, { variant: 'error' });
         }
-    }, [editFacilityStatus, enqueueSnackbar, props.onClose, dispatch])
+    }, [editFacilityStatus, enqueueSnackbar, onClose, dispatch])
 
     const onSubmitFacilityData = () => {
         if (props.editItem) {

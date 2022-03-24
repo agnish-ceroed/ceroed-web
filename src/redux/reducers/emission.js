@@ -21,6 +21,9 @@ export const emissionState = {
             calculation_approach: [],
             types_of_emission_factors: [],
             units: [],
+            water_destination_stress_types: [],
+            water_destination_types: [],
+            water_destinations: [],
         },
         status: STATUS.IDLE,
         message: ''
@@ -32,6 +35,12 @@ export const emissionState = {
         isCalculateDone: false,
     },
     addPurchasedElectricity: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    addWaterDischarge: {
         data: {},
         status: STATUS.IDLE,
         message: '',
@@ -178,6 +187,30 @@ const emissionActions = {
             [ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addPurchasedElectricity: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterDischarge: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    addWaterDischarge: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterDischarge: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

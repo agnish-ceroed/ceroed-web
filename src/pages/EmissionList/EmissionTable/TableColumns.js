@@ -144,3 +144,57 @@ export const PurchasedElectricityColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const WaterDischargeColumns = [{
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'facility',
+    columnId: 'facility',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'treatment_level',
+    columnId: 'treatment_level',
+    columnHeader: 'Treatment Level',
+}, {
+    columnKey: 'treatment_required',
+    columnId: 'treatment_required',
+    columnHeader: 'Treatment Required',
+}, {
+    columnKey: 'water_destination_name',
+    columnId: 'water_destination_name',
+    columnHeader: 'Destination Name',
+}, {
+    columnKey: 'water_destination_stress_type_name',
+    columnId: 'water_destination_stress_type_name',
+    columnHeader: 'Stress Type',
+}, {
+    columnKey: 'water_destination_type_name',
+    columnId: 'water_destination_type_name',
+    columnHeader: 'Destination type',
+}, {
+    columnKey: 'usage',
+    columnId: 'usage',
+    columnHeader: 'Usage',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

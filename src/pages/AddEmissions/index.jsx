@@ -6,8 +6,9 @@ import DashboardLayout from '../../layouts/DashboardLayout'
 import AddStationaryCombustionForm from './AddStationaryCombustionForm';
 import AddTransportationForm from './AddTransportationForm';
 import AddPurchasedElectricityForm from './AddPurchasedElectricityForm';
+import AddMobileCombustionForm from "./AddMobileCombustionForm";
+import AddWaterDischargeForm from "./AddWaterDischargeForm";
 import useStyles from "./styles";
-import AddMobileCombustionForm from "./AddMobileCumbustionForm";
 
 const AddEmissions = () => {
     const classes = useStyles();
@@ -27,6 +28,7 @@ const AddEmissions = () => {
                 {emissionType === 'mobile_combustion' && <AddMobileCombustionForm onCancel={onCancelAdd} />}
                 {emissionType === 'transportation' && <AddTransportationForm onCancel={onCancelAdd} />}
                 {emissionType === 'purchased_electricity' && <AddPurchasedElectricityForm onCancel={onCancelAdd} />}
+                {emissionType === 'water_discharge' && <AddWaterDischargeForm onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );
