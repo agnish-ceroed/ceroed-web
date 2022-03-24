@@ -21,6 +21,11 @@ export const listState = {
         status: STATUS.IDLE,
         message: ''
     },
+    gridRegions: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const listActions = {
@@ -84,6 +89,27 @@ const listActions = {
             [ActionTypes.GET_COUNTRY_LIST_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     countryList: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.LIST_GRID_REGIONS]: (state, { payload }) =>
+                immutable(state, {
+                    gridRegions: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.LIST_GRID_REGIONS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    gridRegions: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.LIST_GRID_REGIONS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    gridRegions: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }

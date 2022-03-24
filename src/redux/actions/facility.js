@@ -9,9 +9,9 @@ export const {
     deleteFacility,
     resetAddFacilityStatus
 } = createActions({
-    [ActionTypes.ADD_FACILITY]: (name, phone, country) => ({ name, phone, country }),
+    [ActionTypes.ADD_FACILITY]: (name, phone, country, gridRegion) => ({ name, phone, country, gridRegion }),
     [ActionTypes.GET_FACILITY]: (facilityId) => ({ facilityId }),
-    [ActionTypes.EDIT_FACILITY]: (facilityId, name, phone, country) => ({ facilityId, name, phone, country }),
+    [ActionTypes.EDIT_FACILITY]: (facilityId, name, phone, country, gridRegion) => ({ facilityId, name, phone, country, gridRegion }),
     [ActionTypes.DELETE_FACILITY]: (facilityId) => ({ facilityId }),
     [ActionTypes.RESET_ADD_FACILITY_STATUS]: () => ({}),
 })
