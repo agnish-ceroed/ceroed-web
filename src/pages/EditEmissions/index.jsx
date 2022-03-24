@@ -11,7 +11,9 @@ import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
 import EditMobileCombustionForm from "./EditMobileCombustionForm";
 import EditWaterDistributionForm from "./EditWaterDistributionForm";
 import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
+import EditRefrigerantsForm from "./EditRefrigerantsForm";
 import useStyles from "./styles";
+import _ from "lodash";
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -40,7 +42,7 @@ const EditEmissions = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                {emissionDataStatus === "running" ? (
+                {(emissionDataStatus === "running" || _.isEmpty(emissionInputs)) ? (
                     <div>Loading</div>
                 ) : emissionDataStatus === "error" ? (
                     <div>Something went wrong, reload again</div>
@@ -84,6 +86,14 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "water_consumption" && (
                             <EditWaterConsumptionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />)}
+                        {emissionType === "refrigerants" && (
+                            <EditRefrigerantsForm
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}

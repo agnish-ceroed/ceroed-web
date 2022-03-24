@@ -17,19 +17,6 @@ export const emissionState = {
         message: ''
     },
     emissionInputs: {
-        data: {
-            calculation_approach: [],
-            types_of_emission_factors: [],
-            units: [],
-            water_destination_stress_types: [],
-            water_destination_types: [],
-            water_destinations: [],
-            water_source_stress_types: [],
-            water_source_types: [],
-            water_sources: []
-        },
-        status: STATUS.IDLE,
-        message: ''
     },
     addStationaryCombustion: {
         data: {},
@@ -44,6 +31,12 @@ export const emissionState = {
         isCalculateDone: false,
     },
     addRefrigerants: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    updateRefrigerants: {
         data: {},
         status: STATUS.IDLE,
         message: '',
@@ -238,6 +231,30 @@ const emissionActions = {
             [ActionTypes.ADD_REFRIGERANTS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addRefrigerants: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.UPDATE_REFRIGERANTS]: (state, { payload }) =>
+                immutable(state, {
+                    updateRefrigerants: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_REFRIGERANTS_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateRefrigerants: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_REFRIGERANTS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateRefrigerants: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -537,6 +554,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     addRefrigerants: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateRefrigerants: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
