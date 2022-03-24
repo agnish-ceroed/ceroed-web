@@ -207,9 +207,6 @@ export const emissionTypes = [
         id: 'transportation',
         title: 'Transportation',
     }, {
-        id: 'purchased_electricity',
-        title: 'Purchased electricity',
-    }, {
         id: 'water',
         title: 'Water',
     }, {

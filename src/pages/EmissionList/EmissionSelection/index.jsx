@@ -20,15 +20,15 @@ const emissionTypes = [
                 id: 'purchased_electricity',
                 title: 'Purchased Electricity',
             },
+            {
+                id: 'refrigerants',
+                title: 'Refrigerants',
+            }
         ]
     }, {
         id: 'social',
         title: 'Social',
         subItems: [
-            {
-                id: 'refridgerants',
-                title: 'Refridgerants',
-            }
         ]
     }, {
         id: 'governance',
