@@ -19,6 +19,7 @@ export const {
     updateStationaryCombustion,
     updateMobileCombustion,
     updateWaterDischargeCombustion,
+    updateWaterConsumptionCombustion,
     deleteEmissions,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType) => ({ emissionType }),
@@ -37,5 +38,6 @@ export const {
     [ActionTypes.UPDATE_STATIONARY_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.UPDATE_MOBILE_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION]: (requestData) => ({ requestData }),
+    [ActionTypes.UPDATE_WATER_CONSUMPTION_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.DELETE_EMISSIONS]: (requestData) => ({ requestData }),
 })
