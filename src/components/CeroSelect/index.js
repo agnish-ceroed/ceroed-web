@@ -27,7 +27,7 @@ const CeroSelect = (props) => {
                 <MenuItem value="">
                     Select option
                 </MenuItem>
-                {props.options.length && props.options.map((option) => (
+                {props.options && props.options.map((option) => (
                     <MenuItem key={option.key} value={option.key}>
                         {option.value}
                     </MenuItem>

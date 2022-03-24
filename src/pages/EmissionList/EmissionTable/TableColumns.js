@@ -198,3 +198,45 @@ export const WaterDischargeColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const WaterConsumptionColumns = [{
+    columnKey: 'facility',
+    columnId: 'facility',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'water_source_name',
+    columnId: 'water_source_name',
+    columnHeader: 'Source name',
+}, {
+    columnKey: 'water_source_stress_type_name',
+    columnId: 'water_source_stress_type_name',
+    columnHeader: 'Stress type'
+}, {
+    columnKey: 'water_source_type_name',
+    columnId: 'water_source_type_name',
+    columnHeader: 'Source type'
+}, {
+    columnKey: 'usage',
+    columnId: 'usage',
+    columnHeader: 'Usage',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
