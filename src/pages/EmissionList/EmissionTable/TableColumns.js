@@ -207,7 +207,6 @@ export const WaterConsumptionColumns = [{
     columnId: 'amount',
     columnHeader: 'Amount',
 }, {
-
     columnKey: 'water_source_stress_type_name',
     columnId: 'water_source_stress_type_name',
     columnHeader: 'Stress type'

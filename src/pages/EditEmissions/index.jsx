@@ -10,6 +10,7 @@ import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
 import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
 import EditMobileCombustionForm from "./EditMobileCombustionForm";
 import EditWaterDistributionForm from "./EditWaterDistributionForm";
+import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
 import useStyles from "./styles";
 
 const EditEmissions = () => {
@@ -74,6 +75,15 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "water_discharge" && (
                             <EditWaterDistributionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "water_consumption" && (
+                            <EditWaterConsumptionForm
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
