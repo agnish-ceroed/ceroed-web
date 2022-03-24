@@ -22,6 +22,7 @@ export const {
     updateWaterConsumptionCombustion,
     deleteEmissions,
     addRefrigerants,
+    updateRefrigerants,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType) => ({ emissionType }),
     [ActionTypes.GET_EMISSION]: (params) => (params),
@@ -42,4 +43,5 @@ export const {
     [ActionTypes.UPDATE_WATER_CONSUMPTION_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.DELETE_EMISSIONS]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_REFRIGERANTS]: (requestData) => ({ requestData }),
+    [ActionTypes.UPDATE_REFRIGERANTS]: (requestData) => ({ requestData }),
 })
