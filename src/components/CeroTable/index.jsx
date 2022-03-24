@@ -48,7 +48,6 @@ const CeroTable = (props) => {
     </TableRow>
   )
 
-  console.log()
   return (
     <InfiniteScroll
       dataLength={props.data.length}

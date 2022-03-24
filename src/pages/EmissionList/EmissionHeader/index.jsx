@@ -1,10 +1,8 @@
 import React from 'react';
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 
-import { emissionTypes } from '../../../constants';
 import EmissionTableFilter from '../EmissionTableFilter';
 import EmissionSelection from '../EmissionSelection';
-import Dropdown from '../../../components/Dropdown';
 import useStyles from "./styles";
 
 const EmissionHeader = ({ onAddData, emissionType, setEmissionType }) => {
