@@ -24,6 +24,9 @@ export const emissionState = {
             water_destination_stress_types: [],
             water_destination_types: [],
             water_destinations: [],
+            water_source_stress_types: [],
+            water_source_types: [],
+            water_sources: []
         },
         status: STATUS.IDLE,
         message: ''
@@ -47,6 +50,12 @@ export const emissionState = {
         isCalculateDone: false,
     },
     addWaterDischarge: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    addWaterConsumption: {
         data: {},
         status: STATUS.IDLE,
         message: '',
@@ -247,6 +256,30 @@ const emissionActions = {
             [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addWaterDischarge: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_WATER_CONSUMPTION_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterConsumption: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_WATER_CONSUMPTION_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    addWaterConsumption: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_WATER_CONSUMPTION_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterConsumption: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -478,6 +511,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     addWaterDischarge: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    addWaterConsumption: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
