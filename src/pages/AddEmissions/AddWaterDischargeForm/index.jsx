@@ -7,52 +7,57 @@ import { useSnackbar } from 'notistack';
 
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
-import { addStationaryCombustionValidation } from './schema';
-import { addStationaryCombustion, getEmissionFuelList, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addWaterDischargeCombustionValidation } from './schema';
+import { addWaterDischargeCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
-const AddStationaryCombustionForm = (props) => {
+const AddWaterDischargeForm = (props) => {
     const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const isCalculateDone = useSelector(state => state.emission.addStationaryCombustion.isCalculateDone)
+    const isCalculateDone = useSelector(state => state.emission.addWaterDischarge.isCalculateDone)
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const fuelData = useSelector(state => state.emission.fuelList.data);
-    const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
-    const addEmissionData = useSelector(state => state.emission.addStationaryCombustion)
+    const addEmissionData = useSelector(state => state.emission.addWaterDischarge)
+    const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = fuelUnitData.map(item => ({ key: item.name, value: item.name }));
+    const fuelUnits = emissionInputs.units.map(item => ({ key: item.name, value: item.name }));
+    const waterDestinationList = emissionInputs.water_destinations.map(item => ({ key: item.id, value: item.name }))
+    const stressTypeList = emissionInputs.water_destination_stress_types.map(item => ({ key: item.id, value: item.name }))
+    const destinationTypeList = emissionInputs.water_destination_types.map(item => ({ key: item.id, value: item.name }))
 
     const formik = useFormik({
         initialValues: {
             facility: '',
             year: '',
             month: '',
-            emissionType: '',
-            fuel: '',
-            fuelUnit: '',
+            destination: '',
+            stressType: '',
+            destinationType: '',
+            treatmentRequired: '',
+            treatmentLevel: '',
             amountOfFuel: '',
+            fuelUnit: '',
         },
-        validationSchema: addStationaryCombustionValidation,
+        validationSchema: addWaterDischargeCombustionValidation,
         onSubmit: () => { },
     });
 
     useEffect(() => {
         dispatch(listFacilities())
-        dispatch(getEmissionFuelList('stationary_combustion'))
+        dispatch(getEmissionInputFormat('water_discharge'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])
-
+    console.log(emissionInputs)
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Stationary combustion added successfully', { variant: 'success' });
+            enqueueSnackbar('Water discharge combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
@@ -64,29 +69,35 @@ const AddStationaryCombustionForm = (props) => {
     const onCalculate = () => {
         const requestData = {
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_id: formik.values.fuel,
-            unit: formik.values.fuelUnit,
+            destination_id: formik.values.destination,
+            stress_type_id: formik.values.stressType,
+            destination_type_id: formik.values.destinationType,
+            treatment_required: formik.values.treatmentRequired,
+            treatment_level: formik.values.treatmentLevel,
             amount: formik.values.amountOfFuel,
+            unit: formik.values.fuelUnit,
             save: false
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(addWaterDischargeCombustion(requestData))
     };
 
-    const onAddStationaryData = () => {
+    const onAddWaterDischargeData = () => {
         const requestData = {
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            fuel_id: formik.values.fuel,
-            unit: formik.values.fuelUnit,
+            destination_id: formik.values.destination,
+            stress_type_id: formik.values.stressType,
+            destination_type_id: formik.values.destinationType,
+            treatment_required: formik.values.treatmentRequired,
+            treatment_level: formik.values.treatmentLevel,
             amount: formik.values.amountOfFuel,
+            unit: formik.values.fuelUnit,
             save: true
         }
-        dispatch(addStationaryCombustion(requestData))
+        dispatch(addWaterDischargeCombustion(requestData))
     };
 
     return (
@@ -122,15 +133,27 @@ const AddStationaryCombustionForm = (props) => {
                             />
                             <CeroSelect
                                 required
-                                id="fuel"
-                                name="fuel"
-                                label="Fuel"
+                                id="stressType"
+                                name="stressType"
+                                label="Stress Type"
                                 fullWidth
-                                options={fuelList}
-                                selectedValue={formik.values.fuel}
+                                options={stressTypeList}
+                                selectedValue={formik.values.stressType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.fuel && formik.errors.fuel}
+                                error={formik.touched.stressType && formik.errors.stressType}
+                            />
+                            <CeroSelect
+                                required
+                                id="treatmentRequired"
+                                name="treatmentRequired"
+                                label="Treatment Required"
+                                fullWidth
+                                options={[{ key: 'yes', value: 'Yes' }, { key: 'no', value: 'No' }]}
+                                selectedValue={formik.values.treatmentRequired}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.treatmentRequired && formik.errors.treatmentRequired}
                             />
                             <CeroInput
                                 required
@@ -147,15 +170,15 @@ const AddStationaryCombustionForm = (props) => {
                         <Grid item container direction={'column'} xs={6}>
                             <CeroSelect
                                 required
-                                id="emissionType"
-                                name="emissionType"
-                                label="Custom Emission Filter"
+                                id="destination"
+                                name="destination"
+                                label="Destination"
                                 fullWidth
-                                options={[{ key: "yes", value: "Yes" }, { key: "no", value: "No" }]}
-                                selectedValue={formik.values.emissionType}
+                                options={waterDestinationList}
+                                selectedValue={formik.values.destination}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.emissionType && formik.errors.emissionType}
+                                error={formik.touched.destination && formik.errors.destination}
                             />
                             <CeroSelect
                                 required
@@ -168,6 +191,29 @@ const AddStationaryCombustionForm = (props) => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
+                            />
+                            <CeroSelect
+                                required
+                                id="destinationType"
+                                name="destinationType"
+                                label="Destination Type"
+                                fullWidth
+                                options={destinationTypeList}
+                                selectedValue={formik.values.destinationType}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.destinationType && formik.errors.destinationType}
+                            />
+                            <CeroInput
+                                required
+                                id="treatmentLevel"
+                                name="treatmentLevel"
+                                label="Treatment Level"
+                                value={formik.values.treatmentLevel}
+                                fullWidth
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.treatmentLevel && formik.errors.treatmentLevel}
                             />
                             <CeroSelect
                                 required
@@ -211,15 +257,15 @@ const AddStationaryCombustionForm = (props) => {
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={() => props.onCancel('stationary_combustion')} />
+                    onClick={() => props.onCancel('water_discharge')} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onAddStationaryData(formik.values)} />
+                    onClick={() => onAddWaterDischargeData(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default AddStationaryCombustionForm;
+export default AddWaterDischargeForm;

@@ -66,7 +66,7 @@ export function* addPurchasedElectricity(action) {
         const { requestData } = action.payload
         const response = yield call(request, APIEndpoints.ADD_PURCHASED_ELECTRICITY, {
             method: 'POST',
-            payload: requestData 
+            payload: requestData
         })
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS,
@@ -82,12 +82,33 @@ export function* addPurchasedElectricity(action) {
     }
 }
 
+export function* addWaterDischarge(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.ADD_WATER_DISCHARGE, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* updatePurchasedElectricity(action) {
     try {
         const { requestData } = action.payload
         const response = yield call(request, APIEndpoints.UPDATE_PURCHASED_ELECTRICITY(requestData.id), {
             method: 'PUT',
-            payload: requestData 
+            payload: requestData
         })
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS,
@@ -98,6 +119,69 @@ export function* updatePurchasedElectricity(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* updateStationaryCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_STATIONARY_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_STATIONARY_COMBUSTION_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_STATIONARY_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* updateMobileCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_MOBILE_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_MOBILE_COMBUSTION_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_MOBILE_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* updateWaterDischargeCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.UPDATE_WATER_DISCHARGE_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTIOn_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION_FAILURE,
             payload: err
         })
     }
@@ -232,7 +316,11 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_STATIONARY_COMBUSTION, addStationaryCombustion),
         takeLatest(ActionTypes.GET_EMISSION_INPUT_FORMAT, getEmissionInputFormat),
         takeLatest(ActionTypes.ADD_PURCHASED_ELECTRICITY, addPurchasedElectricity),
+        takeLatest(ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION, addWaterDischarge),
         takeLatest(ActionTypes.UPDATE_PURCHASED_ELECTRICITY, updatePurchasedElectricity),
+        takeLatest(ActionTypes.UPDATE_STATIONARY_COMBUSTION, updateStationaryCombustion),
+        takeLatest(ActionTypes.UPDATE_MOBILE_COMBUSTION, updateMobileCombustion),
+        takeLatest(ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION, updateWaterDischargeCombustion),
         takeLatest(ActionTypes.DELETE_EMISSIONS, deleteEmissions),
         takeLatest(ActionTypes.ADD_MOBILE_COMBUSTION, addMobileCombustion),
         takeLatest(ActionTypes.GET_EMISSION_FUEL_LIST, getEmissionFuelList),

@@ -7,6 +7,9 @@ import { getEmission, getEmissionInputFormat, listFacilities } from '../../redux
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
+import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
+import EditMobileCombustionForm from "./EditMobileCombustionForm";
+import EditWaterDistributionForm from "./EditWaterDistributionForm";
 import useStyles from "./styles";
 
 const EditEmissions = () => {
@@ -36,16 +39,50 @@ const EditEmissions = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                {emissionDataStatus === 'running' ? <div>Loading</div> :
-                    emissionDataStatus === 'error' ? <div>Something went wrong, reload again</div>
-                        : (emissionType === 'purchased_electricity' &&
+                {emissionDataStatus === "running" ? (
+                    <div>Loading</div>
+                ) : emissionDataStatus === "error" ? (
+                    <div>Something went wrong, reload again</div>
+                ) : (
+                    <>
+                        {emissionType === "purchased_electricity" && (
                             <EditPurchasedElectricityForm
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
                                 emissionInputs={emissionInputs}
-                                emissionData={emissionData} />
+                                emissionData={emissionData}
+                            />
                         )}
+
+                        {emissionType === "stationary_combustion" && (
+                            <EditStationaryCombustionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "mobile_combustion" && (
+                            <EditMobileCombustionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "water_discharge" && (
+                            <EditWaterDistributionForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                    </>
+                )}
             </Container>
         </DashboardLayout>
     );

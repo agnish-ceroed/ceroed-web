@@ -21,6 +21,9 @@ export const emissionState = {
             calculation_approach: [],
             types_of_emission_factors: [],
             units: [],
+            water_destination_stress_types: [],
+            water_destination_types: [],
+            water_destinations: [],
         },
         status: STATUS.IDLE,
         message: ''
@@ -37,7 +40,31 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    addWaterDischarge: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
     updatePurchasedElectricity: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    updateStationaryCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    updateMobileCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    updateWaterDischargeCombustion: {
         data: {},
         status: STATUS.IDLE,
         message: '',
@@ -171,6 +198,30 @@ const emissionActions = {
                     }
                 }),
 
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterDischarge: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    addWaterDischarge: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addWaterDischarge: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
             [ActionTypes.UPDATE_PURCHASED_ELECTRICITY]: (state, { payload }) =>
                 immutable(state, {
                     updatePurchasedElectricity: {
@@ -190,6 +241,78 @@ const emissionActions = {
             [ActionTypes.UPDATE_PURCHASED_ELECTRICITY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     updatePurchasedElectricity: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.UPDATE_STATIONARY_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    updateStationaryCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_STATIONARY_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateStationaryCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_STATIONARY_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateStationaryCombustion: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    updateMobileCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateMobileCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_MOBILE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateMobileCombustion: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    updateWaterDischargeCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTIOn_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateWaterDischargeCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateWaterDischargeCombustion: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -320,7 +443,23 @@ const emissionActions = {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
+                    addWaterDischarge: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateWaterDischargeCombustion: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
                     updatePurchasedElectricity: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateStationaryCombustion: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateMobileCombustion: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
