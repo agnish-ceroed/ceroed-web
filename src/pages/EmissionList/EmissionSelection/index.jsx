@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, IconButton } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
@@ -23,7 +23,15 @@ const emissionTypes = [
             {
                 id: 'refrigerants',
                 title: 'Refrigerants',
-            }
+            },
+            {
+                id: 'water_consumption',
+                title: 'Water consumption',
+            },
+            {
+                id: 'water_discharge',
+                title: 'Water discharge',
+            },
         ]
     }, {
         id: 'social',
@@ -67,7 +75,7 @@ const EmissionSelection = (props) => {
             <Box className={classes.emissionType} >
                 <Typography >{emissionDisplayTitle}</Typography>
                 <IconButton onClick={() => setIsOpenEmissionType(true)}>
-                    <CreateIcon  />
+                    <CreateIcon />
                 </IconButton>
             </Box>
             <EmissionSelectionDrawer isOpen={isOpenEmissionType} onClose={onCloseDrawer} onSelectEmission={onSelectEmission} />

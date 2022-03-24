@@ -40,6 +40,12 @@ const AddFacilityDrawer = (props) => {
     });
 
     useEffect(() => {
+        if (facilityForm.values.country) {
+            dispatch(listGridRegions(facilityForm.values.country))
+        }
+    }, [facilityForm.values.country, dispatch])
+
+    useEffect(() => {
         if (editItem) {
             dispatch(getFacility(editItem))
         }
