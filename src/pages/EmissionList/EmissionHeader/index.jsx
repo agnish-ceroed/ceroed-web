@@ -5,7 +5,7 @@ import EmissionTableFilter from '../EmissionTableFilter';
 import EmissionSelection from '../EmissionSelection';
 import useStyles from "./styles";
 
-const EmissionHeader = ({ onAddData, emissionType, setEmissionType }) => {
+const EmissionHeader = (props) => {
     const classes = useStyles();
 
     const onApplyFilter = (filter) => {
@@ -15,8 +15,8 @@ const EmissionHeader = ({ onAddData, emissionType, setEmissionType }) => {
 
     return (
         <Box className={classes.container}>
-            <EmissionSelection emissionType={emissionType} onSelectEmission={setEmissionType} />
-            <EmissionTableFilter onAddData={onAddData} onApplyFilter={onApplyFilter} />
+            <EmissionSelection emissionType={props.emissionType} onSelectEmission={props.setEmissionType} />
+            <EmissionTableFilter onAddData={props.onAddData} onApplyFilter={onApplyFilter} />
         </Box>
     )
 }

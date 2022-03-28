@@ -3,59 +3,17 @@ import { Box, Typography, IconButton } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import EmissionSelectionDrawer from '../EmissionSelectionDrawer';
+import { emissionTypeData } from '../../../constants';
 import useStyles from "./styles";
-
-const emissionTypes = [
-    {
-        id: 'environmental',
-        title: 'Environmental',
-        subItems: [
-            {
-                id: 'stationary_combustion',
-                title: 'Stationary combustion',
-            }, {
-                id: 'mobile_combustion',
-                title: 'Mobile combustion',
-            }, {
-                id: 'purchased_electricity',
-                title: 'Purchased Electricity',
-            },
-            {
-                id: 'refrigerants',
-                title: 'Refrigerants',
-            },
-            {
-                id: 'water_consumption',
-                title: 'Water consumption',
-            },
-            {
-                id: 'water_discharge',
-                title: 'Water discharge',
-            },
-        ]
-    }, {
-        id: 'social',
-        title: 'Social',
-        subItems: [
-        ]
-    }, {
-        id: 'governance',
-        title: 'Governance',
-        subItems: [
-            {
-                id: 'purchased_electricity',
-                title: 'Purchased electricity',
-            }
-        ]
-    }
-];
 
 const EmissionSelection = (props) => {
     const classes = useStyles();
-
+    const emissionSelected = emissionTypeData.find(item => item.subItems.some((subItem) => !!subItem.subItems.find(type => type.id === props.emissionType)))
+    const subEmissionSelected = emissionSelected?.subItems.find(type => type.subItems.find(item => item.id === props.emissionType))?.subItems.find(item => item.id === props.emissionType);
+    
     const [isOpenEmissionType, setIsOpenEmissionType] = useState(false);
-    const [selectedEmission, setSelectedEmission] = useState('environmental');
-    const [selectedSubEmission, setSelectedSubEmission] = useState('stationary_combustion');
+    const [selectedEmission, setSelectedEmission] = useState(emissionSelected?.id);
+    const [selectedSubEmission, setSelectedSubEmission] = useState(props.emissionType);
 
     const onCloseDrawer = () => {
         setIsOpenEmissionType(false);
@@ -68,17 +26,15 @@ const EmissionSelection = (props) => {
         setIsOpenEmissionType(false);
     }
 
-    const emissionDisplayTitle = emissionTypes.find(item => item.id === selectedEmission)?.subItems.find(item => item.id === selectedSubEmission)?.title;
-
     return (
         <Box className={classes.container}>
             <Box className={classes.emissionType} >
-                <Typography >{emissionDisplayTitle}</Typography>
+                <Typography >{subEmissionSelected?.title}</Typography>
                 <IconButton onClick={() => setIsOpenEmissionType(true)}>
                     <CreateIcon />
                 </IconButton>
             </Box>
-            <EmissionSelectionDrawer isOpen={isOpenEmissionType} onClose={onCloseDrawer} onSelectEmission={onSelectEmission} />
+            <EmissionSelectionDrawer isOpen={isOpenEmissionType} onClose={onCloseDrawer} emissionType={selectedSubEmission} selectedEmission={selectedEmission} onSelectEmission={onSelectEmission} />
         </Box>
     )
 }

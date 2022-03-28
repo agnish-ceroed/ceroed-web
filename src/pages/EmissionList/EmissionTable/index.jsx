@@ -46,6 +46,7 @@ const EmissionTable = (props) => {
 
     const getEmissionData = () => emissionData.map((item) => ({
         ...item,
+        year: `${item.month}/${item.year}`,
         amount: `${item.amount}  ${item.unit}`,
         status: getStatus(item.status),
         action: (

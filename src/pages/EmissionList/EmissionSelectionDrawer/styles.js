@@ -18,11 +18,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     typeItem: {
+        height: 46,
         padding: theme.spacing(0, 3),
         borderBottom: `1px solid ${theme.palette.background.gray}`,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        cursor: 'pointer',
     }
 }));
 

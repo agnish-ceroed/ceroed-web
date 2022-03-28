@@ -8,29 +8,37 @@ export const StationaryColumns = [{
     columnId: 'amount',
     columnHeader: 'Amount'
 }, {
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility'
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year'
+}, {
     columnKey: 'co2',
     columnId: 'co2',
-    columnHeader: 'CO2(tonnes)',
+    columnHeader: 'CO2\n(Ton)',
 }, {
     columnKey: 'ch4',
     columnId: 'ch4',
-    columnHeader: 'CH4(tonnes)',
+    columnHeader: 'CH4\n(Ton)',
 }, {
     columnKey: 'n2o',
     columnId: 'n2o',
-    columnHeader: 'N2O(tonnes)',
+    columnHeader: 'N2O\n(Ton)',
 }, {
     columnKey: 'co2e',
     columnId: 'co2e',
-    columnHeader: 'CO2e(tonnes)',
+    columnHeader: 'CO2e\n(Ton)',
 }, {
     columnKey: 'biofuel_co2',
     columnId: 'biofuel_co2',
-    columnHeader: 'BioFuel CO2(tonnes)',
+    columnHeader: 'BioFuel CO2\n(Ton)',
 }, {
     columnKey: 'ef',
     columnId: 'ef',
-    columnHeader: 'EF (kgCO2e/unit)',
+    columnHeader: 'EF \n(kgCO2e/unit)',
 }, {
     columnKey: 'status',
     columnId: 'status',
@@ -50,6 +58,14 @@ export const MobileColumns = [{
     columnId: 'amount',
     columnHeader: 'Amount',
 }, {
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility'
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year'
+}, {
     columnKey: 'activity_type',
     columnId: 'activity_type',
     columnHeader: 'Activity Type',
@@ -60,27 +76,27 @@ export const MobileColumns = [{
 }, {
     columnKey: 'co2',
     columnId: 'co2',
-    columnHeader: 'CO2(tonnes)',
+    columnHeader: 'CO2\n(Ton)',
 }, {
     columnKey: 'ch4',
     columnId: 'ch4',
-    columnHeader: 'CH4(tonnes)',
+    columnHeader: 'CH4\n(Ton)',
 }, {
     columnKey: 'n2o',
     columnId: 'n2o',
-    columnHeader: 'N2O(tonnes)',
+    columnHeader: 'N2O\n(Ton)',
 }, {
     columnKey: 'co2e',
     columnId: 'co2e',
-    columnHeader: 'CO2e(tonnes)',
+    columnHeader: 'CO2e\n(Ton)',
 }, {
     columnKey: 'biofuel_co2',
     columnId: 'biofuel_co2',
-    columnHeader: 'BioFuel CO2(tonnes)',
+    columnHeader: 'BioFuel CO2\n(Ton)',
 }, {
     columnKey: 'ef',
     columnId: 'ef',
-    columnHeader: 'EF (kgCO2e/unit)',
+    columnHeader: 'EF \n(kgCO2e/unit)',
 }, {
     columnKey: 'status',
     columnId: 'status',
@@ -118,23 +134,23 @@ export const PurchasedElectricityColumns = [{
 }, {
     columnKey: 'co2',
     columnId: 'co2',
-    columnHeader: 'CO2(tonnes)',
+    columnHeader: 'CO2\n(Ton)',
 }, {
     columnKey: 'ch4',
     columnId: 'ch4',
-    columnHeader: 'CH4(tonnes)',
+    columnHeader: 'CH4\n(Ton)',
 }, {
     columnKey: 'n2o',
     columnId: 'n2o',
-    columnHeader: 'N2O(tonnes)',
+    columnHeader: 'N2O\n(Ton)',
 }, {
     columnKey: 'co2e',
     columnId: 'co2e',
-    columnHeader: 'CO2e(tonnes)',
+    columnHeader: 'CO2e\n(Ton)',
 }, {
     columnKey: 'ef',
     columnId: 'ef',
-    columnHeader: 'EF (kgCO2e/unit)',
+    columnHeader: 'EF \n(kgCO2e/unit)',
 }, {
     columnKey: 'status',
     columnId: 'status',
