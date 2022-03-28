@@ -75,7 +75,7 @@ const EmissionMonthChart = () => {
 
     useEffect(() => {
         dispatch(getEmissionsByMonth());
-    }, []);
+    }, [dispatch]);
 
     return (
         <Paper className={classes.container}>
