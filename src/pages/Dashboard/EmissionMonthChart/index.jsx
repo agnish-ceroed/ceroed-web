@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
 import _ from 'lodash';
-import { getEmissionsByMonth, getEmissionTypes } from '../../../redux/actions';
 
+import { getEmissionsByMonth } from '../../../redux/actions';
 import useStyles from './styles'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,12 +15,7 @@ const EmissionMonthChart = () => {
     const dispatch = useDispatch();
 
     const emissionData = useSelector(state => state.dashboard.getEmissionsByMonth.data);
-
-    useEffect(() => {
-        dispatch(getEmissionsByMonth());
-    }, []);
-
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
 
     const options = {
         plugins: {
@@ -51,8 +46,7 @@ const EmissionMonthChart = () => {
             },
         },
     };
-    const dataset = emissionData.map(item => { return item.total_ch4 })
-    console.log(dataset)
+
     const data = {
         labels,
         datasets: [
@@ -78,6 +72,10 @@ const EmissionMonthChart = () => {
             },
         ],
     };
+
+    useEffect(() => {
+        dispatch(getEmissionsByMonth());
+    }, []);
 
     return (
         <Paper className={classes.container}>
