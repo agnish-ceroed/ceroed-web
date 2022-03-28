@@ -6,6 +6,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import PropTypes from 'prop-types';
 
@@ -53,6 +54,11 @@ const DashboardLayout = ({children}) => {
             text: 'Facilities',
             icon: <CategoryIcon/>,
             path: '/facilities'
+        },
+        {
+            text: 'User Management',
+            icon: <PeopleAltIcon/>,
+            path: '/users'
         },
     ]
 

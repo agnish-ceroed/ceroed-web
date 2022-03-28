@@ -8,6 +8,7 @@ import EmissionChart from './EmissionChart';
 import LineChart from './LineChart';
 import GeographicalChart from './GeographicalChart';
 import useStyles from "./styles";
+import EmissionMonthChart from './EmissionMonthChart';
 
 const Dashboard = () => {
     const classes = useStyles();
@@ -16,7 +17,7 @@ const Dashboard = () => {
         <DashboardLayout>
             <Container className={classes.container}>
                 <DashboardHeader />
-                <Grid container spacing={6}>
+                <Grid container spacing={6} className={classes.gridContainer}>
                     <Grid xs={6} item>
                         <TotalEmissionChart />
                     </Grid>
@@ -28,6 +29,9 @@ const Dashboard = () => {
                     </Grid> */}
                     <Grid xs={6} item>
                         <GeographicalChart />
+                    </Grid>
+                    <Grid xs={6} item>
+                        <EmissionMonthChart />
                     </Grid>
                 </Grid>
             </Container>

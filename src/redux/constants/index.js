@@ -55,6 +55,7 @@ export const APIEndpoints = {
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,
   GET_EMISSION_REGION: `${API_BASE_URL}/business/graph/emission_region`,
+  GET_EMISSIONS_BY_MONTH: `${API_BASE_URL}/business/graph/emission-month`,
 
   LIST_USERS: `${API_BASE_URL}/business/users/`,
   ADD_USER: `${API_BASE_URL}/business/users/`,

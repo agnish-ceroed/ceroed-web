@@ -21,6 +21,11 @@ export const dashboardState = {
         status: STATUS.IDLE,
         message: ''
     },
+    getEmissionsByMonth: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    }
 }
 
 const dashboardActions = {
@@ -46,6 +51,7 @@ const dashboardActions = {
                         message: { $set: parseError(payload) }
                     }
                 }),
+
             [ActionTypes.GET_EMISSION_TYPES]: (state) =>
                 immutable(state, {
                     getEmissionTypes: {
@@ -66,6 +72,7 @@ const dashboardActions = {
                         message: { $set: parseError(payload) }
                     }
                 }),
+
             [ActionTypes.GET_EMISSION_REGION]: (state) =>
                 immutable(state, {
                     getEmissionRegion: {
@@ -82,6 +89,27 @@ const dashboardActions = {
             [ActionTypes.GET_EMISSION_REGION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     getEmissionRegion: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_EMISSIONS_BY_MONTH]: (state) =>
+                immutable(state, {
+                    getEmissionsByMonth: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_EMISSIONS_BY_MONTH_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    getEmissionsByMonth: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_EMISSIONS_BY_MONTH_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    getEmissionsByMonth: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }
