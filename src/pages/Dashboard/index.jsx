@@ -8,6 +8,7 @@ import EmissionChart from './EmissionChart';
 import LineChart from './LineChart';
 import GeographicalChart from './GeographicalChart';
 import useStyles from "./styles";
+import EmissionMonthChart from './EmissionMonthChart';
 
 const Dashboard = () => {
     const classes = useStyles();
@@ -28,6 +29,9 @@ const Dashboard = () => {
                     </Grid> */}
                     <Grid xs={6} item>
                         <GeographicalChart />
+                    </Grid>
+                    <Grid xs={6} item>
+                        <EmissionMonthChart />
                     </Grid>
                 </Grid>
             </Container>

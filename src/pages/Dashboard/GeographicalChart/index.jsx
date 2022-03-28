@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Doughnut } from 'react-chartjs-2';
@@ -51,8 +51,10 @@ const GeographicalChart = () => {
                 data: _.map(emissionData, item => item.total_ef),
                 backgroundColor: [
                     '#e60049',
+                    '#665191',
                     '#7c1158',
-                    '#b2e061',
+                    '#003f5c',
+                    '#2f4b7c',
                 ]
             },
         ],
