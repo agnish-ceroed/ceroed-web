@@ -49,7 +49,7 @@ const EmissionChart = () => {
         datasets: [
             {
                 label: 'Emissions',
-                data: _.map(emissionData, item => item.total_ef),
+                data: _.map(emissionData, item => item.total_co2e),
                 backgroundColor: [
                     '#ea5545',
                     '#5ad45a',

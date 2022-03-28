@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
-import _ from 'lodash';
 
 import { getEmissionsByMonth } from '../../../redux/actions';
 import useStyles from './styles'

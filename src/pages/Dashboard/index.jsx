@@ -17,7 +17,7 @@ const Dashboard = () => {
         <DashboardLayout>
             <Container className={classes.container}>
                 <DashboardHeader />
-                <Grid container spacing={6}>
+                <Grid container spacing={6} className={classes.gridContainer}>
                     <Grid xs={6} item>
                         <TotalEmissionChart />
                     </Grid>
