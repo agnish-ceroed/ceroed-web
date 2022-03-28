@@ -63,7 +63,7 @@ const TotalEmissionChart = () => {
         datasets: [
             {
                 label: 'Total Emission (tonnes)',
-                data: _.map(emissionData, (item) => item.total_ef),
+                data: _.map(emissionData, (item) => item.total_co2e),
                 backgroundColor: '#b33dc6',
                 maxBarThickness: 20,
                 borderRadius: 3
