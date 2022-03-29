@@ -150,7 +150,7 @@ const AddRefrigerantsForm = (props) => {
                                 id="amountOfFuel"
                                 key="amountOfFuel"
                                 name="amountOfFuel"
-                                label="Amount of Fuel"
+                                label="Amount of Refrigerant"
                                 value={formik.values.amountOfFuel || ''}
                                 fullWidth
                                 onChange={formik.handleChange}
