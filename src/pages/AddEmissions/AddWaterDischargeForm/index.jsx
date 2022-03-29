@@ -10,6 +10,7 @@ import { STATUS } from "../../../redux/constants";
 import { addWaterDischargeCombustionValidation } from './schema';
 import { addWaterDischargeCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
 
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -27,10 +28,11 @@ const AddWaterDischargeForm = (props) => {
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = emissionInputs && (emissionInputs.units||[]).map(item => ({ key: item.name, value: item.name }));
-    const waterDestinationList = emissionInputs && (emissionInputs.water_destinations||[]).map(item => ({ key: item.id, value: item.name }))
-    const stressTypeList = emissionInputs && (emissionInputs.water_destination_stress_types||[]).map(item => ({ key: item.id, value: item.name }))
-    const destinationTypeList = emissionInputs && (emissionInputs.water_destination_types||[]).map(item => ({ key: item.id, value: item.name }))
+    const fuelUnits = emissionInputs && (emissionInputs.units || []).map(item => ({ key: item.name, value: item.name }));
+    const waterDestinationList = emissionInputs && (emissionInputs.water_destinations || []).map(item => ({ key: item.id, value: item.name }))
+    const stressTypeList = emissionInputs && (emissionInputs.water_destination_stress_types || []).map(item => ({ key: item.id, value: item.name }))
+    const destinationTypeList = emissionInputs && (emissionInputs.water_destination_types || []).map(item => ({ key: item.id, value: item.name }))
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     const formik = useFormik({
         initialValues: {
@@ -180,17 +182,14 @@ const AddWaterDischargeForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.destination && formik.errors.destination}
                             />
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values.year}
-                                onChange={formik.handleChange}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.year && formik.errors.year}
+                                error={formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroSelect
                                 required

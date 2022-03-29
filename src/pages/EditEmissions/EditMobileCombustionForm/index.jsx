@@ -10,6 +10,7 @@ import { sampleYear, months } from "../../../constants";
 import { updateMobileCombustionValidation } from './schema';
 import { resetAddCombustionStatus, deleteEmissions, getMobileCombustionInputs, updateMobileCombustion } from '../../../redux/actions';
 
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -28,6 +29,7 @@ const EditMobileCombustionForm = (props) => {
     const fuelSourceData = useSelector(state => state.emission.mobileCombustionInputs.data.fuel_sources);
     const vehicleTypeData = useSelector(state => state.emission.mobileCombustionInputs.data.vehicle_types);
     const fuelUnitData = useSelector(state => state.emission.mobileCombustionInputs.data.units);
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     const formik = useFormik({
         initialValues: {
@@ -189,17 +191,15 @@ const EditMobileCombustionForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.activityType && formik.errors.activityType}
                             />
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values.year}
-                                onChange={formik.handleChange}
+                                value={formik.values.year}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroSelect
                                 required

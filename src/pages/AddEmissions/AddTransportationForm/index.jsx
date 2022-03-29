@@ -8,6 +8,8 @@ import { useSnackbar } from 'notistack';
 import { sampleYear } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
 import { addTransportationCombustion, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -55,6 +57,7 @@ const AddTransportationForm = (props) => {
     const [isCalculateDone, setIsCalculateDone] = useState(false);
 
     const addEmissionData = useSelector(state => state.emission)
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
         dispatch(listFacilities())
@@ -150,17 +153,14 @@ const AddTransportationForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.activityType && formik.errors.activityType}
                             />
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values.year || ''}
-                                onChange={formik.handleChange}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.year && formik.errors.year}
+                                error={formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                         </Grid>
                         <Grid item container direction={'column'} xs={6}>
