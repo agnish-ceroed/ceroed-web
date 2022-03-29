@@ -6,7 +6,7 @@ export const STATUS = {
   ERROR: 'error'
 };
 
-const API_BASE_URL = 'http://staging-ceroed-api.inventlabs.org';
+const API_BASE_URL = 'https://staging-ceroed-api.inventlabs.org';
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
