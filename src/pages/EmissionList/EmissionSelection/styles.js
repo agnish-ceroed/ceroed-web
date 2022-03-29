@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     emissionType: {
         width: 300,
         height: 40,
-        border: `1px solid ${theme.palette.background.border}`,
+        border: `1px solid ${theme.palette.border.gray}`,
         background: theme.palette.Primary.contrastText,
         marginBottom: theme.spacing(2),
         padding: theme.spacing(3, 2),
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'space-between',
         borderRadius: 4,
+        cursor: 'pointer',
     }
 }));
 

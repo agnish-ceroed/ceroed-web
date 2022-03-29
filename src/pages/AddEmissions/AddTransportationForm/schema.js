@@ -8,23 +8,23 @@ export const addTransportationCombutionValidation = yup.object({
         .string('Category is required')
         .required('Category is required'),
     emissionFactorDataset: yup
-        .string('Emission Factor Dataset is required')
-        .required('Emission Factor Dataset is required'),
+        .string('Emission factor dataset is required')
+        .required('Emission factor dataset is required'),
     activityType: yup
-        .string('Activity Type Type is required')
-        .required('Activity Type Type is required'),
+        .string('Activity type is required')
+        .required('Activity type is required'),
     year: yup
-        .string('Year type is required')
-        .required('Year type is required'),
+        .string('Year is required')
+        .required('Year is required'),
     modeOfTransport: yup
-        .string('Mode of Transport is required')
-        .required('Mode of Transport is required'),
+        .string('Mode of transport is required')
+        .required('Mode of transport is required'),
     vehicleType: yup
-        .string('Vehicle Type unit is required')
-        .required('Vehicle Type unit is required'),
+        .string('Vehicle type unit is required')
+        .required('Vehicle type unit is required'),
     amount: yup
-        .string('Amount of fuel is required')
-        .required('Amount of fuel is required'),
+        .string('Amount of activity type is required')
+        .required('Amount of activity type is required'),
     unit: yup
         .string('Unit of fuel is required')
         .required('Unit of fuel is required'),
