@@ -120,10 +120,6 @@ export const PurchasedElectricityColumns = [{
     columnId: 'amount',
     columnHeader: 'Amount',
 }, {
-    columnKey: 'unit',
-    columnId: 'unit',
-    columnHeader: 'Units',
-}, {
     columnKey: 'calculation_approach',
     columnId: 'calculation_approach',
     columnHeader: 'Calculation Approach',

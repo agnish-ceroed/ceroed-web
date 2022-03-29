@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
         padding: 0,
         width: '100%',
+        maxWidth: '100%',
         // height: '100%'
     },
     gridContainer: {
