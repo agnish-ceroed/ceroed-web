@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 500,
   },
   tableHeader: {
-    height: 35,
+    height: 45,
   },
   headerCell: {
     height: 36,

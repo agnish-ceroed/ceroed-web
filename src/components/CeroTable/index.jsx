@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Table, TableCell, TableHead, TableRow, TableBody, TableContainer, TableFooter, CircularProgress, Typography
+  Table, TableCell, TableHead, TableRow, TableBody, TableContainer, TableFooter, CircularProgress, Typography, Paper
 } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import clsx from 'clsx';
 import useStyles from './styles';
+
 
 const CeroTable = (props) => {
   const classes = useStyles();
@@ -56,7 +57,7 @@ const CeroTable = (props) => {
       scrollableTarget={tableId}
       loader={<></>}
     >
-      <TableContainer id={tableId} className={clsx(classes.tableContainer, props.classes?.tableContainer)}>
+      <TableContainer id={tableId} className={clsx(classes.tableContainer, props.classes?.tableContainer)} component={Paper}>
         <Table stickyHeader>
           <TableHead>
             <TableRow className={clsx(classes?.tableHeader, props.classes?.tableHeader)}>
