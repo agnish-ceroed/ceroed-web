@@ -49,7 +49,7 @@ const TotalEmissionChart = () => {
             title: {
                 align: 'start',
                 display: true,
-                text: 'Total Emission',
+                text: 'Total CO2 emission per year',
                 font: {
                     size: 18,
                     family: 'Roboto'

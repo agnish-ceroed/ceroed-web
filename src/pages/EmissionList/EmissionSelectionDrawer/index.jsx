@@ -73,7 +73,7 @@ const EmissionSelectionDrawer = (props) => {
             drawerOpen: selectedEmission,
             onClose: onCloseSideDrawer,
             content: getSecondaryDrawer(),
-            header: { title: 'Options' },
+            header: { title: 'Sub Topics' },
             // footer: {
             //   primaryBtnTitle: 'Done',
             //   disablePrimaryBtn: !selectedSubEmission,
