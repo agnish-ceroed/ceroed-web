@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
         padding: 0,
         height: '100%',
         width: '100%',
+        maxWidth: '100%',
     }
 }));
 
