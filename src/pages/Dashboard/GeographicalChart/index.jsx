@@ -5,7 +5,6 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
 import _ from 'lodash';
 import { getEmissionRegion } from '../../../redux/actions';
-import { emissionTypes } from '../../../constants';
 
 import useStyles from './styles'
 
@@ -45,7 +44,7 @@ const GeographicalChart = () => {
     };
 
     const data = {
-        labels: _.map(emissionData, (item) => emissionTypes.find(data => data.id === item.country).title),
+        labels: _.map(emissionData, (item) => item.country),
         datasets: [
             {
                 label: 'Emissions',
