@@ -116,7 +116,7 @@ const EditRefrigerantsForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit emission data</Typography>
+                <Typography variant="h6" component="div" >Edit Refrigerant</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
