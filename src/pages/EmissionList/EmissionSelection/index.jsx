@@ -28,11 +28,9 @@ const EmissionSelection = (props) => {
 
     return (
         <Box className={classes.container}>
-            <Box className={classes.emissionType} >
+            <Box className={classes.emissionType} onClick={() => setIsOpenEmissionType(true)} >
                 <Typography >{subEmissionSelected?.title}</Typography>
-                <IconButton onClick={() => setIsOpenEmissionType(true)}>
                     <CreateIcon />
-                </IconButton>
             </Box>
             <EmissionSelectionDrawer isOpen={isOpenEmissionType} onClose={onCloseDrawer} emissionType={selectedSubEmission} selectedEmission={selectedEmission} onSelectEmission={onSelectEmission} />
         </Box>
