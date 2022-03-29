@@ -29,7 +29,13 @@ const EmissionTable = (props) => {
     }
 
     const onSelectEmissionData = (emission) => {
-        navigate(`/emissions/edit/${emissionType}/${emission.id}`);
+        navigate(`/emissions/${emissionType}/${emission.id}`);
+    };
+
+    const onEditEmissionData = (e, emission) => {
+        e.stopPropagation()
+        e.preventDefault()
+        navigate(`/emissions/edit/${emissionType}/${emission}`);
     };
 
     const getStatus = (status) => {
@@ -52,7 +58,7 @@ const EmissionTable = (props) => {
         action: (
             <Box className={classes.actionContainer}>
                 {/* <CeroButton className={classes.button} buttonText={item.status} /> */}
-                <IconButton className={classes.editIcon}>
+                <IconButton className={classes.editIcon} onClick={(e) => onEditEmissionData(e, item.id)}>
                     <CreateIcon />
                 </IconButton>
             </Box>

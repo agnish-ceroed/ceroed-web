@@ -18,6 +18,7 @@ import Help from '../pages/Help';
 import Profile from '../pages/Profile';
 import AddEmissions from '../pages/AddEmissions';
 import EditEmissions from '../pages/EditEmissions';
+import EmissionsDetails from '../pages/EmissionsDetails';
 import Facilities from '../pages/Facilities';
 import Users from '../pages/Users'
 
@@ -87,6 +88,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <EditEmissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/emissions/:type/:id"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <EmissionsDetails />
                             </PrivateRoute>
                         }
                     />
