@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    LinearScale,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Tooltip,
+} from 'chart.js';
 
 import { getEmissionsByMonth } from '../../../redux/actions';
 import useStyles from './styles'
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+    LinearScale,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Tooltip
+);
 
 const EmissionMonthChart = () => {
     const classes = useStyles()
@@ -50,21 +67,27 @@ const EmissionMonthChart = () => {
         labels,
         datasets: [
             {
+                type: 'line',
                 label: 'Total CO2e',
                 data: emissionData.map(item => { return item.total_co2e }),
-                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 2,
+                fill: false,
             },
             {
+                type: 'bar',
                 label: 'Total CO2',
                 data: emissionData.map(item => { return item.total_co2 }),
                 backgroundColor: 'rgb(75, 192, 192)',
             },
             {
+                type: 'bar',
                 label: 'Total CH4',
                 data: emissionData.map(item => { return item.total_ch4 }),
                 backgroundColor: 'rgb(53, 162, 235)',
             },
             {
+                type: 'bar',
                 label: 'Total N2O',
                 data: emissionData.map(item => { return item.total_n2o }),
                 backgroundColor: '#003f5c',
@@ -78,7 +101,7 @@ const EmissionMonthChart = () => {
 
     return (
         <Paper className={classes.container}>
-            <Bar data={data} options={options} height={150} />
+            <Chart data={data} options={options} height={150} />
         </Paper>
     )
 }
