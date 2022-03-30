@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     login: {
-        background: theme.backgroundColor,
+        background: theme.palette.Secondary.background,
         minHeight: '100vh'
     },
     logo: {
