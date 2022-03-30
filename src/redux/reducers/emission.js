@@ -17,6 +17,9 @@ export const emissionState = {
         message: ''
     },
     emissionInputs: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
     },
     addStationaryCombustion: {
         data: {},
