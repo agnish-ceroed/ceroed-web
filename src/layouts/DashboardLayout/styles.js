@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
         background: theme.palette.Secondary.background,
         padding: '20px',
-        boxShadow: `inset 0 4px 4px rgba(0, 0, 0, 0.25)`,
         height: 'calc(100% - 60px)',
         overflowY: 'scroll',
     }
