@@ -7,6 +7,11 @@ import { getEmission } from '../../redux/actions';
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import PurchasedElectricityDetails from './PurchasedElectricityDetails'
+import MobileCombustionDetails from './MobileCombustionDetails'
+import StationaryCombustionDetails from './StationaryCombustionDetails'
+import RefrigerantsDetails from './RefrigerantsDetails'
+import WaterConsumptionDetails from './WaterConsumptionDetails'
+import WaterDischargeDetails from './WaterDischargeDetails'
 import useStyles from "./styles";
 import _ from "lodash";
 
@@ -17,8 +22,6 @@ const EmissionsDetails = () => {
     const { pathname } = useLocation();
     const emissionData = useSelector(state => state.emission.emissionDetails.data)
     const emissionDataStatus = useSelector(state => state.emission.emissionDetails.status)
-    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
 
     const pathNameArr = pathname.split('/')
     const emissionType = pathNameArr[pathNameArr.length - 2]
@@ -35,7 +38,7 @@ const EmissionsDetails = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                {(emissionDataStatus === "running" || _.isEmpty(emissionInputs)) ? (
+                {(emissionDataStatus === "running") ? (
                     <div>Loading</div>
                 ) : emissionDataStatus === "error" ? (
                     <div>Something went wrong, reload again</div>
@@ -48,50 +51,40 @@ const EmissionsDetails = () => {
                                 emissionData={emissionData}
                             />
                         )}
-
-                        {/* {emissionType === "stationary_combustion" && (
-                            <EditStationaryCombustionForm
-                                onCancel={onCancel}
-                                emissionId={emissionId}
-                                facilitiesData={facilitiesData}
-                                emissionData={emissionData}
-                            />
-                        )}
                         {emissionType === "mobile_combustion" && (
-                            <EditMobileCombustionForm
+                            <MobileCombustionDetails
                                 onCancel={onCancel}
                                 emissionId={emissionId}
-                                facilitiesData={facilitiesData}
-                                emissionInputs={emissionInputs}
                                 emissionData={emissionData}
                             />
                         )}
-                        {emissionType === "water_discharge" && (
-                            <EditWaterDistributionForm
+                        {emissionType === "stationary_combustion" && (
+                            <StationaryCombustionDetails
                                 onCancel={onCancel}
                                 emissionId={emissionId}
-                                facilitiesData={facilitiesData}
-                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "refrigerants" && (
+                            <RefrigerantsDetails
+                                onCancel={onCancel}
+                                emissionId={emissionId}
                                 emissionData={emissionData}
                             />
                         )}
                         {emissionType === "water_consumption" && (
-                            <EditWaterConsumptionForm
+                            <WaterConsumptionDetails
                                 onCancel={onCancel}
                                 emissionId={emissionId}
-                                facilitiesData={facilitiesData}
-                                emissionInputs={emissionInputs}
                                 emissionData={emissionData}
-                            />)}
-                        {emissionType === "refrigerants" && (
-                            <EditRefrigerantsForm
+                        />)}
+                        {emissionType === "water_discharge" && (
+                            <WaterDischargeDetails
                                 onCancel={onCancel}
                                 emissionId={emissionId}
-                                facilitiesData={facilitiesData}
-                                emissionInputs={emissionInputs}
                                 emissionData={emissionData}
                             />
-                        )} */}
+                        )}
                     </>
                 )}
             </Container>
