@@ -4,13 +4,14 @@ import { Box, IconButton, Chip } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import {
-  StationaryColumns,
-  MobileColumns,
-  PurchasedElectricityColumns,
-  WaterDischargeColumns,
-  WaterConsumptionColumns,
-  RefrigerantsColumns,
-  TransportationColumns,
+    StationaryColumns,
+    MobileColumns,
+    PurchasedElectricityColumns,
+    WaterDischargeColumns,
+    WaterConsumptionColumns,
+    RefrigerantsColumns,
+    TransportationColumns,
+    WasteCombustionColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -28,6 +29,7 @@ const EmissionTable = (props) => {
         water_consumption: WaterConsumptionColumns,
         refrigerants: RefrigerantsColumns,
         transportation: TransportationColumns,
+        waste: WasteCombustionColumns
     }
 
     const onSelectEmissionData = (emission) => {
