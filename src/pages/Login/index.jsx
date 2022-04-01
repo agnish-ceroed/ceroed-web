@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Grid, Typography, Paper, Container } from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { Box } from '@mui/system';
 
 import { userLogin } from "../../redux/actions";
 import { STATUS } from '../../redux/constants';
 import CeroButton from '../../components/CeroButton';
 import CeroInput from '../../components/CeroInput'
 import ValidationSchema from './ValidationSchema';
+import CeroEdLogo from '../../assets/images/Logo';
 import useStyles from "./styles";
 
 const Login = () => {
@@ -39,6 +41,9 @@ const Login = () => {
     return (
         <Grid container justifyContent='center' alignItems='center' className={classes.login}>
             <Container component="main" maxWidth="xs">
+                <Box className={classes.logo}>
+                    <CeroEdLogo />
+                </Box>
                 <Paper className={classes.loginCard}>
                     <Typography component="h1" variant="h5" align='center' marginBottom={6}>
                         Login
@@ -73,6 +78,7 @@ const Login = () => {
                         onClick={handleLogin}
                         disabled={!loginForm.dirty || !loginForm.isValid}
                     />
+                    <Link className={classes.forgotLink} to='/forgot-password' variant="body2">Forgot Password?</Link>
                     <Link to="/signup" variant="body2">Don't have an account? Sign Up</Link>
                 </Paper>
             </Container>

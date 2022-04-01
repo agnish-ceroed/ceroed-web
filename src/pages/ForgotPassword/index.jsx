@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { Container, Paper, Typography, Grid } from '@mui/material';
+import { Container, Paper, Typography, Grid, Box } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from '../../redux/constants';
@@ -10,6 +10,7 @@ import EmailSection from './EmailSection'
 import OtpValidation from './OtpValidation'
 import ChangePassword from './ChangePassword'
 import useStyles from "./styles";
+import CeroEdLogo from '../../assets/images/Logo';
 
 const ForgotPassword = () => {
     const classes = useStyles();
@@ -69,6 +70,9 @@ const ForgotPassword = () => {
     return (
         <Grid container justifyContent='center' alignContent='center' className={classes.forgotPassword}>
             <Container component="main" maxWidth="sm">
+                <Box className={classes.logo}>
+                    <CeroEdLogo />
+                </Box>
                 <Paper variant="outlined" className={classes.container}>
                     <Typography component="h1" variant="h5" className={classes.cardTitle} align="center">
                         {getTitle(isProgress)}
