@@ -121,7 +121,8 @@ export const emissionState = {
     addTransportationCombustion: {
         data: {},
         status: STATUS.IDLE,
-        message: ''
+        message: '',
+        isCalculateDone: false,
     },
 }
 
@@ -531,12 +532,35 @@ const emissionActions = {
                 immutable(state, {
                     addTransportationCombustion: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS }
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
                     }
                 }),
             [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addTransportationCombustion: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    editTransportationCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    editTransportationCombustion: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                }),
+            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    editTransportationCombustion: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

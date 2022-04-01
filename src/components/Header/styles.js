@@ -8,6 +8,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        boxShadow: `0 4px 4px rgb(0 0 0 / 10%)`,
+        zIndex: 99
     },
     icon: {
         color: `${theme.palette.icon.gray}!important`,
@@ -19,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
     searchBox: {
         border: 'none',
         outline: 'none',
-        
+
     },
-    notificationIcon:{
+    notificationIcon: {
         color: `${theme.palette.icon.gray}!important`,
     },
 }));

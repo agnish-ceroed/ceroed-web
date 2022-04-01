@@ -7,41 +7,42 @@ import { useSnackbar } from 'notistack';
 
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
-import { addTransportationCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { editTransportationCombustion, getEmissionInputFormat, deleteEmissions, resetEditCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
-const AddTransportationForm = (props) => {
+const EditTransportationForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
+    const { emissionId, emissionData, onCancel } = props
 
     const isCalculateDone = useSelector(state => state.emission.addTransportationCombustion.isCalculateDone)
-
-    const addEmissionData = useSelector(state => state.emission);
+    const updateEmissionData = useSelector(state => state.emission.updateTransportationCombustion)
+    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
 
     const formik = useFormik({
         initialValues: {
-            description: '',
-            category: '',
-            emissionFactorDataset: '',
-            activityType: '',
-            year: '',
-            month: '',
-            modeOfTransport: '',
-            vehicleType: '',
-            amount: '',
-            unit: '',
+            description: emissionData.description || '',
+            category:  emissionData.category_id || '',
+            emissionFactorDataset: emissionData.ef_dataset_id || '',
+            activityType: emissionData.activity_type_id || '',
+            year: emissionData.year || '',
+            month: emissionData.month || '',
+            modeOfTransport: emissionData.mode_of_transport_id || '',
+            vehicleType: emissionData.vehicle_type_id || '',
+            amount: emissionData.amount || '',
+            unit: emissionData.unit || '',
         },
         validationSchema: addTransportationCombutionValidation,
         onSubmit: () => { },
     });
 
-    const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => !formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
+    const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
         .map(item => ({ key: item?.id, value: item?.name }));
     const units = (emissionInputs?.units || []).map(item => ({ key: item?.id, value: item?.name }));
     const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
@@ -52,23 +53,35 @@ const AddTransportationForm = (props) => {
     useEffect(() => {
         dispatch(getEmissionInputFormat('transportation'));
         return () => {
-            dispatch(resetAddCombustionStatus());
+            dispatch(resetEditCombustionStatus());
         }
     }, []);
 
     useEffect(() => {
-        if (addEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
-            dispatch(resetAddCombustionStatus());
-            props.onCancel('transportation');
-        } else if (addEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
+        if (deleteEmissionData.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Stationary combustion deleted successfully', { variant: 'success' });
+            dispatch(resetEditCombustionStatus())
+            onCancel();
+        } else if (deleteEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus());
+            dispatch(resetEditCombustionStatus())
         }
-    }, [addEmissionData.addTransportationCombustion, enqueueSnackbar])
+    }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
+
+    useEffect(() => {
+        if (updateEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Transportation combustion updated successfully', { variant: 'success' });
+            dispatch(resetEditCombustionStatus());
+            props.onCancel('transportation');
+        } else if (updateEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            dispatch(resetEditCombustionStatus());
+        }
+    }, [updateEmissionData.addTransportationCombustion, enqueueSnackbar])
 
     const onCalculate = () => {
         const requestData = {
+            id: emissionId,
             description: formik.values.description,
             category_id: formik.values.category,
             ef_dataset_id: formik.values.emissionFactorDataset,
@@ -81,11 +94,12 @@ const AddTransportationForm = (props) => {
             unit: formik.values.unit,
             save: false,
         }
-        dispatch(addTransportationCombustion(requestData))
+        dispatch(editTransportationCombustion(requestData))
     };
 
-    const onAddTransportationData = () => {
+    const onEditTransportationData = () => {
         const requestData = {
+            id: emissionId,
             description: formik.values.description,
             category_id: formik.values.category,
             ef_dataset_id: formik.values.emissionFactorDataset,
@@ -98,7 +112,14 @@ const AddTransportationForm = (props) => {
             unit: formik.values.unit,
             save: true
         }
-        dispatch(addTransportationCombustion(requestData));
+        dispatch(editTransportationCombustion(requestData));
+    };
+
+    const onDeleteStationaryCombustion = () => {
+        const requestData = {
+            id: emissionId
+        }
+        dispatch(deleteEmissions(requestData));
     };
 
     return (
@@ -144,14 +165,17 @@ const AddTransportationForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.activityType && formik.errors.activityType}
                             />
-                            <CeroAutoComplete
+                            <CeroSelect
+                                required
                                 id="year"
+                                name="year"
                                 label="Year"
-                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
+                                fullWidth
+                                options={sampleYear}
+                                selectedValue={formik.values.year || ''}
+                                onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.year}
-                                options={yearList}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                error={formik.touched.year && formik.errors.year}
                             />
                             <CeroSelect
                                 required
@@ -241,35 +265,39 @@ const AddTransportationForm = (props) => {
                     />
                 </Box>
                 {isCalculateDone && <Box className={classes.bottomContainer}>
-                    <Typography variant="subtitle2" component="div" >Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
-                            {/* <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography> */}
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {updateEmissionData.data.co2} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {updateEmissionData.data.ch4} tonnes</Typography>
+                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {updateEmissionData.data.biofuel_co2} tonnes</Typography>
                         </Grid>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {updateEmissionData.data.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {updateEmissionData.data.n2o} tonnes</Typography>
+                            <Typography className={classes.previewItem}>EF: {updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
                         </Grid>
                     </Grid>
                 </Box>}
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
+                    buttonText="Delete Data"
+                    className={clsx(classes.button, classes.buttonPrimary)}
+                    onClick={onDeleteStationaryCombustion} />
+                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSeconday)}
-                    onClick={() => props.onCancel('transportation')} />
+                    onClick={onCancel} />
                 <CeroButton
                     buttonText="Add Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onAddTransportationData(formik.values)} />
+                    onClick={onEditTransportationData} />
             </Box>
         </Container>
     )
 }
 
-export default AddTransportationForm;
+export default EditTransportationForm;

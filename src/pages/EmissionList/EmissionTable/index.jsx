@@ -9,7 +9,8 @@ import {
   PurchasedElectricityColumns,
   WaterDischargeColumns,
   WaterConsumptionColumns,
-  RefrigerantsColumns
+  RefrigerantsColumns,
+  TransportationColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -26,10 +27,17 @@ const EmissionTable = (props) => {
         water_discharge: WaterDischargeColumns,
         water_consumption: WaterConsumptionColumns,
         refrigerants: RefrigerantsColumns,
+        transportation: TransportationColumns,
     }
 
     const onSelectEmissionData = (emission) => {
-        navigate(`/emissions/edit/${emissionType}/${emission.id}`);
+        navigate(`/emissions/${emissionType}/${emission.id}`);
+    };
+
+    const onEditEmissionData = (e, emission) => {
+        e.stopPropagation()
+        e.preventDefault()
+        navigate(`/emissions/edit/${emissionType}/${emission}`);
     };
 
     const getStatus = (status) => {
@@ -52,7 +60,7 @@ const EmissionTable = (props) => {
         action: (
             <Box className={classes.actionContainer}>
                 {/* <CeroButton className={classes.button} buttonText={item.status} /> */}
-                <IconButton className={classes.editIcon}>
+                <IconButton className={classes.editIcon} onClick={(e) => onEditEmissionData(e, item.id)}>
                     <CreateIcon />
                 </IconButton>
             </Box>

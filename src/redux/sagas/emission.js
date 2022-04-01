@@ -372,6 +372,26 @@ export function* addTransportationCombustion(action) {
     }
 }
 
+export function* editTransportationCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.EDIT_TRANSPORTATION_COMBUSTION, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS,
+            payload: response
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* getMobileCombustionInputs(action) {
     try {
         const { emissionType } = action.payload
@@ -414,5 +434,7 @@ export default function* root() {
         takeLatest(ActionTypes.GET_EMISSION_FUEL_LIST, getEmissionFuelList),
         takeLatest(ActionTypes.GET_MOBILE_COMBUSTION_INPUTS, getMobileCombustionInputs),
         takeLatest(ActionTypes.ADD_TRANSPORTATION_COMBUSTION, addTransportationCombustion),
+        takeLatest(ActionTypes.EDIT_TRANSPORTATION_COMBUSTION, editTransportationCombustion),
+
     ])
 }

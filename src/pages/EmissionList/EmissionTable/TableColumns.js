@@ -49,6 +49,57 @@ export const StationaryColumns = [{
     columnHeader: '',
 }]
 
+export const TransportationColumns = [{
+
+    // id: emissionId,
+    // description: formik.values.description,
+    // category_id: formik.values.category,
+    // ef_dataset_id: formik.values.emissionFactorDataset,
+    // activity_type_id: formik.values.activityType,
+    // year: formik.values.year,
+    // mode_of_transport_id: formik.values.modeOfTransport,
+    // vehicle_type_id: formik.values.vehicleType,
+    // amount: formik.values.amount,
+    // month: formik.values.month,
+    // unit: formik.values.unit,
+
+    columnKey: 'category',
+    columnId: 'category',
+    columnHeader: 'Category',
+}, {
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'water_source_stress_type_name',
+    columnId: 'water_source_stress_type_name',
+    columnHeader: 'Stress type'
+}, {
+    columnKey: 'water_source_type_name',
+    columnId: 'water_source_type_name',
+    columnHeader: 'Source type'
+}, {
+    columnKey: 'usage',
+    columnId: 'usage',
+    columnHeader: 'Usage',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
 export const MobileColumns = [{
     columnKey: 'fuel_source',
     columnId: 'fuel_source',

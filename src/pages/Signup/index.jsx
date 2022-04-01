@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Paper, Stepper, Step, StepLabel, Typography, Grid } from '@mui/material';
+import { Container, Paper, Stepper, Step, StepLabel, Typography, Grid, Box } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
 
@@ -10,6 +10,7 @@ import GoalSelection from './GoalSelection';
 import { userSignUp } from '../../redux/actions/auth';
 import { STATUS } from '../../redux/constants';
 import useStyles from "./styles";
+import CeroEdLogo from '../../assets/images/Logo';
 
 const steps = ['User', 'Company', 'Goal'];
 
@@ -69,6 +70,9 @@ const Signup = () => {
     return (
         <Grid container justifyContent='center' alignContent='center' className={classes.signup}>
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+                <Box className={classes.logo}>
+                    <CeroEdLogo />
+                </Box>
                 <Paper variant="outlined" className={classes.signupContainer}>
                     <Typography component="h1" variant="h4" fontWeight={400} align="center">
                         Sign up
