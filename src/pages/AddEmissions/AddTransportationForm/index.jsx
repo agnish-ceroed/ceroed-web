@@ -8,6 +8,8 @@ import { useSnackbar } from 'notistack';
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
 import { addTransportationCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -48,6 +50,7 @@ const AddTransportationForm = (props) => {
     const emissionFactorDataset = (emissionInputs?.ef_dataset || []).map(item => ({ key: item?.id, value: item?.name }));
     const categories = (emissionInputs?.categories || []).map(item => ({ key: item?.id, value: item?.name }));
     const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('transportation'));
