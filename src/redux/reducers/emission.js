@@ -90,6 +90,12 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    updateWasteCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
     deleteEmissions: {
         data: {},
         status: STATUS.IDLE,
@@ -459,6 +465,30 @@ const emissionActions = {
                     }
                 }),
 
+            [ActionTypes.UPDATE_WASTE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    updateWasteCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_WASTE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    updateWasteCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_WASTE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateWasteCombustion: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
             [ActionTypes.DELETE_EMISSIONS]: (state, { payload }) =>
                 immutable(state, {
                     deleteEmissions: {
@@ -644,6 +674,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     updateWaterConsumptionCombustion: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    updateWasteCombustion: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },
