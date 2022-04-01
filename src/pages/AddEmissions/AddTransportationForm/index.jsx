@@ -43,7 +43,7 @@ const AddTransportationForm = (props) => {
 
     const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => !formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
         .map(item => ({ key: item?.id, value: item?.name }));
-    const units = (emissionInputs?.units || []).map(item => ({ key: item?.id, value: item?.name }));
+    const units = (emissionInputs?.units || []).map(item => ({ key: item?.name, value: item?.description }));
     const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
     const emissionFactorDataset = (emissionInputs?.ef_dataset || []).map(item => ({ key: item?.id, value: item?.name }));
     const categories = (emissionInputs?.categories || []).map(item => ({ key: item?.id, value: item?.name }));
