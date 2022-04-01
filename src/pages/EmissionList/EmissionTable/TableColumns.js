@@ -332,3 +332,45 @@ export const RefrigerantsColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const WasteCombustionColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'waste_disposal_location_name',
+    columnId: 'waste_disposal_location_name',
+    columnHeader: 'Waste disposal location',
+}, {
+    columnKey: 'waste_disposal_operation_name',
+    columnId: 'waste_disposal_operation_name',
+    columnHeader: 'Waste disposal operation',
+}, {
+    columnKey: 'waste_disposal_option_name',
+    columnId: 'waste_disposal_option_name',
+    columnHeader: 'Waste disposal option',
+}, {
+    columnKey: 'waste_hazard_option_name',
+    columnId: 'waste_hazard_option_name',
+    columnHeader: 'Waste hazard option',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'usage',
+    columnId: 'usage',
+    columnHeader: 'Usage',
+}, {
+    columnKey: 'status',
+    columnId: 'status',
+    columnHeader: 'Status',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
