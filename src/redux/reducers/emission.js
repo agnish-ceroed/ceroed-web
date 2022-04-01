@@ -54,6 +54,12 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    addWasteCombustion: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
     updatePurchasedElectricity: {
         data: {},
         status: STATUS.IDLE,
@@ -232,6 +238,30 @@ const emissionActions = {
             [ActionTypes.ADD_REFRIGERANTS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addRefrigerants: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_WASTE_COMBUSTION]: (state, { payload }) =>
+                immutable(state, {
+                    addWasteCombustion: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_WASTE_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
+                    addWasteCombustion: {
+                        data: { $set: payload },
+                        status: { $set: status },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_WASTE_COMBUSTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addWasteCombustion: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
@@ -590,6 +620,10 @@ const emissionActions = {
                         isCalculateDone: { $set: false }
                     },
                     addWaterConsumption: {
+                        status: { $set: STATUS.IDLE },
+                        isCalculateDone: { $set: false }
+                    },
+                    addWasteCombustion: {
                         status: { $set: STATUS.IDLE },
                         isCalculateDone: { $set: false }
                     },

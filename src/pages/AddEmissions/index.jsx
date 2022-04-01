@@ -11,6 +11,7 @@ import AddWaterDischargeForm from "./AddWaterDischargeForm";
 import AddWaterConsumptionForm from "./AddWaterConsumptionForm";
 import AddRefrigerantsForm from "./AddRefrigerantsForm";
 import useStyles from "./styles";
+import AddWasteCombustion from "./AddWasteCombustion";
 
 const AddEmissions = () => {
     const classes = useStyles();
@@ -33,6 +34,7 @@ const AddEmissions = () => {
                 {emissionType === 'water_discharge' && <AddWaterDischargeForm onCancel={onCancelAdd} />}
                 {emissionType === 'water_consumption' && <AddWaterConsumptionForm onCancel={onCancelAdd} />}
                 {emissionType === 'refrigerants' && <AddRefrigerantsForm onCancel={onCancelAdd} />}
+                {emissionType === 'waste' && <AddWasteCombustion onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );

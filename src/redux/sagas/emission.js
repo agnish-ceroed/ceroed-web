@@ -166,6 +166,27 @@ export function* addWaterConsumption(action) {
     }
 }
 
+export function* addWasteCombustion(action) {
+    try {
+        const { requestData } = action.payload
+        const response = yield call(request, APIEndpoints.ADD_WASTE_COMBUSTION, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_WASTE_COMBUSTION_SUCCESS,
+            payload: response,
+            save: requestData.save
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_WASTE_COMBUSTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export function* updatePurchasedElectricity(action) {
     try {
         const { requestData } = action.payload
@@ -421,6 +442,7 @@ export default function* root() {
         takeLatest(ActionTypes.GET_EMISSION_INPUT_FORMAT, getEmissionInputFormat),
         takeLatest(ActionTypes.ADD_PURCHASED_ELECTRICITY, addPurchasedElectricity),
         takeLatest(ActionTypes.ADD_REFRIGERANTS, addRefrigerants),
+        takeLatest(ActionTypes.ADD_WASTE_COMBUSTION, addWasteCombustion),
         takeLatest(ActionTypes.UPDATE_REFRIGERANTS, updateRefrigerants),
         takeLatest(ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION, addWaterDischarge),
         takeLatest(ActionTypes.ADD_WATER_CONSUMPTION_COMBUSTION, addWaterConsumption),
