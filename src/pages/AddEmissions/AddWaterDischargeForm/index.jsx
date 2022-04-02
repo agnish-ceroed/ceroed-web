@@ -151,7 +151,7 @@ const AddWaterDischargeForm = (props) => {
                                 name="treatmentRequired"
                                 label="Treatment Required"
                                 fullWidth
-                                options={[{ key: 'yes', value: 'Yes' }, { key: 'no', value: 'No' }]}
+                                options={[{ key: true, value: 'Yes' }, { key: false, value: 'No' }]}
                                 selectedValue={formik.values.treatmentRequired}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
