@@ -9,6 +9,7 @@ import { sampleYear, months } from "../../../constants";
 import { editRefrigerantsValidation } from './schema';
 import { updateRefrigerants, resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -31,6 +32,7 @@ const EditRefrigerantsForm = (props) => {
     const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
     const gasType = (emissionInputs.gas_types || []).map(item => ({ key: item?.code, value: item?.name, id: item?.id }));
     const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     const formik = useFormik({
         initialValues: {
@@ -147,18 +149,15 @@ const EditRefrigerantsForm = (props) => {
                                 error={formik.touched.refrigerant && formik.errors.refrigerant}
                                 disabled={!formik.values.gasType}
                             />}
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                key="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values.year || ''}
-                                onChange={formik.handleChange}
+                                value={formik.values.year}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroInput
                                 required
@@ -250,8 +249,8 @@ const EditRefrigerantsForm = (props) => {
                     buttonText="Update Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onEditRefrigerants(formik.values)} 
-                    />
+                    onClick={() => onEditRefrigerants(formik.values)}
+                />
             </Box>
         </Container>
     )

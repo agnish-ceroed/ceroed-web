@@ -11,6 +11,7 @@ import CeroInput from '../../../components/CeroInput';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
 import useStyles from "./styles";
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 
 const AddFacilityDrawer = (props) => {
     const { editItem, onClose } = props
@@ -24,7 +25,7 @@ const AddFacilityDrawer = (props) => {
     const editFacilityStatus = useSelector(state => state.facility.editFacility)
     const gridRegions = useSelector(state => state.listings.gridRegions.data)
 
-    const countryList = countryListData.map(item => ({ key: item.code, value: item.name }));
+    const countryList = countryListData.map(item => ({ id: item.code, label: item.name }));
     const gridRegionList = gridRegions.map(item => ({ key: item.name, value: item.name }))
 
     const facilityForm = useFormik({
@@ -114,17 +115,14 @@ const AddFacilityDrawer = (props) => {
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.phone}
                 />
-                <CeroSelect
-                    required
+                <CeroAutoComplete
                     id="country"
-                    name="country"
                     label="Country"
-                    fullWidth
-                    options={countryList}
-                    selectedValue={facilityForm.values.country}
-                    onChange={facilityForm.handleChange}
+                    onChange={(e, value) => facilityForm.setFieldValue('country', value.id)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
+                    options={countryList}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
                 <CeroSelect
                     required

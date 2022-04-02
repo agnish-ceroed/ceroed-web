@@ -10,6 +10,7 @@ import { STATUS } from "../../../redux/constants";
 import { addMobileCombustionValidation } from './schema';
 import { addMobileCombustion, getMobileCombustionInputs, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
 
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -53,6 +54,7 @@ const AddMobileCombustionForm = (props) => {
     const fuelUnits = filteredUnitData.map(unit => ({ key: unit.name, value: unit.name }))
     const vehicleTypes = filteredVehicleType.map(item => ({ key: item.id, value: item.name }));
     const fuelSource = fuelSourceData.map(item => ({ key: item.id, value: item.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
         dispatch(listFacilities())
@@ -171,17 +173,14 @@ const AddMobileCombustionForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.activityType && formik.errors.activityType}
                             />
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values.year}
-                                onChange={formik.handleChange}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.year && formik.errors.year}
+                                error={formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroSelect
                                 required
