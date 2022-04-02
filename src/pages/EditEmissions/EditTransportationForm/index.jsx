@@ -126,7 +126,7 @@ const EditTransportationForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Transportation</Typography>
+                <Typography variant="h6" component="div" >Edit Transportation</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
@@ -292,7 +292,7 @@ const EditTransportationForm = (props) => {
                     className={clsx(classes.button, classes.buttonSeconday)}
                     onClick={onCancel} />
                 <CeroButton
-                    buttonText="Add Data"
+                    buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onEditTransportationData} />

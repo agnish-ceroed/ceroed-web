@@ -41,7 +41,6 @@ const CompanyDetails = (props) => {
     },
     validationSchema: companyDetailsSchema,
     onSubmit: (values) => {
-      console.log(values)
     },
   });
   const handleNext = () => {

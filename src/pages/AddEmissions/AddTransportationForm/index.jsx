@@ -64,12 +64,10 @@ const AddTransportationForm = (props) => {
 
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            console.log('clear')
             enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus());
             props.onCancel('transportation');
         } else if (addEmissionData.status === STATUS.ERROR) {
-            console.log('clear')
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
         }

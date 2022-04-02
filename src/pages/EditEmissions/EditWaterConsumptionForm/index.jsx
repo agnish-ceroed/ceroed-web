@@ -238,7 +238,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete Data"
+                    buttonText="Delete"
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={() => onDeleteWaterConsumptionCombustion(formik.values)} />
                 <CeroButton
@@ -247,7 +247,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
                     className={clsx(classes.button, classes.buttonSeconday)}
                     onClick={props.onCancel} />
                 <CeroButton
-                    buttonText="Update Data"
+                    buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={() => onUpdateWaterConsumptionCombustion(formik.values)} />

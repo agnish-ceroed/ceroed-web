@@ -637,67 +637,7 @@ const emissionActions = {
                 }),
 
             [ActionTypes.RESET_ADD_COMBUSTION_STATUS]: (state, { payload }) =>
-                immutable(state, {
-                    addStationaryCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addMobileCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addPurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addRefrigerants: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateRefrigerants: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWaterDischarge: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWaterConsumption: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWasteCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWaterDischargeCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updatePurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateStationaryCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateMobileCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWaterConsumptionCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWasteCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    deleteEmissions: {
-                        status: { $set: STATUS.IDLE }
-                    },
-                }),
+                immutable(state, { $set: emissionState }),
 
             [ActionTypes.GET_EMISSION_FUEL_LIST]: (state, { payload }) =>
                 immutable(state, {

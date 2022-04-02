@@ -50,31 +50,6 @@ export const StationaryColumns = [{
 }]
 
 export const TransportationColumns = [{
-
-//     activity_type_id: "62375419fe20a094364df7b7"
-// activity_type_name: "Passenger Distance"
-// amount: "12"
-// biofuel_co2: 0
-// category_id: "623752fbfe20a094364df7b3"
-// category_name: "Upstream T&D"
-// ch4: 0
-// co2: 0.002
-// co2e: 0.002
-// description: "asdfasasdfasdf"
-// ef: 0.1027
-// ef_dataset_id: "6234261327bcb0e46d2592dd"
-// ef_dataset_name: "US EPA"
-// id: "6248101cb9106d09822fd302"
-// mode_of_transport_id: "62342c636b65a6583c71f599"
-// mode_of_transport_name: "Air"
-// month: 8
-// n2o: 0
-// status: "added"
-// unit: "passenger-mile"
-// vehicle_type_id: "6234573efe20a094364df691"
-// vehicle_type_name: "Air Travel - Long-haul, to/from UK - Average passenger"
-// year: 2012
-
     columnKey: 'category_name',
     columnId: 'category_name',
     columnHeader: 'Category',
@@ -94,10 +69,6 @@ export const TransportationColumns = [{
     columnKey: 'activity_type_name',
     columnId: 'activity_type_name',
     columnHeader: 'Unit',
-}, {
-    columnKey: 'month',
-    columnId: 'month',
-    columnHeader: 'Month',
 }, {
     columnKey: 'year',
     columnId: 'year',

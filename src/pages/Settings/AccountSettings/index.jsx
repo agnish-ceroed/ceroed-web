@@ -41,7 +41,6 @@ const AccountSettings = () => {
         enableReinitialize: true,
         validationSchema: accountSchema,
         onSubmit: (values) => {
-            console.log(values)
         },
     });
 
