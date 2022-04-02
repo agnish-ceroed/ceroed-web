@@ -11,6 +11,7 @@ import { getIndustryTypes, getCountryList } from "../../../redux/actions";
 import useStyles from './styles';
 import { useSelector } from "react-redux";
 import { sampleYear } from "../../../constants";
+import CeroAutoComplete from "../../../components/CeroAutoComplete";
 
 
 const CompanyDetails = (props) => {
@@ -18,8 +19,8 @@ const CompanyDetails = (props) => {
   const classes = useStyles();
   const industryTypeData = useSelector(state => state.listings.industryTypes.data)
   const countryListData = useSelector(state => state.listings.countryList.data)
-  
-  const countryList = countryListData.map(item => ({ key: item.code, value: item.name }));
+
+  const countryList = countryListData.map(item => ({ id: item.code, label: item.name }));
   const industryType = industryTypeData.map(item => ({ key: item.code, value: item.name }));
 
   useEffect(() => {
@@ -100,16 +101,14 @@ const CompanyDetails = (props) => {
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.address && companyDetailsForm.errors.address}
       />
-      <CeroSelect
-        required
-        name="country"
+      <CeroAutoComplete
+        id="country"
         label="Country"
-        fullWidth
-        options={countryList}
-        selectedValue={companyDetailsForm.values.country}
-        onChange={companyDetailsForm.handleChange}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('country', value.id)}
         onBlur={companyDetailsForm.handleBlur}
-        error={companyDetailsForm.touched.country && companyDetailsForm.errors.country}
+        error={companyDetailsForm.errors.country}
+        options={countryList}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
       />
       <CeroSelect
         required

@@ -10,6 +10,7 @@ import { sampleYear, months } from "../../../constants";
 import { editPurchasedElectricityValidation } from './schema';
 import { updatePurchasedElectricity, resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -30,6 +31,7 @@ const EditPurchasedElectricityForm = (props) => {
     const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
     const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
     const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     const formik = useFormik({
         initialValues: {
@@ -151,18 +153,15 @@ const EditPurchasedElectricityForm = (props) => {
                                 error={formik.touched.typeOfEmissionFactor && formik.errors.typeOfEmissionFactor}
                                 disabled={!formik.values.calculationApproach}
                             />}
-                            <CeroSelect
-                                required
+                            <CeroAutoComplete
                                 id="year"
-                                key="year"
-                                name="year"
                                 label="Year"
-                                fullWidth
-                                options={sampleYear}
-                                selectedValue={formik.values['year'] || ''}
-                                onChange={formik.handleChange}
+                                value={formik.values.year}
+                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
+                                options={yearList}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroInput
                                 required

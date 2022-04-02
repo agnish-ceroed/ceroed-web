@@ -7,62 +7,53 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
-import { updateMobileCombustionValidation } from './schema';
-import { resetAddCombustionStatus, deleteEmissions, getMobileCombustionInputs, updateMobileCombustion } from '../../../redux/actions';
+import { updateWasteCombustionValidation } from './schema';
+import { resetAddCombustionStatus, deleteEmissions, updateWasteCombustion } from '../../../redux/actions';
 
-import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
-const EditMobileCombustionForm = (props) => {
+const EditWasteCombustion = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const { emissionId, emissionData, facilitiesData, onCancel } = props
 
-    const isCalculateDone = useSelector(state => state.emission.updateMobileCombustion.isCalculateDone)
-    const updateEmissionData = useSelector(state => state.emission.updateMobileCombustion)
+    const isCalculateDone = useSelector(state => state.emission.updateWasteCombustion.isCalculateDone)
+    const updateEmissionData = useSelector(state => state.emission.updateWasteCombustion)
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
-    const activityTypesData = useSelector(state => state.emission.mobileCombustionInputs.data.activity_types);
-    const fuelSourceData = useSelector(state => state.emission.mobileCombustionInputs.data.fuel_sources);
-    const vehicleTypeData = useSelector(state => state.emission.mobileCombustionInputs.data.vehicle_types);
-    const fuelUnitData = useSelector(state => state.emission.mobileCombustionInputs.data.units);
-    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
+    const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
+    const fuelUnits = emissionInputs && (emissionInputs.units || []).map(item => ({ key: item.name, value: item.name }));
+    const wasteTypes = emissionInputs && (emissionInputs.waste_types_collection || []).map(item => ({ key: item.id, value: item.name }))
+    const wasteHazardOption = emissionInputs && (emissionInputs.waste_hazard_options || []).map(item => ({ key: item.id, value: item.name }))
+    const wasteDisposalOption = emissionInputs && (emissionInputs.waste_disposal_options || []).map(item => ({ key: item.id, value: item.name }))
+    const wasteDisposalOperation = emissionInputs && (emissionInputs.waste_disposal_operations || []).map(item => ({ key: item.id, value: item.name }))
+    const wasteDisposalLocation = emissionInputs && (emissionInputs.waste_disposal_locations || []).map(item => ({ key: item.id, value: item.name }))
 
     const formik = useFormik({
         initialValues: {
             facility: emissionData.facility_id || '',
             year: emissionData.year || '',
             month: emissionData.month || '',
-            activityType: emissionData.activity_type_id || '',
-            fuelSource: emissionData.fuel_source_id || '',
-            vehicleType: emissionData.vehicle_type_id || '',
-            amountOfFuel: emissionData.amount || '',
-            fuelUnit: emissionData.unit || ''
+            wasteType: emissionData.waste_type_id || '',
+            wasteHazardOption: emissionData.waste_hazard_option_id || '',
+            wasteDisposalOption: emissionData.waste_disposal_option_id || '',
+            wasteDisposalOperation: emissionData.waste_disposal_operation_id || '',
+            wasteDisposalLocation: emissionData.waste_disposal_location_id || '',
+            amount: emissionData.amount || '',
+            unit: emissionData.unit || ''
         },
-        validationSchema: updateMobileCombustionValidation,
+        validationSchema: updateWasteCombustionValidation,
         onSubmit: () => { },
     });
 
-    const selectedUnitType = activityTypesData.find(item => item.id === formik.values.activityType)
-    const filteredUnitData = fuelUnitData.filter(unit => unit?.type === selectedUnitType?.unit_type)
-    const filteredVehicleType = vehicleTypeData.filter(vehicle => vehicle.fuel_source_id === formik.values.fuelSource)
-
-    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const activityType = activityTypesData.map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = filteredUnitData.map(unit => ({ key: unit.name, value: unit.name }))
-    const vehicleTypes = filteredVehicleType.map(item => ({ key: item.id, value: item.name }));
-    const fuelSource = fuelSourceData.map(item => ({ key: item.id, value: item.name }));
-
-    useEffect(() => {
-        dispatch(getMobileCombustionInputs('mobile_combustion'))
-    }, [dispatch])
-
     useEffect(() => {
         if (updateEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Mobile combustion updated successfully', { variant: 'success' });
+            enqueueSnackbar('Waste combustion updated successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (updateEmissionData.status === STATUS.ERROR) {
@@ -73,7 +64,7 @@ const EditMobileCombustionForm = (props) => {
 
     useEffect(() => {
         if (deleteEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Mobile combustion deleted successfully', { variant: 'success' });
+            enqueueSnackbar('Waste combustion deleted successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (deleteEmissionData.status === STATUS.ERROR) {
@@ -86,37 +77,39 @@ const EditMobileCombustionForm = (props) => {
         const requestData = {
             id: emissionId,
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            activity_type_id: formik.values.activityType,
-            fuel_source_id: formik.values.fuelSource,
-            vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amountOfFuel,
-            unit: formik.values.fuelUnit,
+            waste_type_id: formik.values.wasteType,
+            waste_hazard_option_id: formik.values.wasteHazardOption,
+            waste_disposal_option_id: formik.values.wasteDisposalOption,
+            waste_disposal_operation_id: formik.values.wasteDisposalOperation,
+            waste_disposal_location_id: formik.values.wasteDisposalLocation,
+            amount: formik.values.amount,
+            unit: formik.values.unit,
             save: false
         }
-        dispatch(updateMobileCombustion(requestData))
+        dispatch(updateWasteCombustion(requestData))
     };
 
-    const onUpdateMobileCombustion = () => {
+    const onUpdateWasteCombustion = () => {
         const requestData = {
             id: emissionId,
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
             year: formik.values.year,
             month: formik.values.month,
-            activity_type_id: formik.values.activityType,
-            fuel_source_id: formik.values.fuelSource,
-            vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amountOfFuel,
-            unit: formik.values.fuelUnit,
+            waste_type_id: formik.values.wasteType,
+            waste_hazard_option_id: formik.values.wasteHazardOption,
+            waste_disposal_option_id: formik.values.wasteDisposalOption,
+            waste_disposal_operation_id: formik.values.wasteDisposalOperation,
+            waste_disposal_location_id: formik.values.wasteDisposalLocation,
+            amount: formik.values.amount,
+            unit: formik.values.unit,
             save: true
         }
-        dispatch(updateMobileCombustion(requestData))
+        dispatch(updateWasteCombustion(requestData))
     };
 
-    const onDeleteMobileCombustion = () => {
+    const onDeleteWasteCombustion = () => {
         const requestData = {
             id: emissionId
         }
@@ -126,9 +119,9 @@ const EditMobileCombustionForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Mobile Combustion</Typography>
+                <Typography variant="h6" component="div" >Edit Waste Combustion</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction='column' xs={6}>
                             <CeroSelect
                                 required
@@ -156,74 +149,101 @@ const EditMobileCombustionForm = (props) => {
                             />
                             <CeroSelect
                                 required
-                                id="fuelSource"
-                                name="fuelSource"
-                                label="Fuel Source"
+                                id="wasteHazardOption"
+                                name="wasteHazardOption"
+                                label="Waste hazard option"
                                 fullWidth
-                                options={fuelSource}
-                                selectedValue={formik.values.fuelSource}
+                                options={wasteHazardOption}
+                                selectedValue={formik.values.wasteHazardOption}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.fuelSource && formik.errors.fuelSource}
+                                error={formik.touched.wasteHazardOption && formik.errors.wasteHazardOption}
+                            />
+                            <CeroSelect
+                                required
+                                id="wasteDisposalLocation"
+                                name="wasteDisposalLocation"
+                                label="Waste disposal location"
+                                fullWidth
+                                options={wasteDisposalLocation}
+                                selectedValue={formik.values.wasteDisposalLocation}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.wasteDisposalLocation && formik.errors.wasteDisposalLocation}
                             />
                             <CeroInput
                                 required
-                                id="amountOfFuel"
-                                name="amountOfFuel"
+                                id="amount"
+                                name="amount"
                                 label="Amount of Fuel"
-                                value={formik.values.amountOfFuel}
+                                value={formik.values.amount}
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
+                                error={formik.touched.amount && formik.errors.amount}
                             />
+
                         </Grid>
                         <Grid item container direction={'column'} xs={6}>
                             <CeroSelect
                                 required
-                                id="activityType"
-                                name="activityType"
-                                label="Activity Type"
+                                id="wasteType"
+                                name="wasteType"
+                                label="Waste type"
                                 fullWidth
-                                options={activityType}
-                                selectedValue={formik.values.activityType}
+                                options={wasteTypes}
+                                selectedValue={formik.values.wasteType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.activityType && formik.errors.activityType}
+                                error={formik.touched.wasteType && formik.errors.wasteType}
                             />
-                            <CeroAutoComplete
+                            <CeroSelect
+                                required
                                 id="year"
+                                name="year"
                                 label="Year"
-                                value={formik.values.year}
-                                onChange={(e, value) => formik.setFieldValue('year', value.id)}
+                                fullWidth
+                                options={sampleYear}
+                                selectedValue={formik.values.year}
+                                onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.year && formik.errors.year}
-                                options={yearList}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroSelect
                                 required
-                                id="vehicleType"
-                                name="vehicleType"
-                                label="Vehicle Type"
+                                id="wasteDisposalOption"
+                                name="wasteDisposalOption"
+                                label="Waste disposal option"
                                 fullWidth
-                                options={vehicleTypes}
-                                selectedValue={formik.values.vehicleType}
+                                options={wasteDisposalOption}
+                                selectedValue={formik.values.wasteDisposalOption}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.vehicleType && formik.errors.vehicleType}
+                                error={formik.touched.wasteDisposalOption && formik.errors.wasteDisposalOption}
                             />
                             <CeroSelect
                                 required
-                                id="fuelUnit"
-                                name="fuelUnit"
+                                id="wasteDisposalOperation"
+                                name="wasteDisposalOperation"
+                                label="Waste disposal operation"
+                                fullWidth
+                                options={wasteDisposalOperation}
+                                selectedValue={formik.values.wasteDisposalOperation}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.wasteDisposalOperation && formik.errors.wasteDisposalOperation}
+                            />
+                            <CeroSelect
+                                required
+                                id="unit"
+                                name="unit"
                                 label="Fuel Unit"
                                 fullWidth
-                                options={fuelUnits || [{ name: 'select' }]}
-                                selectedValue={formik.values.fuelUnit}
+                                options={fuelUnits}
+                                selectedValue={formik.values.unit}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.fuelUnit && formik.errors.fuelUnit}
+                                error={formik.touched.unit && formik.errors.unit}
                             />
                         </Grid>
                     </Grid>
@@ -254,7 +274,7 @@ const EditMobileCombustionForm = (props) => {
                 <CeroButton
                     buttonText="Delete Data"
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onDeleteMobileCombustion(formik.values)} />
+                    onClick={() => onDeleteWasteCombustion(formik.values)} />
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
@@ -264,10 +284,10 @@ const EditMobileCombustionForm = (props) => {
                     buttonText="Update Data"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onUpdateMobileCombustion(formik.values)} />
+                    onClick={() => onUpdateWasteCombustion(formik.values)} />
             </Box>
         </Container>
     )
 }
 
-export default EditMobileCombustionForm;
+export default EditWasteCombustion;

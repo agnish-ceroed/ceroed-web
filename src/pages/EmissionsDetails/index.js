@@ -12,6 +12,7 @@ import StationaryCombustionDetails from './StationaryCombustionDetails'
 import RefrigerantsDetails from './RefrigerantsDetails'
 import WaterConsumptionDetails from './WaterConsumptionDetails'
 import WaterDischargeDetails from './WaterDischargeDetails'
+import WasteCombustion from "./WasteCombustion";
 import useStyles from "./styles";
 import _ from "lodash";
 
@@ -77,9 +78,16 @@ const EmissionsDetails = () => {
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 emissionData={emissionData}
-                        />)}
+                            />)}
                         {emissionType === "water_discharge" && (
                             <WaterDischargeDetails
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "waste" && (
+                            <WasteCombustion
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 emissionData={emissionData}

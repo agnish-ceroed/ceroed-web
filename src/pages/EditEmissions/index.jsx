@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getEmission, getEmissionInputFormat, listFacilities } from '../../redux/actions';
 
 import DashboardLayout from '../../layouts/DashboardLayout'
+import EditWasteCombustion from "./EditWasteCombustion";
 import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
 import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
 import EditMobileCombustionForm from "./EditMobileCombustionForm";
@@ -104,6 +105,15 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "transportation" && (
                             <EditTransportationForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "waste" && (
+                            <EditWasteCombustion
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
