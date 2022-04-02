@@ -12,7 +12,7 @@ import CeroButton from '../../../components/CeroButton';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
-const WasteCombustion = (props) => {
+const WasteCombustionDetails = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
@@ -89,4 +89,4 @@ const WasteCombustion = (props) => {
     )
 }
 
-export default WasteCombustion;
+export default WasteCombustionDetails;
