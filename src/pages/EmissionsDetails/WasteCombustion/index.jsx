@@ -49,106 +49,23 @@ const WasteCombustion = (props) => {
                 <Typography variant="h6" component="div" >Waste Combustion</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <CeroInput
-                                required
-                                id="facility"
-                                name="facility"
-                                label="Facility"
-                                fullWidth
-                                value={emissionData.facility_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="month"
-                                name="month"
-                                label="Month"
-                                fullWidth
-                                value={emissionData.month}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="wasteHazardOption"
-                                name="wasteHazardOption"
-                                label="Waste hazard option"
-                                fullWidth
-                                value={emissionData.waste_hazard_option_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="wasteDisposalLocation"
-                                name="wasteDisposalLocation"
-                                label="Waste disposal location"
-                                fullWidth
-                                value={emissionData.waste_disposal_location_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="amount"
-                                name="amount"
-                                label="Amount"
-                                value={emissionData.amount}
-                                inputProps={{ readOnly: true }}
-                            />
-                        </Grid>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="wasteType"
-                                name="wasteType"
-                                label="Waste type"
-                                fullWidth
-                                value={emissionData.waste_type_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="year"
-                                name="year"
-                                label="Year"
-                                fullWidth
-                                value={emissionData.year}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="wasteDisposalOption"
-                                name="wasteDisposalOption"
-                                label="Waste disposal option"
-                                fullWidth
-                                value={emissionData.waste_disposal_option_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="wasteDisposalOperation"
-                                name="wasteDisposalOperation"
-                                label="Waste disposal operation"
-                                fullWidth
-                                value={emissionData.waste_disposal_operation_name}
-                                inputProps={{ readOnly: true }}
-                            />
-                            <CeroInput
-                                required
-                                id="unit"
-                                name="unit"
-                                label="Fuel Unit"
-                                fullWidth
-                                value={emissionData.unit}
-                                inputProps={{ readOnly: true }}
-                            />
+                        <Grid item container direction='column' xs={12}>
+                            <Typography>Facility: {emissionData.facility_name}</Typography>
+                            <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
+                            <Typography>Waste hazard option: {emissionData.waste_hazard_option_name}</Typography>
+                            <Typography>Waste disposal option: {emissionData.waste_disposal_option_name}</Typography>
+                            <Typography>Waste disposal location: {emissionData.waste_disposal_location_name}</Typography>
+                            <Typography>Waste type: {emissionData.waste_type_name}</Typography>
+                            <Typography>Waste disposal operation: {emissionData.waste_disposal_operation_name}</Typography>
+                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
                 <Box className={classes.bottomContainer}>
-                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>Usage: {`${emissionData.usage} ${emissionData.usage_unit}`}</Typography>
+                            <Typography className={classes.previewItem}>Usage: {emissionData.usage}{emissionData.usage_unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
