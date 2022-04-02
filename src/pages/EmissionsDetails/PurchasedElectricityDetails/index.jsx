@@ -49,82 +49,17 @@ const PurchasedElectricityDetails = (props) => {
                 <Typography variant="h6" component="div" >Purchased Electricity</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="facility"
-                                key="facility"
-                                name="facility"
-                                label="Facility"
-                                fullWidth
-                                value={emissionData.facility_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="typeOfEmissionFactor"
-                                key="typeOfEmissionFactor"
-                                name="typeOfEmissionFactor"
-                                label="Types of Emission Factor"
-                                fullWidth
-                                value={emissionData.type_of_emission_factors}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="year"
-                                key="year"
-                                name="year"
-                                label="Year"
-                                fullWidth
-                                value={emissionData.year}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="amountOfFuel"
-                                key="amountOfFuel"
-                                name="amountOfFuel"
-                                label="Amount of Fuel"
-                                value={emissionData.amount}
-                                fullWidth
-                                inputProps={{readOnly: true}}
-                            />
-                        </Grid>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="calculationApproach"
-                                name="calculationApproach"
-                                label="Calculation Approach"
-                                fullWidth
-                                value={emissionData.calculation_approach}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="month"
-                                name="month"
-                                label="Month"
-                                fullWidth
-                                value={emissionData.month}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="unit"
-                                key="unit"
-                                name="unit"
-                                label="Unit"
-                                fullWidth
-                                value={emissionData.unit}
-                                inputProps={{readOnly: true}}
-                            />
+                        <Grid item container direction={'column'} xs={12}>
+                            <Typography>Facility: {emissionData.facility_name}</Typography>
+                            <Typography>Type of emission factor: {emissionData.type_of_emission_factors}</Typography>
+                            <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
+                            <Typography>Amount: {`${emissionData.amount} ${emissionData.unit}`}</Typography>
+                            <Typography>Calculation approach: {emissionData.calculation_approach}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
                 <Box className={classes.bottomContainer}>
-                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
                             <Typography className={classes.previewItem}>CO<sub>2</sub>: {emissionData.co2} tonnes</Typography>
