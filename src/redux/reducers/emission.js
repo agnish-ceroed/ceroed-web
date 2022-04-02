@@ -122,7 +122,13 @@ export const emissionState = {
         message: ''
     },
     addTransportationCombustion: {
-        data: {},
+        data: { vhevk: true },
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    editTransportationCombustion: {
+        data: { vhevk: true },
         status: STATUS.IDLE,
         message: '',
         isCalculateDone: false,
@@ -555,14 +561,16 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
                     addTransportationCombustion: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS },
+                        status: { $set: status },
                         isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addTransportationCombustion: {
@@ -577,14 +585,16 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
                     editTransportationCombustion: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS },
+                        status: { $set: status },
                         isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     editTransportationCombustion: {

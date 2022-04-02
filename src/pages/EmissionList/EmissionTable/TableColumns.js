@@ -51,37 +51,49 @@ export const StationaryColumns = [{
 
 export const TransportationColumns = [{
 
-    // id: emissionId,
-    // description: formik.values.description,
-    // category_id: formik.values.category,
-    // ef_dataset_id: formik.values.emissionFactorDataset,
-    // activity_type_id: formik.values.activityType,
-    // year: formik.values.year,
-    // mode_of_transport_id: formik.values.modeOfTransport,
-    // vehicle_type_id: formik.values.vehicleType,
-    // amount: formik.values.amount,
-    // month: formik.values.month,
-    // unit: formik.values.unit,
+//     activity_type_id: "62375419fe20a094364df7b7"
+// activity_type_name: "Passenger Distance"
+// amount: "12"
+// biofuel_co2: 0
+// category_id: "623752fbfe20a094364df7b3"
+// category_name: "Upstream T&D"
+// ch4: 0
+// co2: 0.002
+// co2e: 0.002
+// description: "asdfasasdfasdf"
+// ef: 0.1027
+// ef_dataset_id: "6234261327bcb0e46d2592dd"
+// ef_dataset_name: "US EPA"
+// id: "6248101cb9106d09822fd302"
+// mode_of_transport_id: "62342c636b65a6583c71f599"
+// mode_of_transport_name: "Air"
+// month: 8
+// n2o: 0
+// status: "added"
+// unit: "passenger-mile"
+// vehicle_type_id: "6234573efe20a094364df691"
+// vehicle_type_name: "Air Travel - Long-haul, to/from UK - Average passenger"
+// year: 2012
 
-    columnKey: 'category',
-    columnId: 'category',
+    columnKey: 'category_name',
+    columnId: 'category_name',
     columnHeader: 'Category',
 }, {
     columnKey: 'amount',
     columnId: 'amount',
     columnHeader: 'Amount',
 }, {
-    columnKey: 'water_source_stress_type_name',
-    columnId: 'water_source_stress_type_name',
-    columnHeader: 'Stress type'
+    columnKey: 'mode_of_transport_name',
+    columnId: 'mode_of_transport_name',
+    columnHeader: 'Mode of Transport'
 }, {
-    columnKey: 'water_source_type_name',
-    columnId: 'water_source_type_name',
-    columnHeader: 'Source type'
+    columnKey: 'vehicle_type_name',
+    columnId: 'vehicle_type_name',
+    columnHeader: 'Vehicle type'
 }, {
-    columnKey: 'usage',
-    columnId: 'usage',
-    columnHeader: 'Usage',
+    columnKey: 'activity_type_name',
+    columnId: 'activity_type_name',
+    columnHeader: 'Unit',
 }, {
     columnKey: 'month',
     columnId: 'month',
@@ -90,6 +102,30 @@ export const TransportationColumns = [{
     columnKey: 'year',
     columnId: 'year',
     columnHeader: 'Year',
+}, {
+    columnKey: 'co2',
+    columnId: 'co2',
+    columnHeader: 'CO2\n(Ton)',
+}, {
+    columnKey: 'ch4',
+    columnId: 'ch4',
+    columnHeader: 'CH4\n(Ton)',
+}, {
+    columnKey: 'n2o',
+    columnId: 'n2o',
+    columnHeader: 'N2O\n(Ton)',
+}, {
+    columnKey: 'co2e',
+    columnId: 'co2e',
+    columnHeader: 'CO2e\n(Ton)',
+}, {
+    columnKey: 'biofuel_co2',
+    columnId: 'biofuel_co2',
+    columnHeader: 'BioFuel CO2\n(Ton)',
+}, {
+    columnKey: 'ef',
+    columnId: 'ef',
+    columnHeader: 'EF \n(kgCO2e/unit)',
 }, {
     columnKey: 'status',
     columnId: 'status',

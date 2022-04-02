@@ -380,11 +380,14 @@ export function* addTransportationCombustion(action) {
             method: 'POST',
             payload: requestData
         })
+        console.log('api', response, requestData.save)
         yield put({
             type: ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response
+            payload: response,
+            save: requestData.save
         })
     } catch (err) {
+        console.log('error')
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.ADD_TRANSPORTATION_COMBUSTION_FAILURE,
@@ -394,15 +397,17 @@ export function* addTransportationCombustion(action) {
 }
 
 export function* editTransportationCombustion(action) {
+    console.log('data')
     try {
         const { requestData } = action.payload
-        const response = yield call(request, APIEndpoints.EDIT_TRANSPORTATION_COMBUSTION, {
+        const response = yield call(request, APIEndpoints.EDIT_TRANSPORTATION_COMBUSTION(requestData.id), {
             method: 'POST',
-            payload: requestData
+            payload: requestData,
         })
         yield put({
             type: ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response
+            payload: response,
+            save: requestData.save
         })
     } catch (err) {
         /* istanbul ignore next */

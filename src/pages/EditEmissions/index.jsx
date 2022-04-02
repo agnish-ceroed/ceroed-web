@@ -11,6 +11,7 @@ import EditStationaryCombustionForm from "./EditStationaryCombustionForm";
 import EditMobileCombustionForm from "./EditMobileCombustionForm";
 import EditWaterDistributionForm from "./EditWaterDistributionForm";
 import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
+import EditTransportationForm from "./EditTransportationForm";
 import EditRefrigerantsForm from "./EditRefrigerantsForm";
 import useStyles from "./styles";
 import _ from "lodash";
@@ -94,6 +95,15 @@ const EditEmissions = () => {
                             />)}
                         {emissionType === "refrigerants" && (
                             <EditRefrigerantsForm
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionInputs={emissionInputs}
+                                emissionData={emissionData}
+                            />
+                        )}
+                        {emissionType === "transportation" && (
+                            <EditTransportationForm
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
