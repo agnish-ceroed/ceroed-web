@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         borderRadius: 14,
         padding: theme.spacing(5, 7),
-        position:'relative',
+        position: 'relative',
     },
     innerContainer: {
         height: 'calc(100% - 80px)',
@@ -17,16 +17,16 @@ const useStyles = makeStyles((theme) => ({
         },
         '&::-webkit-scrollbar-track': {
             background: 'none'
-          },
-          '&::-webkit-scrollbar-thumb': {
+        },
+        '&::-webkit-scrollbar-thumb': {
             background: theme.palette.background.darkGray
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
             background: theme.palette.background.darkGray
-          }
+        }
     },
     buttonContainer: {
-        position:'absolute',
+        position: 'absolute',
         bottom: theme.spacing(5),
         right: theme.spacing(5),
     },
@@ -43,11 +43,15 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(5),
     },
     topContainer: {
-        width: '75%'
+        width: '75%',
+        margin: theme.spacing(3, 0)
     },
     bottomContainer: {
         width: '75%',
         marginTop: theme.spacing(5),
+    },
+    previewTitle: {
+        margin: theme.spacing(2, 0)
     }
 }));
 
