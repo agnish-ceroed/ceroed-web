@@ -55,7 +55,7 @@ const RefrigerantsDetails = (props) => {
                             <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
                             <Typography>Gas type: {emissionData.gas_type_name}</Typography>
                             <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Amount: {`${emissionData.amount} ${emissionData.unit}`}</Typography>
+                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

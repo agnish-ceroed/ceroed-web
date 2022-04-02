@@ -53,9 +53,9 @@ const MobileCombustionDetails = (props) => {
                             <Typography>Facility: {emissionData.facility_name}</Typography>
                             <Typography>Month and Year: {emissionData.month}/{emissionData.year}</Typography>
                             <Typography>Fuel source: {emissionData.fuel_source}</Typography>
-                            <Typography>Amount: {`${emissionData.amount} ${emissionData.unit}`}</Typography>
                             <Typography>Activity type: {emissionData.activity_type}</Typography>
                             <Typography>Vehicle type: {emissionData.vehicle_type}</Typography>
+                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

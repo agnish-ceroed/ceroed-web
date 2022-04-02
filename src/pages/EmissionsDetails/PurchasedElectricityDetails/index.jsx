@@ -53,8 +53,8 @@ const PurchasedElectricityDetails = (props) => {
                             <Typography>Facility: {emissionData.facility_name}</Typography>
                             <Typography>Type of emission factor: {emissionData.type_of_emission_factors}</Typography>
                             <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
-                            <Typography>Amount: {`${emissionData.amount} ${emissionData.unit}`}</Typography>
                             <Typography>Calculation approach: {emissionData.calculation_approach}</Typography>
+                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
