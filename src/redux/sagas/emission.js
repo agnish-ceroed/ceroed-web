@@ -6,9 +6,10 @@ import { APIEndpoints } from '../constants';
 
 export function* getEmissionList(action) {
     try {
-        const { emissionType } = action.payload
+        const { emissionType, filter } = action.payload
         const response = yield call(request, APIEndpoints.GET_EMISSION_LIST(emissionType), {
             method: 'GET',
+            payload: filter,
         })
         yield put({
             type: ActionTypes.GET_EMISSION_LIST_SUCCESS,

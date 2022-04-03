@@ -21,6 +21,12 @@ export const parseError = (error) => {
   return error || 'Something went wrong'
 }
 
+const getEncodedURL = (url, payload) => {
+  let encodedURL = new URL(url);
+  Object.keys(payload).forEach(key => encodedURL.searchParams.append(key, payload[key]));
+  return encodedURL;
+}
+
 /**
  * Fetch data
  *
@@ -72,6 +78,8 @@ export const request = (url, options = {}) => {
   }
   if (params.method !== 'GET') {
     params.body = config.isFormData ? config.payload : JSON.stringify(config.payload)
+  } else {
+    url = getEncodedURL(url, config.payload || {})
   }
 
   return fetch(url, params).then(async response => {

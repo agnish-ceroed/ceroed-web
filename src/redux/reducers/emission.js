@@ -167,6 +167,13 @@ const emissionActions = {
                         status: { $set: STATUS.ERROR }
                     }
                 }),
+            [ActionTypes.CLEAR_EMISSION_LIST]: (state, { payload }) =>
+                immutable(state, {
+                    emissionList: {
+                        data: { $set: [] },
+                        status: { $set: STATUS.IDLE }
+                    }
+                }),
 
             [ActionTypes.GET_EMISSION]: (state, { payload }) =>
                 immutable(state, {

@@ -8,15 +8,10 @@ import useStyles from "./styles";
 const EmissionHeader = (props) => {
     const classes = useStyles();
 
-    const onApplyFilter = (filter) => {
-        //trigger api for filter list
-        console.log(filter);
-    };
-
     return (
         <Box className={classes.container}>
             <EmissionSelection emissionType={props.emissionType} onSelectEmission={props.setEmissionType} />
-            <EmissionTableFilter onAddData={props.onAddData} onApplyFilter={onApplyFilter} />
+            <EmissionTableFilter emissionType={props.emissionType} onAddData={props.onAddData} onApplyFilter={props.onApplyFilter} />
         </Box>
     )
 }
