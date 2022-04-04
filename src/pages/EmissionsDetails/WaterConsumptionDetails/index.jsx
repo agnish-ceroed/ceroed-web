@@ -63,7 +63,7 @@ const WaterConsumptionDetails = (props) => {
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {emissionData.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>Usage: {emissionData.usage} {emissionData.usage_unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
