@@ -15,7 +15,6 @@ import WaterDischargeDetails from './WaterDischargeDetails'
 import WasteCombustionDetails from "./WasteCombustionDetails";
 import TransportationDetails from "./Transportation";
 import useStyles from "./styles";
-import _ from "lodash";
 
 const EmissionsDetails = () => {
     const classes = useStyles();

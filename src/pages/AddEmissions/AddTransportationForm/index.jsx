@@ -16,16 +16,15 @@ import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import useStyles from "./styles";
 
 const AddTransportationForm = (props) => {
+    const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-
 
     const addEmissionData = useSelector(state => state.emission.addTransportationCombustion);
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
 
     const isCalculateDone = addEmissionData.isCalculateDone;
-
 
     const formik = useFormik({
         initialValues: {
@@ -60,18 +59,18 @@ const AddTransportationForm = (props) => {
         return () => {
             dispatch(resetAddCombustionStatus());
         }
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus());
-            props.onCancel('transportation');
+            onCancel('transportation');
         } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
         }
-    }, [addEmissionData, enqueueSnackbar])
+    }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
 
     const onCalculate = () => {
         const requestData = {
