@@ -28,7 +28,7 @@ const CompanyDetails = (props) => {
   useEffect(() => {
     dispatch(getIndustryTypes())
     dispatch(getCountryList())
-  }, [])
+  }, [dispatch])
 
   const companyDetailsForm = useFormik({
     initialValues: {
