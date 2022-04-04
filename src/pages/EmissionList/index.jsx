@@ -26,11 +26,11 @@ const EmissionList = () => {
     const [filter, setFilter] = useState({});
 
     useEffect(() => {
-        emissionType !== 'emissions' ? onLoadMore(DEFAULT_ITEMS_PER_PAGE, 1) : navigate('stationary_combustion');
+        emissionType !== 'emissions'  ? onLoadMore(DEFAULT_ITEMS_PER_PAGE, 1) : navigate('stationary_combustion');
         return () => {
             clearEmissionList();
         }
-    }, [emissionType, navigate]);
+    }, [emissionType]);
 
     useEffect(() => {
         onLoadMore(DEFAULT_ITEMS_PER_PAGE, 1);
@@ -42,7 +42,7 @@ const EmissionList = () => {
     const onLoadMore = (limit = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
         const filterRequest = {
             limit,
-            skip: ((pageNumber || ((savedPage.pageNumber || 0) + 1)) - 1) * limit,
+            skip: ((pageNumber || ((savedPage.pageNumber || 0) + 1)) - 1)  * limit,
             ...filter
         };
         dispatch(getEmissionList(emissionType, filterRequest))
