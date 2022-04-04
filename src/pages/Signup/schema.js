@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const phoneRegExp = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+const phoneRegExp = /^\+(?:[0-9] ?){6,14}[0-9]$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 const websiteRegex = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
 

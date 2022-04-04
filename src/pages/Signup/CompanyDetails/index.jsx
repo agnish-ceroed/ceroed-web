@@ -2,16 +2,17 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Typography, Box } from "@mui/material";
 import { useFormik } from 'formik';
+import { useSelector } from "react-redux";
 
-import CeroInput from '../../../components/CeroInput';
-import CeroSelect from '../../../components/CeroSelect';
-import CeroButton from '../../../components/CeroButton';
 import { companyDetailsSchema } from "../schema";
 import { getIndustryTypes, getCountryList } from "../../../redux/actions";
-import useStyles from './styles';
-import { useSelector } from "react-redux";
 import { sampleYear } from "../../../constants";
+
+import CeroPhoneInput from "../../../components/CeroPhoneInput";
 import CeroAutoComplete from "../../../components/CeroAutoComplete";
+import CeroInput from '../../../components/CeroInput';
+import CeroButton from '../../../components/CeroButton';
+import useStyles from './styles';
 
 
 const CompanyDetails = (props) => {
@@ -20,8 +21,9 @@ const CompanyDetails = (props) => {
   const industryTypeData = useSelector(state => state.listings.industryTypes.data)
   const countryListData = useSelector(state => state.listings.countryList.data)
 
-  const countryList = countryListData.map(item => ({ id: item.code, label: item.name }));
-  const industryType = industryTypeData.map(item => ({ key: item.code, value: item.name }));
+  const countryList = countryListData.map(item => ({ key: item.code, label: item.name }));
+  const industryType = industryTypeData.map(item => ({ key: item.code, label: item.name }));
+  const yearList = sampleYear.map(item => ({ key: item.key, label: item.value }));
 
   useEffect(() => {
     dispatch(getIndustryTypes())
@@ -60,13 +62,13 @@ const CompanyDetails = (props) => {
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.company && companyDetailsForm.errors.company}
       />
-      <CeroInput
+      <CeroPhoneInput
         required
         fullWidth
         name="phone"
         label="Phone number"
         value={companyDetailsForm.values.phone}
-        onChange={companyDetailsForm.handleChange}
+        onChange={(value) => companyDetailsForm.setFieldValue("phone", value)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.phone && companyDetailsForm.errors.phone}
       />
@@ -103,33 +105,29 @@ const CompanyDetails = (props) => {
       <CeroAutoComplete
         id="country"
         label="Country"
-        onChange={(e, value) => companyDetailsForm.setFieldValue('country', value.id)}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('country', value.key)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.errors.country}
         options={countryList}
         isOptionEqualToValue={(option, value) => option.id === value.id}
       />
-      <CeroSelect
-        required
+      <CeroAutoComplete
         name="establishedYear"
         label="Year of establishment"
-        fullWidth
-        options={sampleYear}
-        selectedValue={companyDetailsForm.values.establishedYear}
-        onChange={companyDetailsForm.handleChange}
+        options={yearList}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('establishedYear', value.key)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.establishedYear && companyDetailsForm.errors.establishedYear}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
       />
-      <CeroSelect
-        required
+      <CeroAutoComplete
         name="industryType"
         label="Type of industry"
-        fullWidth
         options={industryType}
-        selectedValue={companyDetailsForm.values.industryType}
-        onChange={companyDetailsForm.handleChange}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('industryType', value.key)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.industryType && companyDetailsForm.errors.industryType}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
       />
       <Box className={classes.cardFooter}>
         <CeroButton
