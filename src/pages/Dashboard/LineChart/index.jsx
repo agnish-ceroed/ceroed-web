@@ -1,6 +1,5 @@
 import React from 'react';
 import { Paper } from "@mui/material"
-import { Doughnut, Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,6 +10,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Doughnut, Line } from 'react-chartjs-2';
 
 import useStyles from './styles'
 

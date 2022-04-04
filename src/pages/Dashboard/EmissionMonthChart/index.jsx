@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
-import { Chart } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -12,6 +11,7 @@ import {
     Legend,
     Tooltip,
 } from 'chart.js';
+import { Chart } from 'react-chartjs-2';
 
 import { getEmissionsByMonth } from '../../../redux/actions';
 import useStyles from './styles'
