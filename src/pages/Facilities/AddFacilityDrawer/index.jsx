@@ -140,7 +140,7 @@ const AddFacilityDrawer = (props) => {
             </Box>
         )
     };
-    console.log(facilityForm)
+
     return (
         <CeroSideSheetDrawer
             primaryDrawer={{
