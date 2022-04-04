@@ -16,6 +16,7 @@
     "formik": "^2.2.9",
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",
+    "material-ui-phone-number": "^3.0.0",
     "notistack": "^2.0.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.1",
@@ -32,8 +33,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "CI=false && react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
