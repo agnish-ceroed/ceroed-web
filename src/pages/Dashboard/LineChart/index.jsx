@@ -9,11 +9,13 @@ import {
     Title,
     Tooltip,
     Legend,
+    registerables as registerablesJS
 } from 'chart.js';
 import { Doughnut, Line } from 'react-chartjs-2';
 
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(
     CategoryScale,
     LinearScale,

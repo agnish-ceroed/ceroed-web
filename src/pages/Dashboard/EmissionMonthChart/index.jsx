@@ -10,12 +10,14 @@ import {
     LineElement,
     Legend,
     Tooltip,
+    registerables as registerablesJS
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 
 import { getEmissionsByMonth } from '../../../redux/actions';
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(
     LinearScale,
     CategoryScale,
