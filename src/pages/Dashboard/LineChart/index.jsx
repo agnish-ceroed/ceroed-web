@@ -10,10 +10,12 @@ import {
     Title,
     Tooltip,
     Legend,
+    registerables as registerablesJS
 } from 'chart.js';
 
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(
     CategoryScale,
     LinearScale,

@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
 import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Chart as ChartJS, Tooltip, Legend, ArcElement, registerables as registerablesJS } from 'chart.js';
 import _ from 'lodash';
 import { getEmissionRegion } from '../../../redux/actions';
 
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const GeographicalChart = () => {

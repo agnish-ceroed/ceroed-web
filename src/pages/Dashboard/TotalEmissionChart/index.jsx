@@ -10,6 +10,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    registerables as registerablesJS
 } from 'chart.js';
 import _ from 'lodash';
 
@@ -17,6 +18,7 @@ import { getEmissionYear } from '../../../redux/actions';
 
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(
     CategoryScale,
     LinearScale,
