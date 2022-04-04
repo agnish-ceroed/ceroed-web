@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const phoneRegExp = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+const phoneRegExp = /^(((\+*)[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 export const addFacilityValidation = yup.object({
     name: yup
