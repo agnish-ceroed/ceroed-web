@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const WaterDischargeDetails = (props) => {
@@ -50,114 +50,22 @@ const WaterDischargeDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="facility"
-                                key="facility"
-                                name="facility"
-                                label="Facility"
-                                fullWidth
-                                value={emissionData.facility_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="month"
-                                name="month"
-                                label="Month"
-                                fullWidth
-                                value={emissionData.month}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="stressType"
-                                key="stressType"
-                                name="stressType"
-                                label="Stress Type"
-                                fullWidth
-                                value={emissionData.water_destination_stress_type_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="treatmentRequired"
-                                key="treatmentRequired"
-                                name="treatmentRequired"
-                                label="Treatment Required"
-                                fullWidth
-                                value={emissionData.treatment_required}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="amountOfFuel"
-                                key="amountOfFuel"
-                                name="amountOfFuel"
-                                label="Amount of Water Consumption"
-                                value={emissionData.amount}
-                                fullWidth
-                                inputProps={{readOnly: true}}
-                            />
-                        </Grid>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="destination"
-                                name="destination"
-                                label="Water Destination"
-                                fullWidth
-                                value={emissionData.water_destination_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="year"
-                                key="year"
-                                name="year"
-                                label="Year"
-                                fullWidth
-                                value={emissionData.year}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="destinationType"
-                                key="destinationType"
-                                name="destinationType"
-                                label="Destination Type"
-                                fullWidth
-                                value={emissionData.water_destination_type_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="treatmentLevel"
-                                key="treatmentLevel"
-                                name="treatmentLevel"
-                                label="Treatment Level"
-                                fullWidth
-                                value={emissionData.treatment_level}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="fuelUnit"
-                                key="fuelUnit"
-                                name="fuelUnit"
-                                label="Unit"
-                                fullWidth
-                                value={emissionData.unit}
-                                inputProps={{readOnly: true}}
-                            />
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {emissionData.month}{emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Destination: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Destination type: {emissionData.water_destination_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Stress type: {emissionData.water_destination_stress_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Treatment Required: {emissionData.treatment_required ? "Yes" : "No"}</Typography>
+                            <Typography className={classes.previewItem}>Treatment level: {emissionData.treatment_level}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
                 <Box className={classes.bottomContainer}>
-                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {emissionData.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>Usage: {emissionData.usage} {emissionData.usage_unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

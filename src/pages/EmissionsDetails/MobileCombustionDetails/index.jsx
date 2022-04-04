@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const MobileCombustionDetails = (props) => {
@@ -50,91 +50,17 @@ const MobileCombustionDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="facility"
-                                key="facility"
-                                name="facility"
-                                label="Facility"
-                                fullWidth
-                                value={emissionData.facility_name}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="month"
-                                name="month"
-                                label="Month"
-                                fullWidth
-                                value={emissionData.month}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="fuelSource"
-                                key="fuelSource"
-                                name="fuelSource"
-                                label="Fuel Source"
-                                fullWidth
-                                value={emissionData.fuel_source}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="amountOfFuel"
-                                key="amountOfFuel"
-                                name="amountOfFuel"
-                                label="Amount of Fuel"
-                                value={emissionData.amount}
-                                fullWidth
-                                inputProps={{readOnly: true}}
-                            />
-                        </Grid>
-                        <Grid item container direction={'column'} xs={6}>
-                            <CeroInput
-                                required
-                                id="activityType"
-                                name="activityType"
-                                label="Activity Type"
-                                fullWidth
-                                value={emissionData.activity_type}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="year"
-                                key="year"
-                                name="year"
-                                label="Year"
-                                fullWidth
-                                value={emissionData.year}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="vehicleType"
-                                key="vehicleType"
-                                name="vehicleType"
-                                label="Vehicle Type"
-                                fullWidth
-                                value={emissionData.vehicle_type}
-                                inputProps={{readOnly: true}}
-                            />
-                            <CeroInput
-                                required
-                                id="fuelUnit"
-                                key="fuelUnit"
-                                name="fuelUnit"
-                                label="Fue lUnit"
-                                fullWidth
-                                value={emissionData.unit}
-                                inputProps={{readOnly: true}}
-                            />
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and Year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Fuel source: {emissionData.fuel_source}</Typography>
+                            <Typography className={classes.previewItem}>Activity type: {emissionData.activity_type}</Typography>
+                            <Typography className={classes.previewItem}>Vehicle type: {emissionData.vehicle_type}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
                 <Box className={classes.bottomContainer}>
-                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
                             <Typography className={classes.previewItem}>CO<sub>2</sub>: {emissionData.co2} tonnes</Typography>

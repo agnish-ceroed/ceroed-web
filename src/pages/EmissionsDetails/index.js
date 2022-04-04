@@ -95,7 +95,7 @@ const EmissionsDetails = () => {
                             />
                         )}
                         {emissionType === "waste" && (
-                            <WasteCombustion
+                            <WasteCombustionDetails
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 emissionData={emissionData}
