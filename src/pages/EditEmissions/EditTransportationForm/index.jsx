@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
-import { editTransportationCombustion, getEmissionInputFormat, deleteEmissions, resetEditCombustionStatus } from '../../../redux/actions';
+import { getEmissionInputFormat, deleteEmissions, editTransportationCombustion, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -20,8 +20,8 @@ const EditTransportationForm = (props) => {
     const { enqueueSnackbar } = useSnackbar();
     const { emissionId, emissionData, onCancel } = props
 
-    const isCalculateDone = useSelector(state => state.emission.addTransportationCombustion.isCalculateDone)
-    const updateEmissionData = useSelector(state => state.emission.updateTransportationCombustion)
+    const isCalculateDone = useSelector(state => state.emission.editTransportationCombustion.isCalculateDone)
+    const updateEmissionData = useSelector(state => state.emission.editTransportationCombustion)
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
 
@@ -42,42 +42,43 @@ const EditTransportationForm = (props) => {
         onSubmit: () => { },
     });
 
-    const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
+    const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => !formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
         .map(item => ({ key: item?.id, value: item?.name }));
-    const units = (emissionInputs?.units || []).map(item => ({ key: item?.id, value: item?.name }));
+    const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name, type: item?.unit_type }));
+    const units = (emissionInputs?.units || []).filter((item) => !formik.values.activityType || item.type === activityTypes.find(item => item.key === formik.values.activityType)?.type)
+        .map(item => ({ key: item?.name, value: item?.description }));
     const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
     const emissionFactorDataset = (emissionInputs?.ef_dataset || []).map(item => ({ key: item?.id, value: item?.name }));
     const categories = (emissionInputs?.categories || []).map(item => ({ key: item?.id, value: item?.name }));
-    const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name }));
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('transportation'));
         return () => {
-            dispatch(resetEditCombustionStatus());
+            dispatch(resetAddCombustionStatus());
         }
     }, []);
 
     useEffect(() => {
         if (deleteEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Stationary combustion deleted successfully', { variant: 'success' });
-            dispatch(resetEditCombustionStatus())
+            dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (deleteEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetEditCombustionStatus())
+            dispatch(resetAddCombustionStatus())
         }
     }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
 
     useEffect(() => {
-        if (updateEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
+        if (updateEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Transportation combustion updated successfully', { variant: 'success' });
-            dispatch(resetEditCombustionStatus());
+            dispatch(resetAddCombustionStatus());
             props.onCancel('transportation');
-        } else if (updateEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
+        } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetEditCombustionStatus());
+            dispatch(resetAddCombustionStatus());
         }
-    }, [updateEmissionData.addTransportationCombustion, enqueueSnackbar])
+    }, [updateEmissionData, enqueueSnackbar])
 
     const onCalculate = () => {
         const requestData = {
@@ -125,7 +126,7 @@ const EditTransportationForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Transportation</Typography>
+                <Typography variant="h6" component="div" >Edit Transportation</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
@@ -291,7 +292,7 @@ const EditTransportationForm = (props) => {
                     className={clsx(classes.button, classes.buttonSeconday)}
                     onClick={onCancel} />
                 <CeroButton
-                    buttonText="Add Data"
+                    buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onEditTransportationData} />

@@ -116,7 +116,6 @@ export function* signup(action) {
     })
   } catch (err) {
     /* istanbul ignore next */
-    console.log(err)
     yield put({
       type: ActionTypes.USER_SIGN_UP_FAILURE,
       payload: err.message

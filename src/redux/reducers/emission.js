@@ -131,7 +131,13 @@ export const emissionState = {
         message: ''
     },
     addTransportationCombustion: {
-        data: {},
+        data: { vhevk: true },
+        status: STATUS.IDLE,
+        message: '',
+        isCalculateDone: false,
+    },
+    editTransportationCombustion: {
+        data: { vhevk: true },
         status: STATUS.IDLE,
         message: '',
         isCalculateDone: false,
@@ -159,6 +165,13 @@ const emissionActions = {
                     emissionList: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
+                    }
+                }),
+            [ActionTypes.CLEAR_EMISSION_LIST]: (state, { payload }) =>
+                immutable(state, {
+                    emissionList: {
+                        data: { $set: [] },
+                        status: { $set: STATUS.IDLE }
                     }
                 }),
 
@@ -588,14 +601,16 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
                     addTransportationCombustion: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS },
+                        status: { $set: status },
                         isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.ADD_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addTransportationCombustion: {
@@ -610,14 +625,16 @@ const emissionActions = {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload }) =>
-                immutable(state, {
+            [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS]: (state, { payload, save }) => {
+                let status = save ? STATUS.SUCCESS : STATUS.IDLE
+                return immutable(state, {
                     editTransportationCombustion: {
                         data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS },
+                        status: { $set: status },
                         isCalculateDone: { $set: !payload.save }
                     }
-                }),
+                })
+            },
             [ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     editTransportationCombustion: {
@@ -627,67 +644,7 @@ const emissionActions = {
                 }),
 
             [ActionTypes.RESET_ADD_COMBUSTION_STATUS]: (state, { payload }) =>
-                immutable(state, {
-                    addStationaryCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addMobileCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addPurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addRefrigerants: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateRefrigerants: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWaterDischarge: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWaterConsumption: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    addWasteCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWaterDischargeCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updatePurchasedElectricity: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateStationaryCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateMobileCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWaterConsumptionCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    updateWasteCombustion: {
-                        status: { $set: STATUS.IDLE },
-                        isCalculateDone: { $set: false }
-                    },
-                    deleteEmissions: {
-                        status: { $set: STATUS.IDLE }
-                    },
-                }),
+                immutable(state, { $set: emissionState }),
 
             [ActionTypes.GET_EMISSION_FUEL_LIST]: (state, { payload }) =>
                 immutable(state, {

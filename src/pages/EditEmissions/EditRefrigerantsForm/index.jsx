@@ -237,7 +237,7 @@ const EditRefrigerantsForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete Data"
+                    buttonText="Delete"
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={() => onDeletePurchasedElectricity(formik.values)} />
                 <CeroButton
@@ -246,7 +246,7 @@ const EditRefrigerantsForm = (props) => {
                     className={clsx(classes.button, classes.buttonSeconday)}
                     onClick={() => props.onCancel('refrigerants')} />
                 <CeroButton
-                    buttonText="Update Data"
+                    buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={() => onEditRefrigerants(formik.values)}

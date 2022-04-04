@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +7,12 @@ import { useSnackbar } from 'notistack';
 
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
-import { addTransportationCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
-
-import CeroAutoComplete from '../../../components/CeroAutoComplete';
+import { addTransportationCombustion, getEmissionInputFormat, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import { STATUS } from "../../../redux/constants";
+import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import useStyles from "./styles";
 
 const AddTransportationForm = (props) => {
@@ -21,10 +20,12 @@ const AddTransportationForm = (props) => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const isCalculateDone = useSelector(state => state.emission.addTransportationCombustion.isCalculateDone)
 
-    const addEmissionData = useSelector(state => state.emission);
+    const addEmissionData = useSelector(state => state.emission.addTransportationCombustion);
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
+
+    const isCalculateDone = addEmissionData.isCalculateDone;
+
 
     const formik = useFormik({
         initialValues: {
@@ -45,12 +46,14 @@ const AddTransportationForm = (props) => {
 
     const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => !formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
         .map(item => ({ key: item?.id, value: item?.name }));
-    const units = (emissionInputs?.units || []).map(item => ({ key: item?.name, value: item?.description }));
+    const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name, type: item?.unit_type }));
+    const units = (emissionInputs?.units || []).filter((item) => !formik.values.activityType || item.type === activityTypes.find(item => item.key === formik.values.activityType)?.type)
+        .map(item => ({ key: item?.name, value: item?.description }));
     const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
     const emissionFactorDataset = (emissionInputs?.ef_dataset || []).map(item => ({ key: item?.id, value: item?.name }));
     const categories = (emissionInputs?.categories || []).map(item => ({ key: item?.id, value: item?.name }));
-    const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name }));
     const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
+
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('transportation'));
@@ -60,15 +63,15 @@ const AddTransportationForm = (props) => {
     }, []);
 
     useEffect(() => {
-        if (addEmissionData.addTransportationCombustion.status === STATUS.SUCCESS) {
+        if (addEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Transportation combustion added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus());
             props.onCancel('transportation');
-        } else if (addEmissionData.addTransportationCombustion.status === STATUS.ERROR) {
+        } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
         }
-    }, [addEmissionData.addTransportationCombustion, enqueueSnackbar])
+    }, [addEmissionData, enqueueSnackbar])
 
     const onCalculate = () => {
         const requestData = {

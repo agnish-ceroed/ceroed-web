@@ -18,7 +18,6 @@ const UserDetails = (props) => {
         },
         validationSchema: userDetailsSchema,
         onSubmit: (values) => {
-            console.log(values)
         },
     });
 

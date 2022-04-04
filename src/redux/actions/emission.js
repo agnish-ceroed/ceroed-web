@@ -4,6 +4,7 @@ import { ActionTypes } from '../constants/actions';
 
 export const {
     getEmissionList,
+    clearEmissionList,
     getEmission,
     addStationaryCombustion,
     addMobileCombustion,
@@ -27,7 +28,8 @@ export const {
     addRefrigerants,
     updateRefrigerants,
 } = createActions({
-    [ActionTypes.GET_EMISSION_LIST]: (emissionType) => ({ emissionType }),
+    [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
+    [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
     [ActionTypes.GET_EMISSION]: (params) => (params),
     [ActionTypes.ADD_STATIONARY_COMBUSTION]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_MOBILE_COMBUSTION]: (requestData) => ({ requestData }),

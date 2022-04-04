@@ -6,9 +6,10 @@ import { APIEndpoints } from '../constants';
 
 export function* getEmissionList(action) {
     try {
-        const { emissionType } = action.payload
+        const { emissionType, filter } = action.payload
         const response = yield call(request, APIEndpoints.GET_EMISSION_LIST(emissionType), {
             method: 'GET',
+            payload: filter,
         })
         yield put({
             type: ActionTypes.GET_EMISSION_LIST_SUCCESS,
@@ -403,7 +404,8 @@ export function* addTransportationCombustion(action) {
         })
         yield put({
             type: ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response
+            payload: response,
+            save: requestData.save
         })
     } catch (err) {
         /* istanbul ignore next */
@@ -417,13 +419,14 @@ export function* addTransportationCombustion(action) {
 export function* editTransportationCombustion(action) {
     try {
         const { requestData } = action.payload
-        const response = yield call(request, APIEndpoints.EDIT_TRANSPORTATION_COMBUSTION, {
-            method: 'POST',
-            payload: requestData
+        const response = yield call(request, APIEndpoints.EDIT_TRANSPORTATION_COMBUSTION(requestData.id), {
+            method: 'PUT',
+            payload: requestData,
         })
         yield put({
             type: ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response
+            payload: response,
+            save: requestData.save
         })
     } catch (err) {
         /* istanbul ignore next */
