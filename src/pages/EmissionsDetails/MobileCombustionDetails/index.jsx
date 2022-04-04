@@ -42,7 +42,7 @@ const MobileCombustionDetails = (props) => {
         }
         dispatch(deleteEmissions(requestData))
     };
-    
+
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
@@ -50,12 +50,12 @@ const MobileCombustionDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and Year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography>Fuel source: {emissionData.fuel_source}</Typography>
-                            <Typography>Activity type: {emissionData.activity_type}</Typography>
-                            <Typography>Vehicle type: {emissionData.vehicle_type}</Typography>
-                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and Year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Fuel source: {emissionData.fuel_source}</Typography>
+                            <Typography className={classes.previewItem}>Activity type: {emissionData.activity_type}</Typography>
+                            <Typography className={classes.previewItem}>Vehicle type: {emissionData.vehicle_type}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

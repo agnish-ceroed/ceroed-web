@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     },
     previewTitle: {
         margin: theme.spacing(2, 0)
+    },
+    previewItem: {
+        padding: theme.spacing(1, 0)
     }
 }));
 

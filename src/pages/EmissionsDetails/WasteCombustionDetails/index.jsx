@@ -50,14 +50,14 @@ const WasteCombustionDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction='column' xs={12}>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography>Waste hazard option: {emissionData.waste_hazard_option_name}</Typography>
-                            <Typography>Waste disposal option: {emissionData.waste_disposal_option_name}</Typography>
-                            <Typography>Waste disposal location: {emissionData.waste_disposal_location_name}</Typography>
-                            <Typography>Waste type: {emissionData.waste_type_name}</Typography>
-                            <Typography>Waste disposal operation: {emissionData.waste_disposal_operation_name}</Typography>
-                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Waste hazard option: {emissionData.waste_hazard_option_name}</Typography>
+                            <Typography className={classes.previewItem}>Waste disposal option: {emissionData.waste_disposal_option_name}</Typography>
+                            <Typography className={classes.previewItem}>Waste disposal location: {emissionData.waste_disposal_location_name}</Typography>
+                            <Typography className={classes.previewItem}>Waste type: {emissionData.waste_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Waste disposal operation: {emissionData.waste_disposal_operation_name}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

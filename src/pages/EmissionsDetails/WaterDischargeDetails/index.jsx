@@ -50,14 +50,14 @@ const WaterDischargeDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and year: {emissionData.month}{emissionData.year}</Typography>
-                            <Typography>Destination: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography>Destination type: {emissionData.water_destination_type_name}</Typography>
-                            <Typography>Stress type: {emissionData.water_destination_stress_type_name}</Typography>
-                            <Typography>Treatment Required: {emissionData.treatment_required ? "Yes" : "No"}</Typography>
-                            <Typography>Treatment level: {emissionData.treatment_level}</Typography>
-                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {emissionData.month}{emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Destination: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Destination type: {emissionData.water_destination_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Stress type: {emissionData.water_destination_stress_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Treatment Required: {emissionData.treatment_required ? "Yes" : "No"}</Typography>
+                            <Typography className={classes.previewItem}>Treatment level: {emissionData.treatment_level}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

@@ -50,11 +50,11 @@ const PurchasedElectricityDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={12}>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Type of emission factor: {emissionData.type_of_emission_factors}</Typography>
-                            <Typography>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography>Calculation approach: {emissionData.calculation_approach}</Typography>
-                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Type of emission factor: {emissionData.type_of_emission_factors}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Calculation approach: {emissionData.calculation_approach}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>

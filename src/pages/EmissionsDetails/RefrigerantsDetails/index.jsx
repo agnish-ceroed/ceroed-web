@@ -50,12 +50,12 @@ const RefrigerantsDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={12}>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Facility: {emissionData.refrigerant_name}</Typography>
-                            <Typography>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography>Gas type: {emissionData.gas_type_name}</Typography>
-                            <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.refrigerant_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Gas type: {emissionData.gas_type_name}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
