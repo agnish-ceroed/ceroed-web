@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const StationaryCombustionDetails = (props) => {
@@ -51,7 +51,7 @@ const StationaryCombustionDetails = (props) => {
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={12}>
                             <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
+                            <Typography>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
                             <Typography>Fuel: {emissionData.fuel}</Typography>
                             <Typography>Amount: {emissionData.amount}{emissionData.unit}</Typography>
                         </Grid>

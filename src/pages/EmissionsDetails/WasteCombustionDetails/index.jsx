@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const WasteCombustionDetails = (props) => {
@@ -51,7 +51,7 @@ const WasteCombustionDetails = (props) => {
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction='column' xs={12}>
                             <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and year: {emissionData.month}/{emissionData.year}</Typography>
+                            <Typography>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
                             <Typography>Waste hazard option: {emissionData.waste_hazard_option_name}</Typography>
                             <Typography>Waste disposal option: {emissionData.waste_disposal_option_name}</Typography>
                             <Typography>Waste disposal location: {emissionData.waste_disposal_location_name}</Typography>

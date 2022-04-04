@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const WaterDischargeDetails = (props) => {
@@ -52,7 +52,7 @@ const WaterDischargeDetails = (props) => {
                         <Grid item container direction={'column'} xs={6}>
                             <Typography>Facility: {emissionData.facility_name}</Typography>
                             <Typography>Month and year: {emissionData.month}{emissionData.year}</Typography>
-                            <Typography>Destination: {emissionData.water_destination_name}</Typography>
+                            <Typography>Destination: {getMonth[emissionData.month]} {emissionData.year}</Typography>
                             <Typography>Destination type: {emissionData.water_destination_type_name}</Typography>
                             <Typography>Stress type: {emissionData.water_destination_stress_type_name}</Typography>
                             <Typography>Treatment Required: {emissionData.treatment_required ? "Yes" : "No"}</Typography>

@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
+import { getMonth } from '../../../services/utilityService';
 
 import CeroButton from '../../../components/CeroButton';
-import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
 
 const MobileCombustionDetails = (props) => {
@@ -42,7 +42,7 @@ const MobileCombustionDetails = (props) => {
         }
         dispatch(deleteEmissions(requestData))
     };
-
+    
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
@@ -51,7 +51,7 @@ const MobileCombustionDetails = (props) => {
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={6}>
                             <Typography>Facility: {emissionData.facility_name}</Typography>
-                            <Typography>Month and Year: {emissionData.month}/{emissionData.year}</Typography>
+                            <Typography>Month and Year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
                             <Typography>Fuel source: {emissionData.fuel_source}</Typography>
                             <Typography>Activity type: {emissionData.activity_type}</Typography>
                             <Typography>Vehicle type: {emissionData.vehicle_type}</Typography>
