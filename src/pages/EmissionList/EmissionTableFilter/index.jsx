@@ -38,6 +38,13 @@ const EmissionTableFilter = (props) => {
         dispatch(listFacilities())
     }, []);
 
+    const onClear = () => {
+        setSearchText('');
+        setYear('');
+        setMonth('');
+        setFacility('');
+    }
+
     const onApply = () => {
         const filterValue = {};
         if(searchText) {
@@ -105,6 +112,12 @@ const EmissionTableFilter = (props) => {
                     placeholder="Search" 
                     onChange={({target}) => setSearchText(target.value)}
                     value={searchText}  />
+            </Grid>
+            <Grid item xs={1.5}>
+                <CeroButton 
+                    buttonText="Clear"
+                    className={classes.button}
+                    onClick={onClear}/>
             </Grid>
             <Grid item xs={1.5}>
                 <CeroButton 

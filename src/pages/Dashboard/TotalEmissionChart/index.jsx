@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from "@mui/material"
-import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,13 +9,16 @@ import {
     Title,
     Tooltip,
     Legend,
+    registerables as registerablesJS
 } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
 
 import { getEmissionYear } from '../../../redux/actions';
 
 import useStyles from './styles'
 
+ChartJS.register(...registerablesJS)
 ChartJS.register(
     CategoryScale,
     LinearScale,

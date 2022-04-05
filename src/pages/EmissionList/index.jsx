@@ -19,7 +19,7 @@ const EmissionList = () => {
     const dispatch = useDispatch()
     const classes = useStyles();
     const navigate = useNavigate();
-    const {pathname} = useLocation();
+    const { pathname } = useLocation();
     const emissionData = useSelector(state => state.emission.emissionList.data)
     const emissionType = pathname.substring(pathname.lastIndexOf('/') + 1);
 

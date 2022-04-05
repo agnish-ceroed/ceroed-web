@@ -2,9 +2,11 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
 import { useFormik } from 'formik';
 
+import { userDetailsSchema } from '../schema';
+
+import CeroPhoneInput from '../../../components/CeroPhoneInput';
 import CeroInput from '../../../components/CeroInput';
 import CeroButton from '../../../components/CeroButton';
-import { userDetailsSchema } from '../schema';
 import useStyles from '../styles';
 
 const UserDetails = (props) => {
@@ -12,9 +14,9 @@ const UserDetails = (props) => {
     const userDetailsForm = useFormik({
         initialValues: {
             name: props.userDetails.name || '',
-            email: props.userDetails.email ||'',
-            phone: props.userDetails.phone ||'',
-            password: props.userDetails.password ||'',
+            email: props.userDetails.email || '',
+            phone: props.userDetails.phone || '',
+            password: props.userDetails.password || '',
         },
         validationSchema: userDetailsSchema,
         onSubmit: (values) => {
@@ -48,13 +50,13 @@ const UserDetails = (props) => {
                 onBlur={userDetailsForm.handleBlur}
                 error={userDetailsForm.touched.email && userDetailsForm.errors.email}
             />
-            <CeroInput
+            <CeroPhoneInput
                 required
                 fullWidth
                 label="Contact Number"
                 name="phone"
                 value={userDetailsForm.values.phone}
-                onChange={userDetailsForm.handleChange}
+                onChange={(value) => userDetailsForm.setFieldValue("phone", value)}
                 onBlur={userDetailsForm.handleBlur}
                 error={userDetailsForm.touched.phone && userDetailsForm.errors.phone}
             />

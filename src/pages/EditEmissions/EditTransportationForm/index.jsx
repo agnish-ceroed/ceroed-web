@@ -28,7 +28,7 @@ const EditTransportationForm = (props) => {
     const formik = useFormik({
         initialValues: {
             description: emissionData.description || '',
-            category:  emissionData.category_id || '',
+            category: emissionData.category_id || '',
             emissionFactorDataset: emissionData.ef_dataset_id || '',
             activityType: emissionData.activity_type_id || '',
             year: emissionData.year || '',
@@ -56,7 +56,7 @@ const EditTransportationForm = (props) => {
         return () => {
             dispatch(resetAddCombustionStatus());
         }
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (deleteEmissionData.status === STATUS.SUCCESS) {
@@ -73,12 +73,12 @@ const EditTransportationForm = (props) => {
         if (updateEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Transportation combustion updated successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus());
-            props.onCancel('transportation');
+            onCancel('transportation');
         } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus());
         }
-    }, [updateEmissionData, enqueueSnackbar])
+    }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
 
     const onCalculate = () => {
         const requestData = {

@@ -12,6 +12,7 @@ import CeroSelect from '../../../components/CeroSelect';
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
 import useStyles from "./styles";
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
+import CeroPhoneInput from '../../../components/CeroPhoneInput';
 
 const AddFacilityDrawer = (props) => {
     const { editItem, onClose } = props
@@ -104,25 +105,26 @@ const AddFacilityDrawer = (props) => {
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.name}
                 />
-                <CeroInput
+                <CeroPhoneInput
                     required
                     id="phone"
                     name="phone"
                     label="Phone"
                     fullWidth
                     value={facilityForm.values.phone}
-                    onChange={facilityForm.handleChange}
+                    onChange={(value) => facilityForm.setFieldValue("phone", value)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.phone}
                 />
                 <CeroAutoComplete
                     id="country"
                     label="Country"
+                    value={facilityForm.values.country}
                     onChange={(e, value) => facilityForm.setFieldValue('country', value.id)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
                     options={countryList}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    isOptionEqualToValue={(option, value) => option.id === value}
                 />
                 <CeroSelect
                     required
