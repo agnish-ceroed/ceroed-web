@@ -119,11 +119,12 @@ const AddFacilityDrawer = (props) => {
                 <CeroAutoComplete
                     id="country"
                     label="Country"
+                    value={facilityForm.values.country}
                     onChange={(e, value) => facilityForm.setFieldValue('country', value.id)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
                     options={countryList}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    isOptionEqualToValue={(option, value) => option.id === value}
                 />
                 <CeroSelect
                     required
