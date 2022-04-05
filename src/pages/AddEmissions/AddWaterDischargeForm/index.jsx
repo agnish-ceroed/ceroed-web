@@ -78,7 +78,7 @@ const AddWaterDischargeForm = (props) => {
             destination_type_id: formik.values.destinationType,
             treatment_required: formik.values.treatmentRequired,
             treatment_level: formik.values.treatmentLevel,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             unit: formik.values.fuelUnit,
             save: false
         }
@@ -95,7 +95,7 @@ const AddWaterDischargeForm = (props) => {
             destination_type_id: formik.values.destinationType,
             treatment_required: formik.values.treatmentRequired,
             treatment_level: formik.values.treatmentLevel,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             unit: formik.values.fuelUnit,
             save: true
         }

@@ -78,7 +78,7 @@ const AddWasteCombustion = (props) => {
             waste_disposal_option_id: formik.values.wasteDisposalOption,
             waste_disposal_operation_id: formik.values.wasteDisposalOperation,
             waste_disposal_location_id: formik.values.wasteDisposalLocation,
-            amount: formik.values.amount,
+            amount: parseFloat(formik.values.amount),
             unit: formik.values.unit,
             save: false
         }
@@ -95,7 +95,7 @@ const AddWasteCombustion = (props) => {
             waste_disposal_option_id: formik.values.wasteDisposalOption,
             waste_disposal_operation_id: formik.values.wasteDisposalOperation,
             waste_disposal_location_id: formik.values.wasteDisposalLocation,
-            amount: formik.values.amount,
+            amount: parseFloat(formik.values.amount),
             unit: formik.values.unit,
             save: true
         }

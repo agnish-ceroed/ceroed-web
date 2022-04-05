@@ -19,7 +19,7 @@ export const editPurchasedElectricityValidation = yup.object({
     calculationApproach: yup
         .string('Calculation approach is required')
         .required('Calculation approach is required'),
-    amountOfFuel: yup
+    amount: yup
         .string('Amount of fuel is required')
         .required('Amount of fuel is required'),
 });

@@ -87,7 +87,7 @@ const EditRefrigerantsForm = (props) => {
             month: formik.values.month,
             refrigerant_id: formik.values.refrigerant,
             unit: formik.values.unit + '',
-            amount: parseInt(formik.values.amountOfFuel),
+            amount: parseFloat(formik.values.amountOfFuel),
             save: false
         }
         dispatch(updateRefrigerants(requestData))
@@ -102,7 +102,7 @@ const EditRefrigerantsForm = (props) => {
             month: formik.values.month,
             refrigerant_id: formik.values.refrigerant,
             unit: formik.values.unit + '',
-            amount: parseInt(formik.values.amountOfFuel),
+            amount: parseFloat(formik.values.amountOfFuel),
             save: true
         }
         dispatch(updateRefrigerants(requestData))

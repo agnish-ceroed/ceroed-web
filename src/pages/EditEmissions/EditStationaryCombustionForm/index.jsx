@@ -82,7 +82,7 @@ const EditStationaryCombustionForm = (props) => {
             month: formik.values.month,
             fuel_id: formik.values.fuel,
             unit: formik.values.fuelUnit,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             save: false
         }
         dispatch(updateStationaryCombustion(requestData))
@@ -97,7 +97,7 @@ const EditStationaryCombustionForm = (props) => {
             month: formik.values.month,
             fuel_id: formik.values.fuel,
             unit: formik.values.fuelUnit,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             save: true
         }
         dispatch(updateStationaryCombustion(requestData))

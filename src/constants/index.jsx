@@ -52,7 +52,7 @@ export const months = [
     {
         id: 'november',
         value: 'November',
-        key: 12,
+        key: 11,
     },
     {
         id: 'december',

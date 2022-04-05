@@ -42,7 +42,7 @@ const AddPurchasedElectricityForm = (props) => {
             calculationApproach: '',
             typeOfEmissionFactor: '',
             unit: '',
-            amountOfFuel: '',
+            amount: '',
         },
         validationSchema: addPurchasedElectricityValidation,
         onSubmit: () => { },
@@ -80,7 +80,7 @@ const AddPurchasedElectricityForm = (props) => {
             month: formik.values.month,
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
             unit: formik.values.unit + '',
-            amount: parseInt(formik.values.amountOfFuel),
+            amount: parseFloat(formik.values.amount),
             save: false
         }
         dispatch(addPurchasedElectricity(requestData))
@@ -94,7 +94,7 @@ const AddPurchasedElectricityForm = (props) => {
             month: formik.values.month,
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
             unit: formik.values.unit + '',
-            amount: parseInt(formik.values.amountOfFuel),
+            amount: parseFloat(formik.values.amount),
             save: true
         }
         dispatch(addPurchasedElectricity(requestData))
@@ -145,15 +145,15 @@ const AddPurchasedElectricityForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="amountOfFuel"
-                                key="amountOfFuel"
-                                name="amountOfFuel"
-                                label="Amount of Fuel"
-                                value={formik.values.amountOfFuel || ''}
+                                id="amount"
+                                key="amount"
+                                name="amount"
+                                label="Amount"
+                                value={formik.values.amount || ''}
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
+                                error={formik.touched.amount && formik.errors.amount}
                             />
                         </Grid>
                         <Grid item container direction={'column'} xs={6}>

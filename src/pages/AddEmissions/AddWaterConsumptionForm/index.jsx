@@ -75,7 +75,7 @@ const AddWaterConsumptionForm = (props) => {
             stress_type_id: formik.values.stressType,
             source_type_id: formik.values.sourceType,
             unit: formik.values.fuelUnit,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             save: false
         }
         dispatch(addWaterConsumptionCombustion(requestData))
@@ -90,7 +90,7 @@ const AddWaterConsumptionForm = (props) => {
             stress_type_id: formik.values.stressType,
             source_type_id: formik.values.sourceType,
             unit: formik.values.fuelUnit,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             save: true
         }
         dispatch(addWaterConsumptionCombustion(requestData))

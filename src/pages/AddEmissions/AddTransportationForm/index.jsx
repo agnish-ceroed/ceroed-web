@@ -82,7 +82,7 @@ const AddTransportationForm = (props) => {
             year: formik.values.year,
             mode_of_transport_id: formik.values.modeOfTransport,
             vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amount,
+            amount: parseFloat(formik.values.amount),
             month: formik.values.month,
             unit: formik.values.unit,
             save: false,
@@ -99,7 +99,7 @@ const AddTransportationForm = (props) => {
             year: formik.values.year,
             mode_of_transport_id: formik.values.modeOfTransport,
             vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amount,
+            amount: parseFloat(formik.values.amount),
             month: formik.values.month,
             unit: formik.values.unit,
             save: true

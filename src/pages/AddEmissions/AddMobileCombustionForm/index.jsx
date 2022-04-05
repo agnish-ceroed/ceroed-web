@@ -82,7 +82,7 @@ const AddMobileCombustionForm = (props) => {
             activity_type_id: formik.values.activityType,
             fuel_source_id: formik.values.fuelSource,
             vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             unit: formik.values.fuelUnit,
             save: false
         }
@@ -98,7 +98,7 @@ const AddMobileCombustionForm = (props) => {
             activity_type_id: formik.values.activityType,
             fuel_source_id: formik.values.fuelSource,
             vehicle_type_id: formik.values.vehicleType,
-            amount: formik.values.amountOfFuel,
+            amount: parseFloat(formik.values.amountOfFuel),
             unit: formik.values.fuelUnit,
             save: true
         }
