@@ -33,7 +33,7 @@ const EmissionMonthChart = () => {
     const dispatch = useDispatch();
 
     const emissionData = useSelector(state => state.dashboard.getEmissionsByMonth.data);
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     const options = {
         plugins: {
@@ -70,7 +70,7 @@ const EmissionMonthChart = () => {
         datasets: [
             {
                 type: 'line',
-                label: 'Total CO2e',
+                label: 'Total CO2e(tonnes)',
                 data: emissionData.map(item => { return item.total_co2e }),
                 borderColor: 'rgb(255, 99, 132)',
                 borderWidth: 2,
@@ -78,19 +78,19 @@ const EmissionMonthChart = () => {
             },
             {
                 type: 'bar',
-                label: 'Total CO2',
+                label: 'Total CO2(tonnes)',
                 data: emissionData.map(item => { return item.total_co2 }),
                 backgroundColor: 'rgb(75, 192, 192)',
             },
             {
                 type: 'bar',
-                label: 'Total CH4',
+                label: 'Total CH4(tonnes)',
                 data: emissionData.map(item => { return item.total_ch4 }),
                 backgroundColor: 'rgb(53, 162, 235)',
             },
             {
                 type: 'bar',
-                label: 'Total N2O',
+                label: 'Total N2O(tonnes)',
                 data: emissionData.map(item => { return item.total_n2o }),
                 backgroundColor: '#003f5c',
             },
