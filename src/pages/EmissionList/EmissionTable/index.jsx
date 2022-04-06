@@ -59,6 +59,7 @@ const EmissionTable = (props) => {
         year: `${item.month}/${item.year}`,
         amount: `${item.amount}  ${item.unit}`,
         status: getStatus(item.status),
+        treatment_required: item.treatment_required ? "Yes" : "No",
         action: (
             <Box className={classes.actionContainer}>
                 {/* <CeroButton className={classes.button} buttonText={item.status} /> */}

@@ -166,13 +166,13 @@ export const MobileColumns = [{
 }]
 
 export const PurchasedElectricityColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
     columnKey: 'year',
     columnId: 'year',
     columnHeader: 'Year',
-}, {
-    columnKey: 'facility',
-    columnId: 'facility',
-    columnHeader: 'Facility',
 }, {
     columnKey: 'amount',
     columnId: 'amount',
@@ -216,12 +216,8 @@ export const PurchasedElectricityColumns = [{
 }]
 
 export const WaterDischargeColumns = [{
-    columnKey: 'year',
-    columnId: 'year',
-    columnHeader: 'Year',
-}, {
-    columnKey: 'facility',
-    columnId: 'facility',
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
     columnHeader: 'Facility',
 }, {
     columnKey: 'amount',
@@ -270,8 +266,9 @@ export const WaterDischargeColumns = [{
 }]
 
 export const WaterConsumptionColumns = [{
-    columnKey: 'facility',
-    columnId: 'facility',
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
 }, {
     columnKey: 'amount',
     columnId: 'amount',
@@ -288,10 +285,6 @@ export const WaterConsumptionColumns = [{
     columnKey: 'usage',
     columnId: 'usage',
     columnHeader: 'Usage',
-}, {
-    columnKey: 'month',
-    columnId: 'month',
-    columnHeader: 'Month',
 }, {
     columnKey: 'year',
     columnId: 'year',
