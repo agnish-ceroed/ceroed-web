@@ -35,7 +35,7 @@ const EmissionChart = () => {
             title: {
                 align: 'start',
                 display: true,
-                text: 'Emission Types',
+                text: 'Emission Types (tonnes)',
                 font: {
                     size: 18,
                     family: 'Roboto'
