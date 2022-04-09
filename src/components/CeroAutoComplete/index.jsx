@@ -5,7 +5,10 @@ import clsx from 'clsx'
 import useStyles from './styles'
 
 const CeroAutoComplete = (props) => {
-    const classes = useStyles()
+    const classes = useStyles();
+
+    const isOptionEqualToValue = (option, value) => option.id === value.id;
+
     return (
         <Box className={classes.container}>
             <Autocomplete
@@ -16,10 +19,16 @@ const CeroAutoComplete = (props) => {
                 options={props.options}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
-                error={!!props.error}
                 onInputChange={props.onInputChange}
-                renderInput={(params) => <TextField {...params} label={props.label} />}
-                isOptionEqualToValue={props.isOptionEqualToValue}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        name={props.name}
+                        label={props.label}
+                        onBlur={props.onBlur}
+                    />
+                )}
+                isOptionEqualToValue={isOptionEqualToValue}
             />
             {!!props.error && <Typography className={clsx(classes.text, classes.error, props.classes?.error)} >{props.error}</Typography>}
         </Box>

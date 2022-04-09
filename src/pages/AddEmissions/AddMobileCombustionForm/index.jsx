@@ -108,7 +108,7 @@ const AddMobileCombustionForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Mobile Combustion</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Mobile Combustion</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
@@ -175,12 +175,12 @@ const AddMobileCombustionForm = (props) => {
                             />
                             <CeroAutoComplete
                                 id="year"
+                                name="year"
                                 label="Year"
                                 onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.year}
+                                error={formik.touched.year && formik.errors.year}
                                 options={yearList}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
                             <CeroSelect
                                 required

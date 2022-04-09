@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
             background: theme.palette.background.darkGray
           }
     },
+    title: {
+        marginBottom: theme.spacing(3),
+    },
     buttonContainer: {
         position:'absolute',
         bottom: theme.spacing(5),

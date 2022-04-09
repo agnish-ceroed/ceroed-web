@@ -21,7 +21,14 @@ const CeroSelect = (props) => {
                 onBlur={props.onBlur}
                 className={classes.input}
                 classes={{ root: props.classes?.root }}
-                SelectProps={{ classes: { select: props.classes?.select } }}
+                SelectProps={{ 
+                    classes: {
+                        select: props.classes?.select,
+                    },
+                    MenuProps:{
+                        classes: { paper: classes.paperRoot }
+                    }
+                 }}
                 select
             >
                 <MenuItem value="">

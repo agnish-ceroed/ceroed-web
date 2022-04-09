@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center'
     },
+    inputRoot: {
+        height: 'auto',
+    },
     icon: {
         color: `${theme.palette.icon.gray}!important`,
         marginRight: theme.spacing(1)
