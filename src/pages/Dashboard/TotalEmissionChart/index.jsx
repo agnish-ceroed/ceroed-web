@@ -28,15 +28,15 @@ ChartJS.register(
     Legend
 );
 
-const TotalEmissionChart = () => {
+const TotalEmissionChart = (props) => {
     const classes = useStyles()
     const dispatch = useDispatch();
 
     const emissionData = useSelector(state => state.dashboard.getEmissionYear.data);
 
     useEffect(() => {
-        dispatch(getEmissionYear());
-    }, []);
+        dispatch(getEmissionYear(props.filter));
+    }, [dispatch, props.filter]);
 
     const options = {
         responsive: true,

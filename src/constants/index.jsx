@@ -290,3 +290,22 @@ export const emissionTypeData = [
         ]
     }
 ];
+
+export const selectionPeriod = [
+    {
+        key: 'last_one_month',
+        value: "Last one month"
+    }, {
+        key: 'last_six_months',
+        value: "Last six months"
+    }, {
+        key: 'last_one_year',
+        value: "Last one year"
+    }, {
+        key: 'last_five_years',
+        value: "Last five years"
+    }, {
+        key: 'advanced',
+        value: "Advanced"
+    },
+]

@@ -11,15 +11,15 @@ import useStyles from './styles'
 ChartJS.register(...registerablesJS)
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const GeographicalChart = () => {
+const GeographicalChart = (props) => {
     const classes = useStyles()
     const dispatch = useDispatch();
 
     const emissionData = useSelector(state => state.dashboard.getEmissionRegion.data);
 
     useEffect(() => {
-        dispatch(getEmissionRegion());
-    }, []);
+        dispatch(getEmissionRegion(props.filter));
+    }, [props.filter, dispatch]);
 
     const options = {
         responsive: true,

@@ -28,7 +28,7 @@ ChartJS.register(
     Tooltip
 );
 
-const EmissionMonthChart = () => {
+const EmissionMonthChart = (props) => {
     const classes = useStyles()
     const dispatch = useDispatch();
 
@@ -98,8 +98,8 @@ const EmissionMonthChart = () => {
     };
 
     useEffect(() => {
-        dispatch(getEmissionsByMonth());
-    }, [dispatch]);
+        dispatch(getEmissionsByMonth(props.filter));
+    }, [dispatch, props.filter]);
 
     return (
         <Paper className={classes.container}>

@@ -4,11 +4,12 @@ import { request } from '../../services/client'
 import { ActionTypes } from '../constants/actions';
 import { APIEndpoints } from '../constants';
 
-
-export function* getEmissionYear() {
+export function* getEmissionYear(action) {
   try {
+    const { filter } = action.payload
     const response = yield call(request, APIEndpoints.GET_EMISSION_YEAR, {
       method: 'GET',
+      payload: filter
     })
     yield put({
       type: ActionTypes.GET_EMISSION_YEAR_SUCCESS,
@@ -23,10 +24,12 @@ export function* getEmissionYear() {
   }
 }
 
-export function* getEmissionTypes() {
+export function* getEmissionTypes(action) {
   try {
+    const { filter } = action.payload
     const response = yield call(request, APIEndpoints.GET_EMISSION_TYPES, {
       method: 'GET',
+      payload: filter
     })
     yield put({
       type: ActionTypes.GET_EMISSION_TYPES_SUCCESS,
@@ -41,10 +44,12 @@ export function* getEmissionTypes() {
   }
 }
 
-export function* getEmissionRegion() {
+export function* getEmissionRegion(action) {
   try {
+    const { filter } = action.payload
     const response = yield call(request, APIEndpoints.GET_EMISSION_REGION, {
       method: 'GET',
+      payload: filter
     })
     yield put({
       type: ActionTypes.GET_EMISSION_REGION_SUCCESS,
@@ -59,10 +64,12 @@ export function* getEmissionRegion() {
   }
 }
 
-export function* getEmissionsByMonth() {
+export function* getEmissionsByMonth(action) {
   try {
+    const { filter } = action.payload
     const response = yield call(request, APIEndpoints.GET_EMISSIONS_BY_MONTH, {
       method: 'GET',
+      payload: filter
     })
     yield put({
       type: ActionTypes.GET_EMISSIONS_BY_MONTH_SUCCESS,
@@ -76,7 +83,6 @@ export function* getEmissionsByMonth() {
     })
   }
 }
-
 
 export default function* root() {
   yield all([

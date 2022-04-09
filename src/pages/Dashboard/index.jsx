@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Grid } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout';
@@ -12,31 +12,36 @@ import EmissionMonthChart from './EmissionMonthChart';
 
 const Dashboard = () => {
     const classes = useStyles();
+    const [filter, setFilter] = useState();
+
+    const onApplyFilter = (filter) => {
+        setFilter(filter);
+    }
 
     return (
-        <DashboardLayout>
-            <Container className={classes.container}>
-                <DashboardHeader />
-                <Grid container spacing={6} className={classes.gridContainer}>
-                    <Grid xs={6} item>
-                        <TotalEmissionChart />
-                    </Grid>
-                    <Grid xs={6} item>
-                        <EmissionChart />
-                    </Grid>
-                    {/* <Grid xs={6} item>
+    <DashboardLayout>
+        <Container className={classes.container}>
+            <DashboardHeader onApplyFilter={onApplyFilter} />
+            <Grid container spacing={6} className={classes.gridContainer}>
+                <Grid xs={6} item>
+                    <TotalEmissionChart filter={filter} />
+                </Grid>
+                <Grid xs={6} item>
+                    <EmissionChart filter={filter} />
+                </Grid>
+                {/* <Grid xs={6} item>
                         <LineChart />
                     </Grid> */}
-                    <Grid xs={6} item>
-                        <GeographicalChart />
-                    </Grid>
-                    <Grid xs={6} item>
-                        <EmissionMonthChart />
-                    </Grid>
+                <Grid xs={6} item>
+                    <GeographicalChart filter={filter} />
                 </Grid>
-            </Container>
-        </DashboardLayout>
-    );
+                <Grid xs={6} item>
+                    <EmissionMonthChart filter={filter} />
+                </Grid>
+            </Grid>
+        </Container>
+    </DashboardLayout>
+);
 };
 
 export default Dashboard;

@@ -12,15 +12,15 @@ import useStyles from './styles'
 ChartJS.register(...registerablesJS)
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const EmissionChart = () => {
+const EmissionChart = (props) => {
     const classes = useStyles()
     const dispatch = useDispatch();
 
     const emissionData = useSelector(state => state.dashboard.getEmissionTypes.data);
 
     useEffect(() => {
-        dispatch(getEmissionTypes());
-    }, []);
+        dispatch(getEmissionTypes(props.filter));
+    }, [dispatch, props.filter]);
 
     const options = {
         responsive: true,

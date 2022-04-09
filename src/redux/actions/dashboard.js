@@ -8,8 +8,8 @@ export const {
     getEmissionRegion,
     getEmissionsByMonth
 } = createActions({
-    [ActionTypes.GET_EMISSION_YEAR]: () => {},
-    [ActionTypes.GET_EMISSION_TYPES]: () => {},
-    [ActionTypes.GET_EMISSION_REGION]: () => {},
-    [ActionTypes.GET_EMISSIONS_BY_MONTH]: () => {},
+    [ActionTypes.GET_EMISSION_YEAR]: (filter) => ({ filter }),
+    [ActionTypes.GET_EMISSION_TYPES]: (filter) => ({ filter }),
+    [ActionTypes.GET_EMISSION_REGION]: (filter) => ({ filter }),
+    [ActionTypes.GET_EMISSIONS_BY_MONTH]: (filter) => ({ filter }),
 })

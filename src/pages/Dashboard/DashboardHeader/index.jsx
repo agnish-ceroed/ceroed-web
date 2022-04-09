@@ -2,19 +2,14 @@ import React from 'react';
 import { Box } from "@mui/material";
 
 import DashboardFilter from '../DashboardFilter';
-import useStyles from "./styles";   
+import useStyles from "./styles";
 
-const DashboardHeader = () => {
+const DashboardHeader = (props) => {
     const classes = useStyles();
-
-    const onApplyFilter = (filter) => {
-        //trigger api for filter list
-        console.log(filter);
-    };
-
+    
     return (
         <Box className={classes.container}>
-            <DashboardFilter onApplyFilter={onApplyFilter}/>
+            <DashboardFilter onApplyFilter={props.onApplyFilter} />
         </Box>
     )
 }
