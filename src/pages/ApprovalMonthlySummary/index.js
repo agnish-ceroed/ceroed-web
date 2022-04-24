@@ -6,6 +6,7 @@ import Dropdown from "../../components/Dropdown";
 import SearchBox from "../../components/SearchBox";
 import {sampleYear} from "../../constants";
 import { listFacilities } from "../../redux/actions";
+import Status from './Status'
 
 import useStyles from "./styles";
 
@@ -66,6 +67,7 @@ const ApprovalMonthlySummary = () => {
             />
           </Grid>
         </Grid>
+        <Status/>
       </Container>
     </DashboardLayout>
   );
