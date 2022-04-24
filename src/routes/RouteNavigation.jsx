@@ -21,6 +21,7 @@ import EditEmissions from '../pages/EditEmissions';
 import EmissionsDetails from '../pages/EmissionsDetails';
 import Facilities from '../pages/Facilities';
 import Users from '../pages/Users'
+import ApprovalMonthlySummary from '../pages/ApprovalMonthlySummary'
 
 const RootNavigation = () => {
     return (
@@ -56,6 +57,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <Dashboard />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard/approval-monthly-summary"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <ApprovalMonthlySummary />
                             </PrivateRoute>
                         }
                     />
