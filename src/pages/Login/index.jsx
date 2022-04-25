@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { Grid, Typography, Paper, Container } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { Box } from '@mui/system';
+import { useParams } from 'react-router-dom';
 
 import { userLogin } from "../../redux/actions";
 import { STATUS } from '../../redux/constants';
@@ -19,6 +20,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const loginData = useSelector((state) => state.auth);
     const { enqueueSnackbar } = useSnackbar();
+    let { userType } = useParams()
 
     useEffect(() => {
         if (loginData.status === STATUS.ERROR && loginData.message) {
@@ -35,7 +37,7 @@ const Login = () => {
     });
 
     const handleLogin = () => {
-        dispatch(userLogin(loginForm.values.email, loginForm.values.password))
+        dispatch(userLogin(userType, loginForm.values.email, loginForm.values.password))
     }
 
     return (
@@ -78,7 +80,7 @@ const Login = () => {
                         onClick={handleLogin}
                         disabled={!loginForm.dirty || !loginForm.isValid}
                     />
-                    <Link className={classes.forgotLink} to='/forgot-password' variant="body2">Forgot Password?</Link>
+                    <Link className={classes.forgotLink} to={`/forgot-password/${userType}`} variant="body2">Forgot Password?</Link>
                     <Link to="/signup" variant="body2">Don't have an account? Sign Up</Link>
                 </Paper>
             </Container>

@@ -5,6 +5,7 @@ import listings from './listings'
 import facility from './facility'
 import dashboard from './dashboard'
 import users from './users'
+import company from './company'
 
 const rootReducer = {
     ...auth,
@@ -13,7 +14,8 @@ const rootReducer = {
     ...listings,
     ...facility,
     ...dashboard,
-    ...users
+    ...users,
+    ...company
 }
 
 export default rootReducer

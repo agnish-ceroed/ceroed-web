@@ -7,6 +7,7 @@ import listings from './listings'
 import facility from './facility'
 import dashboard from './dashboard'
 import users from './users'
+import company from './company'
 
 /**
  * rootSaga
@@ -20,6 +21,7 @@ export default function* root() {
     fork(facility),
     fork(dashboard),
     fork(users),
+    fork(company),
     // fork(app),
   ])
 }

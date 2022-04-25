@@ -21,6 +21,8 @@ import EditEmissions from '../pages/EditEmissions';
 import EmissionsDetails from '../pages/EmissionsDetails';
 import Facilities from '../pages/Facilities';
 import Users from '../pages/Users'
+import Home from '../pages/Home';
+import CompanyList from '../pages/CompanyList';
 
 const RootNavigation = () => {
     return (
@@ -28,7 +30,15 @@ const RootNavigation = () => {
             <Suspense fallback={<div>Loading</div>} >
                 <Routes>
                     <Route
-                        path="/login"
+                        path="/"
+                        element={
+                            <PublicRoute redirectTo="/dashboard">
+                                <Home />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/login/:userType"
                         element={
                             <PublicRoute redirectTo="/dashboard">
                                 <Login />
@@ -38,7 +48,7 @@ const RootNavigation = () => {
                     <Route
                         path="/signup"
                         element={
-                            <PublicRoute redirectTo="/dashboard">
+                            <PublicRoute>
                                 <Signup />
                             </PublicRoute>
                         }
@@ -46,7 +56,7 @@ const RootNavigation = () => {
                     <Route
                         path="/change-password"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <ChangePassword />
                             </PrivateRoute>
                         }
@@ -54,7 +64,7 @@ const RootNavigation = () => {
                     <Route
                         path="/dashboard"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Dashboard />
                             </PrivateRoute>
                         }
@@ -62,7 +72,7 @@ const RootNavigation = () => {
                     <Route
                         path="/emissions/:type"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Emissions />
                             </PrivateRoute>
                         }
@@ -70,7 +80,7 @@ const RootNavigation = () => {
                     <Route
                         path="/emissions"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Emissions />
                             </PrivateRoute>
                         }
@@ -78,7 +88,7 @@ const RootNavigation = () => {
                     <Route
                         path="/emissions/add/:type"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <AddEmissions />
                             </PrivateRoute>
                         }
@@ -86,7 +96,7 @@ const RootNavigation = () => {
                     <Route
                         path="/emissions/edit/:type/:id"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <EditEmissions />
                             </PrivateRoute>
                         }
@@ -94,7 +104,7 @@ const RootNavigation = () => {
                     <Route
                         path="/emissions/:type/:id"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <EmissionsDetails />
                             </PrivateRoute>
                         }
@@ -102,7 +112,7 @@ const RootNavigation = () => {
                     <Route
                         path="/goals"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Goals />
                             </PrivateRoute>
                         }
@@ -110,7 +120,7 @@ const RootNavigation = () => {
                     <Route
                         path="/simulations"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Simulations />
                             </PrivateRoute>
                         }
@@ -118,7 +128,7 @@ const RootNavigation = () => {
                     <Route
                         path="/benchmarking"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Benchmarking />
                             </PrivateRoute>
                         }
@@ -126,7 +136,7 @@ const RootNavigation = () => {
                     <Route
                         path="/reports"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Reports />
                             </PrivateRoute>
                         }
@@ -134,7 +144,7 @@ const RootNavigation = () => {
                     <Route
                         path="/help"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Help />
                             </PrivateRoute>
                         }
@@ -142,7 +152,7 @@ const RootNavigation = () => {
                     <Route
                         path="/profile"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Profile />
                             </PrivateRoute>
                         }
@@ -150,7 +160,7 @@ const RootNavigation = () => {
                     <Route
                         path="/settings"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Settings />
                             </PrivateRoute>
                         }
@@ -158,7 +168,7 @@ const RootNavigation = () => {
                     <Route
                         path="/facilities"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Facilities />
                             </PrivateRoute>
                         }
@@ -166,13 +176,22 @@ const RootNavigation = () => {
                     <Route
                         path="/users"
                         element={
-                            <PrivateRoute redirectTo="/login">
+                            <PrivateRoute redirectTo="/">
                                 <Users />
                             </PrivateRoute>
                         }
                     />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/" element={<Navigate to="/login" />} />
+
+                    <Route
+                        path="/companies"
+                        element={
+                            <PrivateRoute redirectTo="/">
+                                <CompanyList />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route path="/forgot-password/:userType" element={<ForgotPassword />} />
+                    <Route path="/" element={<Navigate to="/" />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>

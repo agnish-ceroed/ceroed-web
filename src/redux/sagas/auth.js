@@ -10,11 +10,12 @@ import { APIEndpoints } from '../constants';
  */
 export function* login(action) {
   try {
-    const { email, password } = action.payload
+    const { userType, email, password } = action.payload
     let loginFormData = new URLSearchParams();
     loginFormData.append('username', email)
     loginFormData.append('password', password)
-    const response = yield call(request, APIEndpoints.LOGIN, {
+    let API = (userType === 'auditor' && APIEndpoints.AUDITOR_LOGIN) || (userType === 'business' && APIEndpoints.LOGIN)
+    const response = yield call(request, API, {
       method: 'POST',
       isFormData: true,
       payload: loginFormData,
@@ -25,10 +26,12 @@ export function* login(action) {
     yield setCookie('auth_token_admin', response.access_token)
     yield setCookie('access_token_expiry', response.access_token_expiry)
     yield setCookie('user_details', JSON.stringify(response))
+    yield setCookie('role', userType)
     localStorage.setItem('password', password)
     yield put({
       type: ActionTypes.USER_LOGIN_SUCCESS,
-      payload: response
+      payload: response,
+      role: userType
     })
   } catch (err) {
     /* istanbul ignore next */
@@ -41,8 +44,9 @@ export function* login(action) {
 
 export function* getForgotPasswordOtp(action) {
   try {
-    const { email } = action.payload
-    const response = yield call(request, APIEndpoints.FORGOT_PASSWORD, {
+    const { userType, email } = action.payload
+    let API = (userType === 'auditor' && APIEndpoints.FORGOT_AUDITOR_PASSWORD) || (userType === 'business' && APIEndpoints.FORGOT_PASSWORD)
+    const response = yield call(request, API, {
       method: 'POST',
       payload: { email }
     })
@@ -61,8 +65,9 @@ export function* getForgotPasswordOtp(action) {
 
 export function* resetPassword(action) {
   try {
-    const { email, otp, password } = action.payload
-    const response = yield call(request, APIEndpoints.RESET_PASSWORD, {
+    const { userType, email, otp, password } = action.payload
+    let API = (userType === 'auditor' && APIEndpoints.RESET_AUDITOR_PASSWORD) || (userType === 'business' && APIEndpoints.RESET_PASSWORD)
+    const response = yield call(request, API, {
       method: 'POST',
       payload: { email, otp, new_password: password }
     })
@@ -128,11 +133,25 @@ export function* refreshToken() {
     const accessTokenExpiry = parseInt(getCookie('access_token_expiry'))
     const userDetails = JSON.parse(getCookie('user_details'))
     const password = localStorage.getItem('password')
+    const userType = getCookie('role')
     const now = new Date().getTime()
+    if (!userType) {
+      yield deleteCookie('auth_token_admin')
+      yield deleteCookie('access_token_expiry')
+      yield deleteCookie('user_details')
+      yield deleteCookie('role')
+      yield put({
+        type: ActionTypes.USER_LOGOUT_SUCCESS
+      })
+      yield put({
+        type: ActionTypes.REFRESH_TOKEN_FAILURE
+      })
+    }
     if (accessTokenExpiry > now) {
       yield put({
         type: ActionTypes.USER_LOGIN_SUCCESS,
-        payload: userDetails
+        payload: userDetails,
+        role: userType
       })
       yield put({
         type: ActionTypes.REFRESH_TOKEN_SUCCESS
@@ -152,9 +171,11 @@ export function* refreshToken() {
       yield setCookie('auth_token_admin', response.access_token)
       yield setCookie('access_token_expiry', response.access_token_expiry)
       yield setCookie('user_details', JSON.stringify(response))
+      yield setCookie('role', userType)
       yield put({
         type: ActionTypes.USER_LOGIN_SUCCESS,
-        payload: response
+        payload: response,
+        role: userType
       })
       yield put({
         type: ActionTypes.REFRESH_TOKEN_SUCCESS
@@ -163,6 +184,7 @@ export function* refreshToken() {
       yield deleteCookie('auth_token_admin')
       yield deleteCookie('access_token_expiry')
       yield deleteCookie('user_details')
+      yield deleteCookie('role')
       yield put({
         type: ActionTypes.REFRESH_TOKEN_FAILURE
       })
@@ -172,6 +194,7 @@ export function* refreshToken() {
     yield deleteCookie('auth_token_admin')
     yield deleteCookie('access_token_expiry')
     yield deleteCookie('user_details')
+    yield deleteCookie('role')
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS
     })
@@ -193,6 +216,7 @@ export function* logout() {
     yield deleteCookie('auth_token_admin')
     yield deleteCookie('access_token_expiry')
     yield deleteCookie('user_details')
+    yield deleteCookie('role')
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS
     })
@@ -200,6 +224,7 @@ export function* logout() {
     /* istanbul ignore next */
     yield deleteCookie('auth_token_admin')
     yield deleteCookie('access_token_expiry')
+    yield deleteCookie('role')
     yield put({
       type: ActionTypes.USER_LOGOUT_FAILURE,
       payload: err
