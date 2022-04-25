@@ -7,13 +7,14 @@ import { useSnackbar } from 'notistack';
 
 import { sampleYear, months } from "../../../constants";
 import { addRefrigerantsValidation } from './schema';
+import { STATUS } from "../../../redux/constants";
 import { addRefrigerants, listFacilities, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
+import CeroInfoPair from '../../../components/CeroInfoPair'
 import useStyles from "./styles";
 
 const AddRefrigerantsForm = (props) => {
@@ -103,10 +104,10 @@ const AddRefrigerantsForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Refrigerants</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Refrigerants</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -156,7 +157,7 @@ const AddRefrigerantsForm = (props) => {
                                 error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="gasType"
@@ -204,17 +205,10 @@ const AddRefrigerantsForm = (props) => {
                     />
                 </Box>
                 {isCalculateDone && <Box className={classes.bottomContainer}>
-                    <Typography variant="subtitle2" component="div" >Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        {/* <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography>
-                        </Grid> */}
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
-                            {/* <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography> */}
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${addEmissionData.data.co2e} tonnes`} />
                         </Grid>
                     </Grid>
                 </Box>}

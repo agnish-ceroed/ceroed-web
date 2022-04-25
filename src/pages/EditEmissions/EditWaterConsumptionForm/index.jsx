@@ -14,6 +14,7 @@ import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const EditWaterConsumptionCombustionForm = (props) => {
@@ -27,10 +28,10 @@ const EditWaterConsumptionCombustionForm = (props) => {
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-    const stressTypeList = emissionInputs && (emissionInputs.water_source_stress_types||[]).map(item => ({ key: item.id, value: item.name }));
-    const sourceTypeList = emissionInputs && (emissionInputs.water_source_types||[]).map(item => ({ key: item.id, value: item.name }));
-    const sourceList = emissionInputs && (emissionInputs.water_sources||[]).map(item => ({ key: item.id, value: item.name }));
-    const fuelUnits = emissionInputs && (emissionInputs.units||[]).map(item => ({ key: item.name, value: item.name }));
+    const stressTypeList = emissionInputs && (emissionInputs.water_source_stress_types || []).map(item => ({ key: item.id, value: item.name }));
+    const sourceTypeList = emissionInputs && (emissionInputs.water_source_types || []).map(item => ({ key: item.id, value: item.name }));
+    const sourceList = emissionInputs && (emissionInputs.water_sources || []).map(item => ({ key: item.id, value: item.name }));
+    const fuelUnits = emissionInputs && (emissionInputs.units || []).map(item => ({ key: item.name, value: item.name }));
     const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     const formik = useFormik({
@@ -112,10 +113,10 @@ const EditWaterConsumptionCombustionForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Water Consumption</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Edit Water Consumption</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction='column' xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -164,7 +165,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
                                 error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="source"
@@ -177,7 +178,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.source && formik.errors.source}
                             />
-                             <CeroAutoComplete
+                            <CeroAutoComplete
                                 id="year"
                                 label="Year"
                                 value={formik.values.year}
@@ -223,8 +224,8 @@ const EditWaterConsumptionCombustionForm = (props) => {
                 {isCalculateDone && <Box className={classes.bottomContainer}>
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                        <Typography className={classes.previewItem}>Usage: {updateEmissionData.data.usage} {updateEmissionData.data.usage_unit}</Typography>
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title="Usage" value={`${updateEmissionData.data.usage} ${updateEmissionData.data.usage_unit}`} />
                         </Grid>
                     </Grid>
                 </Box>}

@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
+import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
 import { addTransportationCombustion, getEmissionInputFormat, resetAddCombustionStatus } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const AddTransportationForm = (props) => {
@@ -109,10 +111,10 @@ const AddTransportationForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Transportation</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Transportation</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="category"
@@ -154,7 +156,7 @@ const AddTransportationForm = (props) => {
                                 label="Year"
                                 onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.year}
+                                error={formik.touched.year && formik.errors.year}
                                 options={yearList}
                                 isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
@@ -171,7 +173,7 @@ const AddTransportationForm = (props) => {
                                 error={formik.touched.month && formik.errors.month}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="modeOfTransport"
@@ -246,17 +248,16 @@ const AddTransportationForm = (props) => {
                     />
                 </Box>
                 {isCalculateDone && <Box className={classes.bottomContainer}>
-                    <Typography variant="subtitle2" component="div" >Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
-                            {/* <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography> */}
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub></>} value={`${addEmissionData.data.co2} tonnes`} />
+                            <CeroInfoPair title={<>CH<sub>4</sub></>} value={`${addEmissionData.data.ch4} tonnes`} />
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${addEmissionData.data.co2e} tonnes`} />
                         </Grid>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                        <Grid className={classes.secondResultContainer} item container direction='column' xs={6}>
+                            <CeroInfoPair title={<>N<sub>2</sub>O</>} value={`${addEmissionData.data.n2o} tonnes`} />
+                            <CeroInfoPair title={<>EF</>} value={<>{addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</>} />
                         </Grid>
                     </Grid>
                 </Box>}

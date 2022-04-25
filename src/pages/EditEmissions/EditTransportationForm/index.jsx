@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
+import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { addTransportationCombutionValidation } from './schema';
 import { getEmissionInputFormat, deleteEmissions, editTransportationCombustion, resetAddCombustionStatus } from '../../../redux/actions';
+
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const EditTransportationForm = (props) => {
@@ -126,10 +128,10 @@ const EditTransportationForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Transportation</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Edit Transportation</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="category"
@@ -191,7 +193,7 @@ const EditTransportationForm = (props) => {
                                 error={formik.touched.month && formik.errors.month}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="modeOfTransport"
@@ -268,15 +270,14 @@ const EditTransportationForm = (props) => {
                 {isCalculateDone && <Box className={classes.bottomContainer}>
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {updateEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {updateEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {updateEmissionData.data.biofuel_co2} tonnes</Typography>
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub></>} value={`${updateEmissionData.data.co2} tonnes`} />
+                            <CeroInfoPair title={<>CH<sub>4</sub></>} value={`${updateEmissionData.data.ch4} tonnes`} />
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${updateEmissionData.data.co2e} tonnes`} />
                         </Grid>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {updateEmissionData.data.co2e} tonnes</Typography>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {updateEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                        <Grid className={classes.secondResultContainer} item container direction='column' xs={6}>
+                            <CeroInfoPair title={<>N<sub>2</sub>O</>} value={`${updateEmissionData.data.n2o} tonnes`} />
+                            <CeroInfoPair title={<>EF</>} value={<>{updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</>} />
                         </Grid>
                     </Grid>
                 </Box>}
