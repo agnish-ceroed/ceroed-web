@@ -65,4 +65,10 @@ export const APIEndpoints = {
   GET_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
   EDIT_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
   DELETE_USER: userId => `${API_BASE_URL}/business/users/${userId}`,
+
+  AUDITOR_LOGIN: `${API_BASE_URL}/auditor/token`,
+  FORGOT_AUDITOR_PASSWORD: `${API_BASE_URL}/auditor/forgot_password`,
+  RESET_AUDITOR_PASSWORD: `${API_BASE_URL}/auditor/reset_password`,
+
+  LIST_COMPANIES: `${API_BASE_URL}/auditor/companies`,
 }

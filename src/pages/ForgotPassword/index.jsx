@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Paper, Typography, Grid, Box } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
@@ -17,6 +17,7 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    let { userType } = useParams()
 
     const [isProgress, setProgress] = useState(0);
     const [email, setEmail] = useState('')
@@ -44,12 +45,12 @@ const ForgotPassword = () => {
     const handleNext = (step, data) => {
         if (step === 0) {
             setEmail(data.email)
-            dispatch(getForgotPasswordOtp(data.email));
+            dispatch(getForgotPasswordOtp(userType, data.email));
         } else if (step === 1) {
             setOtp(data.otp)
             setProgress(isProgress + 1);
         } else if (step === 2) {
-            dispatch(resetPassword(email, otp, data))
+            dispatch(resetPassword(userType, email, otp, data))
         }
     };
 

@@ -52,6 +52,16 @@ const DashboardFilter = (props) => {
         onApplyFilter(filterValue);
     };
 
+    const onReset = () => {
+        setPeriod('')
+        setFacility('')
+        setStartYear('')
+        setStartMonth('')
+        setEndYear('')
+        setEndMonth('')
+        onApplyFilter()
+    }
+
     return (
         <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
             <Grid item xs={1.6}>
@@ -123,6 +133,12 @@ const DashboardFilter = (props) => {
                     buttonText="Apply"
                     className={classes.button}
                     onClick={onApply} />
+            </Grid>
+            <Grid item xs={1.5}>
+                <CeroButton
+                    buttonText="Reset"
+                    className={classes.button}
+                    onClick={onReset} />
             </Grid>
         </Grid>
     );

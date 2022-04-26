@@ -13,6 +13,7 @@ import { resetAddCombustionStatus, deleteEmissions, updateWasteCombustion } from
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const EditWasteCombustion = (props) => {
@@ -119,10 +120,10 @@ const EditWasteCombustion = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Waste Combustion</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Edit Waste Combustion</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction='column' xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -184,7 +185,7 @@ const EditWasteCombustion = (props) => {
                             />
 
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="wasteType"
@@ -257,15 +258,8 @@ const EditWasteCombustion = (props) => {
                 {isCalculateDone && <Box className={classes.bottomContainer}>
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {updateEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {updateEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {updateEmissionData.data.biofuel_co2} tonnes</Typography>
-                        </Grid>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {updateEmissionData.data.co2e} tonnes</Typography>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {updateEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title="Usage" value={`${updateEmissionData.data.usage} ${updateEmissionData.data.usage_unit}`} />
                         </Grid>
                     </Grid>
                 </Box>}

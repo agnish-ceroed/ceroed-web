@@ -12,10 +12,10 @@ export const {
   userLogout,
   resetForgotStatus,
 } = createActions({
-  [ActionTypes.USER_LOGIN]: (email, password) => ({ email, password }),
+  [ActionTypes.USER_LOGIN]: (userType, email, password) => ({ userType, email, password }),
   [ActionTypes.USER_SIGN_UP]: (signupDetails) => ({ signupDetails }),
-  [ActionTypes.GET_FORGOT_PASSWORD_OTP]: (email) => ({ email }),
-  [ActionTypes.RESET_PASSWORD]: (email, otp, password) => ({ email, otp, password }),
+  [ActionTypes.GET_FORGOT_PASSWORD_OTP]: (userType, email) => ({ userType, email }),
+  [ActionTypes.RESET_PASSWORD]: (userType, email, otp, password) => ({ userType, email, otp, password }),
   [ActionTypes.CHANGE_PASSWORD]: (oldPassword, password) => ({ oldPassword, password }),
   [ActionTypes.REFRESH_TOKEN]: () => ({}),
   [ActionTypes.USER_LOGOUT]: () => ({}),

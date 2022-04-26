@@ -14,6 +14,7 @@ import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const AddWaterConsumptionForm = (props) => {
@@ -99,10 +100,10 @@ const AddWaterConsumptionForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Add Water Consumption</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Water Consumption</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -151,7 +152,7 @@ const AddWaterConsumptionForm = (props) => {
                                 error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="source"
@@ -169,7 +170,7 @@ const AddWaterConsumptionForm = (props) => {
                                 label="Year"
                                 onChange={(e, value) => formik.setFieldValue('year', value.id)}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.year}
+                                error={formik.touched.year && formik.errors.year}
                                 options={yearList}
                                 isOptionEqualToValue={(option, value) => option.id === value.id}
                             />
@@ -209,8 +210,8 @@ const AddWaterConsumptionForm = (props) => {
                 {isCalculateDone && <Box className={classes.bottomContainer}>
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>Usage: {addEmissionData.data.usage} {addEmissionData.data.usage_unit}</Typography>
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title="Usage" value={`${addEmissionData.data.usage} ${addEmissionData.data.usage_unit}`} />
                         </Grid>
                     </Grid>
                 </Box>}

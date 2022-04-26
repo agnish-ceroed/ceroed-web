@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
+import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { editRefrigerantsValidation } from './schema';
 import { updateRefrigerants, resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
@@ -13,7 +14,7 @@ import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import { STATUS } from "../../../redux/constants";
+import CeroInfoPair from '../../../components/CeroInfoPair';
 import useStyles from "./styles";
 
 const EditRefrigerantsForm = (props) => {
@@ -26,7 +27,7 @@ const EditRefrigerantsForm = (props) => {
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
 
     const isCalculateDone = useSelector(state => state.emission.updateRefrigerants.isCalculateDone)
-    const addEmissionData = useSelector(state => state.emission.updateRefrigerants);
+    const updateEmissionData = useSelector(state => state.emission.updateRefrigerants);
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
     const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
@@ -57,15 +58,15 @@ const EditRefrigerantsForm = (props) => {
     }, [formik.values.gasType, emissionInputs.refrigerants])
 
     useEffect(() => {
-        if (addEmissionData.status === STATUS.SUCCESS) {
+        if (updateEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Refrigerant added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel('refrigerants');
-        } else if (addEmissionData.status === STATUS.ERROR) {
+        } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
-    }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
+    }, [updateEmissionData, enqueueSnackbar, dispatch, onCancel])
 
     useEffect(() => {
         if (deleteEmissionData.status === STATUS.SUCCESS) {
@@ -118,10 +119,10 @@ const EditRefrigerantsForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Refrigerant</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Edit Refrigerant</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction={'column'} xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -172,7 +173,7 @@ const EditRefrigerantsForm = (props) => {
                                 error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="gasType"
@@ -220,17 +221,10 @@ const EditRefrigerantsForm = (props) => {
                     />
                 </Box>
                 {isCalculateDone && <Box className={classes.bottomContainer}>
-                    <Typography variant="subtitle2" component="div" >Emission Preview</Typography>
+                    <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        {/* <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {addEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {addEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {addEmissionData.data.biofuel_co2} tonnes</Typography>
-                        </Grid> */}
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {addEmissionData.data.co2e} tonnes</Typography>
-                            {/* <Typography className={classes.previewItem}>N<sub>2</sub>O: {addEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {addEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography> */}
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${updateEmissionData.data.co2e} tonnes`} />
                         </Grid>
                     </Grid>
                 </Box>}

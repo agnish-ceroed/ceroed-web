@@ -7,28 +7,33 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         borderRadius: 14,
         padding: theme.spacing(5, 7),
-        position:'relative',
+        paddingBottom: 0,
+        position: 'relative',
     },
     innerContainer: {
-        height: 'calc(100% - 80px)',
+        height: '100%',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
             width: '6px'
         },
         '&::-webkit-scrollbar-track': {
             background: 'none'
-          },
-          '&::-webkit-scrollbar-thumb': {
+        },
+        '&::-webkit-scrollbar-thumb': {
             background: theme.palette.background.darkGray
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
             background: theme.palette.background.darkGray
-          }
+        }
+    },
+    title: {
+        marginBottom: theme.spacing(3),
     },
     buttonContainer: {
-        position:'absolute',
+        position: 'absolute',
         bottom: theme.spacing(5),
         right: theme.spacing(5),
+        backgroundColor: 'transparent',
     },
     button: {
         width: 160,
@@ -42,12 +47,24 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(5),
     },
     topContainer: {
-        width: '75%'
+        maxWidth: 700,
     },
     bottomContainer: {
-        width: '75%',
+        maxWidth: 700,
         marginTop: theme.spacing(5),
-    }
+    },
+    previewTitle: {
+        marginBottom: theme.spacing(3)
+    },
+    previewItem: {
+        margin: theme.spacing(1, 0),
+        fontSize: 15
+    },
+    secondResultContainer:{
+        paddingLeft: `${theme.spacing(4)} !important`,
+        marginLeft: theme.spacing(4),
+        borderLeft: `solid 1px ${theme.palette.Other.stroke}`,
+    },
 }));
 
 export default useStyles;

@@ -10,6 +10,7 @@ export const userState = {
   status: STATUS.IDLE,
   authParams: {},
   userInfo: {},
+  role: {},
   message: '',
   refreshStatus: STATUS.RUNNING,
   logoutStatus: STATUS.IDLE,
@@ -43,11 +44,12 @@ const authActions = {
           userInfo: { $set: payload },
           status: { $set: STATUS.RUNNING }
         }),
-      [ActionTypes.USER_LOGIN_SUCCESS]: (state, { payload }) =>
+      [ActionTypes.USER_LOGIN_SUCCESS]: (state, { payload, role }) =>
         immutable(state, {
           isAuthenticated: { $set: true },
           userInfo: { $set: payload },
-          status: { $set: STATUS.SUCCESS }
+          status: { $set: STATUS.SUCCESS },
+          role: { $set: role }
         }),
       [ActionTypes.USER_LOGIN_FAILURE]: (state, { payload }) =>
         immutable(state, {

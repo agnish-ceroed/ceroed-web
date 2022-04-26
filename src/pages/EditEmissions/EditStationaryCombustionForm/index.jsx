@@ -15,6 +15,7 @@ import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import useStyles from "./styles";
+import CeroInfoPair from '../../../components/CeroInfoPair';
 
 const EditStationaryCombustionForm = (props) => {
     const dispatch = useDispatch();
@@ -113,10 +114,10 @@ const EditStationaryCombustionForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Edit Stationary Combustion</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Edit Stationary Combustion</Typography>
                 <Box className={classes.topContainer}>
-                    <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
-                        <Grid item container direction='column' xs={6}>
+                    <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
+                        <Grid item container direction='column' md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="facility"
@@ -165,7 +166,7 @@ const EditStationaryCombustionForm = (props) => {
                                 error={formik.touched.amountOfFuel && formik.errors.amountOfFuel}
                             />
                         </Grid>
-                        <Grid item container direction={'column'} xs={6}>
+                        <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroSelect
                                 required
                                 id="emissionType"
@@ -212,15 +213,16 @@ const EditStationaryCombustionForm = (props) => {
                 {isCalculateDone && <Box className={classes.bottomContainer}>
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission Preview</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {updateEmissionData.data.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {updateEmissionData.data.ch4} tonnes</Typography>
-                            <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {updateEmissionData.data.biofuel_co2} tonnes</Typography>
+                        <Grid item container direction='column' xs={12} md={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${updateEmissionData.data.co2} tonnes`} />
+                            <CeroInfoPair title={<>CH<sub>4</sub>e</>} value={`${updateEmissionData.data.ch4} tonnes`} />
+                            <CeroInfoPair title={<>BioFuel CO<sub>2</sub></>} value={`${updateEmissionData.data.biofuel_co2} tonnes`} />
                         </Grid>
-                        <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {updateEmissionData.data.co2e} tonnes</Typography>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {updateEmissionData.data.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</Typography>
+                        <Grid className={classes.secondResultContainer} item container direction='column' xs={6}>
+                            <CeroInfoPair title={<>CO<sub>2</sub>e</>} value={`${updateEmissionData.data.co2e} tonnes`} />
+                            <CeroInfoPair title={<>N<sub>2</sub>O</>} value={`${updateEmissionData.data.n2o} tonnes`} />
+                            <CeroInfoPair title={'EF'} value={<>{updateEmissionData.data.ef} kgCO<sub>2</sub>e/unit</>} />
+                            <Typography className={classes.previewItem}></Typography>
                         </Grid>
                     </Grid>
                 </Box>}
