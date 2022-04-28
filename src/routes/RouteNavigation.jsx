@@ -23,6 +23,7 @@ import Facilities from '../pages/Facilities';
 import Users from '../pages/Users'
 import ApprovalMonthlySummary from '../pages/ApprovalMonthlySummary'
 import AuditSummaryYearly from '../pages/AuditSummaryYearly'
+import CurrentYearApproval from '../pages/CurrentYearApproval'
 import Home from '../pages/Home';
 import CompanyList from '../pages/CompanyList';
 
@@ -84,6 +85,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <AuditSummaryYearly />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard/current-year-approval:year"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <CurrentYearApproval />
                             </PrivateRoute>
                         }
                     />
