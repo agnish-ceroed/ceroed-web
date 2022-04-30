@@ -73,20 +73,20 @@ const accountActions = {
                     }
                 }),
 
-            [ActionTypes.GET_COMPANY_DETAILS]: (state, { payload }) =>
+            [ActionTypes.GET_USER_COMPANY_DETAILS]: (state, { payload }) =>
                 immutable(state, {
                     companyDetails: {
                         status: { $set: STATUS.RUNNING }
                     }
                 }),
-            [ActionTypes.GET_COMPANY_DETAILS_SUCCESS]: (state, { payload }) =>
+            [ActionTypes.GET_USER_COMPANY_DETAILS_SUCCESS]: (state, { payload }) =>
                 immutable(state, {
                     companyDetails: {
                         status: { $set: STATUS.SUCCESS },
                         data: { $set: payload }
                     }
                 }),
-            [ActionTypes.GET_COMPANY_DETAILS_FAILURE]: (state, { payload }) =>
+            [ActionTypes.GET_USER_COMPANY_DETAILS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     companyDetails: {
                         status: { $set: STATUS.ERROR },

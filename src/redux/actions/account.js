@@ -6,12 +6,12 @@ export const {
     getAccountDetails,
     updateAccountDetails,
     resetAccountStatus,
-    getCompanyDetails,
+    getUserCompanyDetails,
     updateCompanyDetails
 } = createActions({
     [ActionTypes.GET_ACCOUNT_DETAILS]: () => ({}),
     [ActionTypes.UPDATE_ACCOUNT_DETAILS]: (name, email) => ({ name, email }),
     [ActionTypes.RESET_ACCOUNT_STATUS]: () => ({}),
-    [ActionTypes.GET_COMPANY_DETAILS]: () => ({}),
+    [ActionTypes.GET_USER_COMPANY_DETAILS]: () => ({}),
     [ActionTypes.UPDATE_COMPANY_DETAILS]: (name, email, phone, website) => ({ name, email, phone, website }),
 })

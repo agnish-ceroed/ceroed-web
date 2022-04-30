@@ -22,8 +22,48 @@ export function* getCompanyList(action) {
   }
 }
 
+export function* getCompanyDetails(action) {
+  try {
+    const { companyId } = action.payload
+    const response = yield call(request, APIEndpoints.GET_COMPANY_DETAILS(companyId), {
+      method: 'GET',
+    })
+    yield put({
+      type: ActionTypes.GET_COMPANY_DETAILS_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_COMPANY_DETAILS_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
+export function* getCompanyAuditHistory(action) {
+  try {
+    const { companyId } = action.payload
+    const response = yield call(request, APIEndpoints.GET_COMPANY_AUDIT_HISTORY(companyId), {
+      method: 'GET',
+    })
+    yield put({
+      type: ActionTypes.GET_COMPANY_AUDIT_HISTORY_SUCCESS,
+      payload: response.company_audit_history
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_COMPANY_AUDIT_HISTORY_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_COMPANY_LIST, getCompanyList),
+    takeLatest(ActionTypes.GET_COMPANY_DETAILS, getCompanyDetails),
+    takeLatest(ActionTypes.GET_COMPANY_AUDIT_HISTORY, getCompanyAuditHistory),
   ])
 }

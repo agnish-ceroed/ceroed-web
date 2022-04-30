@@ -33,7 +33,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "CI=false && react-scripts start",
+    "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

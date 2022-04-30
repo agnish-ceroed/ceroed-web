@@ -11,6 +11,16 @@ export const companyState = {
         status: STATUS.IDLE,
         message: ''
     },
+    companyDetails: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    auditHistory: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    }
 }
 
 const companyActions = {
@@ -32,6 +42,48 @@ const companyActions = {
             [ActionTypes.GET_COMPANY_LIST_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     companyList: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_COMPANY_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    companyDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_DETAILS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    companyDetails: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    companyDetails: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_COMPANY_AUDIT_HISTORY]: (state, { payload }) =>
+                immutable(state, {
+                    auditHistory: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_AUDIT_HISTORY_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    auditHistory: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_AUDIT_HISTORY_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    auditHistory: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }

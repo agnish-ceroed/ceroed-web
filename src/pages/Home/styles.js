@@ -2,14 +2,15 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        padding: theme.spacing(30, 10),
+        padding: theme.spacing(10),
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
+        minHeight: '60vh'
     },
     card: {
         padding: theme.spacing(8, 5),
-        width: theme.spacing(100),
+        width: 400,
         textAlign: 'center'
     },
     title: {

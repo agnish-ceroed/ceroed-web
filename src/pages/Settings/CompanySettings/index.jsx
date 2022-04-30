@@ -5,7 +5,7 @@ import { Paper, Stack, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 
-import { getCompanyDetails, resetAccountStatus, updateCompanyDetails } from '../../../redux/actions'
+import { getUserCompanyDetails, resetAccountStatus, updateCompanyDetails } from '../../../redux/actions'
 import { STATUS } from '../../../redux/constants'
 import { companySchema } from '../schema'
 import CeroInput from '../../../components/CeroInput'
@@ -17,12 +17,12 @@ const AccountSettings = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const { enqueueSnackbar } = useSnackbar();
-
+    
     const companyData = useSelector(state => state.account.companyDetails.data)
     const updateCompanyData = useSelector(state => state.account.updateCompanyDetails)
 
     useEffect(() => {
-        dispatch(getCompanyDetails())
+        dispatch(getUserCompanyDetails())
     }, [dispatch])
 
     useEffect(() => {
@@ -52,12 +52,12 @@ const AccountSettings = () => {
 
     const handleUpdate = () => {
         dispatch(
-          updateCompanyDetails(
-            companyForm.values.name,
-            companyForm.values.email,
-            companyForm.values.phone,
-            companyForm.values.website
-          )
+            updateCompanyDetails(
+                companyForm.values.name,
+                companyForm.values.email,
+                companyForm.values.phone,
+                companyForm.values.website
+            )
         );
     }
 

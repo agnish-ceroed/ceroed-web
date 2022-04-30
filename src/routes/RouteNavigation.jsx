@@ -26,6 +26,7 @@ import AuditSummaryYearly from '../pages/AuditSummaryYearly'
 import CurrentYearApproval from '../pages/CurrentYearApproval'
 import Home from '../pages/Home';
 import CompanyList from '../pages/CompanyList';
+import CompanyDetails from '../pages/CompanyDetails';
 
 const RootNavigation = () => {
     return (
@@ -214,6 +215,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/">
                                 <CompanyList />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/company/:companyId"
+                        element={
+                            <PrivateRoute redirectTo="/">
+                                <CompanyDetails />
                             </PrivateRoute>
                         }
                     />

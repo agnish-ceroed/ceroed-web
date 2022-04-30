@@ -16,7 +16,7 @@ export const APIEndpoints = {
 
   GET_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/account-details`,
   UPDATE_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/update`,
-  GET_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
+  GET_USER_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
   UPDATE_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
 
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,
@@ -71,4 +71,6 @@ export const APIEndpoints = {
   RESET_AUDITOR_PASSWORD: `${API_BASE_URL}/auditor/reset_password`,
 
   LIST_COMPANIES: `${API_BASE_URL}/auditor/companies`,
+  GET_COMPANY_DETAILS: (companyId) => `${API_BASE_URL}/auditor/company/${companyId}/company-details`,
+  GET_COMPANY_AUDIT_HISTORY: (companyId) => `${API_BASE_URL}/auditor/company/${companyId}/company-audit-history`,
 }

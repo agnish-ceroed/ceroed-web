@@ -45,19 +45,19 @@ export function* updateAccountDetails(action) {
     }
 }
 
-export function* getCompanyDetails(action) {
+export function* getUserCompanyDetails(action) {
     try {
-        const response = yield call(request, APIEndpoints.GET_COMPANY_DETAILS, {
+        const response = yield call(request, APIEndpoints.GET_USER_COMPANY_DETAILS, {
             method: 'GET'
         })
         yield put({
-            type: ActionTypes.GET_COMPANY_DETAILS_SUCCESS,
+            type: ActionTypes.GET_USER_COMPANY_DETAILS_SUCCESS,
             payload: response.company
         })
     } catch (err) {
         /* istanbul ignore next */
         yield put({
-            type: ActionTypes.GET_COMPANY_DETAILS_FAILURE,
+            type: ActionTypes.GET_USER_COMPANY_DETAILS_FAILURE,
             payload: err.error
         })
     }
@@ -87,7 +87,7 @@ export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_ACCOUNT_DETAILS, getAccountDetails),
         takeLatest(ActionTypes.UPDATE_ACCOUNT_DETAILS, updateAccountDetails),
-        takeLatest(ActionTypes.GET_COMPANY_DETAILS, getCompanyDetails),
+        takeLatest(ActionTypes.GET_USER_COMPANY_DETAILS, getUserCompanyDetails),
         takeLatest(ActionTypes.UPDATE_COMPANY_DETAILS, updateCompanyDetails),
     ])
 }
