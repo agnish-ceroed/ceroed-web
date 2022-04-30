@@ -63,30 +63,44 @@ const DashboardFilter = (props) => {
     }
 
     return (
-        <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
-            <Grid item xs={1.6}>
-                <Dropdown
-                    id="facility"
-                    label="Facility Type"
-                    fullWidth
-                    options={facilitiesList}
-                    onChange={({ target }) => setFacility(target.value)}
-                    selectedValue={facility}
-                />
-            </Grid>
-            <Grid item xs={1.8}>
-                <Dropdown
-                    id="period"
-                    label="Select Period"
-                    fullWidth
-                    options={selectionPeriod}
-                    onChange={({ target }) => setPeriod(target.value)}
-                    selectedValue={filterPeriod}
-                />
+        <>
+            <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
+                <Grid item sm={3} md={2}>
+                    <Dropdown
+                        id="facility"
+                        label="Facility Type"
+                        fullWidth
+                        options={facilitiesList}
+                        onChange={({ target }) => setFacility(target.value)}
+                        selectedValue={facility}
+                    />
+                </Grid>
+                <Grid item sm={3} md={2}>
+                    <Dropdown
+                        id="period"
+                        label="Select Period"
+                        fullWidth
+                        options={selectionPeriod}
+                        onChange={({ target }) => setPeriod(target.value)}
+                        selectedValue={filterPeriod}
+                    />
+                </Grid>
+                <Grid item xs={1.5}>
+                    <CeroButton
+                        buttonText="Apply"
+                        className={classes.button}
+                        onClick={onApply} />
+                </Grid>
+                <Grid item xs={1.5}>
+                    <CeroButton
+                        buttonText="Reset"
+                        className={classes.button}
+                        onClick={onReset} />
+                </Grid>
             </Grid>
             {filterPeriod === 'advanced' &&
-                <>
-                    <Grid item xs={1.8}>
+                <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
+                    <Grid item sm={3} md={2}>
                         <Dropdown
                             id="startYyear"
                             label="Starting Year"
@@ -96,7 +110,7 @@ const DashboardFilter = (props) => {
                             selectedValue={filterStartYear}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
+                    <Grid item sm={3} md={2}>
                         <Dropdown
                             id="startMonth"
                             label="Starting Month"
@@ -106,7 +120,7 @@ const DashboardFilter = (props) => {
                             selectedValue={filterStartMonth}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
+                    <Grid item sm={3} md={2}>
                         <Dropdown
                             id="endYear"
                             label="Ending Year"
@@ -116,7 +130,7 @@ const DashboardFilter = (props) => {
                             selectedValue={filterEndYear}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
+                    <Grid item sm={3} md={2}>
                         <Dropdown
                             id="endMonth"
                             label="Ending Month"
@@ -126,21 +140,13 @@ const DashboardFilter = (props) => {
                             selectedValue={filterEndMonth}
                         />
                     </Grid>
-                </>
+                </Grid>
             }
-            <Grid item xs={1.5}>
-                <CeroButton
-                    buttonText="Apply"
-                    className={classes.button}
-                    onClick={onApply} />
-            </Grid>
-            <Grid item xs={1.5}>
-                <CeroButton
-                    buttonText="Reset"
-                    className={classes.button}
-                    onClick={onReset} />
-            </Grid>
-        </Grid>
+        </>
+        
+            
+            
+        
     );
 };
 

@@ -9,11 +9,11 @@ const Header = ({placeholder, onChange}) => {
 
     return <Box className={classes.header}>
         <Box className={classes.searchBoxContainer}>
-            <SearchOutlinedIcon fontSize='small' className={classes.icon}/>
+            {/* <SearchOutlinedIcon fontSize='small' className={classes.icon}/>
             <input
                 className={classes.searchBox} 
                 placeholder={placeholder ? placeholder : 'Global search'} 
-                onChange={onChange}/>
+                onChange={onChange}/> */}
         </Box>
         <NotificationsOutlinedIcon className={classes.notificationIcon}/>
     </Box>
