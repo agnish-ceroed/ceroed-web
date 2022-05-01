@@ -13,6 +13,7 @@ import CeroButton from '../../components/CeroButton';
 import CeroInput from '../../components/CeroInput'
 import ValidationSchema from './ValidationSchema';
 import CeroEdLogo from '../../assets/images/Logo';
+import CeroLoader from '../../components/CeroLoader';
 import useStyles from "./styles";
 
 const Login = () => {
@@ -42,6 +43,7 @@ const Login = () => {
 
     return (
         <Grid container justifyContent='center' alignItems='center' className={classes.login}>
+            {loginData.status === STATUS.RUNNING && <CeroLoader loadingText="Loading" />}
             <Container component="main" maxWidth="xs">
                 <Box className={classes.logo}>
                     <CeroEdLogo />

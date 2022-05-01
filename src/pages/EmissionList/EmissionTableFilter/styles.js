@@ -3,7 +3,17 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
     filterContainer: {
         height: '40px',
-        justifyContent: 'left',
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    primaryContainer: {
+        height: 35,
+        width: 'calc(100% - 100px)',
+        maxWidth: 800,
+        display: 'flex',
+    },
+    filterItem: {
+        marginRight: theme.spacing(2),
     },
     button: {
         width: '100%',
@@ -17,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
     },
     select: {
-        padding: theme.spacing(2),
+        height: 35,
     },
     input: {
-        padding: 0,
+        margin: 0,
     }
 }));
 

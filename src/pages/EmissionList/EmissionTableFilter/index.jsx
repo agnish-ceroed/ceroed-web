@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 import { months, sampleYear } from "../../../constants";
-import useStyles from "./styles";
 import { listFacilities } from "../../../redux/actions";
+import useStyles from "./styles";
 
 const facilityAllowedEmissionTypes = [
   "stationary_combustion",
@@ -83,7 +83,7 @@ const EmissionTableFilter = (props) => {
       wrap="nowrap"
     >
       <Grid item xs={1.5}>
-        <Dropdown
+        <CeroDropdown
           id="year"
           label="Year"
           fullWidth
@@ -94,7 +94,7 @@ const EmissionTableFilter = (props) => {
       </Grid>
       {filterYear && (
         <Grid item xs={1.5}>
-          <Dropdown
+          <CeroDropdown
             id="month"
             label="Month"
             fullWidth
@@ -105,7 +105,7 @@ const EmissionTableFilter = (props) => {
         </Grid>
       )}
       {/* <Grid item xs={1.3}>
-                <Dropdown
+                <CeroDropdown
                     id="fuelType"
                     label="Fuel Type"
                     fullWidth
@@ -116,7 +116,7 @@ const EmissionTableFilter = (props) => {
             </Grid> */}
       {facilityAllowedEmissionTypes.indexOf(props.emissionType) > -1 && (
         <Grid item xs={1.4}>
-          <Dropdown
+          <CeroDropdown
             id="facility"
             label="Facility"
             fullWidth

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listFacilities } from "../../../redux/actions";
 import { months, sampleYear, selectionPeriod } from "../../../constants";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
 import useStyles from "./styles";
 
@@ -63,31 +63,45 @@ const DashboardFilter = (props) => {
     }
 
     return (
-        <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
-            <Grid item xs={1.6}>
-                <Dropdown
-                    id="facility"
-                    label="Facility Type"
-                    fullWidth
-                    options={facilitiesList}
-                    onChange={({ target }) => setFacility(target.value)}
-                    selectedValue={facility}
-                />
-            </Grid>
-            <Grid item xs={1.8}>
-                <Dropdown
-                    id="period"
-                    label="Select Period"
-                    fullWidth
-                    options={selectionPeriod}
-                    onChange={({ target }) => setPeriod(target.value)}
-                    selectedValue={filterPeriod}
-                />
+        <>
+            <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
+                <Grid item sm={3} md={2}>
+                    <CeroDropdown
+                        id="facility"
+                        label="Facility Type"
+                        fullWidth
+                        options={facilitiesList}
+                        onChange={({ target }) => setFacility(target.value)}
+                        selectedValue={facility}
+                    />
+                </Grid>
+                <Grid item sm={3} md={2}>
+                    <CeroDropdown
+                        id="period"
+                        label="Select Period"
+                        fullWidth
+                        options={selectionPeriod}
+                        onChange={({ target }) => setPeriod(target.value)}
+                        selectedValue={filterPeriod}
+                    />
+                </Grid>
+                <Grid item xs={1.5}>
+                    <CeroButton
+                        buttonText="Apply"
+                        className={classes.button}
+                        onClick={onApply} />
+                </Grid>
+                <Grid item xs={1.5}>
+                    <CeroButton
+                        buttonText="Reset"
+                        className={classes.button}
+                        onClick={onReset} />
+                </Grid>
             </Grid>
             {filterPeriod === 'advanced' &&
-                <>
-                    <Grid item xs={1.8}>
-                        <Dropdown
+                <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
+                    <Grid item sm={3} md={2}>
+                        <CeroDropdown
                             id="startYyear"
                             label="Starting Year"
                             fullWidth
@@ -96,8 +110,8 @@ const DashboardFilter = (props) => {
                             selectedValue={filterStartYear}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
-                        <Dropdown
+                    <Grid item sm={3} md={2}>
+                        <CeroDropdown
                             id="startMonth"
                             label="Starting Month"
                             fullWidth
@@ -106,8 +120,8 @@ const DashboardFilter = (props) => {
                             selectedValue={filterStartMonth}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
-                        <Dropdown
+                    <Grid item sm={3} md={2}>
+                        <CeroDropdown
                             id="endYear"
                             label="Ending Year"
                             fullWidth
@@ -116,8 +130,8 @@ const DashboardFilter = (props) => {
                             selectedValue={filterEndYear}
                         />
                     </Grid>
-                    <Grid item xs={1.8}>
-                        <Dropdown
+                    <Grid item sm={3} md={2}>
+                        <CeroDropdown
                             id="endMonth"
                             label="Ending Month"
                             fullWidth
@@ -126,21 +140,13 @@ const DashboardFilter = (props) => {
                             selectedValue={filterEndMonth}
                         />
                     </Grid>
-                </>
+                </Grid>
             }
-            <Grid item xs={1.5}>
-                <CeroButton
-                    buttonText="Apply"
-                    className={classes.button}
-                    onClick={onApply} />
-            </Grid>
-            <Grid item xs={1.5}>
-                <CeroButton
-                    buttonText="Reset"
-                    className={classes.button}
-                    onClick={onReset} />
-            </Grid>
-        </Grid>
+        </>
+        
+            
+            
+        
     );
 };
 

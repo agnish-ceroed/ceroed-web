@@ -1,4 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import clsx from 'clsx';
 import CeroInput from "../CeroInput";
 
 import useStyles from "./styles";
@@ -9,10 +10,10 @@ const SearchBox = (props) => {
     return (
         <CeroInput
             {...props}
-            classes={{ container: classes.inputRoot }}
+            classes={{ container: clsx(classes.inputRoot, props.classes?.container) }}
             inputProps={{
                 startAdornment: <SearchOutlinedIcon fontSize='small' className={classes.icon} />,
-                classes: { input: classes.inputBox }
+                classes: { input: classes.input }
             }}
         />
     );

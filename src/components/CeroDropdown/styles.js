@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         textAlign: 'start',
     },
+    paperRoot: {
+        maxHeight: 160,
+    },
     error: {
         color: theme.palette.Error.main,
     }
