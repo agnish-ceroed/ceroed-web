@@ -7,8 +7,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
     },
     primaryContainer: {
-        display: 'flex',
         height: 35,
+        width: 'calc(100% - 100px)',
+        maxWidth: 800,
+        display: 'flex',
     },
     filterItem: {
         marginRight: theme.spacing(2),

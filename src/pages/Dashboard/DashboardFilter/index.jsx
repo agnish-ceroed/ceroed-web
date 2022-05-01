@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listFacilities } from "../../../redux/actions";
 import { months, sampleYear, selectionPeriod } from "../../../constants";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
 import useStyles from "./styles";
 
@@ -66,7 +66,7 @@ const DashboardFilter = (props) => {
         <>
             <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
                 <Grid item sm={3} md={2}>
-                    <Dropdown
+                    <CeroDropdown
                         id="facility"
                         label="Facility Type"
                         fullWidth
@@ -76,7 +76,7 @@ const DashboardFilter = (props) => {
                     />
                 </Grid>
                 <Grid item sm={3} md={2}>
-                    <Dropdown
+                    <CeroDropdown
                         id="period"
                         label="Select Period"
                         fullWidth
@@ -101,7 +101,7 @@ const DashboardFilter = (props) => {
             {filterPeriod === 'advanced' &&
                 <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
                     <Grid item sm={3} md={2}>
-                        <Dropdown
+                        <CeroDropdown
                             id="startYyear"
                             label="Starting Year"
                             fullWidth
@@ -111,7 +111,7 @@ const DashboardFilter = (props) => {
                         />
                     </Grid>
                     <Grid item sm={3} md={2}>
-                        <Dropdown
+                        <CeroDropdown
                             id="startMonth"
                             label="Starting Month"
                             fullWidth
@@ -121,7 +121,7 @@ const DashboardFilter = (props) => {
                         />
                     </Grid>
                     <Grid item sm={3} md={2}>
-                        <Dropdown
+                        <CeroDropdown
                             id="endYear"
                             label="Ending Year"
                             fullWidth
@@ -131,7 +131,7 @@ const DashboardFilter = (props) => {
                         />
                     </Grid>
                     <Grid item sm={3} md={2}>
-                        <Dropdown
+                        <CeroDropdown
                             id="endMonth"
                             label="Ending Month"
                             fullWidth

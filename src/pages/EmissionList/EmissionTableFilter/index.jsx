@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Grid, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 import {months, sampleYear} from "../../../constants";
@@ -69,7 +69,7 @@ const EmissionTableFilter = (props) => {
         <Box className={classes.filterContainer}>
             <Box className={classes.primaryContainer}>
                 <Grid className={classes.filterItem} item xs={3}>
-                    <Dropdown
+                    <CeroDropdown
                         id="year"
                         label="Year"
                         fullWidth
@@ -79,7 +79,7 @@ const EmissionTableFilter = (props) => {
                     />
                 </Grid>
                 {filterYear && <Grid className={classes.filterItem} item xs={3}>
-                    <Dropdown
+                    <CeroDropdown
                         id="month"
                         label="Month"
                         fullWidth
@@ -98,8 +98,8 @@ const EmissionTableFilter = (props) => {
                         selectedValue={filterType}
                     />
                 </Grid> */}
-                { facilityAllowedEmissionTypes.indexOf(props.emissionType) > -1 && <Grid className={classes.filterItem} item xs={2}>
-                    <Dropdown
+                { facilityAllowedEmissionTypes.indexOf(props.emissionType) > -1 && <Grid className={classes.filterItem} item xs={4}>
+                    <CeroDropdown
                         id="facility"
                         label="Facility"
                         fullWidth
@@ -108,7 +108,7 @@ const EmissionTableFilter = (props) => {
                         selectedValue={facility}           
                     />
                 </Grid> }
-                <Grid className={classes.filterItem} item xs={3}>
+                <Grid className={classes.filterItem} item xs={4}>
                     <SearchBox 
                         placeholder="Search" 
                         onChange={({target}) => setSearchText(target.value)}

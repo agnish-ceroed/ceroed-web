@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Typography, Grid } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import Dropdown from "../../components/Dropdown";
+import CeroDropdown from "../../components/CeroDropdown";
 import SearchBox from "../../components/SearchBox";
 import {sampleYear} from "../../constants";
 import { listFacilities } from "../../redux/actions";
@@ -128,7 +128,7 @@ const ApprovalMonthlySummary = () => {
           wrap="nowrap"
         >
           <Grid item xs={1.5}>
-            <Dropdown
+            <CeroDropdown
               id="year"
               label="Year"
               fullWidth
@@ -138,7 +138,7 @@ const ApprovalMonthlySummary = () => {
             />
           </Grid>
             <Grid item xs={1.4}>
-              <Dropdown
+              <CeroDropdown
                 id="facility"
                 label="Facility"
                 fullWidth
