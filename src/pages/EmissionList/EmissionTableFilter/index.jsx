@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import Dropdown from "../../../components/Dropdown";
 import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 import {months, sampleYear} from "../../../constants";
-import useStyles from "./styles";
 import { listFacilities } from "../../../redux/actions";
+import useStyles from "./styles";
 
 const facilityAllowedEmissionTypes = [
     'stationary_combustion',
@@ -66,76 +66,77 @@ const EmissionTableFilter = (props) => {
     };
 
     return (
-        <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" justifyContent="center" wrap="nowrap">
-            <Grid item xs={1.5}>
-                <Dropdown
-                    id="year"
-                    label="Year"
-                    fullWidth
-                    options={sampleYear}
-                    onChange={({target}) => setYear(target.value)}
-                    selectedValue={filterYear}
-                />
-            </Grid>
-            {filterYear && <Grid item xs={1.5}>
-                <Dropdown
-                    id="month"
-                    label="Month"
-                    fullWidth
-                    options={months}
-                    onChange={({target}) => setMonth(target.value)}
-                    selectedValue={filterMonth}
-                />
-            </Grid>}
-            {/* <Grid item xs={1.3}>
-                <Dropdown
-                    id="fuelType"
-                    label="Fuel Type"
-                    fullWidth
-                    options={sampleFilterType}
-                    onChange={({target}) => setFilterType(target.value)}
-                    selectedValue={filterType}
-                />
-            </Grid> */}
-            { facilityAllowedEmissionTypes.indexOf(props.emissionType) > -1 && <Grid item xs={1.4}>
-                <Dropdown
-                    id="facility"
-                    label="Facility"
-                    fullWidth
-                    options={facilitiesList}
-                    onChange={({target}) => setFacility(target.value)}     
-                    selectedValue={facility}           
-                />
-            </Grid> }
-            <Grid item xs={3}>
-                <SearchBox 
-                    placeholder="Search" 
-                    onChange={({target}) => setSearchText(target.value)}
-                    value={searchText}  />
-            </Grid>
-            <Grid item xs={1.5}>
-                <CeroButton 
-                    buttonText="Clear"
-                    className={classes.button}
-                    onClick={onClear}/>
-            </Grid>
-            <Grid item xs={1.5}>
-                <CeroButton 
-                    buttonText="Apply"
-                    className={classes.button}
-                    onClick={onApply}/>
-            </Grid>
-            <Grid item xs={2.5}>
-                <Grid container alignItems="center" justifyContent="flex-end">
-                    <Grid item xs={9}>
-                        <CeroButton 
-                            buttonText="Add Data"
-                            className={classes.button} 
-                            onClick={onAddData}/>
-                    </Grid>
+        <Box className={classes.filterContainer}>
+            <Box className={classes.primaryContainer}>
+                <Grid className={classes.filterItem} item xs={3}>
+                    <Dropdown
+                        id="year"
+                        label="Year"
+                        fullWidth
+                        options={sampleYear}
+                        onChange={({target}) => setYear(target.value)}
+                        selectedValue={filterYear}
+                    />
                 </Grid>
-            </Grid>
-        </Grid>
+                {filterYear && <Grid className={classes.filterItem} item xs={3}>
+                    <Dropdown
+                        id="month"
+                        label="Month"
+                        fullWidth
+                        options={months}
+                        onChange={({target}) => setMonth(target.value)}
+                        selectedValue={filterMonth}
+                    />
+                </Grid>}
+                {/* <Grid item xs={1.3}>
+                    <Dropdown
+                        id="fuelType"
+                        label="Fuel Type"
+                        fullWidth
+                        options={sampleFilterType}
+                        onChange={({target}) => setFilterType(target.value)}
+                        selectedValue={filterType}
+                    />
+                </Grid> */}
+                { facilityAllowedEmissionTypes.indexOf(props.emissionType) > -1 && <Grid className={classes.filterItem} item xs={2}>
+                    <Dropdown
+                        id="facility"
+                        label="Facility"
+                        fullWidth
+                        options={facilitiesList}
+                        onChange={({target}) => setFacility(target.value)}     
+                        selectedValue={facility}           
+                    />
+                </Grid> }
+                <Grid className={classes.filterItem} item xs={3}>
+                    <SearchBox 
+                        placeholder="Search" 
+                        onChange={({target}) => setSearchText(target.value)}
+                        value={searchText}
+                        classes={{ container: classes.input}}
+                    />
+                </Grid>
+                <Grid className={classes.filterItem} item xs={2}>
+                    <CeroButton 
+                        buttonText="Apply"
+                        className={classes.button}
+                        onClick={onApply}/>
+                </Grid>
+                <Grid className={classes.filterItem} item xs={2}>
+                    <CeroButton 
+                        buttonText="Clear"
+                        className={classes.button}
+                        onClick={onClear}/>
+                </Grid>
+            </Box>
+            <Box>
+                <CeroButton 
+                    buttonText="Add Data"
+                    className={classes.button} 
+                    onClick={onAddData}
+                />
+            </Box>
+        </Box>
     );
 };
 

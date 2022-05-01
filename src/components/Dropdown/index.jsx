@@ -17,6 +17,9 @@ const Dropdown = (props) => {
                 onChange={props.onChange}
                 className={classes.input}
                 classes={{ select: classes.select }}
+                MenuProps={{
+                    classes: { paper: classes.paperRoot }
+                }}
             >
                 {props.options && props.options.map((option) => (
                     <MenuItem key={option.key} value={option.key}>

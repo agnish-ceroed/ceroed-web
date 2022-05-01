@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
     },
     emissionType: {
-        width: 300,
+        width: 260,
         height: 40,
         border: `1px solid ${theme.palette.border.gray}`,
         background: theme.palette.Primary.contrastText,
