@@ -15,9 +15,11 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
     },
     icon: {
+        minWidth: 35,
         color: `${theme.palette.icon.gray}!important`,
     },
     activeOption: {
+        minWidth: 35,
         color: `${theme.palette.text.accent}!important`,
     },
     title: {

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
 import { sampleYear } from "../../../constants";
 import useStyles from "./styles";
@@ -29,7 +29,7 @@ const CompanyFilter = (props) => {
         <Box className={classes.container}>
             <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" justifyContent="center" wrap="nowrap">
                 <Grid item xs={1.5}>
-                    <Dropdown
+                    <CeroDropdown
                         id="year"
                         label="Year"
                         fullWidth

@@ -2,7 +2,8 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     filterContainer: {
-        height: '40px'
+        height: '40px',
+        marginBottom: theme.spacing(2),
     },
     button: {
         width: '100%',

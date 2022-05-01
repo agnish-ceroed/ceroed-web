@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
     inputRoot: {
         height: 'auto',
     },
+    input: {
+        height: 'auto',
+        padding: theme.spacing(1.5),
+    },
     icon: {
         color: `${theme.palette.icon.gray}!important`,
         marginRight: theme.spacing(1)

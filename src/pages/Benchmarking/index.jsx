@@ -9,7 +9,7 @@ const Benchmarking = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h1" component="h2" >Benchmarking Page</Typography>
+                <Typography variant="h4" component="h4" >Benchmarking Page</Typography>
             </Container>
         </DashboardLayout>
     );

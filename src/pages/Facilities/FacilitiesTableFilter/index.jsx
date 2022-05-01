@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 
 import { sampleCountryList } from "../../../constants";
 
-import Dropdown from "../../../components/Dropdown";
+import CeroDropdown from "../../../components/CeroDropdown";
 import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 
@@ -32,7 +32,7 @@ const FacilitiesTableFilter = (props) => {
         <Grid className={classes.filterContainer} container alignItems="center" justifyContent="space-between" wrap="nowrap">
             <Grid container columnSpacing={2} alignItems="center" wrap="nowrap">
                 <Grid item xs={3}>
-                    <Dropdown
+                    <CeroDropdown
                         id="country"
                         label="Country"
                         fullWidth
