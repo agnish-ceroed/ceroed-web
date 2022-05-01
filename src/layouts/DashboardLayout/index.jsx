@@ -60,6 +60,16 @@ const DashboardLayout = ({children}) => {
             icon: <PeopleAltIcon/>,
             path: '/users'
         },
+        {
+            text: 'Approval status',
+            icon: <ViewColumnOutlinedIcon/>,
+            path: '/approval-status'
+        },
+        {
+            text: 'Audit status',
+            icon: <ViewColumnOutlinedIcon/>,
+            path: '/audit-status'
+        },
     ]
 
     const settingsOption = [

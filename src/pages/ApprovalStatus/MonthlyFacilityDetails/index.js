@@ -1,8 +1,10 @@
-// import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
-import DashboardLayout from "../../layouts/DashboardLayout";
-import CeroTable from "../../components/CeroTable";
+import DashboardLayout from "../../../layouts/DashboardLayout";
+import CeroTable from "../../../components/CeroTable";
+import { listFacilities } from "../../../redux/actions";
 import Header from "./Header";
 import Status from "./Status";
 
@@ -66,20 +68,38 @@ const wasteSummaryData = [
   },
 ];
 
-const CurrentYearApproval = () => {
+const MonthlyFacilityDetails = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { year } = useParams();
-  // const dispatch = useDispatch();
+  const facilitiesData = useSelector(
+    (state) => state.listings.listFacilities.data
+  );
+
+  const facilitiesList = facilitiesData.map((item) => ({
+    key: item.id,
+    value: item.name,
+  }));
+
+  const { details } = useParams();
+  const decodedFilter = decodeURI(details).split("_");
+  const selectedYear = decodedFilter[0];
+  const selectedMonth = decodedFilter[1];
+  const selectedFacility = decodedFilter[2];
 
   const onSelectData = (row) => {
-    navigate(`/emissions/${row.id}/year-${year}`);
+    navigate(
+      `/emissions/${row.id}${selectedYear && `/year-${selectedYear}`}${
+        selectedMonth ? `&month-${selectedMonth}` : ""
+      }${selectedFacility ? `&facity_id-${selectedFacility}` : ""}`
+    );
   };
 
-  // useEffect(() => {
-  //   dispatch(listFacilities())
-  // }, []);
+  useEffect(() => {
+    dispatch(listFacilities());
+  }, []);
+
   const combustionSummaryColumns = [
     {
       columnKey: "topic",
@@ -173,19 +193,31 @@ const CurrentYearApproval = () => {
     },
   ];
 
-  const onApplyFilter = (year) => {
-    navigate(`/audit-status/current-year-approval/${year}`);
+  const onApplyFilter = (filter) => {
+    navigate(
+      `/approval-status/${filter.year}${
+        filter.month ? `_${filter.month}` : ""
+      }${filter.facility ? `_${filter.facility}` : ""}`
+    );
   };
 
   return (
     <DashboardLayout>
       <Container className={classes.container}>
-        <Header onApplyFilter={onApplyFilter} selectedYear={year} />
+        <Header
+          onApplyFilter={onApplyFilter}
+          selectedYear={selectedYear}
+          selectedMonth={selectedMonth}
+          selectedFacility={selectedFacility}
+          facilitiesList={facilitiesList}
+        />
         <Status
-          status="Waiting for audit"
-          assignedTo="John Doe"
+          status="Approved"
+          approvedBy="John Doe"
           auditStatus="Pending"
           noOfTickets="01/04"
+          approvedDate="02/12/2021"
+          auditorStatus="Not assigned"
         />
         <Container className={classes.tableContainer}>
           <CeroTable
@@ -219,4 +251,4 @@ const CurrentYearApproval = () => {
   );
 };
 
-export default CurrentYearApproval;
+export default MonthlyFacilityDetails;

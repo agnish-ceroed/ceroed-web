@@ -1,19 +1,27 @@
-import React from 'react';
+import React from "react";
 import { Box } from "@mui/material";
 
-import EmissionTableFilter from '../EmissionTableFilter';
-import EmissionSelection from '../EmissionSelection';
+import EmissionTableFilter from "../EmissionTableFilter";
+import EmissionSelection from "../EmissionSelection";
 import useStyles from "./styles";
 
 const EmissionHeader = (props) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <Box className={classes.container}>
-            <EmissionSelection emissionType={props.emissionType} onSelectEmission={props.setEmissionType} />
-            <EmissionTableFilter emissionType={props.emissionType} onAddData={props.onAddData} onApplyFilter={props.onApplyFilter} />
-        </Box>
-    )
-}
+  return (
+    <Box className={classes.container}>
+      <EmissionSelection
+        emissionType={props.emissionType}
+        onSelectEmission={props.setEmissionType}
+      />
+      <EmissionTableFilter
+        emissionType={props.emissionType}
+        onAddData={props.onAddData}
+        onApplyFilter={props.onApplyFilter}
+        filter={props.filter}
+      />
+    </Box>
+  );
+};
 
 export default EmissionHeader;
