@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { sampleYear, months } from "../../../../constants";
-import Dropdown from "../../../../components/Dropdown";
+import CeroDropdown from "../../../../components/CeroDropdown";
 import CeroButton from "../../../../components/CeroButton";
 
 import useStyles from "./styles";
@@ -30,7 +30,7 @@ const Header = ({
         justifyContent="space-between"
       >
         <Box className={classes.yearContainer}>
-          <Dropdown
+          <CeroDropdown
             classes={{ container: classes.dropdown }}
             id="year"
             label="Year"
@@ -39,7 +39,7 @@ const Header = ({
             onChange={({ target }) => setYear(target.value)}
             selectedValue={filterYear}
           />
-          <Dropdown
+          <CeroDropdown
             classes={{ container: classes.monthsDropdown }}
             id="month"
             label="Month"
@@ -48,7 +48,7 @@ const Header = ({
             onChange={({ target }) => setMonth(target.value)}
             selectedValue={filterMonth}
           />
-          <Dropdown
+          <CeroDropdown
             classes={{ container: classes.facilityDropdown }}
             id="facility"
             label="Facility"
