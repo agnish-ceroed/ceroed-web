@@ -60,7 +60,13 @@ const Header = ({
           <CeroButton
             buttonText="Apply"
             className={classes.buttonPrimary}
-            onClick={() => onApplyFilter(filterYear)}
+            onClick={() =>
+              onApplyFilter({
+                year: filterYear,
+                month: filterMonth,
+                facility: facility,
+              })
+            }
           />
         </Box>
         <Box className={classes.buttonContainer}>

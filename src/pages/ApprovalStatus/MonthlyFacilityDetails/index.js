@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
 import DashboardLayout from "../../../layouts/DashboardLayout";
@@ -12,6 +12,7 @@ import useStyles from "./styles";
 
 const combustionSummaryData = [
   {
+    id: "stationary_combustion",
     topic: "Stationary combustion",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -21,6 +22,7 @@ const combustionSummaryData = [
     ef: "0.05 tonnes",
   },
   {
+    id: "mobile_combustion",
     topic: "Mobile combustion",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -30,6 +32,7 @@ const combustionSummaryData = [
     ef: "0.05 tonnes",
   },
   {
+    id: "transportation",
     topic: "CNC",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -42,11 +45,13 @@ const combustionSummaryData = [
 
 const waterSummaryData = [
   {
+    id: "water_consumption",
     topic: "Water consumption",
     amount: "0.05 tonnes",
     records: "2",
   },
   {
+    id: "water_discharge",
     topic: "Water discharge",
     amount: "0.05 tonnes",
     records: "4",
@@ -55,6 +60,7 @@ const waterSummaryData = [
 
 const wasteSummaryData = [
   {
+    id: "waste",
     topic: "Waste",
     amount: "0.05 tonnes",
     bioFuel: "0.05 tonnes",
@@ -65,6 +71,7 @@ const wasteSummaryData = [
 const MonthlyFacilityDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const facilitiesData = useSelector(
     (state) => state.listings.listFacilities.data
@@ -77,20 +84,16 @@ const MonthlyFacilityDetails = () => {
 
   const { details } = useParams();
   const decodedFilter = decodeURI(details).split("_");
-  const selectedYear = decodedFilter[0].replace(":", "");
+  const selectedYear = decodedFilter[0];
   const selectedMonth = decodedFilter[1];
   const selectedFacility = decodedFilter[2];
 
-  const onSelectCombustionSummaryData = (row) => {
-    console.log(row);
-  };
-
-  const onSelectWaterSummaryData = (row) => {
-    console.log(row);
-  };
-
-  const onSelectWasteSummaryData = (row) => {
-    console.log(row);
+  const onSelectData = (row) => {
+    navigate(
+      `/emissions/${row.id}${selectedYear && `/year-${selectedYear}`}${
+        selectedMonth ? `&month-${selectedMonth}` : ""
+      }${selectedFacility ? `&facity_id-${selectedFacility}` : ""}`
+    );
   };
 
   useEffect(() => {
@@ -190,8 +193,12 @@ const MonthlyFacilityDetails = () => {
     },
   ];
 
-  const onApplyFilter = (year) => {
-    console.log(year);
+  const onApplyFilter = (filter) => {
+    navigate(
+      `/approval-status/${filter.year}${
+        filter.month ? `_${filter.month}` : ""
+      }${filter.facility ? `_${filter.facility}` : ""}`
+    );
   };
 
   return (
@@ -218,7 +225,7 @@ const MonthlyFacilityDetails = () => {
             data={combustionSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectCombustionSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
         <Container className={classes.tableContainer}>
@@ -227,7 +234,7 @@ const MonthlyFacilityDetails = () => {
             data={waterSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectWaterSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
         <Container className={classes.tableContainer}>
@@ -236,7 +243,7 @@ const MonthlyFacilityDetails = () => {
             data={wasteSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectWasteSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
       </Container>

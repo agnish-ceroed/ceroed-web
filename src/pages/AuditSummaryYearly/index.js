@@ -92,7 +92,7 @@ const AuditSummaryYearly = () => {
   // const dispatch = useDispatch();
 
   const onSelectAuditSummaryData = (row) => {
-    navigate(`/audit-status/current-year-approval:${row.year}`);
+    navigate(`/audit-status/current-year-approval/${row.year}`);
   };
 
   // useEffect(() => {

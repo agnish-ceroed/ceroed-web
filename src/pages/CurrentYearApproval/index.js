@@ -1,5 +1,5 @@
 // import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
@@ -10,6 +10,7 @@ import useStyles from "./styles";
 
 const combustionSummaryData = [
   {
+    id: "stationary_combustion",
     topic: "Stationary combustion",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -19,6 +20,7 @@ const combustionSummaryData = [
     ef: "0.05 tonnes",
   },
   {
+    id: "mobile_combustion",
     topic: "Mobile combustion",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -28,6 +30,7 @@ const combustionSummaryData = [
     ef: "0.05 tonnes",
   },
   {
+    id: "transportation",
     topic: "CNC",
     co2: "0.05 tonnes",
     ch4: "0.05 tonnes",
@@ -40,11 +43,13 @@ const combustionSummaryData = [
 
 const waterSummaryData = [
   {
+    id: "water_consumption",
     topic: "Water consumption",
     amount: "0.05 tonnes",
     records: "2",
   },
   {
+    id: "water_discharge",
     topic: "Water discharge",
     amount: "0.05 tonnes",
     records: "4",
@@ -53,6 +58,7 @@ const waterSummaryData = [
 
 const wasteSummaryData = [
   {
+    id: "waste",
     topic: "Waste",
     amount: "0.05 tonnes",
     bioFuel: "0.05 tonnes",
@@ -62,22 +68,13 @@ const wasteSummaryData = [
 
 const CurrentYearApproval = () => {
   const classes = useStyles();
-  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  const pathNameArr = pathname.split(":");
-  const selectedYear = pathNameArr[1];
+  const { year } = useParams();
   // const dispatch = useDispatch();
 
-  const onSelectCombustionSummaryData = (row) => {
-    console.log(row);
-  };
-
-  const onSelectWaterSummaryData = (row) => {
-    console.log(row);
-  };
-
-  const onSelectWasteSummaryData = (row) => {
-    console.log(row);
+  const onSelectData = (row) => {
+    navigate(`/emissions/${row.id}/year-${year}`);
   };
 
   // useEffect(() => {
@@ -177,13 +174,13 @@ const CurrentYearApproval = () => {
   ];
 
   const onApplyFilter = (year) => {
-    console.log(year);
+    navigate(`/audit-status/current-year-approval/${year}`);
   };
 
   return (
     <DashboardLayout>
       <Container className={classes.container}>
-        <Header onApplyFilter={onApplyFilter} selectedYear={selectedYear} />
+        <Header onApplyFilter={onApplyFilter} selectedYear={year} />
         <Status
           status="Waiting for audit"
           assignedTo="John Doe"
@@ -196,7 +193,7 @@ const CurrentYearApproval = () => {
             data={combustionSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectCombustionSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
         <Container className={classes.tableContainer}>
@@ -205,7 +202,7 @@ const CurrentYearApproval = () => {
             data={waterSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectWaterSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
         <Container className={classes.tableContainer}>
@@ -214,7 +211,7 @@ const CurrentYearApproval = () => {
             data={wasteSummaryData}
             hasMore={false}
             loading={false}
-            onSelectRow={onSelectWasteSummaryData}
+            onSelectRow={onSelectData}
           />
         </Container>
       </Container>

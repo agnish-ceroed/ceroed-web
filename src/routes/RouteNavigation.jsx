@@ -83,7 +83,7 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
-                        path="/audit-status/current-year-approval:year"
+                        path="/audit-status/current-year-approval/:year"
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <CurrentYearApproval />
