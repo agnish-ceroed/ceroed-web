@@ -21,8 +21,9 @@ import EditEmissions from '../pages/EditEmissions';
 import EmissionsDetails from '../pages/EmissionsDetails';
 import Facilities from '../pages/Facilities';
 import Users from '../pages/Users'
-import ApprovalMonthlySummary from '../pages/ApprovalMonthlySummary'
 import AuditSummaryYearly from '../pages/AuditSummaryYearly'
+import ApprovalStatus from '../pages/ApprovalStatus'
+import MonthlyFacilityDetails from '../pages/ApprovalStatus/MonthlyFacilityDetails'
 import CurrentYearApproval from '../pages/CurrentYearApproval'
 import Home from '../pages/Home';
 import CompanyList from '../pages/CompanyList';
@@ -74,15 +75,7 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
-                        path="/dashboard/approval-monthly-summary"
-                        element={
-                            <PrivateRoute redirectTo="/login">
-                                <ApprovalMonthlySummary />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/dashboard/audit-yearly-summary"
+                        path="/audit-status/"
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <AuditSummaryYearly />
@@ -90,10 +83,26 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
-                        path="/dashboard/current-year-approval:year"
+                        path="/audit-status/current-year-approval:year"
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <CurrentYearApproval />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/approval-status/"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <ApprovalStatus />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/approval-status:details"
+                        element={
+                            <PrivateRoute redirectTo="/login">
+                                <MonthlyFacilityDetails />
                             </PrivateRoute>
                         }
                     />
