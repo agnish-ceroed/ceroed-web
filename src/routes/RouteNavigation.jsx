@@ -99,7 +99,7 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
-                        path="/approval-status:details"
+                        path="/approval-status/:details"
                         element={
                             <PrivateRoute redirectTo="/login">
                                 <MonthlyFacilityDetails />
@@ -108,6 +108,14 @@ const RootNavigation = () => {
                     />
                     <Route
                         path="/emissions/:type"
+                        element={
+                            <PrivateRoute redirectTo="/">
+                                <Emissions />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/emissions/:type/:filters"
                         element={
                             <PrivateRoute redirectTo="/">
                                 <Emissions />
@@ -139,7 +147,7 @@ const RootNavigation = () => {
                         }
                     />
                     <Route
-                        path="/emissions/:type/:id"
+                        path="/emissions/:type/details/:id"
                         element={
                             <PrivateRoute redirectTo="/">
                                 <EmissionsDetails />

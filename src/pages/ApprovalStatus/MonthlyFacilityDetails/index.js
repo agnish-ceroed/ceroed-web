@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
 import DashboardLayout from "../../../layouts/DashboardLayout";
@@ -65,7 +65,6 @@ const wasteSummaryData = [
 const MonthlyFacilityDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
   const facilitiesData = useSelector(
     (state) => state.listings.listFacilities.data
@@ -76,9 +75,9 @@ const MonthlyFacilityDetails = () => {
     value: item.name,
   }));
 
-  const pathNameArr = pathname.split(":");
-  const decodedFilter = decodeURI(pathNameArr[1]).split("_");
-  const selectedYear = decodedFilter[0];
+  const { details } = useParams();
+  const decodedFilter = decodeURI(details).split("_");
+  const selectedYear = decodedFilter[0].replace(":", "");
   const selectedMonth = decodedFilter[1];
   const selectedFacility = decodedFilter[2];
 

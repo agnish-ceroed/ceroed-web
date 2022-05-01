@@ -33,7 +33,7 @@ const EmissionTable = (props) => {
     }
 
     const onSelectEmissionData = (emission) => {
-        navigate(`/emissions/${emissionType}/${emission.id}`);
+        navigate(`/emissions/${emissionType}/details/${emission.id}`);
     };
 
     const onEditEmissionData = (e, emission) => {

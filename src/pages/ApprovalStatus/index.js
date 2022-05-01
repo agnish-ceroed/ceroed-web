@@ -132,7 +132,7 @@ const ApprovalStatus = () => {
     const currentFilter = encodeURI(
       `${selectedRow.year}_${selectedRow.month}${facility && "_" + facility}`
     );
-    navigate(`/approval-status:${currentFilter}`);
+    navigate(`/approval-status/:${currentFilter}`);
   };
 
   useEffect(() => {
