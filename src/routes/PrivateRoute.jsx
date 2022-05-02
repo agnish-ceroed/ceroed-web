@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, redirectTo }) => {
     useEffect(() => {
         if (isAuthenticated) {
             if (!isAdmin && adminRoutes.indexOf(location.pathname) > -1) {
-                navigate("/dashboard");
+                // navigate("/dashboard");
             }
         }
     }, [isAuthenticated, isAdmin, location.pathname, navigate])
