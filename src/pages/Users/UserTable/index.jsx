@@ -16,6 +16,10 @@ const UserTable = (props) => {
         columnId: 'email',
         columnHeader: 'Email',
     }, {
+        columnKey: 'name',
+        columnId: 'name',
+        columnHeader: 'Name',
+    }, {
         columnKey: 'action',
         columnId: 'action',
         columnHeader: '',

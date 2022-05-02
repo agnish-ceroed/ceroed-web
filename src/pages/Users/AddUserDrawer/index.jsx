@@ -6,12 +6,26 @@ import { useFormik } from 'formik';
 
 import { userSchema } from './schema';
 import { STATUS } from '../../../redux/constants';
-import { addUser, editUser, getUserDetails, listUsers, resetUserStatus } from '../../../redux/actions';
+import { addUser, editUser, getUserDetails, listFacilities, listUsers, resetUserStatus } from '../../../redux/actions';
 
 import CeroInput from '../../../components/CeroInput';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
 import useStyles from "./styles";
+
+const roles = [{
+    key: 'admin',
+    value: 'Business Admin'
+}, {
+    key: 'facilitator',
+    value: 'Business Facility Manager'
+}, {
+    key: 'sustainability_manager',
+    value: 'Business Sustainability Manager',
+}, {
+    key: 'auditor',
+    value: 'Business Approver',
+}]
 
 const AddUserDrawer = (props) => {
     const classes = useStyles();
@@ -20,7 +34,10 @@ const AddUserDrawer = (props) => {
 
     const addUserStatus = useSelector(state => state.users.addUser)
     const userData = useSelector(state => state.users.userDetails.data)
-    const editUserStatus = useSelector(state => state.users.editUser)
+    const editUserStatus = useSelector(state => state.users.editUser);
+    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
 
     const userForm = useFormik({
         initialValues: {
@@ -38,6 +55,10 @@ const AddUserDrawer = (props) => {
         }
         return () => dispatch(resetUserStatus())
     }, [props.editUser, dispatch])
+
+    useEffect(() => {
+        dispatch(listFacilities())
+    }, [dispatch])
 
     useEffect(() => {
         if (addUserStatus.status === STATUS.SUCCESS) {
@@ -61,11 +82,11 @@ const AddUserDrawer = (props) => {
         }
     }, [editUserStatus, enqueueSnackbar, props.onClose, dispatch])
 
-    const onSubmitFacilityData = () => {
+    const onSubmitUserData = () => {
         if (props.editUser) {
-            dispatch(editUser(props.editUser, userForm.values.email, userForm.values.role))
+            dispatch(editUser(props.editUser, userForm.values.email, userForm.values.role, userForm.values.facility))
         } else {
-            dispatch(addUser(userForm.values.email, userForm.values.role))
+            dispatch(addUser(userForm.values.email, userForm.values.role, userForm.values.facility))
         }
     };
 
@@ -90,12 +111,24 @@ const AddUserDrawer = (props) => {
                     name="role"
                     label="Role"
                     fullWidth
-                    options={[{ key: 'admin', value: 'Admin' }]}
+                    options={roles}
                     selectedValue={userForm.values.role}
                     onChange={userForm.handleChange}
                     onBlur={userForm.handleBlur}
                     error={userForm.errors.role}
                 />
+                {userForm.values.role === 'facilitator' && <CeroSelect
+                    required
+                    id="facility"
+                    name="facility"
+                    label="Facility"
+                    fullWidth
+                    options={facilitiesList}
+                    selectedValue={userForm.values.facility}
+                    onChange={userForm.handleChange}
+                    onBlur={userForm.handleBlur}
+                    error={userForm.errors.facility}
+                />}
             </Box>
         )
     };
@@ -106,11 +139,11 @@ const AddUserDrawer = (props) => {
                 drawerOpen: props.isOpen,
                 onClose: () => props.onClose(false),
                 content: getPrimaryPaymentDrawer(),
-                header: { title: "Add Facility" },
+                header: { title: "Add Users" },
                 footer: {
                     primaryBtnTitle: 'Save',
                     secondaryBtnTitle: 'Cancel',
-                    primaryBtnAction: onSubmitFacilityData,
+                    primaryBtnAction: onSubmitUserData,
                     secondaryBtnAction: () => props.onClose(false),
                     disablePrimaryBtn: !userForm.dirty || !userForm.isValid,
                 },

@@ -11,9 +11,9 @@ export const {
     resetUserStatus
 } = createActions({
     [ActionTypes.LIST_USERS]: () => ({}),
-    [ActionTypes.ADD_USER]: (email, role) => ({ email, role }),
+    [ActionTypes.ADD_USER]: (email, role, facility) => ({ email, role, facility }),
     [ActionTypes.GET_USER_DETAILS]: (userId) => ({ userId }),
-    [ActionTypes.EDIT_USER]: (userId, email, role) => ({ userId, email, role }),
+    [ActionTypes.EDIT_USER]: (userId, email, role, facility) => ({ userId, email, role, facility }),
     [ActionTypes.DELETE_USER]: (userId) => ({ userId }),
     [ActionTypes.RESET_USER_STATUS]: () => ({}),
 })
