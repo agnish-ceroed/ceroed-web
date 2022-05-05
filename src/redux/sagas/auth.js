@@ -26,12 +26,12 @@ export function* login(action) {
     yield setCookie('auth_token_admin', response.access_token)
     yield setCookie('access_token_expiry', response.access_token_expiry)
     yield setCookie('user_details', JSON.stringify(response))
-    yield setCookie('role', userType)
+    yield setCookie('role', response.role)
     localStorage.setItem('password', password)
     yield put({
       type: ActionTypes.USER_LOGIN_SUCCESS,
       payload: response,
-      role: userType
+      role: response.role
     })
   } catch (err) {
     /* istanbul ignore next */
@@ -114,6 +114,7 @@ export function* signup(action) {
     yield setCookie('auth_token_admin', response.access_token)
     yield setCookie('access_token_expiry', response.access_token_expiry)
     yield setCookie('user_details', JSON.stringify(response))
+    yield setCookie('role', response.role)
     localStorage.setItem('password', signupDetails.password)
     yield put({
       type: ActionTypes.USER_SIGN_UP_SUCCESS,
@@ -148,6 +149,7 @@ export function* refreshToken() {
       })
     }
     if (accessTokenExpiry > now) {
+      console.log('success', userType)
       yield put({
         type: ActionTypes.USER_LOGIN_SUCCESS,
         payload: userDetails,

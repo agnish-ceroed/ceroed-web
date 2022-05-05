@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 import CeroEdLogo from '../../assets/images/Logo';
 import useStyles from "./styles";
+import { userRoles } from '../../constants';
 
 const SideMenu = ({options, secondaryOptions}) => {
     const userImage = require('../../assets/userAvatar.png');
@@ -15,7 +16,7 @@ const SideMenu = ({options, secondaryOptions}) => {
     const navigate = useNavigate();
 
     const userInfo = useSelector(state => state.auth.userInfo);
-
+    const userRole = userRoles.find(role => role.key === userInfo?.role);
 
     return <Box className={classes.drawerConainer}>
         <Drawer 
@@ -34,6 +35,7 @@ const SideMenu = ({options, secondaryOptions}) => {
                 <Box className={classes.userInfoContainer}>
                     <Typography variant="subtitle2" component="div" >{userInfo.name}</Typography>
                     <Typography variant="caption" >{userInfo.email}</Typography>
+                    <Typography variant="caption" >{userRole?.value}</Typography>
                 </Box>
             </Box>
             <List>

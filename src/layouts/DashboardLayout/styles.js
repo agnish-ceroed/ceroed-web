@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     childContainer: {
         flex: 1,
         background: theme.palette.Secondary.background,
-        padding: '20px',
+        padding: theme.spacing(5, 5, 0, 5),
         height: 'calc(100% - 60px)',
         overflowY: 'scroll',
     }

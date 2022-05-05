@@ -16,6 +16,10 @@ const UserTable = (props) => {
         columnId: 'email',
         columnHeader: 'Email',
     }, {
+        columnKey: 'name',
+        columnId: 'name',
+        columnHeader: 'Name',
+    }, {
         columnKey: 'action',
         columnId: 'action',
         columnHeader: '',
@@ -46,6 +50,7 @@ const UserTable = (props) => {
                 hasMore={false}
                 loading={false}
                 loadMore={props.onLoadMore}
+                classes={{ tableContainer: classes.tableContainer }}
             />
             <UserDeletePrompt userId={deleteUser} isOpen={openDeletePrompt} setOpenDeletePrompt={setOpenDeletePrompt} />
         </>

@@ -56,6 +56,7 @@ const MonthlySummaryTable = (props) => {
         hasMore={false}
         loading={false}
         onSelectRow={onSelectApprovalSummaryData}
+        classes={{ tableContainer: classes.tableContainer }}
       />
     </Container>
   );

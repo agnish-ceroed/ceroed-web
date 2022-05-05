@@ -250,3 +250,17 @@ export const selectionPeriod = [
         value: "Advanced"
     },
 ]
+
+export const userRoles = [{
+    key: 'admin',
+    value: 'Business Admin'
+}, {
+    key: 'facilitator',
+    value: 'Business Facility Manager'
+}, {
+    key: 'sustainability_manager',
+    value: 'Business Sustainability Manager',
+}, {
+    key: 'auditor',
+    value: 'Business Approver',
+}]

@@ -10,7 +10,7 @@ export const userState = {
   status: STATUS.IDLE,
   authParams: {},
   userInfo: {},
-  role: {},
+  role: '',
   message: '',
   refreshStatus: STATUS.RUNNING,
   logoutStatus: STATUS.IDLE,
@@ -127,7 +127,7 @@ const authActions = {
             status: { $set: STATUS.RUNNING }
           }
         }),
-      [ActionTypes.USER_SIGN_UP_SUCCESS]: (state, { payload }) =>
+      [ActionTypes.USER_SIGN_UP_SUCCESS]: (state, { payload, role }) =>
         immutable(state, {
           signup: {
             data: { $set: payload },
@@ -135,6 +135,7 @@ const authActions = {
           },
           isAuthenticated: { $set: true },
           userInfo: { $set: payload },
+          role: { $set: role }
         }),
 
       [ActionTypes.USER_SIGN_UP_FAILURE]: (state, { payload }) =>
@@ -161,9 +162,9 @@ const authActions = {
         immutable(state, {
           refreshStatus: { $set: STATUS.RUNNING }
         }),
-      [ActionTypes.REFRESH_TOKEN_SUCCESS]: state =>
+      [ActionTypes.REFRESH_TOKEN_SUCCESS]: (state) =>
         immutable(state, {
-          refreshStatus: { $set: STATUS.SUCCESS }
+          refreshStatus: { $set: STATUS.SUCCESS },
         }),
       [ActionTypes.REFRESH_TOKEN_FAILURE]: state =>
         immutable(state, {
