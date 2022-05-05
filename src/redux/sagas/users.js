@@ -24,10 +24,10 @@ export function* listUsers(action) {
 
 export function* addUser(action) {
     try {
-        const { email, role } = action.payload
+        const { email, role, facility } = action.payload
         const response = yield call(request, APIEndpoints.ADD_USER, {
             method: 'POST',
-            payload: { email, role }
+            payload: { email, role, facility_id: facility }
         })
         yield put({
             type: ActionTypes.ADD_USER_SUCCESS,
@@ -63,10 +63,10 @@ export function* getUserDetails(action) {
 
 export function* editUser(action) {
     try {
-        const { userId, email, role } = action.payload
+        const { userId, email, role, facility } = action.payload
         const response = yield call(request, APIEndpoints.EDIT_USER(userId), {
             method: 'PUT',
-            payload: { email, role }
+            payload: { email, role, facility_id: facility }
         })
         yield put({
             type: ActionTypes.EDIT_USER_SUCCESS,

@@ -49,7 +49,7 @@ const Users = () => {
             <Container className={classes.container}>
                 <UserHeader onAddData={() => setOpenAddUser(true)} />
                 <UserTable userList={userList} onLoadMore={onLoadMore} onClickEdit={(user) => setEditUser(user)} />
-                <AddUserDrawer isOpen={(isOpenAddUser || editUser)} onClose={handleDrawerClose} editUser={editUser} />
+                {(isOpenAddUser || editUser) && <AddUserDrawer isOpen={(isOpenAddUser || editUser)} onClose={handleDrawerClose} editUser={editUser} />}
             </Container>
         </DashboardLayout>
     )

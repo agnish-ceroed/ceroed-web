@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     tableContainer: {
-        maxHeight: 'calc(100vh - 208px)',
+        maxHeight: 'calc(100vh - 140px)',
     },
     actionContainer: {
         display: 'flex',

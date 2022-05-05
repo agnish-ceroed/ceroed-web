@@ -8,4 +8,8 @@ export const userSchema = yup.object({
     role: yup
         .string('Role is required')
         .required('Role is required'),
+    facility: yup.string().when('role', {
+        is: 'facilitator',
+        then: yup.string().required('Facility is required'),
+    })
 });

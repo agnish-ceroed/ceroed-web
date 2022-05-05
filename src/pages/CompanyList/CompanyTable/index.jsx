@@ -55,6 +55,7 @@ const CompanyTable = (props) => {
             loading={false}
             loadMore={onLoadMore}
             onSelectRow={onSelectCompanyData}
+            classes={{ tableContainer: classes.tableContainer }}
         />
     )
 }
