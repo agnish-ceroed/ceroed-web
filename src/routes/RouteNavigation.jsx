@@ -70,7 +70,7 @@ const RootNavigation = () => {
                             </PrivateRoute>
                         }
                     />
-                    {role === rolesEnum.ADMIN && (
+                    {(role === rolesEnum.ADMIN || role === rolesEnum.SUSTAINABILITY_MANAGER) && (
                         <>
                             <Route
                                 path="/dashboard"
