@@ -53,6 +53,7 @@ const FacilitiesTable = (props) => {
                 hasMore={false}
                 loading={false}
                 loadMore={props.onLoadMore}
+                classes={{ tableContainer: classes.tableContainer }}
             />
             <FacilityDeletePrompt facilityId={deleteFacility} isOpen={openDeletePrompt} setOpenDeletePrompt={setOpenDeletePrompt} />
         </>

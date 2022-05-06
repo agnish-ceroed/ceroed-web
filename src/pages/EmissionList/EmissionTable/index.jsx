@@ -78,6 +78,7 @@ const EmissionTable = (props) => {
             loading={false}
             loadMore={onLoadMore}
             onSelectRow={onSelectEmissionData}
+            classes={{ tableContainer: classes.tableContainer }}
         />
     )
 }

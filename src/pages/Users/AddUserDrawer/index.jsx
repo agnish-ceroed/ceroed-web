@@ -11,21 +11,8 @@ import { addUser, editUser, getUserDetails, listFacilities, listUsers, resetUser
 import CeroInput from '../../../components/CeroInput';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroSideSheetDrawer from '../../../components/CeroSideSheetDrawer';
+import { userRoles } from '../../../constants';
 import useStyles from "./styles";
-
-const roles = [{
-    key: 'admin',
-    value: 'Business Admin'
-}, {
-    key: 'facilitator',
-    value: 'Business Facility Manager'
-}, {
-    key: 'sustainability_manager',
-    value: 'Business Sustainability Manager',
-}, {
-    key: 'auditor',
-    value: 'Business Approver',
-}]
 
 const AddUserDrawer = (props) => {
     const classes = useStyles();
@@ -111,7 +98,7 @@ const AddUserDrawer = (props) => {
                     name="role"
                     label="Role"
                     fullWidth
-                    options={roles}
+                    options={userRoles}
                     selectedValue={userForm.values.role}
                     onChange={userForm.handleChange}
                     onBlur={userForm.handleBlur}

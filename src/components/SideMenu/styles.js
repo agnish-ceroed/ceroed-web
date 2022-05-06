@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '18px',
     },
     userContainer: {
-        padding: theme.spacing(8, 4),
+        padding: theme.spacing(4, 4),
         display: 'flex',
         alignItems: 'center',
     },

@@ -105,15 +105,14 @@ const AuditSummaryYearly = () => {
         <Typography variant="h7" component="span">
           Yearly aggregate
         </Typography>
-        <Container className={classes.tableContainer}>
-          <CeroTable
-            columns={auditSummaryColumns}
-            data={summaryData}
-            hasMore={false}
-            loading={false}
-            onSelectRow={onSelectAuditSummaryData}
-          />
-        </Container>
+        <CeroTable
+          columns={auditSummaryColumns}
+          data={summaryData}
+          hasMore={false}
+          loading={false}
+          onSelectRow={onSelectAuditSummaryData}
+          classes={{ tableContainer: classes.tableContainer }}
+        />
       </Container>
     </DashboardLayout>
   );

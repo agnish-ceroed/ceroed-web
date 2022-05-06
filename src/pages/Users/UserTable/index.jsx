@@ -50,6 +50,7 @@ const UserTable = (props) => {
                 hasMore={false}
                 loading={false}
                 loadMore={props.onLoadMore}
+                classes={{ tableContainer: classes.tableContainer }}
             />
             <UserDeletePrompt userId={deleteUser} isOpen={openDeletePrompt} setOpenDeletePrompt={setOpenDeletePrompt} />
         </>

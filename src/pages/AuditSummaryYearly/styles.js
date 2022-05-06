@@ -6,13 +6,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     tableContainer: {
-        padding: 0,
-        minHeight: 400,
-        width: '100%',
-        maxHeight: 'calc(100% - 40px)',
-        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-        background: theme.palette.background.white,
-        marginTop: 20
+        maxHeight: 'calc(100vh - 120px)',
     }
 }));
 
