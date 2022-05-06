@@ -1,6 +1,6 @@
 {
   "navigationFallback": {
-    "rewrite": "https://gentle-coast-06d71c000.1.azurestaticapps.net",
+    "rewrite": "/index.html",
     "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
   }
 }
