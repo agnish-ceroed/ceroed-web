@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Typography, Grid } from "@mui/material";
+
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroDropdown from "../../components/CeroDropdown";
 import SearchBox from "../../components/SearchBox";
@@ -9,7 +10,7 @@ import { sampleYear } from "../../constants";
 import { listFacilities } from "../../redux/actions";
 import Status from "./Status";
 import MonthlySummaryTable from "./MonthlySummaryTable";
-
+import { getApprovalSummary } from "../../redux/actions/approval";
 import useStyles from "./styles";
 
 const summaryData = [
@@ -116,13 +117,13 @@ const ApprovalStatus = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [filterYear, setYear] = useState("");
+  const [filterYear, setYear] = useState(new Date().getFullYear() );
   const [facility, setFacility] = useState("");
   const [searchText, setSearchText] = useState("");
 
-  const facilitiesData = useSelector(
-    (state) => state.listings.listFacilities.data
-  );
+  const facilitiesData = useSelector( (state) => state.listings.listFacilities.data );
+  const approvalSummary = useSelector( (state) => state.approval.approvalSummaryList.data );
+
   const facilitiesList = facilitiesData.map((item) => ({
     key: item.id,
     value: item.name,
@@ -138,6 +139,16 @@ const ApprovalStatus = () => {
   useEffect(() => {
     dispatch(listFacilities());
   }, []);
+
+  useEffect(() => {
+    dispatch(getApprovalSummary(filterYear, facility));
+  }, [filterYear, facility]);
+
+  useEffect(() => {
+    if(!facility) {
+      setFacility(facilitiesList?.[0]?.key)
+    }
+  }, [facilitiesList]);
 
   return (
     <DashboardLayout>
@@ -182,7 +193,7 @@ const ApprovalStatus = () => {
         </Grid>
         <Status />
         <MonthlySummaryTable
-          summaryData={summaryData}
+          summaryData={approvalSummary}
           onSelectApprovalSummaryData={onSelectApprovalSummaryData}
         />
       </Container>

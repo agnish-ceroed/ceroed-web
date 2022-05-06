@@ -73,4 +73,6 @@ export const APIEndpoints = {
   LIST_COMPANIES: `${API_BASE_URL}/auditor/companies`,
   GET_COMPANY_DETAILS: (companyId) => `${API_BASE_URL}/auditor/company/${companyId}/company-details`,
   GET_COMPANY_AUDIT_HISTORY: (companyId) => `${API_BASE_URL}/auditor/company/${companyId}/company-audit-history`,
+
+  GET_APPROVAL_SUMMARY: (year, facility) => `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
 }

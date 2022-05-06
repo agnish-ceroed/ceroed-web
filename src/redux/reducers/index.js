@@ -6,6 +6,7 @@ import facility from './facility'
 import dashboard from './dashboard'
 import users from './users'
 import company from './company'
+import approval from './approval'
 
 const rootReducer = {
     ...auth,
@@ -15,7 +16,8 @@ const rootReducer = {
     ...facility,
     ...dashboard,
     ...users,
-    ...company
+    ...company,
+    ...approval,
 }
 
 export default rootReducer
