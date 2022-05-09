@@ -11,6 +11,11 @@ export const approvalState = {
         status: STATUS.IDLE,
         message: ''
     },
+    approvalDetails: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    }
 }
 
 const approvalActions = {
@@ -32,6 +37,27 @@ const approvalActions = {
             [ActionTypes.GET_APPROVAL_SUMMARY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     approvalSummaryList: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: payload }
+                    }
+                }),
+                
+            [ActionTypes.GET_APPROVAL_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    approvalDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_DETAILS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    approvalDetails: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    approvalDetails: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: payload }
                     }
