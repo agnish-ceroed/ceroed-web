@@ -9,12 +9,14 @@ const Status = (props) => {
 
   return (
     <Container className={classes.container}>
-      <Box>{`Status: ${status}`}</Box>
+      {status && <Box>{`Status: ${status}`}</Box>}
       <Box>{`Audit assigned to: ${assignedTo} (Auditor)`}</Box>
       <Box>{`Audit status: ${auditStatus}`}</Box>
-      <Box
-        className={classes.ticket}
-      >{`No of tickets opened: ${noOfTickets}`}</Box>
+      {noOfTickets && (
+        <Box
+          className={classes.ticket}
+        >{`No of tickets opened: ${noOfTickets}`}</Box>
+      )}
     </Container>
   );
 };

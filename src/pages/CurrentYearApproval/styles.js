@@ -15,6 +15,18 @@ const useStyles = makeStyles((theme) => ({
   cellContainer: {
     boxShadow: "none",
   },
+  loader: {
+    width: "100%",
+    height: 100,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tableHeaderContainer: {
+    padding: theme.spacing(3),
+    background: theme.palette.Secondary.background,
+    fontWeight: 500,
+  },
 }));
 
 export default useStyles;

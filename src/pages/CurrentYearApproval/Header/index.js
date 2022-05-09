@@ -6,7 +6,13 @@ import CeroButton from "../../../components/CeroButton";
 
 import useStyles from "./styles";
 
-const Header = ({ onApplyFilter, selectedYear }) => {
+const Header = ({
+  onApplyFilter,
+  selectedYear,
+  isRequestAuditVisible,
+  onRequestAudit,
+  isLoading,
+}) => {
   const classes = useStyles();
   const [filterYear, setYear] = useState(selectedYear);
 
@@ -38,17 +44,20 @@ const Header = ({ onApplyFilter, selectedYear }) => {
           />
         </Box>
         <Box className={classes.yearContainer}>
-          <CeroButton
+          {/* <CeroButton
             variant="outlined"
             buttonText="Raise a ticket"
             className={classes.buttonSecondary}
             onClick={() => onApplyFilter(filterYear)}
-          />
-          <CeroButton
-            buttonText="Request audit"
-            className={classes.buttonPrimary}
-            onClick={() => onApplyFilter(filterYear)}
-          />
+          /> */}
+          {isRequestAuditVisible && (
+            <CeroButton
+              buttonText={isLoading ? "Loading..." : "Request audit"}
+              className={classes.buttonPrimary}
+              onClick={onRequestAudit}
+              disabled={isLoading}
+            />
+          )}
         </Box>
       </Grid>
     </Container>

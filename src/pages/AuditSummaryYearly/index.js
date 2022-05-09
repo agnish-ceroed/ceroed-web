@@ -1,67 +1,20 @@
-// import { useDispatch } from "react-redux";
-import { Container, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Box, Container, Typography } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
+import { auditStatus } from "../../constants";
+
+import { getAuditSummary } from "../../redux/actions/audit";
+import { STATUS } from "../../redux/constants";
 
 import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const summaryData = [
-  {
-    year: "2021",
-    audited_by: "John Doe",
-    requested_by: "Thomas Doe",
-    requested_on: "01/12/2021",
-    status: "Pending",
-  },
-  {
-    year: "2020",
-    audited_by: "Marshal Doe",
-    requested_by: "Thomas Doe",
-    requested_on: "05/08/2021",
-    status: "Audited",
-  },
-  {
-    year: "2019",
-    audited_by: "James Doe",
-    requested_by: "John Doe",
-    requested_on: "02/09/2021",
-    status: "Pending",
-  },
-  {
-    year: "2018",
-    audited_by: "Carol Doe",
-    requested_by: "Susan Doe",
-    requested_on: "11/07/2021",
-    status: "Audited",
-  },
-  {
-    year: "2017",
-    audited_by: "Rose Geller",
-    requested_by: "Monica Geller",
-    requested_on: "10/10/2021",
-    status: "Audited",
-  },
-  {
-    year: "2016",
-    audited_by: "Chandler Bing",
-    requested_by: "Joy Thomas",
-    requested_on: "05/06/2021",
-    status: "Audited",
-  },
-  {
-    year: "2015",
-    audited_by: "Will Smith",
-    requested_by: "Penny Smith",
-    requested_on: "06/04/2021",
-    status: "Audited",
-  },
-];
-
 export const auditSummaryColumns = [
   {
-    columnKey: "year",
-    columnId: "year",
+    columnKey: "assessment_year",
+    columnId: "assessment_year",
     columnHeader: "Year",
   },
   {
@@ -70,18 +23,23 @@ export const auditSummaryColumns = [
     columnHeader: "Audited by",
   },
   {
-    columnKey: "requested_by",
-    columnId: "requested_by",
+    columnKey: "audited_on",
+    columnId: "audited_on",
+    columnHeader: "Audited on",
+  },
+  {
+    columnKey: "assigned_by",
+    columnId: "assigned_by",
     columnHeader: "Audit request raised by",
   },
   {
-    columnKey: "requested_on",
-    columnId: "requested_on",
+    columnKey: "assigned_on",
+    columnId: "assigned_on",
     columnHeader: "Audit request raised on",
   },
   {
-    columnKey: "status",
-    columnId: "status",
+    columnKey: "audited_status",
+    columnId: "audited_status",
     columnHeader: "Status",
   },
 ];
@@ -89,15 +47,34 @@ export const auditSummaryColumns = [
 const AuditSummaryYearly = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const auditSummary = useSelector(
+    (state) => state.audit.auditSummaryList.data
+  );
+  const auditSummaryStatus = useSelector(
+    (state) => state.audit.auditSummaryList.status
+  );
 
   const onSelectAuditSummaryData = (row) => {
-    navigate(`/audit-status/current-year-approval/${row.year}`);
+    navigate(`/audit-status/current-year-approval/${row.assessment_year}`);
   };
 
-  // useEffect(() => {
-  //   dispatch(listFacilities())
-  // }, []);
+  const getAuditData = () =>
+    auditSummary.map((item) => ({
+      ...item,
+      audited_status: auditStatus[item.audited_status],
+      audited_on: item.audited_on
+        ? new Date(item.audited_on).toDateString()
+        : "",
+      assigned_on: item.assigned_on
+        ? new Date(item.assigned_on).toDateString()
+        : "",
+    }));
+
+  useEffect(() => {
+    dispatch(getAuditSummary());
+  }, [dispatch]);
 
   return (
     <DashboardLayout>
@@ -105,14 +82,26 @@ const AuditSummaryYearly = () => {
         <Typography variant="h7" component="span">
           Yearly aggregate
         </Typography>
-        <CeroTable
-          columns={auditSummaryColumns}
-          data={summaryData}
-          hasMore={false}
-          loading={false}
-          onSelectRow={onSelectAuditSummaryData}
-          classes={{ tableContainer: classes.tableContainer }}
-        />
+        {auditSummaryStatus === STATUS.SUCCESS ? (
+          <CeroTable
+            columns={auditSummaryColumns}
+            data={getAuditData()}
+            hasMore={false}
+            loading={false}
+            onSelectRow={onSelectAuditSummaryData}
+            classes={{ tableContainer: classes.tableContainer }}
+          />
+        ) : (
+          <Box className={classes.loader}>
+            <Typography variant="h7" component="span">
+              {auditSummaryStatus === STATUS.RUNNING
+                ? "Loading..."
+                : auditSummaryStatus === STATUS.ERROR
+                ? "Something went wrong. Please try again later"
+                : ""}
+            </Typography>
+          </Box>
+        )}
       </Container>
     </DashboardLayout>
   );
