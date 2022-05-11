@@ -92,6 +92,8 @@ export const APIEndpoints = {
 
   GET_APPROVAL_SUMMARY: (year, facility) =>
     `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
+  GET_APPROVAL_DETAILS: (year, facility) =>
+  `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
 
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
 

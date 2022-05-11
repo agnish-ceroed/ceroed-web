@@ -1,6 +1,7 @@
 import { Container, Box } from "@mui/material";
 import CeroTable from "../../../components/CeroTable";
 import { months } from "../../../constants";
+import dayjs from "dayjs";
 
 import useStyles from "./styles";
 
@@ -11,19 +12,29 @@ export const approvalMonthlySummaryColumns = [
     columnHeader: "Year",
   },
   {
-    columnKey: "approved_by",
-    columnId: "approved_by",
-    columnHeader: "Approved by",
+    columnKey: "assigned_by_name",
+    columnId: "assigned_by_name",
+    columnHeader: "Assigned by",
   },
   {
-    columnKey: "requested_by",
-    columnId: "requested_by",
-    columnHeader: "Approval request raised by",
+    columnKey: "facility_name",
+    columnId: "facility_name",
+    columnHeader: "Facility",
+  },
+  {
+    columnKey: "assigned_to_name",
+    columnId: "assigned_to_name",
+    columnHeader: "Assignee",
   },
   {
     columnKey: "requested_on",
     columnId: "requested_on",
     columnHeader: "Approval request raised on",
+  },
+  {
+    columnKey: "submitted_by_name",
+    columnId: "submitted_by_name",
+    columnHeader: "Approval Submitted by",
   },
   {
     columnKey: "status",
@@ -39,6 +50,7 @@ const MonthlySummaryTable = (props) => {
   const getSummaryData = () =>
     summaryData.map((item) => ({
       ...item,
+      requested_on: dayjs(item.assigned_on).format('DD/MM/YYYY'),
       yearData: (
         <Box className={classes.actionContainer}>
           {`${months.find((month) => month.key === item.month)?.value} ${

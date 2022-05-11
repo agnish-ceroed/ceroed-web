@@ -25,8 +25,27 @@ export function* getApprovalSummaryList(action) {
     }
 }
 
+export function* getApprovalDetails(action) {
+    try {
+        const response = yield call(request, APIEndpoints.GET_APPROVAL_DETAILS(action.payload.year), {
+            method: 'GET'
+        })
+        yield put({
+            type: ActionTypes.GET_APPROVAL_DETAILS_SUCCESS,
+            payload: response.audit_status_detail
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.GET_APPROVAL_DETAILS_FAILURE,
+            payload: err.error
+        })
+    }
+}
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_APPROVAL_SUMMARY, getApprovalSummaryList),
+        takeLatest(ActionTypes.GET_APPROVAL_DETAILS, getApprovalDetails),
     ])
 }
