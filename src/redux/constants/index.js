@@ -68,6 +68,10 @@ export const APIEndpoints = {
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
   LIST_GRID_REGIONS: (countryId) =>
     `${API_BASE_URL}/business/listings/countries/${countryId}/grid_regions`,
+  GET_MANAGER_LIST: (role, facility_id) =>
+    `${API_BASE_URL}/business/users/get-managers/${role}${
+      facility_id ? `/${facility_id}` : ""
+    }`,
 
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,
@@ -93,7 +97,7 @@ export const APIEndpoints = {
   GET_APPROVAL_SUMMARY: (year, facility) =>
     `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
   GET_APPROVAL_DETAILS: (year, facility) =>
-  `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
+    `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
 
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
 
