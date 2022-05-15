@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { Grid, Box } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { Grid } from "@mui/material";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 
 import CeroDropdown from "../../../components/CeroDropdown";
 import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 import { months, sampleYear } from "../../../constants";
-import { listFacilities } from "../../../redux/actions";
 import useStyles from "./styles";
 
 const facilityAllowedEmissionTypes = [
@@ -23,7 +22,6 @@ const facilityAllowedEmissionTypes = [
 const EmissionTableFilter = (props) => {
   const { onAddData, onApplyFilter, filter } = props;
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const facilitiesData = useSelector(
     (state) => state.listings.listFacilities.data
@@ -41,10 +39,6 @@ const EmissionTableFilter = (props) => {
   const [filterMonth, setMonth] = useState(initialMonth);
   const [filterType, setFilterType] = useState("");
   const [facility, setFacility] = useState(initialFacility);
-
-  useEffect(() => {
-    dispatch(listFacilities());
-  }, []);
 
   const onClear = () => {
     setSearchText("");

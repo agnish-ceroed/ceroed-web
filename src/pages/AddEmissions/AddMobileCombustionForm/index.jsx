@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
 import { addMobileCombustionValidation } from './schema';
-import { addMobileCombustion, getMobileCombustionInputs, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addMobileCombustion, getMobileCombustionInputs, resetAddCombustionStatus } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
@@ -58,7 +58,6 @@ const AddMobileCombustionForm = (props) => {
     const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
-        dispatch(listFacilities())
         dispatch(getMobileCombustionInputs('mobile_combustion'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])

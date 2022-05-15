@@ -10,7 +10,6 @@ import {
   addUser,
   editUser,
   getUserDetails,
-  listFacilities,
   listUsers,
   resetUserStatus,
   getManagerList,
@@ -63,10 +62,6 @@ const AddUserDrawer = (props) => {
     }
     return () => dispatch(resetUserStatus());
   }, [props.editUser, dispatch]);
-
-  useEffect(() => {
-    dispatch(listFacilities());
-  }, [dispatch]);
 
   useEffect(() => {
     userForm.values.role &&

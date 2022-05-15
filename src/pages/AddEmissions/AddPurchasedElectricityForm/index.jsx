@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { STATUS } from "../../../redux/constants";
 import { sampleYear, months } from "../../../constants";
 import { addPurchasedElectricityValidation } from './schema';
-import { addPurchasedElectricity, listFacilities, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
+import { addPurchasedElectricity, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
@@ -51,7 +51,6 @@ const AddPurchasedElectricityForm = (props) => {
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('purchased_electricity'))
-        dispatch(listFacilities())
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])
 

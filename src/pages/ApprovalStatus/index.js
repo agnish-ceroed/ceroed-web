@@ -7,7 +7,6 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroDropdown from "../../components/CeroDropdown";
 import SearchBox from "../../components/SearchBox";
 import { sampleYear } from "../../constants";
-import { listFacilities } from "../../redux/actions";
 import Status from "./Status";
 import MonthlySummaryTable from "./MonthlySummaryTable";
 import { getApprovalSummary } from "../../redux/actions/approval";
@@ -36,10 +35,6 @@ const ApprovalStatus = () => {
     );
     navigate(`/approval-status/${currentFilter}`);
   };
-
-  useEffect(() => {
-    dispatch(listFacilities());
-  }, []);
 
   useEffect(() => {
     dispatch(getApprovalSummary(filterYear, facility));

@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
 import { addWasteCombustionValidation } from './schema';
-import { addWasteCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addWasteCombustion, getEmissionInputFormat, resetAddCombustionStatus } from '../../../redux/actions';
 
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
@@ -53,7 +53,6 @@ const AddWasteCombustion = (props) => {
     });
 
     useEffect(() => {
-        dispatch(listFacilities())
         dispatch(getEmissionInputFormat('waste'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])

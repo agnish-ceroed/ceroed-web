@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
 import { waterConsumptionValidation } from './schema';
-import { addWaterConsumptionCombustion, getEmissionInputFormat, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addWaterConsumptionCombustion, getEmissionInputFormat, resetAddCombustionStatus } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
@@ -51,7 +51,6 @@ const AddWaterConsumptionForm = (props) => {
     });
 
     useEffect(() => {
-        dispatch(listFacilities())
         dispatch(getEmissionInputFormat('water_consumption'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])

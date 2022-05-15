@@ -96,10 +96,6 @@ const MonthlyFacilityDetails = () => {
     );
   };
 
-  useEffect(() => {
-    dispatch(listFacilities());
-  }, []);
-
   const combustionSummaryColumns = [
     {
       columnKey: "topic",

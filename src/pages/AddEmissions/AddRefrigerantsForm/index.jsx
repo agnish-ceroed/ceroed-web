@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { sampleYear, months } from "../../../constants";
 import { addRefrigerantsValidation } from './schema';
 import { STATUS } from "../../../redux/constants";
-import { addRefrigerants, listFacilities, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
+import { addRefrigerants, resetAddCombustionStatus, getEmissionInputFormat } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
@@ -51,7 +51,6 @@ const AddRefrigerantsForm = (props) => {
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('refrigerants'))
-        dispatch(listFacilities())
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])
 

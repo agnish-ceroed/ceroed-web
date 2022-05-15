@@ -281,6 +281,10 @@ export const userRoles = [
     key: "auditor",
     value: "Business Approver",
   },
+  {
+    key: "user",
+    value: "User",
+  },
 ];
 
 export const auditStatus = {

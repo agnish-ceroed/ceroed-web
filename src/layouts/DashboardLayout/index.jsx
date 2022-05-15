@@ -1,17 +1,23 @@
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 
-//components
 import Header from '../../components/Header'
 import SideMenu from '../../components/SideMenu'
+import { listFacilities } from '../../redux/actions';
 import { settingsOption, sideMenuItems } from './pages';
 import useStyles from "./styles";
 
 const DashboardLayout = ({children}) => {
     
     const classes = useStyles();
+    const dispatch = useDispatch();
     const role = useSelector((state) => state.auth.role);
+
+    useEffect(() => {
+        dispatch(listFacilities());
+    }, [dispatch]);
 
     return <Box className={classes.dasboardContainer}>
         <SideMenu
