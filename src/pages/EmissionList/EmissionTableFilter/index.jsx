@@ -33,14 +33,11 @@ const EmissionTableFilter = (props) => {
     value: item.name,
   }));
 
-  const initialYear = _.isEmpty(filter) ? "" : filter.year;
-  const initialMonth = _.isEmpty(filter) ? "" : filter.month;
-  const initialFacility = _.isEmpty(filter) ? "" : filter.facity_id;
   const [searchText, setSearchText] = useState("");
-  const [filterYear, setYear] = useState(initialYear);
-  const [filterMonth, setMonth] = useState(initialMonth);
+  const [filterYear, setYear] = useState(filter?.year || "");
+  const [filterMonth, setMonth] = useState(filter?.month || "");
   const [filterType, setFilterType] = useState("");
-  const [facility, setFacility] = useState(initialFacility);
+  const [facility, setFacility] = useState(filter?.facility_id || "");
 
   useEffect(() => {
     dispatch(listFacilities());
