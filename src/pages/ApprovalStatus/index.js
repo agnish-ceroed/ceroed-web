@@ -31,9 +31,9 @@ const ApprovalStatus = () => {
 
   const onSelectApprovalSummaryData = (selectedRow) => {
     const currentFilter = encodeURI(
-      `${selectedRow.year}_${selectedRow.month}${facility && "_" + facility}`
+      `?${selectedRow.id ?  `&id=${selectedRow.id}` : ''}${selectedRow.month ? `&month=${selectedRow.month}` : ''}${facility ?  `&facility=${facility}` : ''}`
     );
-    navigate(`/approval-status/${currentFilter}`);
+    navigate(`/approval-status/${selectedRow.year}${currentFilter}`);
   };
 
   useEffect(() => {

@@ -7,9 +7,9 @@ import useStyles from "./styles";
 
 export const approvalMonthlySummaryColumns = [
   {
-    columnKey: "yearData",
-    columnId: "yearData",
-    columnHeader: "Year",
+    columnKey: "month",
+    columnId: "month",
+    columnHeader: "Month",
   },
   {
     columnKey: "assigned_by_name",
@@ -50,12 +50,10 @@ const MonthlySummaryTable = (props) => {
   const getSummaryData = () =>
     summaryData.map((item) => ({
       ...item,
-      requested_on: dayjs(item.assigned_on).format('DD/MM/YYYY'),
-      yearData: (
+      requested_on: item.assigned_on ? dayjs(item.assigned_on).format('DD/MM/YYYY') : '-',
+      month: (
         <Box className={classes.actionContainer}>
-          {`${months.find((month) => month.key === item.month)?.value} ${
-            item.year
-          }`}
+          {months.find((month) => month.key === item.month)?.value}
         </Box>
       ),
     }));

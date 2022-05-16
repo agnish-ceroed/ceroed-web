@@ -21,7 +21,7 @@ const Header = ({
   return (
     <Container className={classes.headerContainer}>
       <Typography variant="h7" component="span">
-        Yearly aggregate
+        Monthly aggregate
       </Typography>
       <Grid
         className={classes.filterContainer}

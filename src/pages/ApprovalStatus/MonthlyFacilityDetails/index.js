@@ -4,99 +4,70 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import CeroTable from "../../../components/CeroTable";
-import { listFacilities } from "../../../redux/actions";
+import { getApprovalMonthlyDetails, getApprovalMonthlySummary } from "../../../redux/actions";
 import Header from "./Header";
 import Status from "./Status";
 
 import useStyles from "./styles";
-
-const combustionSummaryData = [
-  {
-    id: "stationary_combustion",
-    topic: "Stationary combustion",
-    co2: "0.05 tonnes",
-    ch4: "0.05 tonnes",
-    n2o: "0.05 tonnes",
-    co2e: "0.05 tonnes",
-    bio: "0.05 tonnes",
-    ef: "0.05 tonnes",
-  },
-  {
-    id: "mobile_combustion",
-    topic: "Mobile combustion",
-    co2: "0.05 tonnes",
-    ch4: "0.05 tonnes",
-    n2o: "0.05 tonnes",
-    co2e: "0.05 tonnes",
-    bio: "0.05 tonnes",
-    ef: "0.05 tonnes",
-  },
-  {
-    id: "transportation",
-    topic: "CNC",
-    co2: "0.05 tonnes",
-    ch4: "0.05 tonnes",
-    n2o: "0.05 tonnes",
-    co2e: "0.05 tonnes",
-    bio: "0.05 tonnes",
-    ef: "0.05 tonnes",
-  },
-];
-
-const waterSummaryData = [
-  {
-    id: "water_consumption",
-    topic: "Water consumption",
-    amount: "0.05 tonnes",
-    records: "2",
-  },
-  {
-    id: "water_discharge",
-    topic: "Water discharge",
-    amount: "0.05 tonnes",
-    records: "4",
-  },
-];
-
-const wasteSummaryData = [
-  {
-    id: "waste",
-    topic: "Waste",
-    amount: "0.05 tonnes",
-    bioFuel: "0.05 tonnes",
-    records: "2",
-  },
-];
 
 const MonthlyFacilityDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const facilitiesData = useSelector(
-    (state) => state.listings.listFacilities.data
-  );
+  const facilitiesData = useSelector((state) => state.listings.listFacilities.data);
+  const approvalData = useSelector((state) => state.approval.approvalMonthlyDetails.data);
+  const approvalSummaryData = useSelector((state) => state.approval.approvalMonthlySummary.data);
+
+  const stationaryCombustionData = approvalData.filter(item => item.type === 'stationary_combustion');
+  const mobileCombustionData = approvalData.filter(item => item.type === 'mobile_combustion');
+  const refrigerantsCombustionData = approvalData.filter(item => item.type === 'refrigerants');
+  const transportationCombustionData = approvalData.filter(item => item.type === 'transportation');
+  const waterDischargeCombustionData = approvalData.filter(item => item.type === 'water_discharge');
+  const waterConsumptionCombustionData = approvalData.filter(item => item.type === 'water_consumption');
+  const wasteCombustionData = approvalData.filter(item => item.type === 'waste');
+  const purchasedElectricityCombustionData = approvalData.filter(item => item.type === 'purchased_electricity');
+
+  const energyAndMaterialsData = [
+    ...stationaryCombustionData,
+    ...mobileCombustionData,
+    ...purchasedElectricityCombustionData,
+    ...refrigerantsCombustionData,
+    ...transportationCombustionData,
+  ];
+  const waterData = [ ...waterDischargeCombustionData, ...waterConsumptionCombustionData ];
 
   const facilitiesList = facilitiesData.map((item) => ({
     key: item.id,
     value: item.name,
   }));
 
-  const { details } = useParams();
-  const decodedFilter = decodeURI(details).split("_");
-  const selectedYear = decodedFilter[0];
-  const selectedMonth = decodedFilter[1];
-  const selectedFacility = decodedFilter[2];
+  const { year } = useParams();
+  const queryParams = new URLSearchParams(window.location.search)
+  const selectedMonth = queryParams.get("month");
+  const selectedFacility = queryParams.get("facility");
+  const selectedId = queryParams.get("id");
 
   const onSelectData = (row) => {
     navigate(
-      `/emissions/${row.id}${selectedYear && `/year-${selectedYear}`}${
-        selectedMonth ? `&month-${selectedMonth}` : ""
-      }${selectedFacility ? `&facity_id-${selectedFacility}` : ""}`
+      `/emissions/${row.type}${year && `?year=${year}`}${
+        selectedMonth ? `&month=${selectedMonth}` : ""
+      }${selectedFacility ? `&facility=${selectedFacility}` : ""}`
     );
   };
 
+  useEffect(() => {
+    dispatch(getApprovalMonthlyDetails(selectedId, year, selectedMonth, selectedFacility ));
+    dispatch(getApprovalMonthlySummary(selectedId, year, selectedMonth, selectedFacility ));
+  }, []);
+
   const combustionSummaryColumns = [
+    {
+      columnKey: "sector",
+      columnId: "sector",
+      columnHeader: "Sector",
+      classes: { column: classes.cellContainer },
+    },
     {
       columnKey: "topic",
       columnId: "topic",
@@ -104,44 +75,38 @@ const MonthlyFacilityDetails = () => {
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "co2",
-      columnId: "co2",
+      columnKey: "total_co2",
+      columnId: "total_co2",
       columnHeader: "CO2 (tonnes)",
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "ch4",
-      columnId: "ch4",
+      columnKey: "total_ch4",
+      columnId: "total_ch4",
       columnHeader: "CH4 (tonnes)",
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "n2o",
-      columnId: "n2o",
+      columnKey: "total_n2o",
+      columnId: "total_n2o",
       columnHeader: "N2O (tonnes)",
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "co2e",
-      columnId: "co2e",
+      columnKey: "total_co2e",
+      columnId: "total_co2e",
       columnHeader: "CO2e (tonnes)",
       classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "bio",
-      columnId: "bio",
-      columnHeader: "Biofuel CO2e (tonnes)",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "ef",
-      columnId: "ef",
-      columnHeader: "EF (kgCO2e/unit)",
-      classes: { column: classes.cellContainer },
-    },
+    }
   ];
 
   const waterSummaryColumns = [
+    {
+      columnKey: "sector",
+      columnId: "sector",
+      columnHeader: "Sector",
+      classes: { column: classes.cellContainer },
+    },
     {
       columnKey: "topic",
       columnId: "topic",
@@ -155,8 +120,8 @@ const MonthlyFacilityDetails = () => {
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "records",
-      columnId: "records",
+      columnKey: "total_records",
+      columnId: "total_records",
       columnHeader: "No or records",
       classes: { column: classes.cellContainer },
     },
@@ -164,6 +129,11 @@ const MonthlyFacilityDetails = () => {
 
   const wasteSummaryColumns = [
     {
+      columnKey: "sector",
+      columnId: "sector",
+      columnHeader: "Sector",
+      classes: { column: classes.cellContainer },
+    },{
       columnKey: "topic",
       columnId: "topic",
       columnHeader: "Topic",
@@ -176,14 +146,14 @@ const MonthlyFacilityDetails = () => {
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "bioFuel",
-      columnId: "bioFuel",
+      columnKey: "total_bioFuel",
+      columnId: "total_bioFuel",
       columnHeader: "Biofuel CO2 (tonnes)",
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "records",
-      columnId: "records",
+      columnKey: "total_records",
+      columnId: "total_records",
       columnHeader: "No or records",
       classes: { column: classes.cellContainer },
     },
@@ -202,46 +172,52 @@ const MonthlyFacilityDetails = () => {
       <Container className={classes.container}>
         <Header
           onApplyFilter={onApplyFilter}
-          selectedYear={selectedYear}
+          selectedYear={year}
           selectedMonth={selectedMonth}
           selectedFacility={selectedFacility}
           facilitiesList={facilitiesList}
         />
         <Status
-          status="Approved"
-          approvedBy="John Doe"
-          auditStatus="Pending"
-          noOfTickets="01/04"
-          approvedDate="02/12/2021"
-          auditorStatus="Not assigned"
+          status={approvalSummaryData.status}
+          approvedBy={approvalSummaryData.assigned_auditor_name}
+          auditStatus={approvalSummaryData.audited_status}
+          noOfTickets={approvalSummaryData.open_tickets}
+          auditorAssigned={approvalSummaryData.assigned_to_name}
+          auditorStatus={approvalSummaryData.audited_status}
         />
-        <Container className={classes.tableContainer}>
-          <CeroTable
-            columns={combustionSummaryColumns}
-            data={combustionSummaryData}
-            hasMore={false}
-            loading={false}
-            onSelectRow={onSelectData}
-          />
-        </Container>
-        <Container className={classes.tableContainer}>
-          <CeroTable
-            columns={waterSummaryColumns}
-            data={waterSummaryData}
-            hasMore={false}
-            loading={false}
-            onSelectRow={onSelectData}
-          />
-        </Container>
-        <Container className={classes.tableContainer}>
-          <CeroTable
-            columns={wasteSummaryColumns}
-            data={wasteSummaryData}
-            hasMore={false}
-            loading={false}
-            onSelectRow={onSelectData}
-          />
-        </Container>
+        {!!energyAndMaterialsData.length && (
+          <Container className={classes.tableContainer}>
+            <CeroTable
+              columns={combustionSummaryColumns}
+              data={energyAndMaterialsData}
+              hasMore={false}
+              loading={false}
+              onSelectRow={onSelectData}
+            />
+          </Container>
+        )}
+        {!!waterData.length && (
+          <Container className={classes.tableContainer}>
+            <CeroTable
+              columns={waterSummaryColumns}
+              data={waterData}
+              hasMore={false}
+              loading={false}
+              onSelectRow={onSelectData}
+            />
+          </Container>
+        )}
+        { !!wasteCombustionData.length && (
+          <Container className={classes.tableContainer}>
+            <CeroTable
+              columns={wasteSummaryColumns}
+              data={wasteCombustionData}
+              hasMore={false}
+              loading={false}
+              onSelectRow={onSelectData}
+            />
+          </Container>
+        )}
       </Container>
     </DashboardLayout>
   );

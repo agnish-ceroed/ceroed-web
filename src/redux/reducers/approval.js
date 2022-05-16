@@ -15,7 +15,17 @@ export const approvalState = {
         data: {},
         status: STATUS.IDLE,
         message: ''
-    }
+    },
+    approvalMonthlyDetails: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
+    approvalMonthlySummary: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const approvalActions = {
@@ -58,6 +68,48 @@ const approvalActions = {
             [ActionTypes.GET_APPROVAL_DETAILS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     approvalDetails: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: payload }
+                    }
+                }),
+
+            [ActionTypes.GET_APPROVAL_MONTHLY_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlyDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlyDetails: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlyDetails: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: payload }
+                    }
+                }),
+
+            [ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlySummary: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlySummary: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload }
+                    }
+                }),
+            [ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    approvalMonthlySummary: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: payload }
                     }

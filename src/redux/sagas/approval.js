@@ -43,9 +43,59 @@ export function* getApprovalDetails(action) {
     }
 }
 
+export function* getApprovalMonthlyDetails(action) {
+    try {
+        const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_DETAILS, {
+            method: 'GET',
+            payload: {
+                monthly_approval_status_id: action.payload.id,
+                year: action.payload.year,
+                facility_id: action.payload.facility,
+                month: action.payload.month,
+            }
+        })
+        yield put({
+            type: ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_SUCCESS,
+            payload: response.response
+        })
+    } catch (err) {
+        yield put({
+            type: ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_FAILURE,
+            payload: err.error
+        })
+    }
+}
+
+export function* getApprovalMonthlySummary(action) {
+    try {
+        const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_SUMMARY, {
+            method: 'GET',
+            payload: {
+                monthly_approval_status_id: action.payload.id,
+                year: action.payload.year,
+                facility_id: action.payload.facility,
+                month: action.payload.month,
+            }
+        })
+        yield put({
+            type: ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_SUCCESS,
+            payload: response.monthly_approval_summary
+        })
+    } catch (err) {
+        yield put({
+            type: ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_FAILURE,
+            payload: err.error
+        })
+    }
+}
+
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_APPROVAL_SUMMARY, getApprovalSummaryList),
         takeLatest(ActionTypes.GET_APPROVAL_DETAILS, getApprovalDetails),
+        takeLatest(ActionTypes.GET_APPROVAL_MONTHLY_DETAILS, getApprovalMonthlyDetails),
+        takeLatest(ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY, getApprovalMonthlySummary),
+
     ])
 }
