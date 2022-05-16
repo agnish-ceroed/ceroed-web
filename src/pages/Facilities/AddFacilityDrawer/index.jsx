@@ -120,11 +120,11 @@ const AddFacilityDrawer = (props) => {
                     id="country"
                     label="Country"
                     value={facilityForm.values.country}
-                    onChange={(e, value) => facilityForm.setFieldValue('country', value.id)}
+                    onChange={(e, value) => facilityForm.setFieldValue('country', value?.label)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
                     options={countryList}
-                    isOptionEqualToValue={(option, value) => option.id === value}
+                    isOptionEqualToValue={(option, value) => option.label === value}
                 />
                 <CeroSelect
                     required

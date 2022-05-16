@@ -9,12 +9,6 @@ import FacilitiesTable from "./FacilitiesTable"
 
 import useStyles from './styles'
 
-const savedPage = { // To be used from the api response
-    pageNumber: 1,
-};
-
-const DEFAULT_ITEMS_PER_PAGE = 20;
-
 const Facilities = () => {
     const classes = useStyles()
     const facilityList = useSelector(state => state.listings.listFacilities.data)
