@@ -21,18 +21,20 @@ const EmissionList = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
-  const { filters, type } = useParams();
+  const { type } = useParams();
+  const queryParams = new URLSearchParams(window.location.search)
+  const selectedMonth = queryParams.get("month");
+  const selectedFacility = queryParams.get("facility");
+  const selectedYear = queryParams.get("year");
+
   const emissionData = useSelector((state) => state.emission.emissionList.data);
   const emissionType = type;
-  let initialFilter = {};
-  if (!_.isEmpty(filters)) {
-    const filterArr = filters.split("&");
-    _.forEach(filterArr, (item) => {
-      const [key, value] = item.split("-");
-      initialFilter[key] = value;
-    });
-  }
-  const [filter, setFilter] = useState(initialFilter);
+  
+  const [filter, setFilter] = useState({
+    month: selectedMonth,
+    year: selectedYear,
+    facility_id: selectedFacility, 
+  });
 
   useEffect(() => {
     !emissionType

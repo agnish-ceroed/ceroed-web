@@ -97,12 +97,16 @@ export const APIEndpoints = {
   GET_APPROVAL_SUMMARY: (year, facility) =>
     `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
   GET_APPROVAL_DETAILS: (year, facility) =>
-    `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
+  `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
+  GET_APPROVAL_MONTHLY_DETAILS:
+  `${API_BASE_URL}/business/monthly-approval-status-summary`,
+  GET_APPROVAL_MONTHLY_SUMMARY:
+  `${API_BASE_URL}/business/monthly-approval-status-summary-overview`,
 
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
 
   GET_YEARLY_AUDIT_SUMMARY: (year) =>
-    `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
+  `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
 
   REQUEST_AUDIT: (audit_status_id) =>
     `${API_BASE_URL}/business/yearly-audit-summary-assign-to-audit/${audit_status_id}`,
