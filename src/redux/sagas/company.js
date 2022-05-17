@@ -60,10 +60,31 @@ export function* getCompanyAuditHistory(action) {
   }
 }
 
+export function* getDashboardSummary(action) {
+  try {
+    console.log('action.payload.filter', action.payload.filter);
+    const response = yield call(request, APIEndpoints.GET_DASHBOARD_SUMMARY, {
+      method: 'GET',
+      payload: action.payload.filter,
+    })
+    yield put({
+      type: ActionTypes.GET_DASHBOARD_SUMMARY_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_DASHBOARD_SUMMARY_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_COMPANY_LIST, getCompanyList),
     takeLatest(ActionTypes.GET_COMPANY_DETAILS, getCompanyDetails),
     takeLatest(ActionTypes.GET_COMPANY_AUDIT_HISTORY, getCompanyAuditHistory),
+    takeLatest(ActionTypes.GET_DASHBOARD_SUMMARY, getDashboardSummary),
   ])
 }
