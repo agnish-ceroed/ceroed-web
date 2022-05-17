@@ -7,7 +7,7 @@ import useStyles from './styles'
 const CeroAutoComplete = (props) => {
     const classes = useStyles();
 
-    const isOptionEqualToValue = (option, value) => option.id === value.id;
+    const isOptionEqualToValue = props.isOptionEqualToValue || ((option, value) => option.id === value.id);
 
     return (
         <Box className={classes.container}>

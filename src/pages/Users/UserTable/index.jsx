@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CeroButton from '../../../components/CeroButton';
 import CeroTable from '../../../components/CeroTable';
+import { userRoles } from '../../../constants';
 import UserDeletePrompt from '../UserDeletePrompt';
 import useStyles from "./styles";
 
@@ -20,6 +21,10 @@ const UserTable = (props) => {
         columnId: 'name',
         columnHeader: 'Name',
     }, {
+        columnKey: 'role',
+        columnId: 'role',
+        columnHeader: 'Role',
+    }, {
         columnKey: 'action',
         columnId: 'action',
         columnHeader: '',
@@ -33,6 +38,7 @@ const UserTable = (props) => {
 
     const getUserData = () => props.userList.map((user) => ({
         ...user,
+        role: userRoles.find(role => role.key === user.role )?.value,
         action: (
             <>
                 <CeroButton className={classes.button} buttonText='Edit' onClick={() => props.onClickEdit(user.id)} />

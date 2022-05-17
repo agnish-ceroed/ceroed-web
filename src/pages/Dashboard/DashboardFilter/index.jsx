@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { listFacilities } from "../../../redux/actions";
 import { months, sampleYear, selectionPeriod } from "../../../constants";
 
 import CeroDropdown from "../../../components/CeroDropdown";
@@ -11,7 +10,6 @@ import useStyles from "./styles";
 
 
 const DashboardFilter = (props) => {
-    const dispatch = useDispatch()
     const { onApplyFilter } = props;
     const classes = useStyles();
 
@@ -24,10 +22,6 @@ const DashboardFilter = (props) => {
     const [filterStartMonth, setStartMonth] = useState('');
     const [filterEndYear, setEndYear] = useState('');
     const [filterEndMonth, setEndMonth] = useState('');
-
-    useEffect(() => {
-        dispatch(listFacilities())
-    }, [dispatch])
 
     const onApply = () => {
         const filterValue = {}

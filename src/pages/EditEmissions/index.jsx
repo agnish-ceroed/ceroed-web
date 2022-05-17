@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getEmission, getEmissionInputFormat, listFacilities } from '../../redux/actions';
+import { getEmission, getEmissionInputFormat } from '../../redux/actions';
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import EditWasteCombustion from "./EditWasteCombustion";
@@ -37,7 +37,6 @@ const EditEmissions = () => {
 
     useEffect(() => {
         emissionType && dispatch(getEmissionInputFormat(emissionType))
-        dispatch(listFacilities())
         emissionType && emissionId && dispatch(getEmission({ emissionType, emissionId }))
     }, [emissionType, emissionId, dispatch])
 

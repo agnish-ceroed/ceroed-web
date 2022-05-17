@@ -79,10 +79,6 @@ const AuditSummaryYearly = () => {
     //
   };
 
-  // useEffect(() => {
-  //   dispatch(listFacilities())
-  // }, []);
-
   return (
     <DashboardLayout>
       <Container className={classes.container}>

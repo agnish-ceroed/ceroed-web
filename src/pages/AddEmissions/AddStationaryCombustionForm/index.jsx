@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { months, sampleYear } from "../../../constants";
 import { STATUS } from "../../../redux/constants";
 import { addStationaryCombustionValidation } from './schema';
-import { addStationaryCombustion, getEmissionFuelList, listFacilities, resetAddCombustionStatus } from '../../../redux/actions';
+import { addStationaryCombustion, getEmissionFuelList, resetAddCombustionStatus } from '../../../redux/actions';
 
 import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
@@ -49,7 +49,6 @@ const AddStationaryCombustionForm = (props) => {
     });
 
     useEffect(() => {
-        dispatch(listFacilities())
         dispatch(getEmissionFuelList('stationary_combustion'))
         return () => { dispatch(resetAddCombustionStatus()) }
     }, [dispatch])

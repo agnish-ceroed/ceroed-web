@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import CeroTable from "../../../components/CeroTable";
-import { getApprovalMonthlyDetails, getApprovalMonthlySummary, listFacilities } from "../../../redux/actions";
+import { getApprovalMonthlyDetails, getApprovalMonthlySummary } from "../../../redux/actions";
 import Header from "./Header";
 import Status from "./Status";
 
@@ -57,7 +57,6 @@ const MonthlyFacilityDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(listFacilities());
     dispatch(getApprovalMonthlyDetails(selectedId, year, selectedMonth, selectedFacility ));
     dispatch(getApprovalMonthlySummary(selectedId, year, selectedMonth, selectedFacility ));
   }, []);
@@ -98,19 +97,7 @@ const MonthlyFacilityDetails = () => {
       columnId: "total_co2e",
       columnHeader: "CO2e (tonnes)",
       classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "total_bio",
-      columnId: "total_bio",
-      columnHeader: "Biofuel CO2e (tonnes)",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "total_ef",
-      columnId: "total_ef",
-      columnHeader: "EF (kgCO2e/unit)",
-      classes: { column: classes.cellContainer },
-    },
+    }
   ];
 
   const waterSummaryColumns = [
