@@ -10,7 +10,7 @@ import {
   Divider,
   ListItemIcon,
 } from "@mui/material";
-import { Logout, Settings } from "@mui/icons-material";
+import { Logout, Settings, LockResetOutlined } from "@mui/icons-material";
 import { userLogout } from "../../../redux/actions";
 import useStyles from "./styles";
 
@@ -93,6 +93,12 @@ const SettingsMenu = () => {
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
+        </MenuItem>
+        <MenuItem onClick={() => navigateToPage("/change-password")}>
+          <ListItemIcon>
+            <LockResetOutlined fontSize="small" />
+          </ListItemIcon>
+          Change Password
         </MenuItem>
         <MenuItem onClick={() => dispatch(userLogout())}>
           <ListItemIcon>

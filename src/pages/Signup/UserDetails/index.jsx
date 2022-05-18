@@ -19,6 +19,7 @@ const UserDetails = (props) => {
             password: props.userDetails.password || '',
         },
         validationSchema: userDetailsSchema,
+        validateOnMount: true,
         onSubmit: (values) => {
         },
     });
@@ -76,7 +77,7 @@ const UserDetails = (props) => {
                     variant="contained"
                     onClick={handleNext}
                     buttonText={'Next'}
-                    disabled={!userDetailsForm.dirty || !userDetailsForm.isValid}
+                    disabled={!userDetailsForm.isValid}
                     classes={{ root: classes.button }}
                 />
             </Box>
