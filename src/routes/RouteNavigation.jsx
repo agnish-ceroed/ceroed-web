@@ -31,6 +31,7 @@ import CompanyList from '../pages/CompanyList';
 import CompanyDetails from '../pages/CompanyDetails';
 import AuditorDashboard from '../pages/AuditorDashboard';
 import { rolesEnum } from '../layouts/DashboardLayout/pages';
+import AuditDetails from '../pages/CompanyDetails/AuditDetails';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
@@ -213,7 +214,23 @@ const RootNavigation = () => {
                                 }
                             />
                             <Route
-                                path="/company/:companyId"
+                                path="/companies/:company/audit/:id"
+                                element={
+                                    <PrivateRoute redirectTo="/">
+                                        <AuditDetails />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/companies/:company/year/:year"
+                                element={
+                                    <PrivateRoute redirectTo="/">
+                                        <AuditDetails />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/companies/:companyId"
                                 element={
                                     <PrivateRoute redirectTo="/">
                                         <CompanyDetails />

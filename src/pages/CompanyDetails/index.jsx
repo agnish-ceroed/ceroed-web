@@ -43,7 +43,7 @@ const CompanyDetails = () => {
                                 </Grid>
                             </Grid>
                         </Box>
-                        <AuditHistory auditData={auditHistory.data} />
+                        <AuditHistory auditData={auditHistory.data} companyId={companyId} />
                     </>
                 ) : <Typography>Loading</Typography>}
             </Container>
