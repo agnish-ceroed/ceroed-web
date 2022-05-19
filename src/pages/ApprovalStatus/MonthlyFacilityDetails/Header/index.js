@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from 'clsx'
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { sampleYear, months } from "../../../../constants";
 import CeroDropdown from "../../../../components/CeroDropdown";
@@ -12,6 +13,7 @@ const Header = ({
   selectedMonth,
   facilitiesList,
   selectedFacility,
+  actions,
 }) => {
   const classes = useStyles();
   const [filterYear, setYear] = useState(selectedYear);
@@ -74,13 +76,23 @@ const Header = ({
             variant="outlined"
             buttonText="Raise a ticket"
             className={classes.buttonSecondary}
-            onClick={() => onApplyFilter(filterYear)}
+            onClick={() => {}}
           />
-          <CeroButton
-            buttonText="Request audit"
+          {actions && actions.perform_approval && <CeroButton
+            buttonText="Approve"
             className={classes.buttonPrimary}
-            onClick={() => onApplyFilter(filterYear)}
-          />
+            onClick={() => {}}
+          />}
+          {actions && actions.perform_request_approval && <CeroButton
+            buttonText="Request Approval"
+            className={clsx(classes.buttonPrimary, classes.requestApproval)}
+            onClick={() => {}}
+          />}
+          {actions && actions.perform_submission && <CeroButton
+            buttonText="Submit"
+            className={classes.buttonPrimary}
+            onClick={() => {}}
+          />}
         </Box>
       </Grid>
     </Container>

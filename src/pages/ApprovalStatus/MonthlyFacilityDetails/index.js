@@ -16,17 +16,19 @@ const MonthlyFacilityDetails = () => {
   const navigate = useNavigate();
 
   const facilitiesData = useSelector((state) => state.listings.listFacilities.data);
-  const approvalData = useSelector((state) => state.approval.approvalMonthlyDetails.data);
+  const approvalMonthlyData = useSelector((state) => state.approval.approvalMonthlyDetails.data);
   const approvalSummaryData = useSelector((state) => state.approval.approvalMonthlySummary.data);
 
-  const stationaryCombustionData = approvalData.filter(item => item.type === 'stationary_combustion');
-  const mobileCombustionData = approvalData.filter(item => item.type === 'mobile_combustion');
-  const refrigerantsCombustionData = approvalData.filter(item => item.type === 'refrigerants');
-  const transportationCombustionData = approvalData.filter(item => item.type === 'transportation');
-  const waterDischargeCombustionData = approvalData.filter(item => item.type === 'water_discharge');
-  const waterConsumptionCombustionData = approvalData.filter(item => item.type === 'water_consumption');
-  const wasteCombustionData = approvalData.filter(item => item.type === 'waste');
-  const purchasedElectricityCombustionData = approvalData.filter(item => item.type === 'purchased_electricity');
+  
+  const approvalData = approvalMonthlyData?.response;
+  const stationaryCombustionData = (approvalData ||[]).filter(item => item.type === 'stationary_combustion');
+  const mobileCombustionData = (approvalData ||[]).filter(item => item.type === 'mobile_combustion');
+  const refrigerantsCombustionData = (approvalData ||[]).filter(item => item.type === 'refrigerants');
+  const transportationCombustionData = (approvalData ||[]).filter(item => item.type === 'transportation');
+  const waterDischargeCombustionData = (approvalData ||[]).filter(item => item.type === 'water_discharge');
+  const waterConsumptionCombustionData = (approvalData ||[]).filter(item => item.type === 'water_consumption');
+  const wasteCombustionData = (approvalData ||[]).filter(item => item.type === 'waste');
+  const purchasedElectricityCombustionData = (approvalData ||[]).filter(item => item.type === 'purchased_electricity');
 
   const energyAndMaterialsData = [
     ...stationaryCombustionData,
@@ -176,6 +178,7 @@ const MonthlyFacilityDetails = () => {
           selectedMonth={selectedMonth}
           selectedFacility={selectedFacility}
           facilitiesList={facilitiesList}
+          actions={approvalMonthlyData?.actions}
         />
         <Status
           status={approvalSummaryData.status}
@@ -184,6 +187,7 @@ const MonthlyFacilityDetails = () => {
           noOfTickets={approvalSummaryData.open_tickets}
           auditorAssigned={approvalSummaryData.assigned_to_name}
           auditorStatus={approvalSummaryData.audited_status}
+          actions={approvalMonthlyData?.actions}
         />
         {!!energyAndMaterialsData.length && (
           <Container className={classes.tableContainer}>

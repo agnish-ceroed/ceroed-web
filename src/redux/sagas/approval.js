@@ -56,7 +56,7 @@ export function* getApprovalMonthlyDetails(action) {
         })
         yield put({
             type: ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_SUCCESS,
-            payload: response.response
+            payload: response
         })
     } catch (err) {
         yield put({
