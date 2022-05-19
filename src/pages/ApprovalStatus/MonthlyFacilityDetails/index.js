@@ -182,7 +182,7 @@ const MonthlyFacilityDetails = () => {
         />
         <Status
           status={approvalSummaryData.status}
-          approvedBy={approvalSummaryData.assigned_auditor_name}
+          approvedBy={approvalSummaryData.approved_by_name}
           auditStatus={approvalSummaryData.audited_status}
           noOfTickets={approvalSummaryData.open_tickets}
           auditorAssigned={approvalSummaryData.assigned_to_name}
