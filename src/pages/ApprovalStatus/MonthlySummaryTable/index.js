@@ -52,7 +52,7 @@ const MonthlySummaryTable = (props) => {
       ...item,
       requested_on: item.assigned_on ? dayjs(item.assigned_on).format('DD/MM/YYYY') : '-',
       month: (
-        <Box className={classes.actionContainer}>
+        <Box className={classes.actionContainer} key={item.month}>
           {months.find((month) => month.key === item.month)?.value}
         </Box>
       ),
