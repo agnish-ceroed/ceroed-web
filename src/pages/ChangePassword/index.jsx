@@ -6,7 +6,7 @@ import { Box, Container, Paper, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from '../../redux/constants';
-import { changePassword } from '../../redux/actions';
+import { changePassword, userLogout, resetAuthStatus } from '../../redux/actions';
 import CeroButton from '../../components/CeroButton'
 import CeroInput from '../../components/CeroInput'
 import DashboardLayout from '../../layouts/DashboardLayout'
@@ -23,12 +23,13 @@ const ChangePassword = () => {
     useEffect(() => {
         if (changePasswordData.status === STATUS.SUCCESS) {
             enqueueSnackbar(changePasswordData.data.message, { variant: 'success' });
-            navigate("/login");
-            //logout api need to call 
+            dispatch(userLogout())
+            dispatch(resetAuthStatus())
         } else if (changePasswordData.status === STATUS.ERROR) {
             enqueueSnackbar(changePasswordData.message.message, { variant: 'error' });
+            dispatch(resetAuthStatus())
         }
-    }, [changePasswordData, enqueueSnackbar, navigate])
+    }, [changePasswordData, enqueueSnackbar, navigate, dispatch])
 
     const changePasswordForm = useFormik({
         initialValues: {

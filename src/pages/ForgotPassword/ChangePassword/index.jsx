@@ -47,7 +47,7 @@ const ChangePassword = (props) => {
                 onClick={handleNext}
                 fullWidth
                 buttonText='CHANGE PASSWORD'
-                disabled={!passwordForm.dirty || !passwordForm.isValid}
+                disabled={!passwordForm.dirty || !passwordForm.isValid || props.isLoading}
             />
         </>
     );

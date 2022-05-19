@@ -105,9 +105,9 @@ const CompanyDetails = (props) => {
       <CeroAutoComplete
         id="country"
         label="Country"
-        onChange={(e, value) => companyDetailsForm.setFieldValue('country', value.key)}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('country', value?.key)}
         onBlur={companyDetailsForm.handleBlur}
-        error={companyDetailsForm.errors.country}
+        error={companyDetailsForm.touched.country && companyDetailsForm.errors.country}
         options={countryList}
         isOptionEqualToValue={(option, value) => option.id === value.id}
       />
@@ -115,7 +115,7 @@ const CompanyDetails = (props) => {
         name="establishedYear"
         label="Year of establishment"
         options={yearList}
-        onChange={(e, value) => companyDetailsForm.setFieldValue('establishedYear', value.key)}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('establishedYear', value?.key)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.establishedYear && companyDetailsForm.errors.establishedYear}
         isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -124,7 +124,7 @@ const CompanyDetails = (props) => {
         name="industryType"
         label="Type of industry"
         options={industryType}
-        onChange={(e, value) => companyDetailsForm.setFieldValue('industryType', value.key)}
+        onChange={(e, value) => companyDetailsForm.setFieldValue('industryType', value?.key)}
         onBlur={companyDetailsForm.handleBlur}
         error={companyDetailsForm.touched.industryType && companyDetailsForm.errors.industryType}
         isOptionEqualToValue={(option, value) => option.id === value.id}

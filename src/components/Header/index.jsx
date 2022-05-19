@@ -1,5 +1,6 @@
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SettingsMenu from './SettingsMenu'
 import { Box } from '@mui/system';
 
 import useStyles from "./styles";
@@ -15,7 +16,10 @@ const Header = ({placeholder, onChange}) => {
                 placeholder={placeholder ? placeholder : 'Global search'} 
                 onChange={onChange}/> */}
         </Box>
-        <NotificationsOutlinedIcon className={classes.notificationIcon}/>
+        <Box className={classes.notificationContainer}>
+            <NotificationsOutlinedIcon className={classes.notificationIcon}/>
+            <SettingsMenu/>
+        </Box>
     </Box>
 };
 
