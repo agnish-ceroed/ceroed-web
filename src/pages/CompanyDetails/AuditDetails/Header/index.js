@@ -42,14 +42,14 @@ const Header = ({
           />
         </Box>
         <Box className={classes.yearContainer}>
-          {isApproveAuditVisible && (
-            <CeroButton
-              buttonText={isLoading ? "Loading..." : "Raise a ticket"}
-              className={classes.buttonSecondary}
-              onClick={onRaiseAuditTicket}
-              disabled={isLoading}
-            />
-          )}
+          <CeroButton
+            buttonText={"Raise a ticket"}
+            // buttonText={isLoading ? "Loading..." : "Raise a ticket"}
+            className={classes.buttonSecondary}
+            onClick={onRaiseAuditTicket}
+            // disabled={isLoading}
+            variant="outlined"
+          />
           {isApproveAuditVisible && (
             <CeroButton
               buttonText={isLoading ? "Loading..." : "Approve audit"}
