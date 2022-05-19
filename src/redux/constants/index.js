@@ -104,6 +104,7 @@ export const APIEndpoints = {
   `${API_BASE_URL}/business/monthly-approval-status-summary-overview`,
 
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
+  GET_DASHBOARD_SUMMARY: `${API_BASE_URL}/auditor/dashboard-summary`,
 
   GET_YEARLY_AUDIT_SUMMARY: (year) =>
   `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,

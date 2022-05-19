@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "@mui/material";
 
-import { getCompanyList } from "../../redux/actions";
+import { getCompanyList, getDashboardSummary } from "../../redux/actions";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import CompanyFilter from "../CompanyList/CompanyListHeader";
 import CompanyTable from "../CompanyList/CompanyTable";
 import ProfileDetails from "./ProfileDetails";
+import { sampleYear } from "../../constants";
 import useStyles from "./styles";
 
 const savedPage = { // To be used from the api response
@@ -17,14 +18,15 @@ const savedPage = { // To be used from the api response
 const DEFAULT_ITEMS_PER_PAGE = 20;
 
 const AuditorDashboard = () => {
-    const [filter, setFilter] = useState({});
+    const [filter, setFilter] = useState({ year: sampleYear[0].key });
 
     const dispatch = useDispatch()
     const classes = useStyles();
     const companyList = useSelector(state => state.company.companyList.data)
 
     useEffect(() => {
-        dispatch(getCompanyList())
+        dispatch(getCompanyList());
+        dispatch(getDashboardSummary(filter)) 
     }, [dispatch])
 
     const onLoadMore = (pageSize = DEFAULT_ITEMS_PER_PAGE, pageNumber) => {
