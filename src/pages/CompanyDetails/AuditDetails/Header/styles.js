@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
   },
   buttonSecondary: {
-    backgroundColor: theme.palette.text.accent,
+    backgroundColor: theme.palette.Primary.contrastText,
+    color: theme.palette.text.accent,
+    borderColor: theme.palette.text.accent,
     width: 155,
     height: 37,
     fontSize: 13,

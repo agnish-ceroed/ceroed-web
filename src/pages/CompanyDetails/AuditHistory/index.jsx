@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
-import CeroButton from '../../../components/CeroButton';
 
 export const TableColumns = [{
     columnKey: 'assessment_year',
@@ -24,6 +23,10 @@ export const TableColumns = [{
     columnId: 'assigned_by',
     columnHeader: 'Assigned by',
 }, {
+    columnKey: 'assigned_to',
+    columnId: 'assigned_to',
+    columnHeader: 'Assigned to',
+}, {
     columnKey: 'assigned_on',
     columnId: 'assigned_on',
     columnHeader: 'Assigned on',
@@ -31,10 +34,6 @@ export const TableColumns = [{
     columnKey: 'audited_status',
     columnId: 'audited_status',
     columnHeader: 'Status',
-}, {
-    columnKey: 'action',
-    columnId: 'action',
-    columnHeader: '',
 }]
 
 const AuditHistory = (props) => {
@@ -63,11 +62,11 @@ const AuditHistory = (props) => {
         audited_status: getStatus(item.audited_status),
         audited_on: item.audited_on ? dayjs(item.audited_on).format('DD/MM/YYYY') : '-',
         assigned_on: item.assigned_on ? dayjs(item.assigned_on).format('DD/MM/YYYY') : '-',
-        action: (
-            <Box className={classes.actionContainer}>
-                <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectAuditData(e, item.company_id)} />
-            </Box>
-        ),
+        // action: (
+        //     <Box className={classes.actionContainer}>
+        //         <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectAuditData(e, item.company_id)} />
+        //     </Box>
+        // ),
     }));
 
     return (

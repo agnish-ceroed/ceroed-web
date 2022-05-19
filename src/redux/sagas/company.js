@@ -8,6 +8,7 @@ export function* getCompanyList(action) {
   try {
     const response = yield call(request, APIEndpoints.LIST_COMPANIES, {
       method: 'GET',
+      payload: {...action.payload.filter}
     })
     yield put({
       type: ActionTypes.GET_COMPANY_LIST_SUCCESS,

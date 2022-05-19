@@ -11,7 +11,7 @@ export const {
     approveCompanyAuditReset,
     getDashboardSummary,
 } = createActions({
-    [ActionTypes.GET_COMPANY_LIST]: () => ({}),
+    [ActionTypes.GET_COMPANY_LIST]: (filter) => ({filter}),
     [ActionTypes.GET_COMPANY_DETAILS]: (companyId) => ({ companyId }),
     [ActionTypes.GET_COMPANY_AUDIT_HISTORY]: (companyId) => ({ companyId }),
     [ActionTypes.GET_COMPANY_AUDIT_DETAILS]: (companyId, auditId, year) => ({ companyId, auditId, year }),
