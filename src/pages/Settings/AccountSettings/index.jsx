@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Paper, Stack, Typography } from '@mui/material'
 import { useFormik } from 'formik'
@@ -13,6 +14,7 @@ import useStyles from './styles'
 
 const AccountSettings = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const classes = useStyles()
     const { enqueueSnackbar } = useSnackbar();
 
@@ -84,6 +86,7 @@ const AccountSettings = () => {
                 spacing={2}
             >
                 <CeroButton variant='outlined' buttonText='LOGOUT' onClick={logout} />
+                <CeroButton variant='outlined' buttonText='CHANGE PASSWORD' onClick={() => navigate('/change-password')} />
                 <CeroButton buttonText='SAVE' onClick={handleUpdate} disabled={!accountForm.dirty || !accountForm.isValid} />
             </Stack>
         </Paper>

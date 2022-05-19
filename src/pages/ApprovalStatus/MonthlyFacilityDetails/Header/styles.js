@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   yearContainer: {
     display: "flex",
-    width: "50%",
+    width: "60%",
   },
   buttonContainer: {
     display: "flex",
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     width: 140,
     height: 37,
     fontSize: 13,
+    marginLeft: theme.spacing(6),
   },
   buttonSecondary: {
     color: theme.palette.text.accent,
@@ -40,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
     width: 155,
     height: 37,
     fontSize: 13,
-    marginRight: theme.spacing(6),
   },
+  requestApproval: {
+    width: 163,
+  }
 }));
 
 export default useStyles;

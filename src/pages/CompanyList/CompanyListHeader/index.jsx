@@ -11,7 +11,7 @@ const CompanyFilter = (props) => {
     const { onApplyFilter } = props;
     const classes = useStyles();
 
-    const [filterYear, setYear] = useState('');
+    const [filterYear, setYear] = useState(sampleYear[0].key);
 
     const onClear = () => {
         setYear('');

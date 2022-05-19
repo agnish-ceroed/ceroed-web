@@ -111,7 +111,7 @@ const AuditDetails = () => {
         <Header
           onApplyFilter={onApplyFilter}
           selectedYear={year}
-          isApproveAuditVisible
+          isApproveAuditVisible={auditDetails.status === 'pending'}
           onApproveAudit={onApproveAudit}
           onRaiseAuditTicket={() => {}}
           isLoading={approveAuditStatus === STATUS.RUNNING}

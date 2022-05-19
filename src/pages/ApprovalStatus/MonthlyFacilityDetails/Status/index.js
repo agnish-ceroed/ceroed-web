@@ -13,6 +13,7 @@ const Status = (props) => {
       <CeroInfoPair title="Auditor assigned" value={props.auditorAssigned} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Audit status" value={props.auditStatus} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="No of tickets opened" value={props.noOfTickets} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Manager" value={props.actions?.next_assignee_name} classes={{ container: classes.infoContainer}} />
     </Container>
   );
 };

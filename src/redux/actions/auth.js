@@ -10,7 +10,7 @@ export const {
   changePassword,
   refreshToken,
   userLogout,
-  resetForgotStatus,
+  resetAuthStatus,
 } = createActions({
   [ActionTypes.USER_LOGIN]: (userType, email, password) => ({ userType, email, password }),
   [ActionTypes.USER_SIGN_UP]: (signupDetails) => ({ signupDetails }),
@@ -19,5 +19,5 @@ export const {
   [ActionTypes.CHANGE_PASSWORD]: (oldPassword, password) => ({ oldPassword, password }),
   [ActionTypes.REFRESH_TOKEN]: () => ({}),
   [ActionTypes.USER_LOGOUT]: () => ({}),
-  [ActionTypes.RESET_FORGOT_STATUS]: () => ({}),
+  [ActionTypes.RESET_AUTH_STATUS]: () => ({}),
 })

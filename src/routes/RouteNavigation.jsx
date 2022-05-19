@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -30,11 +31,13 @@ import Home from '../pages/Home';
 import CompanyList from '../pages/CompanyList';
 import CompanyDetails from '../pages/CompanyDetails';
 import AuditorDashboard from '../pages/AuditorDashboard';
-import { rolesEnum } from '../layouts/DashboardLayout/pages';
 import AuditDetails from '../pages/CompanyDetails/AuditDetails';
+import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
+    const redirectLink = sideMenuItems.find(item => !_.isEmpty(item.roles.find(userRole => userRole === role)))?.path
+
     return (
         <BrowserRouter>
             <Suspense fallback={<div>Loading</div>} >
@@ -42,7 +45,7 @@ const RootNavigation = () => {
                     <Route
                         path="/"
                         element={
-                            <PublicRoute redirectTo="/dashboard">
+                            <PublicRoute redirectTo={redirectLink}>
                                 <Home />
                             </PublicRoute>
                         }
@@ -50,7 +53,7 @@ const RootNavigation = () => {
                     <Route
                         path="/login/:userType"
                         element={
-                            <PublicRoute redirectTo="/dashboard">
+                            <PublicRoute redirectTo={redirectLink}>
                                 <Login />
                             </PublicRoute>
                         }
@@ -71,7 +74,7 @@ const RootNavigation = () => {
                             </PrivateRoute>
                         }
                     />
-                    {(role === rolesEnum.ADMIN || role === rolesEnum.SUSTAINABILITY_MANAGER) && (
+                    {(role === rolesEnum.ADMIN || role === rolesEnum.SUSTAINABILITY_MANAGER || role === rolesEnum.FACILITY_MANAGER|| role === rolesEnum.BUSINESS_USER|| role === rolesEnum.APPROVER) && (
                         <>
                             <Route
                                 path="/dashboard"
@@ -84,7 +87,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/audit-status/"
                                 element={
-                                    <PrivateRoute redirectTo="/login">
+                                    <PrivateRoute redirectTo="/">
                                         <AuditSummaryYearly />
                                     </PrivateRoute>
                                 }
@@ -92,7 +95,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/audit-status/current-year-approval/:year"
                                 element={
-                                    <PrivateRoute redirectTo="/login">
+                                    <PrivateRoute redirectTo="/">
                                         <CurrentYearApproval />
                                     </PrivateRoute>
                                 }
@@ -100,7 +103,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/approval-status/:year"
                                 element={
-                                    <PrivateRoute redirectTo="/login">
+                                    <PrivateRoute redirectTo="/">
                                         <MonthlyFacilityDetails />
                                     </PrivateRoute>
                                 }
@@ -108,7 +111,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/approval-status/"
                                 element={
-                                    <PrivateRoute redirectTo="/login">
+                                    <PrivateRoute redirectTo="/">
                                         <ApprovalStatus />
                                     </PrivateRoute>
                                 }
@@ -161,7 +164,9 @@ const RootNavigation = () => {
                                     </PrivateRoute>
                                 }
                             />
-                            <Route
+                        </>
+                    )}
+                    <Route
                                 path="/goals"
                                 element={
                                     <PrivateRoute redirectTo="/">
@@ -193,8 +198,6 @@ const RootNavigation = () => {
                                     </PrivateRoute>
                                 }
                             />
-                        </>
-                    )}
                     {role === rolesEnum.AUDITOR && (
                         <>
                             <Route

@@ -149,7 +149,6 @@ export function* refreshToken() {
       })
     }
     if (accessTokenExpiry > now) {
-      console.log('success', userType)
       yield put({
         type: ActionTypes.USER_LOGIN_SUCCESS,
         payload: userDetails,

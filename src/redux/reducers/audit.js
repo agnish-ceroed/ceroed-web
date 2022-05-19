@@ -86,10 +86,8 @@ const auditActions = {
                 ...state.auditYearlySummary.data,
                 status: payload.audited_status,
                 actions: {
-                  $set: {
-                    ...state.auditYearlySummary.data.actions,
-                    perform_request_audit: true,
-                  },
+                  ...state.auditYearlySummary.data.actions,
+                    perform_request_audit: false,
                 },
               },
             },

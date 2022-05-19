@@ -5,7 +5,7 @@ import { Container, Paper, Typography, Grid, Box } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from '../../redux/constants';
-import { resetPassword, getForgotPasswordOtp, resetForgotStatus } from '../../redux/actions';
+import { resetPassword, getForgotPasswordOtp, resetAuthStatus } from '../../redux/actions';
 import EmailSection from './EmailSection'
 import OtpValidation from './OtpValidation'
 import ChangePassword from './ChangePassword'
@@ -29,16 +29,17 @@ const ForgotPassword = () => {
     useEffect(() => {
         if (isProgress === 0 && sentEmailData?.status === STATUS.SUCCESS) {
             setProgress(isProgress + 1);
-        } else if (isProgress === 2 && resetPassword.status === STATUS.SUCCESS) {
+        } else if (isProgress === 2 && resetPasswordData.status === STATUS.SUCCESS) {
             setProgress(isProgress + 1);
             enqueueSnackbar("Password changed successfully", { variant: 'success' });
-            navigate('/login')
+            navigate('/')
+            dispatch(resetAuthStatus())
         } else if (isProgress === 0 && sentEmailData?.status === STATUS.ERROR) {
             enqueueSnackbar(sentEmailData.message.message, { variant: 'error' });
         } else if (isProgress === 2 && resetPasswordData?.status === STATUS.ERROR) {
             enqueueSnackbar(resetPasswordData.message.message, { variant: 'error' });
             setProgress(1);
-            dispatch(resetForgotStatus())
+            dispatch(resetAuthStatus())
         }
     }, [sentEmailData, resetPasswordData, isProgress, dispatch, enqueueSnackbar, navigate])
 
@@ -81,7 +82,7 @@ const ForgotPassword = () => {
                     <>
                         {isProgress === 0 && <EmailSection onNext={handleNext} />}
                         {isProgress === 1 && <OtpValidation onNext={handleNext} />}
-                        {isProgress === 2 && <ChangePassword onNext={handleNext} />}
+                        {isProgress === 2 && <ChangePassword onNext={handleNext} isLoading={resetPasswordData.status === STATUS.RUNNING}/>}
 
                     </>
                 </Paper>

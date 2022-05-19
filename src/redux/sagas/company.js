@@ -75,12 +75,32 @@ export function* getCompanyAuditDetails(action) {
     })
     yield put({
       type: ActionTypes.GET_COMPANY_AUDIT_DETAILS_SUCCESS,
+        payload: response
+      })
+    } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+        type: ActionTypes.GET_COMPANY_AUDIT_DETAILS_FAILURE,
+        payload: err.message
+      })
+    }
+  }
+
+export function* getDashboardSummary(action) {
+  try {
+    console.log('action.payload.filter', action.payload.filter);
+    const response = yield call(request, APIEndpoints.GET_DASHBOARD_SUMMARY, {
+      method: 'GET',
+      payload: action.payload.filter,
+    })
+    yield put({
+      type: ActionTypes.GET_DASHBOARD_SUMMARY_SUCCESS,
       payload: response
     })
   } catch (err) {
     /* istanbul ignore next */
     yield put({
-      type: ActionTypes.GET_COMPANY_AUDIT_DETAILS_FAILURE,
+      type: ActionTypes.GET_DASHBOARD_SUMMARY_FAILURE,
       payload: err.message
     })
   }
@@ -113,5 +133,6 @@ export default function* root() {
     takeLatest(ActionTypes.GET_COMPANY_AUDIT_HISTORY, getCompanyAuditHistory),
     takeLatest(ActionTypes.GET_COMPANY_AUDIT_DETAILS, getCompanyAuditDetails),
     takeLatest(ActionTypes.APPROVE_COMPANY_AUDIT, approveCompanyAudit),
+    takeLatest(ActionTypes.GET_DASHBOARD_SUMMARY, getDashboardSummary),
   ])
 }

@@ -110,12 +110,12 @@ const authActions = {
         immutable(state, {
           changeUserPassword: {
             data: { $set: payload },
-            status: { $set: STATUS.READY }
+            status: { $set: STATUS.SUCCESS }
           }
         }),
       [ActionTypes.CHANGE_PASSWORD_FAILURE]: (state, { payload }) =>
         immutable(state, {
-          changePassword: {
+          changeUserPassword: {
             status: { $set: STATUS.ERROR },
             message: { $set: payload }
           }
@@ -146,13 +146,17 @@ const authActions = {
           }
         }),
 
-      [ActionTypes.RESET_FORGOT_STATUS]: (state, { payload }) =>
+      [ActionTypes.RESET_AUTH_STATUS]: (state, { payload }) =>
         immutable(state, {
           forgot: {
             status: { $set: STATUS.IDLE },
             message: {}
           },
           resetPassword: {
+            status: { $set: STATUS.IDLE },
+            message: {}
+          },
+          changeUserPassword: {
             status: { $set: STATUS.IDLE },
             message: {}
           }

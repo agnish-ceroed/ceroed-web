@@ -5,6 +5,7 @@ import { Container } from "@mui/material";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { clearEmissionList, getEmissionList } from "../../redux/actions";
+import { months, sampleYear } from "../../constants";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
@@ -22,18 +23,18 @@ const EmissionList = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { type } = useParams();
-  const queryParams = new URLSearchParams(window.location.search)
+  const queryParams = new URLSearchParams(window.location.search);
   const selectedMonth = queryParams.get("month");
   const selectedFacility = queryParams.get("facility");
   const selectedYear = queryParams.get("year");
 
   const emissionData = useSelector((state) => state.emission.emissionList.data);
   const emissionType = type;
-  
+
   const [filter, setFilter] = useState({
-    month: selectedMonth,
-    year: selectedYear,
-    facility_id: selectedFacility, 
+    month: selectedMonth || months[0].key,
+    year: selectedYear || sampleYear[0].key,
+    facility_id: selectedFacility,
   });
 
   useEffect(() => {

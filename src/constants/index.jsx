@@ -279,16 +279,36 @@ export const userRoles = [
   },
   {
     key: "auditor",
-    value: "Business Approver",
+    value: "Auditor",
   },
   {
     key: "user",
     value: "User",
   },
+  {
+    key: "business_user",
+    value: "Business User",
+  },
+  {
+    key: "community_user",
+    value: "External User",
+  },
+  {
+    key: "approver",
+    value: "Business Approver",
+  },
+  {
+    key: "facility_manager",
+    value: "Business Facility Manager",
+  },
+  {
+    key: "super_admin",
+    value: "Super Admin",
+  }
 ];
 
 export const auditStatus = {
-  pending_request_approval: "Auditor not assigned",
   audited: "Audited",
   pending: "Audit pending",
+  added: 'Added'
 };
