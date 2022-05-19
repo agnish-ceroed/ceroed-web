@@ -43,16 +43,19 @@ export function* getApprovalDetails(action) {
     }
 }
 
-export function* getApprovalMonthlyDetails(action) {
+export function* getApprovalMonthlyDetails({payload}) {
+  const requestPayload = {
+    year: payload.year,
+    facility_id: payload.facility,
+    month: payload.month,
+  }
+  if(payload.id) {
+    requestPayload.monthly_approval_status_id = payload.id
+  }
     try {
         const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_DETAILS, {
             method: 'GET',
-            payload: {
-                monthly_approval_status_id: action.payload.id,
-                year: action.payload.year,
-                facility_id: action.payload.facility,
-                month: action.payload.month,
-            }
+            payload: requestPayload
         })
         yield put({
             type: ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_SUCCESS,
@@ -66,16 +69,19 @@ export function* getApprovalMonthlyDetails(action) {
     }
 }
 
-export function* getApprovalMonthlySummary(action) {
+export function* getApprovalMonthlySummary({payload}) {
+  const requestPayload = {
+    year: payload.year,
+    facility_id: payload.facility,
+    month: payload.month,
+    }
+    if(payload.id) {
+      requestPayload.monthly_approval_status_id = payload.id
+    }
     try {
         const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_SUMMARY, {
             method: 'GET',
-            payload: {
-                monthly_approval_status_id: action.payload.id,
-                year: action.payload.year,
-                facility_id: action.payload.facility,
-                month: action.payload.month,
-            }
+            payload: requestPayload
         })
         yield put({
             type: ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_SUCCESS,
@@ -89,6 +95,78 @@ export function* getApprovalMonthlySummary(action) {
     }
 }
 
+export function* submitApproval({payload}) {
+    try {
+      const response = yield call(
+        request,
+        APIEndpoints.SUBMIT_APPROVAL(payload.statusId),
+        {
+          method: "POST",
+          payload: { submit_user_id: payload.userId },
+        }
+      );
+  
+      yield put({
+        type: ActionTypes.SUBMIT_APPROVAL_SUCCESS,
+        payload: response,
+      });
+    } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+        type: ActionTypes.SUBMIT_APPROVAL_FAILURE,
+        payload: err.error,
+      });
+    }
+  }
+
+export function* requestApproval({payload}) {
+    try {
+      const response = yield call(
+        request,
+        APIEndpoints.REQUEST_APPROVAL(payload.statusId),
+        {
+          method: "POST",
+          payload: { approve_user_id: payload.userId },
+        }
+      );
+  
+      yield put({
+        type: ActionTypes.REQUEST_APPROVAL_SUCCESS,
+        payload: response,
+      });
+    } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+        type: ActionTypes.REQUEST_APPROVAL_FAILURE,
+        payload: err.error,
+      });
+    }
+  }
+
+export function* approveRequest({payload}) {
+    try {
+      const response = yield call(
+        request,
+        APIEndpoints.APPROVE_REQUEST(payload.statusId),
+        {
+          method: "POST",
+          payload: { comment: payload.comment },
+        }
+      );
+  
+      yield put({
+        type: ActionTypes.APPROVE_REQUEST_SUCCESS,
+        payload: response,
+      });
+    } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+        type: ActionTypes.APPROVE_REQUEST_FAILURE,
+        payload: err.error,
+      });
+    }
+  }
+
 
 export default function* root() {
     yield all([
@@ -96,6 +174,9 @@ export default function* root() {
         takeLatest(ActionTypes.GET_APPROVAL_DETAILS, getApprovalDetails),
         takeLatest(ActionTypes.GET_APPROVAL_MONTHLY_DETAILS, getApprovalMonthlyDetails),
         takeLatest(ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY, getApprovalMonthlySummary),
+        takeLatest(ActionTypes.SUBMIT_APPROVAL, submitApproval),
+        takeLatest(ActionTypes.REQUEST_APPROVAL, requestApproval),
+        takeLatest(ActionTypes.APPROVE_REQUEST, approveRequest),
 
     ])
 }

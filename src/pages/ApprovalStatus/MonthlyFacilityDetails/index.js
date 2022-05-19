@@ -61,7 +61,7 @@ const MonthlyFacilityDetails = () => {
   useEffect(() => {
     dispatch(getApprovalMonthlyDetails(selectedId, year, selectedMonth, selectedFacility ));
     dispatch(getApprovalMonthlySummary(selectedId, year, selectedMonth, selectedFacility ));
-  }, []);
+  }, [dispatch, selectedId, year, selectedMonth, selectedFacility]);
 
   const combustionSummaryColumns = [
     {
@@ -162,11 +162,10 @@ const MonthlyFacilityDetails = () => {
   ];
 
   const onApplyFilter = (filter) => {
-    navigate(
-      `/approval-status/${filter.year}${
-        filter.month ? `_${filter.month}` : ""
-      }${filter.facility ? `_${filter.facility}` : ""}`
+    const currentFilter = encodeURI(
+      `?${filter.month ? `&month=${filter.month}` : ''}${filter.facility ?  `&facility=${filter.facility}` : ''}`
     );
+    navigate(`/approval-status/${filter.year}${currentFilter}`);
   };
 
   return (
@@ -179,6 +178,7 @@ const MonthlyFacilityDetails = () => {
           selectedFacility={selectedFacility}
           facilitiesList={facilitiesList}
           actions={approvalMonthlyData?.actions}
+          statusId={approvalMonthlyData?.monthly_approval_status_id}
         />
         <Status
           status={approvalSummaryData.status}

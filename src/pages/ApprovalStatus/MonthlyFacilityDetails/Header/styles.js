@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   yearContainer: {
     display: "flex",
-    width: "50%",
+    width: "60%",
   },
   buttonContainer: {
     display: "flex",

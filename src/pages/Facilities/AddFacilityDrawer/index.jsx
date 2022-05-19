@@ -120,7 +120,7 @@ const AddFacilityDrawer = (props) => {
                     id="country"
                     label="Country"
                     value={facilityForm.values.country}
-                    onChange={(e, value) => facilityForm.setFieldValue('country', value?.label)}
+                    onChange={(e, value) => facilityForm.setFieldValue('country', value?.id)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
                     options={countryList}

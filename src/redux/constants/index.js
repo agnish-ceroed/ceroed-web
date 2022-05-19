@@ -111,4 +111,13 @@ export const APIEndpoints = {
 
   REQUEST_AUDIT: (audit_status_id) =>
     `${API_BASE_URL}/business/yearly-audit-summary-assign-to-audit/${audit_status_id}`,
+
+    SUBMIT_APPROVAL: (status_id) =>
+    `${API_BASE_URL}/business/monthly-approval_summary-assign-to-submit/${status_id}`,
+
+    REQUEST_APPROVAL: (status_id) =>
+    `${API_BASE_URL}/business/monthly-approval_summary-assign-to-approve/${status_id}`,
+
+    APPROVE_REQUEST: (status_id) =>
+    `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
 };

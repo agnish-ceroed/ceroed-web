@@ -24,7 +24,7 @@ export const sideMenuItems = [
         text: 'Dashboard',
         icon: <DashboardOutlinedIcon/>,
         path: '/dashboard',
-        roles: [rolesEnum.APPROVER, rolesEnum.AUDITOR, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.SUSTAINABILITY_MANAGER]
+        roles: [rolesEnum.ADMIN, rolesEnum.APPROVER, rolesEnum.AUDITOR, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.SUSTAINABILITY_MANAGER]
     },
     {
         text: 'Emissions',
@@ -72,7 +72,7 @@ export const sideMenuItems = [
         text: 'Companies',
         icon: <ApartmentIcon/>,
         path: '/companies',
-        roles: [rolesEnum.ADMIN, rolesEnum.AUDITOR]
+        roles: [rolesEnum.AUDITOR]
     },
     {
         text: 'Approval status',

@@ -1,9 +1,13 @@
-import { useState } from "react";
-import clsx from 'clsx'
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import clsx from "clsx";
 import { Container, Grid, Typography, Box } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { sampleYear, months } from "../../../../constants";
 import CeroDropdown from "../../../../components/CeroDropdown";
 import CeroButton from "../../../../components/CeroButton";
+import { submitApproval, resetApprovalData, requestApproval, approveRequest } from "../../../../redux/actions";
+import { STATUS } from "../../../../redux/constants";
 
 import useStyles from "./styles";
 
@@ -14,11 +18,93 @@ const Header = ({
   facilitiesList,
   selectedFacility,
   actions,
+  statusId,
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const submitApprovalStatus = useSelector(
+    (state) => state.approval.submitApproval.status
+  );
+
+  const requestApprovalStatus = useSelector(
+    (state) => state.approval.requestApproval.status
+  );
+
+  const approveRequestStatus = useSelector(
+    (state) => state.approval.approveRequest.status
+  );
+
   const [filterYear, setYear] = useState(selectedYear);
   const [filterMonth, setMonth] = useState(selectedMonth);
   const [facility, setFacility] = useState(selectedFacility);
+  const isSubmitLoading = submitApprovalStatus === STATUS.RUNNING;
+  const isRequestApprovalLoading = requestApprovalStatus === STATUS.RUNNING;
+  const isApproveRequestLoading = approveRequestStatus === STATUS.RUNNING;
+
+  const onSubmitApproval = () => {
+    dispatch(
+      submitApproval(
+        statusId,
+        actions.next_assignee_id,
+      )
+    );
+  };
+
+  const onRequestApproval = () => {
+    dispatch(
+      requestApproval(
+        statusId,
+        actions.next_assignee_id,
+      )
+    );
+  };
+
+  const onApprovingRequest = () => {
+    dispatch(
+      approveRequest(
+        statusId,
+        'Approved',
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (submitApprovalStatus === STATUS.SUCCESS) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Successfully submitted for approval", {
+        variant: "success",
+      });
+    } else if (submitApprovalStatus === STATUS.ERROR) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Something went wrong", { variant: "error" });
+    }
+  }, [submitApprovalStatus, dispatch, enqueueSnackbar]);
+
+  useEffect(() => {
+    if (requestApprovalStatus === STATUS.SUCCESS) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Successfully requested for approval", {
+        variant: "success",
+      });
+    } else if (requestApprovalStatus === STATUS.ERROR) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Something went wrong", { variant: "error" });
+    }
+  }, [requestApprovalStatus, dispatch, enqueueSnackbar]);
+
+  useEffect(() => {
+    if (approveRequestStatus === STATUS.SUCCESS) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Successfully requested for approval", {
+        variant: "success",
+      });
+    } else if (approveRequestStatus === STATUS.ERROR) {
+      dispatch(resetApprovalData());
+      enqueueSnackbar("Something went wrong", { variant: "error" });
+    }
+  }, [approveRequestStatus, dispatch, enqueueSnackbar]);
 
   return (
     <Container className={classes.headerContainer}>
@@ -78,21 +164,30 @@ const Header = ({
             className={classes.buttonSecondary}
             onClick={() => {}}
           />
-          {actions && actions.perform_approval && <CeroButton
-            buttonText="Approve"
-            className={classes.buttonPrimary}
-            onClick={() => {}}
-          />}
-          {actions && actions.perform_request_approval && <CeroButton
-            buttonText="Request Approval"
-            className={clsx(classes.buttonPrimary, classes.requestApproval)}
-            onClick={() => {}}
-          />}
-          {actions && actions.perform_submission && <CeroButton
-            buttonText="Submit"
-            className={classes.buttonPrimary}
-            onClick={() => {}}
-          />}
+          {actions && actions.perform_approval && (
+            <CeroButton
+              buttonText={isApproveRequestLoading ? "Approving..." : "Approve"}
+              className={classes.buttonPrimary}
+              onClick={onApprovingRequest}
+              disabled={isApproveRequestLoading}
+            />
+          )}
+          {actions && actions.perform_request_approval && (
+            <CeroButton
+              buttonText={isRequestApprovalLoading ? "Requesting..." : "Request Approval"}
+              className={clsx(classes.buttonPrimary, classes.requestApproval)}
+              onClick={onRequestApproval}
+              disabled={isRequestApprovalLoading}
+            />
+          )}
+          {actions && actions.perform_submission && (
+            <CeroButton
+              buttonText={isSubmitLoading ? "Submitting..." : "Submit"}
+              className={classes.buttonPrimary}
+              onClick={onSubmitApproval}
+              disabled={isSubmitLoading}
+            />
+          )}
         </Box>
       </Grid>
     </Container>

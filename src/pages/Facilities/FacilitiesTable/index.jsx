@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import CeroButton from '../../../components/CeroButton';
 import CeroTable from '../../../components/CeroTable';
@@ -12,15 +12,15 @@ const FacilitiesTable = (props) => {
     const [deleteFacility, setDeleteFacility] = useState()
 
     const classes = useStyles();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const columns = [{
         columnKey: 'name',
         columnId: 'name',
         columnHeader: 'Name',
     }, {
-        columnKey: 'country',
-        columnId: 'country',
+        columnKey: 'country_name',
+        columnId: 'country_name',
         columnHeader: 'Location',
     }, {
         columnKey: 'action',

@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Box, Typography } from "@mui/material"
 
-import { deleteFacility, resetAddFacilityStatus } from "../../../redux/actions"
+import { deleteFacility, resetAddFacilityStatus, listFacilities } from "../../../redux/actions"
 import { STATUS } from "../../../redux/constants"
 import CeroSideSheetDrawer from "../../../components/CeroSideSheetDrawer"
 import useStyles from './styles'
@@ -20,6 +20,7 @@ const FacilityDeletePrompt = (props) => {
             enqueueSnackbar('Facility deleted successfully', { variant: 'success' });
             setOpenDeletePrompt(false)
             dispatch(resetAddFacilityStatus())
+            dispatch(listFacilities());
         } else if (deleteStatus.status === STATUS.ERROR) {
             enqueueSnackbar('Facility delete failed', { variant: 'error' });
         }
