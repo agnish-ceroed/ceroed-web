@@ -25,6 +25,11 @@ export const dashboardState = {
         data: [],
         status: STATUS.IDLE,
         message: ''
+    },
+    getStatistics: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
     }
 }
 
@@ -110,6 +115,27 @@ const dashboardActions = {
             [ActionTypes.GET_EMISSIONS_BY_MONTH_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     getEmissionsByMonth: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_DASHBOARD_STATISTICS]: (state) =>
+                immutable(state, {
+                    getStatistics: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_DASHBOARD_STATISTICS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    getStatistics: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_DASHBOARD_STATISTICS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    getStatistics: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }
