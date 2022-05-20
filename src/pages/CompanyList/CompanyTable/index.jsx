@@ -22,10 +22,6 @@ export const TableColumns = [{
     columnKey: 'company_goal',
     columnId: 'company_goal',
     columnHeader: 'Goal',
-}, {
-    columnKey: 'action',
-    columnId: 'action',
-    columnHeader: '',
 }]
 
 
@@ -35,16 +31,16 @@ const CompanyTable = (props) => {
     const { companyList, onLoadMore } = props
 
     const onSelectCompanyData = (company) => {
-        navigate(`/company/${company.company_id}`);
+        navigate(`/companies/${company.company_id}`);
     };
 
     const getCompanyList = () => companyList.map((item) => ({
         ...item,
-        action: (
-            <Box className={classes.actionContainer}>
-                <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectCompanyData(e, item.company_id)} />
-            </Box>
-        ),
+        // action: (
+        //     <Box className={classes.actionContainer}>
+        //         <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectCompanyData(e, item.company_id)} />
+        //     </Box>
+        // ),
     }));
 
     return (

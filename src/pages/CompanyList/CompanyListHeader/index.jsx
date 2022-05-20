@@ -28,7 +28,7 @@ const CompanyFilter = (props) => {
     return (
         <Box className={classes.container}>
             <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" justifyContent="center" wrap="nowrap">
-                <Grid item xs={1.5}>
+                <Grid item xs={2}>
                     <CeroDropdown
                         id="year"
                         label="Year"

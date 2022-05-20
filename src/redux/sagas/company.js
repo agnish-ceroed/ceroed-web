@@ -8,6 +8,7 @@ export function* getCompanyList(action) {
   try {
     const response = yield call(request, APIEndpoints.LIST_COMPANIES, {
       method: 'GET',
+      payload: {...action.payload.filter}
     })
     yield put({
       type: ActionTypes.GET_COMPANY_LIST_SUCCESS,
@@ -60,6 +61,32 @@ export function* getCompanyAuditHistory(action) {
   }
 }
 
+export function* getCompanyAuditDetails(action) {
+  try {
+    const { companyId, auditId, year } = action.payload;
+    const payload = {};
+    if(year) {
+      payload.year = year;
+    } else {
+      payload.audit_status_id = auditId;
+    }
+    const response = yield call(request, APIEndpoints.GET_COMPANY_AUDIT_DETAILS(companyId), {
+      method: 'GET',
+      payload
+    })
+    yield put({
+      type: ActionTypes.GET_COMPANY_AUDIT_DETAILS_SUCCESS,
+        payload: response
+      })
+    } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+        type: ActionTypes.GET_COMPANY_AUDIT_DETAILS_FAILURE,
+        payload: err.message
+      })
+    }
+  }
+
 export function* getDashboardSummary(action) {
   try {
     console.log('action.payload.filter', action.payload.filter);
@@ -80,11 +107,33 @@ export function* getDashboardSummary(action) {
   }
 }
 
+export function* approveCompanyAudit(action) {
+  try {
+      const { auditId, company } = action.payload
+      const response = yield call(request, APIEndpoints.APPROVE_COMPANY_AUDIT(company, auditId), {
+          method: 'POST',
+          payload: { audit_status_id: auditId, company_id: company}
+      })
+      yield put({
+          type: ActionTypes.APPROVE_COMPANY_AUDIT_SUCCESS,
+          payload: response,
+      })
+  } catch (err) {
+      /* istanbul ignore next */
+      yield put({
+          type: ActionTypes.APPROVE_COMPANY_AUDIT_FAILURE,
+          payload: err
+      })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_COMPANY_LIST, getCompanyList),
     takeLatest(ActionTypes.GET_COMPANY_DETAILS, getCompanyDetails),
     takeLatest(ActionTypes.GET_COMPANY_AUDIT_HISTORY, getCompanyAuditHistory),
+    takeLatest(ActionTypes.GET_COMPANY_AUDIT_DETAILS, getCompanyAuditDetails),
+    takeLatest(ActionTypes.APPROVE_COMPANY_AUDIT, approveCompanyAudit),
     takeLatest(ActionTypes.GET_DASHBOARD_SUMMARY, getDashboardSummary),
   ])
 }

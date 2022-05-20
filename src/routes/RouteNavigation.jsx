@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -30,8 +31,8 @@ import Home from '../pages/Home';
 import CompanyList from '../pages/CompanyList';
 import CompanyDetails from '../pages/CompanyDetails';
 import AuditorDashboard from '../pages/AuditorDashboard';
+import AuditDetails from '../pages/CompanyDetails/AuditDetails';
 import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
-import _ from 'lodash';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
@@ -216,7 +217,23 @@ const RootNavigation = () => {
                                 }
                             />
                             <Route
-                                path="/company/:companyId"
+                                path="/companies/:company/audit/:id"
+                                element={
+                                    <PrivateRoute redirectTo="/">
+                                        <AuditDetails />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/companies/:company/year/:year"
+                                element={
+                                    <PrivateRoute redirectTo="/">
+                                        <AuditDetails />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/companies/:companyId"
                                 element={
                                     <PrivateRoute redirectTo="/">
                                         <CompanyDetails />

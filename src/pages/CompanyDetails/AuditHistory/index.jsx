@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Chip } from "@mui/material";
+import dayjs from 'dayjs';
 
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
-import CeroButton from '../../../components/CeroButton';
 
 export const TableColumns = [{
     columnKey: 'assessment_year',
@@ -15,9 +15,17 @@ export const TableColumns = [{
     columnId: 'audited_by',
     columnHeader: 'Audited by',
 }, {
+    columnKey: 'audited_on',
+    columnId: 'audited_on',
+    columnHeader: 'Audited on',
+}, {
     columnKey: 'assigned_by',
     columnId: 'assigned_by',
     columnHeader: 'Assigned by',
+}, {
+    columnKey: 'assigned_to',
+    columnId: 'assigned_to',
+    columnHeader: 'Assigned to',
 }, {
     columnKey: 'assigned_on',
     columnId: 'assigned_on',
@@ -26,10 +34,6 @@ export const TableColumns = [{
     columnKey: 'audited_status',
     columnId: 'audited_status',
     columnHeader: 'Status',
-}, {
-    columnKey: 'action',
-    columnId: 'action',
-    columnHeader: '',
 }]
 
 const AuditHistory = (props) => {
@@ -38,7 +42,7 @@ const AuditHistory = (props) => {
     const { auditData, onLoadMore } = props
 
     const onSelectAuditData = (audit) => {
-        navigate(`/audit/${audit.audit_status_id}`);
+        navigate(`/companies/${props.companyId}/audit/${audit.audit_status_id}`);
     };
 
     const getStatus = (status) => {
@@ -56,11 +60,13 @@ const AuditHistory = (props) => {
     const getAuditList = () => auditData.map((item) => ({
         ...item,
         audited_status: getStatus(item.audited_status),
-        action: (
-            <Box className={classes.actionContainer}>
-                <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectAuditData(e, item.company_id)} />
-            </Box>
-        ),
+        audited_on: item.audited_on ? dayjs(item.audited_on).format('DD/MM/YYYY') : '-',
+        assigned_on: item.assigned_on ? dayjs(item.assigned_on).format('DD/MM/YYYY') : '-',
+        // action: (
+        //     <Box className={classes.actionContainer}>
+        //         <CeroButton className={classes.editIcon} buttonText="View" onClick={(e) => onSelectAuditData(e, item.company_id)} />
+        //     </Box>
+        // ),
     }));
 
     return (
