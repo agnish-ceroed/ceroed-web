@@ -270,20 +270,12 @@ export const userRoles = [
     value: "Business Admin",
   },
   {
-    key: "facilitator",
-    value: "Business Facility Manager",
-  },
-  {
     key: "sustainability_manager",
     value: "Business Sustainability Manager",
   },
   {
     key: "auditor",
     value: "Auditor",
-  },
-  {
-    key: "user",
-    value: "User",
   },
   {
     key: "business_user",
@@ -305,6 +297,29 @@ export const userRoles = [
     key: "super_admin",
     value: "Super Admin",
   }
+];
+
+export const userRolesForAddUser = [
+  {
+    key: "admin",
+    value: "Business Admin",
+  },
+  {
+    key: "sustainability_manager",
+    value: "Business Sustainability Manager",
+  },
+  {
+    key: "business_user",
+    value: "Business User",
+  },
+  {
+    key: "approver",
+    value: "Business Approver",
+  },
+  {
+    key: "facility_manager",
+    value: "Business Facility Manager",
+  },
 ];
 
 export const auditStatus = {

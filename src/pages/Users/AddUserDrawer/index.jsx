@@ -18,7 +18,7 @@ import {
 import CeroInput from "../../../components/CeroInput";
 import CeroSelect from "../../../components/CeroSelect";
 import CeroSideSheetDrawer from "../../../components/CeroSideSheetDrawer";
-import { userRoles } from "../../../constants";
+import { userRolesForAddUser } from "../../../constants";
 import useStyles from "./styles";
 
 const AddUserDrawer = (props) => {
@@ -68,7 +68,7 @@ const AddUserDrawer = (props) => {
       dispatch(
         getManagerList(
           userForm.values.role,
-          userForm.values.role === "facilitator"
+          (userForm.values.role === "facility_manager"||userForm.values.role === "business_user")
             ? userForm.values.facility
             : null
         )
@@ -141,13 +141,13 @@ const AddUserDrawer = (props) => {
           name="role"
           label="Role"
           fullWidth
-          options={userRoles}
+          options={userRolesForAddUser}
           selectedValue={userForm.values.role}
           onChange={userForm.handleChange}
           onBlur={userForm.handleBlur}
           error={userForm.errors.role}
         />
-        {userForm.values.role === "facilitator" && (
+        {(userForm.values.role === "facility_manager"||userForm.values.role === "business_user") && (
           <CeroSelect
             required
             id="facility"
