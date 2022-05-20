@@ -9,7 +9,7 @@ import useStyles from "./styles";
 
 const FacilitiesTable = (props) => {
     const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
-    const [deleteFacility, setDeleteFacility] = useState()
+    const [deleteFacility, setDeleteFacility] = useState({})
 
     const classes = useStyles();
     // const navigate = useNavigate();
@@ -38,8 +38,14 @@ const FacilitiesTable = (props) => {
         ...item,
         action: (
             <>
-                <CeroButton className={classes.button} buttonText="Edit" onClick={() => props.onClickEdit(item.id)} />
-                <CeroButton className={classes.button} buttonText="Delete" onClick={() => handleDelete(item.id)} />
+                <CeroButton className={classes.button} buttonText="Edit" onClick={(e) => {
+                    props.onClickEdit(item.id)
+                    e.stopPropagation()
+                }} />
+                <CeroButton className={classes.button} buttonText="Delete" onClick={(e) => {
+                    handleDelete(item)
+                    e.stopPropagation()
+                }} />
             </>
         )
     }))
@@ -55,7 +61,7 @@ const FacilitiesTable = (props) => {
                 loadMore={props.onLoadMore}
                 classes={{ tableContainer: classes.tableContainer }}
             />
-            <FacilityDeletePrompt facilityId={deleteFacility} isOpen={openDeletePrompt} setOpenDeletePrompt={setOpenDeletePrompt} />
+            <FacilityDeletePrompt facility={deleteFacility} isOpen={openDeletePrompt} setOpenDeletePrompt={setOpenDeletePrompt} />
         </>
     )
 }

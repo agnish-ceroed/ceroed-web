@@ -93,6 +93,10 @@ export const APIEndpoints = {
     `${API_BASE_URL}/auditor/company/${companyId}/company-details`,
   GET_COMPANY_AUDIT_HISTORY: (companyId) =>
     `${API_BASE_URL}/auditor/company/${companyId}/company-audit-history`,
+  GET_COMPANY_AUDIT_DETAILS: (companyId) =>
+  `${API_BASE_URL}/auditor/company/${companyId}/company-audit-summary`,
+  APPROVE_COMPANY_AUDIT: (companyId, auditId) =>
+  `${API_BASE_URL}/auditor/company/${companyId}/approve-audit-status/${auditId}`,
 
   GET_APPROVAL_SUMMARY: (year, facility) =>
     `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
@@ -104,7 +108,6 @@ export const APIEndpoints = {
   `${API_BASE_URL}/business/monthly-approval-status-summary-overview`,
   GET_DASHBOARD_STATISTICS:
   `${API_BASE_URL}/business/dashboard-statistics`,
-
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
   GET_DASHBOARD_SUMMARY: `${API_BASE_URL}/auditor/dashboard-summary`,
 

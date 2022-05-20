@@ -21,6 +21,16 @@ export const companyState = {
         status: STATUS.IDLE,
         message: ''
     },
+    auditDetails: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    approveAudit: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
     dashboardSummary: {
         data: {},
         status: STATUS.IDLE,
@@ -94,6 +104,27 @@ const companyActions = {
                     }
                 }),
 
+            [ActionTypes.GET_COMPANY_AUDIT_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    auditDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_AUDIT_DETAILS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    auditDetails: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_COMPANY_AUDIT_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    auditDetails: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
             [ActionTypes.GET_DASHBOARD_SUMMARY]: (state, { payload }) =>
                 immutable(state, {
                     dashboardSummary: {
@@ -107,9 +138,38 @@ const companyActions = {
                         data: { $set: payload },
                     }
                 }),
+
             [ActionTypes.GET_DASHBOARD_SUMMARY_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     dashboardSummary: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+                
+
+            [ActionTypes.APPROVE_COMPANY_AUDIT_RESET]: (state, { payload }) =>
+                immutable(state, {
+                    approveAudit: {
+                        status: { $set: STATUS.IDLE },
+                    }
+                }),
+            [ActionTypes.APPROVE_COMPANY_AUDIT]: (state, { payload }) =>
+                immutable(state, {
+                    approveAudit: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.APPROVE_COMPANY_AUDIT_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    approveAudit: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.APPROVE_COMPANY_AUDIT_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    approveAudit: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }

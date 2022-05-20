@@ -9,7 +9,7 @@ import CeroSideSheetDrawer from "../../../components/CeroSideSheetDrawer"
 import useStyles from './styles'
 
 const FacilityDeletePrompt = (props) => {
-    const { setOpenDeletePrompt, facilityId, isOpen } = props
+    const { setOpenDeletePrompt, facility, isOpen } = props
     const classes = useStyles()
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
@@ -27,13 +27,14 @@ const FacilityDeletePrompt = (props) => {
     }, [deleteStatus, dispatch, enqueueSnackbar, setOpenDeletePrompt])
 
     const handleDeleteFacility = () => {
-        dispatch(deleteFacility(facilityId))
+        dispatch(deleteFacility(facility?.id))
     }
 
     const getPrimaryConfirmDrawer = () => {
         return (
             <Box className={classes.mainContainer}>
-                <Typography >Are you sure you want to delete?</Typography>
+                <Typography variant="span">Are you sure you want to delete</Typography>
+                <Box fontWeight='fontWeightMedium' display='inline'>{` ${facility?.name}?`}</Box>
             </Box>
         )
     };

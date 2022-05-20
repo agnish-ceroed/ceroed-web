@@ -43,6 +43,7 @@ const AuditorDashboard = () => {
 
     const onApplyFilter = (filter) => {
         setFilter(filter);
+        dispatch(getCompanyList(filter));
     }
 
     return (
