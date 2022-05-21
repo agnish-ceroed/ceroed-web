@@ -2,7 +2,6 @@ import { Container, Grid, Typography } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import AccountSettings from "./AccountSettings";
-import CompanySettings from './CompanySettings'
 import useStyles from "./styles";
 
 const Settings = () => {
@@ -14,9 +13,6 @@ const Settings = () => {
                 <Grid container spacing={4} className={classes.mainContainer}>
                     <Grid xs={12} md={5} item>
                         <AccountSettings />
-                    </Grid>
-                    <Grid xs={12} md={7} item>
-                        <CompanySettings />
                     </Grid>
                 </Grid>
             </Container>
