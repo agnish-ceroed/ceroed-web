@@ -23,7 +23,7 @@ const AccountSettings = () => {
     const isAdmin = userInfo.role === rolesEnum.ADMIN
 
     useEffect(() => {
-        dispatch(getUserCompanyDetails())
+        dispatch(getUserCompanyDetails(isAdmin ? 'business' : 'auditor'))
     }, [dispatch])
 
     useEffect(() => {
