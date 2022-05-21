@@ -1,17 +1,20 @@
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import PermissionDenied from "../pages/PermissionDenied";
 
 const adminRoutes = [
     '/emissions',
 ]
 
-const PrivateRoute = ({ children, redirectTo }) => {
+const PrivateRoute = ({ children, redirectTo, rolesAllowed=[] }) => {
     const navigate = useNavigate()
     let location = useLocation();
 
     let isAuthenticated = useSelector(state => state.auth.userInfo.access_token)
     let isAdmin = useSelector(state => state.auth.role === "business")
+    const userRole = useSelector(state => state.auth.userInfo.role);
+    const isAllowed = rolesAllowed.includes(userRole)
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -21,7 +24,7 @@ const PrivateRoute = ({ children, redirectTo }) => {
         }
     }, [isAuthenticated, isAdmin, location.pathname, navigate])
 
-    return isAuthenticated ? children : <Navigate to={redirectTo} />;
+    return isAuthenticated ? (isAllowed ? children : <PermissionDenied/>) : <Navigate to={redirectTo} />;
 }
 
 export default PrivateRoute

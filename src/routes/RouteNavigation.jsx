@@ -37,6 +37,7 @@ import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
     const redirectLink = sideMenuItems.find(item => !_.isEmpty(item.roles.find(userRole => userRole === role)))?.path
+    const allRoles = Object.keys(rolesEnum).map(item => rolesEnum[item])
 
     return (
         <BrowserRouter>
@@ -69,25 +70,23 @@ const RootNavigation = () => {
                     <Route
                         path="/change-password"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <ChangePassword />
                             </PrivateRoute>
                         }
                     />
-                    {(role === rolesEnum.ADMIN || role === rolesEnum.SUSTAINABILITY_MANAGER || role === rolesEnum.FACILITY_MANAGER|| role === rolesEnum.BUSINESS_USER|| role === rolesEnum.APPROVER) && (
-                        <>
-                            <Route
+                            {role !== rolesEnum.AUDITOR &&(<Route
                                 path="/dashboard"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <Dashboard />
                                     </PrivateRoute>
                                 }
-                            />
+                            />)}
                             <Route
                                 path="/audit-status/"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER]}>
                                         <AuditSummaryYearly />
                                     </PrivateRoute>
                                 }
@@ -95,7 +94,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/audit-status/current-year-approval/:year"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER]}>
                                         <CurrentYearApproval />
                                     </PrivateRoute>
                                 }
@@ -103,7 +102,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/approval-status/:year"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <MonthlyFacilityDetails />
                                     </PrivateRoute>
                                 }
@@ -111,7 +110,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/approval-status/"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <ApprovalStatus />
                                     </PrivateRoute>
                                 }
@@ -119,15 +118,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/emissions/:type"
                                 element={
-                                    <PrivateRoute redirectTo="/">
-                                        <Emissions />
-                                    </PrivateRoute>
-                                }
-                            />
-                            <Route
-                                path="/emissions/:type"
-                                element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <Emissions />
                                     </PrivateRoute>
                                 }
@@ -135,7 +126,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/emissions"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <Emissions />
                                     </PrivateRoute>
                                 }
@@ -143,7 +134,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/emissions/add/:type"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <AddEmissions />
                                     </PrivateRoute>
                                 }
@@ -151,7 +142,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/emissions/edit/:type/:id"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <EditEmissions />
                                     </PrivateRoute>
                                 }
@@ -159,17 +150,15 @@ const RootNavigation = () => {
                             <Route
                                 path="/emissions/:type/details/:id"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <EmissionsDetails />
                                     </PrivateRoute>
                                 }
                             />
-                        </>
-                    )}
-                    <Route
+                            <Route
                                 path="/goals"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER, rolesEnum.AUDITOR]}>
                                         <Goals />
                                     </PrivateRoute>
                                 }
@@ -193,7 +182,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/reports"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <Reports />
                                     </PrivateRoute>
                                 }
@@ -203,7 +192,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/dashboard"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <AuditorDashboard />
                                     </PrivateRoute>
                                 }
@@ -211,7 +200,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/companies"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <CompanyList />
                                     </PrivateRoute>
                                 }
@@ -219,7 +208,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/companies/:company/audit/:id"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <AuditDetails />
                                     </PrivateRoute>
                                 }
@@ -227,7 +216,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/companies/:company/year/:year"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <AuditDetails />
                                     </PrivateRoute>
                                 }
@@ -235,7 +224,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/companies/:companyId"
                                 element={
-                                    <PrivateRoute redirectTo="/">
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <CompanyDetails />
                                     </PrivateRoute>
                                 }
@@ -245,7 +234,7 @@ const RootNavigation = () => {
                     <Route
                         path="/help"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <Help />
                             </PrivateRoute>
                         }
@@ -253,7 +242,7 @@ const RootNavigation = () => {
                     <Route
                         path="/profile"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <Profile />
                             </PrivateRoute>
                         }
@@ -261,7 +250,7 @@ const RootNavigation = () => {
                     <Route
                         path="/settings"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <Settings />
                             </PrivateRoute>
                         }
@@ -269,7 +258,7 @@ const RootNavigation = () => {
                     <Route
                         path="/facilities"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]}>
                                 <Facilities />
                             </PrivateRoute>
                         }
@@ -277,7 +266,7 @@ const RootNavigation = () => {
                     <Route
                         path="/users"
                         element={
-                            <PrivateRoute redirectTo="/">
+                            <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN]}>
                                 <Users />
                             </PrivateRoute>
                         }
