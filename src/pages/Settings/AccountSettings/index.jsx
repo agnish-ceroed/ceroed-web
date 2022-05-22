@@ -22,7 +22,7 @@ const AccountSettings = () => {
     const accountData = useSelector(state => state.account.accountDetails)
     const updateAccountData = useSelector(state => state.account.updateAccountDetails)
     const userInfo = useSelector(state => state.auth.userInfo);
-    const isAdmin = userInfo.role === rolesEnum.ADMIN;
+    const isAdmin = userInfo.role !== rolesEnum.APPROVER;
 
     useEffect(() => {
         dispatch(getAccountDetails(isAdmin ? 'business' : 'auditor'))

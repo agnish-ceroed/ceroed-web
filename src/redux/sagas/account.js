@@ -65,10 +65,10 @@ export function* getUserCompanyDetails(action) {
 
 export function* updateCompanyDetails(action) {
     try {
-        const { name, email, phone, website } = action.payload
+        const { name, email, phone, website, year } = action.payload
         const response = yield call(request, APIEndpoints.UPDATE_COMPANY_DETAILS, {
             method: 'PUT',
-            payload: { name, email, phone, website }
+            payload: { name, email, phone, website, estd_year: year }
         })
         yield put({
             type: ActionTypes.UPDATE_COMPANY_DETAILS_SUCCESS,
