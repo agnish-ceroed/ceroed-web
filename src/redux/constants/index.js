@@ -14,9 +14,9 @@ export const APIEndpoints = {
   LOGOUT: `${API_BASE_URL}/log_out`,
   CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
 
-  GET_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/account-details`,
-  UPDATE_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/update`,
-  GET_USER_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
+  GET_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/account-details`,
+  UPDATE_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/update`,
+  GET_USER_COMPANY_DETAILS: (role) => `${API_BASE_URL}/${role}/company/company-details`,
   UPDATE_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
 
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,

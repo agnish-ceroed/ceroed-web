@@ -32,6 +32,7 @@ import CompanyList from '../pages/CompanyList';
 import CompanyDetails from '../pages/CompanyDetails';
 import AuditorDashboard from '../pages/AuditorDashboard';
 import AuditDetails from '../pages/CompanyDetails/AuditDetails';
+import CompanySettings from '../pages/CompanySettings';
 import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 
 const RootNavigation = () => {
@@ -252,6 +253,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <Settings />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/company-settings"
+                        element={
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
+                                <CompanySettings />
                             </PrivateRoute>
                         }
                     />

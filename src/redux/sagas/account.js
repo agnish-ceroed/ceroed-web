@@ -9,7 +9,7 @@ import { APIEndpoints } from '../constants';
  */
 export function* getAccountDetails(action) {
     try {
-        const response = yield call(request, APIEndpoints.GET_ACCOUNT_DETAILS, {
+        const response = yield call(request, APIEndpoints.GET_ACCOUNT_DETAILS(action.payload.role), {
             method: 'GET'
         })
         yield put({
@@ -28,7 +28,7 @@ export function* getAccountDetails(action) {
 export function* updateAccountDetails(action) {
     try {
         const { name, email } = action.payload
-        const response = yield call(request, APIEndpoints.UPDATE_ACCOUNT_DETAILS, {
+        const response = yield call(request, APIEndpoints.UPDATE_ACCOUNT_DETAILS(action.payload.role), {
             method: 'PUT',
             payload: { name, email }
         })
@@ -47,7 +47,7 @@ export function* updateAccountDetails(action) {
 
 export function* getUserCompanyDetails(action) {
     try {
-        const response = yield call(request, APIEndpoints.GET_USER_COMPANY_DETAILS, {
+        const response = yield call(request, APIEndpoints.GET_USER_COMPANY_DETAILS(action.payload.role), {
             method: 'GET'
         })
         yield put({
@@ -65,10 +65,10 @@ export function* getUserCompanyDetails(action) {
 
 export function* updateCompanyDetails(action) {
     try {
-        const { name, email, phone, website } = action.payload
+        const { name, email, phone, website, year } = action.payload
         const response = yield call(request, APIEndpoints.UPDATE_COMPANY_DETAILS, {
             method: 'PUT',
-            payload: { name, email, phone, website }
+            payload: { name, email, phone, website, estd_year: year }
         })
         yield put({
             type: ActionTypes.UPDATE_COMPANY_DETAILS_SUCCESS,

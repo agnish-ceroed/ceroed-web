@@ -8,7 +8,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 export const rolesEnum = {
     ADMIN: 'admin',
@@ -105,6 +105,12 @@ export const settingsOption = [
         text: 'Settings',
         icon: <ManageAccountsOutlinedIcon/>,
         path: '/settings',
+        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+    },
+    {
+        text: 'Company Settings',
+        icon: <MiscellaneousServicesIcon/>,
+        path: '/company-settings',
         roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
     },
 ]

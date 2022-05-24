@@ -10,6 +10,7 @@ import { STATUS } from '../../../redux/constants'
 import { accountSchema } from '../schema'
 import CeroInput from '../../../components/CeroInput'
 import CeroButton from '../../../components/CeroButton'
+import { rolesEnum } from '../../../layouts/DashboardLayout/pages'
 import useStyles from './styles'
 
 const AccountSettings = () => {
@@ -20,9 +21,11 @@ const AccountSettings = () => {
 
     const accountData = useSelector(state => state.account.accountDetails)
     const updateAccountData = useSelector(state => state.account.updateAccountDetails)
+    const userInfo = useSelector(state => state.auth.userInfo);
+    const isAdmin = userInfo.role !== rolesEnum.APPROVER;
 
     useEffect(() => {
-        dispatch(getAccountDetails())
+        dispatch(getAccountDetails(isAdmin ? 'business' : 'auditor'))
     }, [dispatch])
 
     useEffect(() => {
@@ -51,7 +54,7 @@ const AccountSettings = () => {
     };
 
     const handleUpdate = () => {
-        dispatch(updateAccountDetails(accountForm.values.name, accountForm.values.email))
+        dispatch(updateAccountDetails(isAdmin ? 'business' : 'auditor', accountForm.values.name, accountForm.values.email))
     }
 
     return (

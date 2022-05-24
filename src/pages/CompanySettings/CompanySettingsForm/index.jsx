@@ -10,9 +10,11 @@ import { companySchema } from '../schema'
 import CeroInput from '../../../components/CeroInput'
 import CeroButton from '../../../components/CeroButton'
 import {rolesEnum} from '../../../layouts/DashboardLayout/pages'
+import CeroAutoComplete from '../../../components/CeroAutoComplete'
 import useStyles from './styles'
+import { getYears } from '../../../services/utilityService'
 
-const AccountSettings = () => {
+const CompanySettingsForm = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const { enqueueSnackbar } = useSnackbar();
@@ -20,11 +22,23 @@ const AccountSettings = () => {
     const companyData = useSelector(state => state.account.companyDetails.data)
     const updateCompanyData = useSelector(state => state.account.updateCompanyDetails)
     const userInfo = useSelector(state => state.auth.userInfo);
-    const isAdmin = userInfo.role === rolesEnum.ADMIN
+    const isAdmin = userInfo.role !== rolesEnum.APPROVER;
+    const yearList = getYears();
 
     useEffect(() => {
-        dispatch(getUserCompanyDetails())
+        dispatch(getUserCompanyDetails(isAdmin ? 'business' : 'auditor'))
     }, [dispatch])
+
+    useEffect(() => {
+        companyForm.setValues({
+            name: companyData.name || '',
+            email: companyData.email || '',
+            phone: companyData.phone || '',
+            website: companyData.website || '',
+            startYear: companyData.estd_year || '',
+            goal: companyData.goal || '',
+        });
+    }, [companyData])
 
     useEffect(() => {
         if (updateCompanyData.status === STATUS.SUCCESS) {
@@ -57,7 +71,8 @@ const AccountSettings = () => {
                 companyForm.values.name,
                 companyForm.values.email,
                 companyForm.values.phone,
-                companyForm.values.website
+                companyForm.values.website,
+                companyForm.values.startYear,
             )
         );
     }
@@ -113,17 +128,15 @@ const AccountSettings = () => {
                 error={companyForm.errors.website}
                 disabled={!isAdmin}
             />
-            <CeroInput
-                required
-                fullWidth
+            <CeroAutoComplete
                 id="startYear"
+                name="startYear"
                 label="Established Year"
-                autoFocus
-                value={companyForm.values.startYear}
-                onChange={companyForm.startYear}
-                onBlur={companyForm.startYear}
-                error={companyForm.errors.startYear}
-                disabled
+                value={[companyForm.values.startYear]}
+                onChange={(e, value) => companyForm.setFieldValue('startYear', value.id)}
+                onBlur={companyForm.handleBlur}
+                error={companyForm.touched.year && companyForm.errors.year}
+                options={yearList}
             />
             <CeroInput
                 required
@@ -149,4 +162,4 @@ const AccountSettings = () => {
     )
 }
 
-export default AccountSettings
+export default CompanySettingsForm;

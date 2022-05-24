@@ -1,18 +1,18 @@
 import { Container, Grid, Typography } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
-import AccountSettings from "./AccountSettings";
+import CompanySettingsForm from './CompanySettingsForm'
 import useStyles from "./styles";
 
-const Settings = () => {
+const CompanySettings = () => {
     const classes = useStyles();
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h5" component="h5">Settings Page</Typography>
+                <Typography variant="h5" component="h5">Company Settings Page</Typography>
                 <Grid container spacing={4} className={classes.mainContainer}>
-                    <Grid xs={12} md={5} item>
-                        <AccountSettings />
+                    <Grid xs={12} md={7} item>
+                        <CompanySettingsForm />
                     </Grid>
                 </Grid>
             </Container>
@@ -20,4 +20,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default CompanySettings;
