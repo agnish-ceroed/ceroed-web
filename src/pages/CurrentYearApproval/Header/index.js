@@ -3,6 +3,7 @@ import { Container, Grid, Typography, Box } from "@mui/material";
 import { sampleYear } from "../../../constants";
 import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
+import CreateTicketDrawer from "../../CreateTicketDrawer";
 
 import useStyles from "./styles";
 
@@ -12,9 +13,11 @@ const Header = ({
   isRequestAuditVisible,
   onRequestAudit,
   isLoading,
+  statusId,
 }) => {
   const classes = useStyles();
   const [filterYear, setYear] = useState(selectedYear);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <Container className={classes.headerContainer}>
@@ -44,12 +47,12 @@ const Header = ({
           />
         </Box>
         <Box className={classes.yearContainer}>
-          {/* <CeroButton
+          <CeroButton
             variant="outlined"
             buttonText="Raise a ticket"
             className={classes.buttonSecondary}
-            onClick={() => onApplyFilter(filterYear)}
-          /> */}
+            onClick={() => setIsDrawerOpen(true)}
+          />
           {isRequestAuditVisible && (
             <CeroButton
               buttonText={isLoading ? "Loading..." : "Request audit"}
@@ -60,6 +63,7 @@ const Header = ({
           )}
         </Box>
       </Grid>
+      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="audit " scopeId={statusId}/>
     </Container>
   );
 };
