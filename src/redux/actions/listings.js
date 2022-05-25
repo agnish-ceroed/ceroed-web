@@ -8,6 +8,7 @@ export const {
   getCountryList,
   listGridRegions,
   getManagerList,
+  listAssignee,
 } = createActions({
   [ActionTypes.LIST_FACILITIES]: () => ({}),
   [ActionTypes.GET_INDUSTRY_TYPES]: () => ({}),
@@ -17,4 +18,5 @@ export const {
     role,
     facility_id,
   }),
+  [ActionTypes.LIST_ASSIGNEE]: () => ({}),
 });

@@ -14,7 +14,7 @@ const CeroTextArea = (props) => {
         label={props.label}
         variant={props.variant || "outlined"}
         value={props.value}
-        rows={props.rows || 1}
+        rows={props.rows}
         required={!!props.required}
         multiline
         minRows={props.minRows}

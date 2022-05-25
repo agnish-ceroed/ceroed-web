@@ -9,7 +9,7 @@ import CeroSelect from "../../components/CeroSelect";
 import CeroSideSheetDrawer from "../../components/CeroSideSheetDrawer";
 import CeroTextArea from "../../components/CeroTextArea/input";
 
-import { listUsers } from '../../redux/actions';
+import { listAssignee } from '../../redux/actions';
 
 import { createTicketValidation } from "./schema";
 
@@ -20,7 +20,7 @@ const CreateTicketDrawer = (props) => {
   const dispatch = useDispatch()
 
   const { ticketData, isOpen } = props;
-  const userList = useSelector(state => state.users.userList.data)
+  const userList = useSelector(state => state.listings.assigneeList.data)
 
   const usersOptionList = userList.map(item => ({ key: item.id, value: item.name }))
 
@@ -45,7 +45,7 @@ const CreateTicketDrawer = (props) => {
   };
 
   useEffect(() => {
-    dispatch(listUsers())
+    dispatch(listAssignee())
 }, [dispatch])
 
   const getPrimaryPaymentDrawer = () => {
@@ -64,7 +64,6 @@ const CreateTicketDrawer = (props) => {
         />
         <CeroTextArea
           minRows={6}
-          rows={6}
           placeholder={"Please enter ticket details"}
           required
           id="details"

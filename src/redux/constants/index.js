@@ -72,6 +72,7 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/users/get-managers/${role}${
       facility_id ? `/${facility_id}` : ""
     }`,
+    LIST_ASSIGNEE: `${API_BASE_URL}/business/tickets/assignee-list`,
 
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,
