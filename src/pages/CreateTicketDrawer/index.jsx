@@ -1,15 +1,16 @@
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { useFormik } from "formik";
+import { useSnackbar } from 'notistack';
 
 import CeroInput from "../../components/CeroInput";
 import CeroSelect from "../../components/CeroSelect";
 import CeroSideSheetDrawer from "../../components/CeroSideSheetDrawer";
 import CeroTextArea from "../../components/CeroTextArea/input";
 
-import { listAssignee } from '../../redux/actions';
+import { listAssignee, createTicket, resetTicketStatus } from "../../redux/actions";
+import { STATUS } from "../../redux/constants";
 
 import { createTicketValidation } from "./schema";
 
@@ -17,18 +18,25 @@ import useStyles from "./styles";
 
 const CreateTicketDrawer = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const { ticketData, isOpen } = props;
-  const userList = useSelector(state => state.listings.assigneeList.data)
+  const { ticketData, isOpen, scope, scopeId } = props;
+  const userList = useSelector((state) => state.listings.assigneeList.data);
+  const createTicketDetailsStatus = useSelector((state) => state.ticket.createTicketDetails.status);
 
-  const usersOptionList = userList.map(item => ({ key: item.id, value: item.name }))
+  const isButtonLoading = createTicketDetailsStatus === STATUS.RUNNING
+
+  const usersOptionList = userList.map((item) => ({
+    key: item.id,
+    value: item.name,
+  }));
 
   const createTicketForm = useFormik({
     initialValues: {
       title: ticketData ? ticketData.title : "",
       details: ticketData ? ticketData.details : "",
-      assignee: ticketData ? ticketData.assignee : '',
+      assignee: ticketData ? ticketData.assignee : "",
     },
     validationSchema: createTicketValidation,
     enableReinitialize: true,
@@ -36,17 +44,35 @@ const CreateTicketDrawer = (props) => {
   });
 
   const onSubmitTicketData = () => {
-    console.log(createTicketForm.values.title, createTicketForm.values.details);
+    const payload = {
+      title: createTicketForm.values.title,
+      description: createTicketForm.values.details,
+      assigned_to_id: createTicketForm.values.assignee,
+      ticket_scope: scope,
+      ticket_scope_id: scopeId,
+    };
+    dispatch(createTicket(payload))
   };
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     createTicketForm.resetForm();
     props.onClose();
-  };
+  }, [createTicketForm, props]);
 
   useEffect(() => {
-    dispatch(listAssignee())
-}, [dispatch])
+    if (createTicketDetailsStatus === STATUS.SUCCESS) {
+        enqueueSnackbar('Ticket created successfully', { variant: 'success' });
+        dispatch(resetTicketStatus())
+        onClose();
+    } else if (createTicketDetailsStatus === STATUS.ERROR) {
+        enqueueSnackbar("Something went wrong", { variant: 'error' });
+        dispatch(resetTicketStatus())
+    }
+}, [createTicketDetailsStatus, enqueueSnackbar, onClose, dispatch])
+
+  useEffect(() => {
+    dispatch(listAssignee());
+  }, [dispatch]);
 
   const getPrimaryPaymentDrawer = () => {
     return (
@@ -99,12 +125,12 @@ const CreateTicketDrawer = (props) => {
         content: getPrimaryPaymentDrawer(),
         header: { title: "Raise a ticket" },
         footer: {
-          primaryBtnTitle: "Save",
+          primaryBtnTitle: isButtonLoading ? "Saving..." : "Save",
           secondaryBtnTitle: "Cancel",
           primaryBtnAction: onSubmitTicketData,
           secondaryBtnAction: onClose,
           disablePrimaryBtn:
-            !createTicketForm.dirty || !createTicketForm.isValid,
+            !createTicketForm.dirty || !createTicketForm.isValid || isButtonLoading, 
         },
         classes: {
           drawerContainer: classes.drawerContainer,

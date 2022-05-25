@@ -126,4 +126,6 @@ export const APIEndpoints = {
 
     APPROVE_REQUEST: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
+
+    CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
 };

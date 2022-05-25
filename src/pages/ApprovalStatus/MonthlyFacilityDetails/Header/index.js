@@ -192,7 +192,7 @@ const Header = ({
             />
           )}
         </Box>
-        <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}/>
+        <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="approval " scopeId={statusId}/>
       </Grid>
     </Container>
   );
