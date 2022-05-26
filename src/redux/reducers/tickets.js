@@ -5,6 +5,12 @@ import { ActionTypes } from "../constants/actions";
 import { STATUS } from "../constants";
 
 export const ticketState = {
+  listTickets: {
+    data: [],
+    count: {},
+    status: STATUS.IDLE,
+    message: "",
+  },
   createTicketDetails: {
     data: [],
     status: STATUS.IDLE,
@@ -15,6 +21,28 @@ export const ticketState = {
 const ticketActions = {
   ticket: handleActions(
     {
+      [ActionTypes.LIST_TICKETS]: (state, { payload }) =>
+        immutable(state, {
+          listTickets: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.LIST_TICKETS_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          listTickets: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload.tickets },
+            count: { $set: payload.count },
+          },
+        }),
+      [ActionTypes.LIST_TICKETS_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          listTickets: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+        
       [ActionTypes.CREATE_TICKET]: (state, { payload }) =>
         immutable(state, {
           createTicketDetails: {

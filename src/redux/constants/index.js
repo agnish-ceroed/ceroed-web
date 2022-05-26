@@ -128,9 +128,11 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
 
     CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
+    LIST_TICKETS: (payload) =>
+    `${API_BASE_URL}/business/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
+
     LIST_REPORTS: (year) =>
     `${API_BASE_URL}/business/reports/${year}`,
-
     GET_REPORT_DETAILS: (id) =>
     `${API_BASE_URL}/business/reports/${id}`,
 };

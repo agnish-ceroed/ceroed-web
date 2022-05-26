@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-    dasboardContainer: {
+    dashboardContainer: {
         height: '100vh',
         display: 'flex',
         width: '100%'

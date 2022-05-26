@@ -4,6 +4,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ConfirmationNumberOutlined from '@mui/icons-material/ConfirmationNumberOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -18,6 +19,8 @@ export const rolesEnum = {
     FACILITY_MANAGER: 'facility_manager',
     BUSINESS_USER: 'business_user',
 }
+
+const allUser = [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
 
 export const sideMenuItems = [
     {
@@ -86,6 +89,12 @@ export const sideMenuItems = [
         path: '/audit-status',
         roles: [rolesEnum.SUSTAINABILITY_MANAGER]
     },
+    {
+        text: 'Tickets',
+        icon: <ConfirmationNumberOutlined/>,
+        path: '/tickets',
+        roles: allUser
+    },
 ]
 
 export const settingsOption = [
@@ -93,18 +102,18 @@ export const settingsOption = [
         text: 'My Profile',
         icon: <ManageAccountsOutlinedIcon/>,
         path: '/profile',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+        roles: allUser
     },
     {
         text: 'Help',
         icon: <ViewColumnOutlinedIcon/>,
         path: '/help',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+        roles: allUser
     },
     {
         text: 'Settings',
         icon: <ManageAccountsOutlinedIcon/>,
         path: '/settings',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+        roles: allUser
     },
 ]

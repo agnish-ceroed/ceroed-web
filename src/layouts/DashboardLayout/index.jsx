@@ -19,7 +19,7 @@ const DashboardLayout = ({children}) => {
         dispatch(listFacilities());
     }, [dispatch]);
 
-    return <Box className={classes.dasboardContainer}>
+    return <Box className={classes.dashboardContainer}>
         <SideMenu
             options={sideMenuItems.filter(item => item.roles.indexOf(role) > -1)}
             secondaryOptions={settingsOption.filter(item => item.roles.indexOf(role) > -1)}
