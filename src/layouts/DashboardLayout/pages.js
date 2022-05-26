@@ -107,10 +107,4 @@ export const settingsOption = [
         path: '/settings',
         roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
     },
-    {
-        text: 'Company Settings',
-        icon: <MiscellaneousServicesIcon/>,
-        path: '/company-settings',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
-    },
 ]

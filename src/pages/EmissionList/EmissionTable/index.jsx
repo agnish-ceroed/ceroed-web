@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, IconButton, Chip } from "@mui/material";
+import { Box, IconButton, Chip, Typography } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import {
@@ -15,11 +15,12 @@ import {
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
+import { STATUS } from '../../../redux/constants';
 
 const EmissionTable = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const { emissionType, emissionData, onLoadMore } = props
+    const { emissionType, emissionData, onLoadMore, dataStatus } = props
 
     const getTableColumn = {
         stationary_combustion: StationaryColumns,
@@ -71,15 +72,28 @@ const EmissionTable = (props) => {
     }));
 
     return (
-        <CeroTable
-            columns={getTableColumn[props.emissionType] || []}
-            data={getEmissionData()}
-            hasMore={false}
-            loading={false}
-            loadMore={onLoadMore}
-            onSelectRow={onSelectEmissionData}
-            classes={{ tableContainer: classes.tableContainer }}
-        />
+        <>
+            {dataStatus === STATUS.SUCCESS ? (
+                <CeroTable
+                columns={getTableColumn[props.emissionType] || []}
+                data={getEmissionData()}
+                hasMore={false}
+                loading={false}
+                loadMore={onLoadMore}
+                onSelectRow={onSelectEmissionData}
+                classes={{ tableContainer: classes.tableContainer }}
+            />) : (
+                <Box className={classes.loader}>
+                    <Typography variant="h7" component="span">
+                    {dataStatus === STATUS.RUNNING
+                        ? "Loading..."
+                        : dataStatus === STATUS.ERROR
+                        ? "Something went wrong. Please try again later"
+                        : ""}
+                    </Typography>
+                </Box>
+            )}
+        </>
     )
 }
 

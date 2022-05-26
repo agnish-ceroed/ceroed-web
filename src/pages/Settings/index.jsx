@@ -1,20 +1,31 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { useState } from "react";
+import { Container, Typography, Box, Tabs, Tab, TabPanel } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import AccountSettings from "./AccountSettings";
 import useStyles from "./styles";
+import CompanySettingsForm from "./CompanySettingsForm";
 
 const Settings = () => {
     const classes = useStyles();
+
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     return (
         <DashboardLayout>
             <Container className={classes.container}>
                 <Typography variant="h5" component="h5">Settings Page</Typography>
-                <Grid container spacing={4} className={classes.mainContainer}>
-                    <Grid xs={12} md={5} item>
-                        <AccountSettings />
-                    </Grid>
-                </Grid>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab label="Profile" id="profile" />
+                        <Tab label="Company" id="compnay" />
+                    </Tabs>
+                </Box>
+                {value === 0 && <AccountSettings />}
+                {value === 1 && <CompanySettingsForm />}
             </Container>
         </DashboardLayout>
     );
