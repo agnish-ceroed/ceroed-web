@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gridContainer: {
         height: 'calc(100% - 64px)',
+        marginBottom: theme.spacing(5),
     }
 }));
 
