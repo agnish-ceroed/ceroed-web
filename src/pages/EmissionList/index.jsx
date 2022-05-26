@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "@mui/material";
+import _ from "lodash";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { clearEmissionList, getEmissionList } from "../../redux/actions";
@@ -9,7 +10,6 @@ import { months, sampleYear } from "../../constants";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
-import _ from "lodash";
 
 const savedPage = {
   // To be used from the api response
@@ -29,6 +29,8 @@ const EmissionList = () => {
   const selectedYear = queryParams.get("year");
 
   const emissionData = useSelector((state) => state.emission.emissionList.data);
+  const emissionDataStatus = useSelector((state) => state.emission.emissionList.status);
+
   const emissionType = type;
 
   const [filter, setFilter] = useState({
@@ -59,6 +61,9 @@ const EmissionList = () => {
       skip: ((pageNumber || (savedPage.pageNumber || 0) + 1) - 1) * limit,
       ...filter,
     };
+    if(!filterRequest.facility_id) {
+      delete filterRequest.facility_id;
+    }
     dispatch(getEmissionList(emissionType, filterRequest));
   };
 
@@ -78,6 +83,7 @@ const EmissionList = () => {
         />
         <EmissionTable
           emissionData={emissionData}
+          dataStatus={emissionDataStatus}
           onLoadMore={onLoadMore}
           emissionType={emissionType}
         />
