@@ -7,7 +7,6 @@ import { useSnackbar } from 'notistack';
 import CeroInput from "../../components/CeroInput";
 import CeroSelect from "../../components/CeroSelect";
 import CeroSideSheetDrawer from "../../components/CeroSideSheetDrawer";
-import CeroTextArea from "../../components/CeroTextArea/input";
 
 import { listAssignee, createTicket, resetTicketStatus } from "../../redux/actions";
 import { STATUS } from "../../redux/constants";
@@ -88,8 +87,9 @@ const CreateTicketDrawer = (props) => {
           onBlur={createTicketForm.handleBlur}
           error={createTicketForm.errors.title}
         />
-        <CeroTextArea
-          minRows={6}
+        <CeroInput
+          classes={{container: classes.textAreaContainer}}
+          rows={6}
           placeholder={"Please enter ticket details"}
           required
           id="details"
