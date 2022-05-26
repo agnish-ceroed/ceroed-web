@@ -14,9 +14,9 @@ export const APIEndpoints = {
   LOGOUT: `${API_BASE_URL}/log_out`,
   CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
 
-  GET_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/account-details`,
-  UPDATE_ACCOUNT_DETAILS: `${API_BASE_URL}/business/account/update`,
-  GET_USER_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
+  GET_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/account-details`,
+  UPDATE_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/update`,
+  GET_USER_COMPANY_DETAILS: (role) => `${API_BASE_URL}/${role}/company/company-details`,
   UPDATE_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
 
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,
@@ -128,4 +128,9 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
 
     CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
+    LIST_REPORTS: (year) =>
+    `${API_BASE_URL}/business/reports/${year}`,
+
+    GET_REPORT_DETAILS: (id) =>
+    `${API_BASE_URL}/business/reports/${id}`,
 };

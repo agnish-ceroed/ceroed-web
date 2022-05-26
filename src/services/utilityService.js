@@ -12,3 +12,11 @@ export const getMonth = {
     11: 'November',
     12: 'December'
 }
+
+export const getYears = (start = 1900, end = new Date().getFullYear()) => {
+    const years = [];
+    for(let i = end; i>= start; i--) {
+        years.push({ id: i, label: i});
+    }
+    return years;
+}

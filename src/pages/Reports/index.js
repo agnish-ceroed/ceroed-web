@@ -1,47 +1,22 @@
-// import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import dayjs from "dayjs";
 import { Container, Typography, Box } from "@mui/material";
+
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import CeroButton from "../../components/CeroButton";
+import { getAllReports } from "../../redux/actions";
+import { STATUS } from "../../redux/constants";
 
 import useStyles from "./styles";
-// import { useNavigate } from "react-router-dom";
 
-const summaryData = [
-  {
-    year: "2015",
-    reportName: "SASB report 1",
-    framework: "SASB",
-    country: "India",
-    recent: "5 minutes ago",
-  },
-  {
-    year: "2015",
-    reportName: "SASB report 2",
-    framework: "SASB",
-    country: "India",
-    recent: "5 minutes ago",
-  },
-  {
-    year: "2015",
-    reportName: "SASB report 3",
-    framework: "SASB",
-    country: "India",
-    recent: "5 minutes ago",
-  },
-  {
-    year: "2015",
-    reportName: "SASB report 4",
-    framework: "SASB",
-    country: "India",
-    recent: "5 minutes ago",
-  },
-];
 
 export const auditSummaryColumns = [
   {
-    columnKey: "reportName",
-    columnId: "reportName",
+    columnKey: "name",
+    columnId: "name",
     columnHeader: "Report Name",
   },
   {
@@ -50,34 +25,48 @@ export const auditSummaryColumns = [
     columnHeader: "Year",
   },
   {
-    columnKey: "framework",
-    columnId: "framework",
+    columnKey: "framework_name",
+    columnId: "framework_name",
     columnHeader: "Framework",
   },
   {
-    columnKey: "country",
-    columnId: "country",
-    columnHeader: "Country",
+    columnKey: "created_by_name",
+    columnId: "created_by_name",
+    columnHeader: "Created by",
   },
   {
-    columnKey: "recent",
-    columnId: "recent",
-    columnHeader: "Recent activity",
+    columnKey: "created_ts",
+    columnId: "created_ts",
+    columnHeader: "Created on",
   },
 ];
 
-const AuditSummaryYearly = () => {
+const Reports = () => {
   const classes = useStyles();
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const reportsList = useSelector((state) => state.reports.reportsList.data);
+  const reportsListStatus = useSelector(
+    (state) => state.reports.reportsList.status
+  );
 
   const onSelectAuditSummaryData = (row) => {
-    //
+    navigate(`details/${row.id}`)
   };
 
   const onCreateReport = () => {
     //
   };
+
+  const getReportList = () => reportsList.map((item) => ({
+    ...item,
+    created_ts: item.created_ts ? dayjs(item.created_ts).format('DD MMM YYYY HH:mm') : '-',
+}));
+
+  useEffect(() => {
+    dispatch(getAllReports());
+  }, [dispatch]);
 
   return (
     <DashboardLayout>
@@ -92,18 +81,31 @@ const AuditSummaryYearly = () => {
             onClick={onCreateReport}
           />
         </Box>
-        <Container className={classes.tableContainer}>
-          <CeroTable
-            columns={auditSummaryColumns}
-            data={summaryData}
-            hasMore={false}
-            loading={false}
-            onSelectRow={onSelectAuditSummaryData}
-          />
-        </Container>
+
+        {reportsListStatus === STATUS.SUCCESS ? (
+          <Container className={classes.tableContainer}>
+            <CeroTable
+              columns={auditSummaryColumns}
+              data={getReportList()}
+              hasMore={false}
+              loading={false}
+              onSelectRow={onSelectAuditSummaryData}
+            />
+          </Container>
+        ) : (
+          <Box className={classes.loader}>
+            <Typography variant="h7" component="span">
+              {reportsListStatus === STATUS.RUNNING
+                ? "Loading..."
+                : reportsListStatus === STATUS.ERROR
+                ? "Something went wrong. Please try again later"
+                : ""}
+            </Typography>
+          </Box>
+        )}
       </Container>
     </DashboardLayout>
   );
 };
 
-export default AuditSummaryYearly;
+export default Reports;
