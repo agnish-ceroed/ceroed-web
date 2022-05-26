@@ -12,7 +12,14 @@ const useStyles = makeStyles((theme) => ({
     },
     editIcon: {
         marginLeft: theme.spacing(3)
-    }
+    },
+    loader: {
+        width: "100%",
+        height: 100,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
 }));
 
 export default useStyles;

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         position:'relative',
     },
     innerContainer: {
-        height: 'calc(100% - 80px)',
+        // height: 'calc(100% - 80px)',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
             width: '6px'
@@ -30,9 +30,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between'
     },
     buttonContainer: {
-        position:'absolute',
-        bottom: theme.spacing(5),
-        right: theme.spacing(5),
+        marginTop: theme.spacing(4),
     },
     button: {
         width: 160,
