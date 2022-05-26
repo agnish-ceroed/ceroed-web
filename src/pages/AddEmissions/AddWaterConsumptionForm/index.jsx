@@ -219,7 +219,7 @@ const AddWaterConsumptionForm = (props) => {
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
-                    className={clsx(classes.button, classes.buttonSeconday)}
+                    className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={() => onCancel('water_consumption')} />
                 <CeroButton
                     buttonText="Add Data"

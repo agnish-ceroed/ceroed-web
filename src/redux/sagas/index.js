@@ -10,6 +10,7 @@ import users from "./users";
 import company from "./company";
 import approval from "./approval";
 import audit from "./audit";
+import tickets from "./tickets";
 import reports from "./reports";
 
 /**
@@ -27,6 +28,7 @@ export default function* root() {
     fork(company),
     fork(approval),
     fork(audit),
+    fork(tickets),
     fork(reports),
   ]);
 }

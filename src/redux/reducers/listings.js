@@ -21,6 +21,11 @@ export const listState = {
     status: STATUS.IDLE,
     message: "",
   },
+  assigneeList: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
   gridRegions: {
     data: [],
     status: STATUS.IDLE,
@@ -94,6 +99,27 @@ const listActions = {
       [ActionTypes.GET_COUNTRY_LIST_FAILURE]: (state, { payload }) =>
         immutable(state, {
           countryList: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: parseError(payload) },
+          },
+        }),
+
+      [ActionTypes.LIST_ASSIGNEE]: (state, { payload }) =>
+        immutable(state, {
+          assigneeList: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.LIST_ASSIGNEE_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          assigneeList: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.LIST_ASSIGNEE_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          assigneeList: {
             status: { $set: STATUS.ERROR },
             message: { $set: parseError(payload) },
           },

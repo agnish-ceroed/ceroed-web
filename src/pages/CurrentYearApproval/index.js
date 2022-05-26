@@ -38,7 +38,7 @@ const CurrentYearApproval = () => {
   );
 
   const onSelectData = (row) => {
-    navigate(`/emissions/${row.id}/year-${year}`);
+    navigate(`/emissions/${row.type}/?year=${year}`);
   };
   const summaryData = _.groupBy(auditYearlySummary.response, "topic");
   const topicKeys = _.keys(summaryData);
@@ -140,6 +140,7 @@ const CurrentYearApproval = () => {
           }
           onRequestAudit={onRequestAudit}
           isLoading={requestAuditStatus === STATUS.RUNNING}
+          statusId = {auditYearlySummary && auditYearlySummary.audit_status_id}
         />
         {auditYearlySummaryStatus !== STATUS.SUCCESS ? (
           <Box className={classes.loader}>

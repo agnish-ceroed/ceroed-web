@@ -10,6 +10,7 @@ import { submitApproval, resetApprovalData, requestApproval, approveRequest } fr
 import { STATUS } from "../../../../redux/constants";
 
 import useStyles from "./styles";
+import CreateTicketDrawer from "../../../CreateTicketDrawer";
 
 const Header = ({
   onApplyFilter,
@@ -39,6 +40,8 @@ const Header = ({
   const [filterYear, setYear] = useState(selectedYear);
   const [filterMonth, setMonth] = useState(selectedMonth);
   const [facility, setFacility] = useState(selectedFacility);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   const isSubmitLoading = submitApprovalStatus === STATUS.RUNNING;
   const isRequestApprovalLoading = requestApprovalStatus === STATUS.RUNNING;
   const isApproveRequestLoading = approveRequestStatus === STATUS.RUNNING;
@@ -162,7 +165,7 @@ const Header = ({
             variant="outlined"
             buttonText="Raise a ticket"
             className={classes.buttonSecondary}
-            onClick={() => {}}
+            onClick={() => setIsDrawerOpen(true)}
           />
           {actions && actions.perform_approval && (
             <CeroButton
@@ -189,6 +192,7 @@ const Header = ({
             />
           )}
         </Box>
+        <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="approval " scopeId={statusId}/>
       </Grid>
     </Container>
   );

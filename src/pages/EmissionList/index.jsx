@@ -34,7 +34,7 @@ const EmissionList = () => {
   const emissionType = type;
 
   const [filter, setFilter] = useState({
-    month: selectedMonth || months[0].key,
+    month: selectedMonth,
     year: selectedYear || sampleYear[0].key,
     facility_id: selectedFacility,
   });
