@@ -33,7 +33,7 @@ const AddFacilityDrawer = (props) => {
         initialValues: {
             name: facilityData.name || '',
             phone: facilityData.phone || '',
-            country: facilityData.country || '',
+            country: facilityData.country ? countryList.find(item => item.id == facilityData.country)?.label : '',
             gridRegion: facilityData.grid_region || ''
         },
         validationSchema: addFacilityValidation,
@@ -84,10 +84,11 @@ const AddFacilityDrawer = (props) => {
     }, [editFacilityStatus, enqueueSnackbar, onClose, dispatch])
 
     const onSubmitFacilityData = () => {
+        const country = countryList.find(item => item.label === facilityForm.values.country)?.id;
         if (props.editItem) {
-            dispatch(editFacility(props.editItem, facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country, facilityForm.values.gridRegion))
+            dispatch(editFacility(props.editItem, facilityForm.values.name, facilityForm.values.phone, country, facilityForm.values.gridRegion))
         } else {
-            dispatch(addFacility(facilityForm.values.name, facilityForm.values.phone, facilityForm.values.country, facilityForm.values.gridRegion))
+            dispatch(addFacility(facilityForm.values.name, facilityForm.values.phone, country, facilityForm.values.gridRegion))
         }
     };
 
@@ -120,7 +121,7 @@ const AddFacilityDrawer = (props) => {
                     id="country"
                     label="Country"
                     value={facilityForm.values.country}
-                    onChange={(e, value) => facilityForm.setFieldValue('country', value?.id)}
+                    onChange={(e, value) => facilityForm.setFieldValue('country', value?.label)}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.country}
                     options={countryList}
