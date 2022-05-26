@@ -5,19 +5,10 @@ import StatisticsCard from "../../Dashboard/Statistics/StatisticsCard";
 import useStyles from "./styles";
 
 const TicketStatus = ({
-  ticketList = [],
-  userId,
   setTicketType,
   ticketCount,
 }) => {
   const classes = useStyles();
-
-  const assignedTickets = ticketList.filter(
-    (item) => userId === item.assigned_to_id
-  );
-  const myTickets = ticketList.filter(
-    (item) => userId === item.ticket_owner_id
-  );
 
   return (
     <Grid container spacing={5} className={classes.container}>

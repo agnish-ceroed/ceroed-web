@@ -127,9 +127,7 @@ const Tickets = () => {
         {ticketListStatus === STATUS.SUCCESS ? (
           <Fragment>
             <TicketStatus
-              ticketList={ticketList}
               ticketCount={ticketCount}
-              userId={userInfo?.id}
               setTicketType={setTicketType}
             />
             <TicketsTable
