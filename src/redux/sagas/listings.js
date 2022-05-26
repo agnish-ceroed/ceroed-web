@@ -58,6 +58,24 @@ export function* getCountryList(action) {
   }
 }
 
+export function* getAssigneeList() {
+  try {
+    const response = yield call(request, APIEndpoints.LIST_ASSIGNEE, {
+      method: "GET",
+    });
+    yield put({
+      type: ActionTypes.LIST_ASSIGNEE_SUCCESS,
+      payload: response.assignees,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.LIST_ASSIGNEE_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
 export function* listGridRegions(action) {
   try {
     const { countryId } = action.payload;
@@ -109,6 +127,7 @@ export default function* root() {
     takeLatest(ActionTypes.LIST_FACILITIES, listFacilities),
     takeLatest(ActionTypes.GET_INDUSTRY_TYPES, getIndustryTypes),
     takeLatest(ActionTypes.GET_COUNTRY_LIST, getCountryList),
+    takeLatest(ActionTypes.LIST_ASSIGNEE, getAssigneeList),
     takeLatest(ActionTypes.LIST_GRID_REGIONS, listGridRegions),
     takeLatest(ActionTypes.GET_MANAGER_LIST, getManagerList),
   ]);

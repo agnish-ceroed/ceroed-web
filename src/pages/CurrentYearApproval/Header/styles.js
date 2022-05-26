@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: 140,
     height: 37,
     fontSize: 13,
+    marginLeft: theme.spacing(5),
   },
   buttonSecondary: {
     color: theme.palette.text.accent,
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     width: 155,
     height: 37,
     fontSize: 13,
-    marginRight: theme.spacing(6),
   },
 }));
 

@@ -253,7 +253,7 @@ const AddWasteCombustion = (props) => {
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
-                    className={clsx(classes.button, classes.buttonSeconday)}
+                    className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={() => props.onCancel('waste')} />
                 <CeroButton
                     buttonText="Add Data"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,17 +15,25 @@ import WaterDischargeDetails from "./WaterDischargeDetails";
 import WasteCombustionDetails from "./WasteCombustionDetails";
 import TransportationDetails from "./Transportation";
 import useStyles from "./styles";
+import { rolesEnum } from "../../layouts/DashboardLayout/pages";
+import CreateTicketDrawer from "../CreateTicketDrawer";
 
 const EmissionsDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   const emissionData = useSelector(
     (state) => state.emission.emissionDetails.data
   );
   const emissionDataStatus = useSelector(
     (state) => state.emission.emissionDetails.status
   );
+
+  const userRole = useSelector(state => state.auth.userInfo.role);
+  const isDeleteEnable = [rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER].includes(userRole)
 
   const { type, id } = useParams();
 
@@ -53,6 +61,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "mobile_combustion" && (
@@ -60,6 +70,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "stationary_combustion" && (
@@ -67,6 +79,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "refrigerants" && (
@@ -74,6 +88,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "transportation" && (
@@ -81,6 +97,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "water_consumption" && (
@@ -88,6 +106,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "water_discharge" && (
@@ -95,6 +115,8 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
             {type === "waste" && (
@@ -102,11 +124,14 @@ const EmissionsDetails = () => {
                 onCancel={onCancel}
                 emissionId={id}
                 emissionData={emissionData}
+                isDeleteEnable={isDeleteEnable}
+                setIsDrawerOpen={setIsDrawerOpen}
               />
             )}
           </>
         )}
       </Container>
+      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="emission " scopeId={id}/>
     </DashboardLayout>
   );
 };

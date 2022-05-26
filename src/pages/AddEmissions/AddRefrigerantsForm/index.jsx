@@ -216,7 +216,7 @@ const AddRefrigerantsForm = (props) => {
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
-                    className={clsx(classes.button, classes.buttonSeconday)}
+                    className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={() => props.onCancel('refrigerants')} />
                 <CeroButton
                     buttonText="Add Data"

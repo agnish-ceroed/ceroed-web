@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     buttonPrimary: {
         backgroundColor: theme.palette.text.accent,
     },
-    buttonSeconday: {
+    buttonSecondary: {
         color: theme.palette.text.accent,
         marginRight: theme.spacing(5),
         marginLeft: theme.spacing(5),

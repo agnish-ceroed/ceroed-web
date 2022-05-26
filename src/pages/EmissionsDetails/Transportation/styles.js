@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
             background: theme.palette.background.darkGray
           }
     },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
     buttonContainer: {
         position:'absolute',
         bottom: theme.spacing(5),
@@ -37,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     buttonPrimary: {
         backgroundColor: theme.palette.text.accent,
     },
-    buttonSeconday: {
+    buttonSecondary: {
         color: theme.palette.text.accent,
         marginRight: theme.spacing(5),
         marginLeft: theme.spacing(5),

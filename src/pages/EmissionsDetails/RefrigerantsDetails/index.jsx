@@ -17,7 +17,7 @@ const RefrigerantsDetails = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { emissionId, emissionData, onCancel } = props
+    const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen } = props
 
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
@@ -46,7 +46,15 @@ const RefrigerantsDetails = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography variant="h6" component="div" >Refrigerants</Typography>
+                <Box className={classes.header}>
+                    <Typography variant="h6" component="div" >Refrigerants</Typography>
+                    <CeroButton
+                        variant="outlined"
+                        buttonText="Raise a ticket"
+                        className={classes.buttonSecondary}
+                        onClick={() => setIsDrawerOpen(true)}
+                    />
+                </Box>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={12}>
@@ -69,14 +77,14 @@ const RefrigerantsDetails = (props) => {
                 </Box>
             </Box>
             <Box className={classes.buttonContainer}>
-                <CeroButton
+                {isDeleteEnable && <CeroButton
                     buttonText="Delete Data"
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onDeletePurchasedElectricity} />
+                    onClick={onDeletePurchasedElectricity} />}
                 <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
-                    className={clsx(classes.button, classes.buttonSeconday)}
+                    className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={props.onCancel} />
                 <CeroButton
                     buttonText="Update Data"
