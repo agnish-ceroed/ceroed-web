@@ -34,6 +34,7 @@ import AuditorDashboard from '../pages/AuditorDashboard';
 import AuditDetails from '../pages/CompanyDetails/AuditDetails';
 import CompanySettings from '../pages/CompanySettings';
 import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
+import ReportDetails from '../pages/Reports/ReportDetails';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
@@ -185,6 +186,14 @@ const RootNavigation = () => {
                                 element={
                                     <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
                                         <Reports />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/reports/details/:id"
+                                element={
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
+                                        <ReportDetails/>
                                     </PrivateRoute>
                                 }
                             />

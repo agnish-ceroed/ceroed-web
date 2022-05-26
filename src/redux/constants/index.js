@@ -125,4 +125,10 @@ export const APIEndpoints = {
 
     APPROVE_REQUEST: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
+
+    LIST_REPORTS: (year) =>
+    `${API_BASE_URL}/business/reports/${year}`,
+
+    GET_REPORT_DETAILS: (id) =>
+    `${API_BASE_URL}/business/reports/${id}`,
 };

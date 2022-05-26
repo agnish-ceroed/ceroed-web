@@ -10,6 +10,7 @@ import users from "./users";
 import company from "./company";
 import approval from "./approval";
 import audit from "./audit";
+import reports from "./reports";
 
 /**
  * rootSaga
@@ -26,5 +27,6 @@ export default function* root() {
     fork(company),
     fork(approval),
     fork(audit),
+    fork(reports),
   ]);
 }

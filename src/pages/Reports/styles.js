@@ -2,7 +2,6 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: theme.spacing(2),
     height: "100%",
   },
   tableContainer: {
@@ -19,10 +18,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   buttonPrimary: {
-    width: 160,
-    height: 42,
-    fontSize: 13,
     backgroundColor: theme.palette.text.accent,
+    width: 140,
+    height: 37,
+    fontSize: 13,
+    marginLeft: theme.spacing(6),
+  },
+  loader: {
+    width: "100%",
+    height: 100,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
