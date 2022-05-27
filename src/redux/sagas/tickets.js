@@ -24,8 +24,27 @@ export function* createTicket({payload}) {
     }
 }
 
+export function* listTickets({payload}) {
+    try {
+        const response = yield call(request, APIEndpoints.LIST_TICKETS(payload), {
+            method: 'GET',
+        })
+        yield put({
+            type: ActionTypes.LIST_TICKETS_SUCCESS,
+            payload: response
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.LIST_TICKETS_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.CREATE_TICKET, createTicket),
+        takeLatest(ActionTypes.LIST_TICKETS, listTickets),
     ])
 }
