@@ -9,7 +9,6 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 export const rolesEnum = {
     ADMIN: 'admin',

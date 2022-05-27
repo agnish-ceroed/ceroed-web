@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "@mui/material";
-import _ from "lodash";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { clearEmissionList, getEmissionList } from "../../redux/actions";
-import { months, sampleYear } from "../../constants";
+import { sampleYear } from "../../constants";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";

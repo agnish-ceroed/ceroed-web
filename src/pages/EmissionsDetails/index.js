@@ -131,7 +131,7 @@ const EmissionsDetails = () => {
           </>
         )}
       </Container>
-      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="emission " scopeId={id}/>
+      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="emission" scopeId={id}/>
     </DashboardLayout>
   );
 };

@@ -33,7 +33,7 @@ const AddFacilityDrawer = (props) => {
         initialValues: {
             name: facilityData.name || '',
             phone: facilityData.phone || '',
-            country: facilityData.country ? countryList.find(item => item.id == facilityData.country)?.label : '',
+            country: facilityData.country ? countryList.find(item => item.id === facilityData.country)?.label : '',
             gridRegion: facilityData.grid_region || ''
         },
         validationSchema: addFacilityValidation,

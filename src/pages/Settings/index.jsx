@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Typography, Box, Tabs, Tab, TabPanel } from "@mui/material";
+import { Container, Typography, Box, Tabs, Tab } from "@mui/material";
 
 import DashboardLayout from '../../layouts/DashboardLayout'
 import AccountSettings from "./AccountSettings";

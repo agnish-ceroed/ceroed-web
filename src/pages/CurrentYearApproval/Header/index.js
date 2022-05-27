@@ -63,7 +63,7 @@ const Header = ({
           )}
         </Box>
       </Grid>
-      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="audit " scopeId={statusId}/>
+      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="audit" scopeId={statusId}/>
     </Container>
   );
 };
