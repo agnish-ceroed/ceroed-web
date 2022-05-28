@@ -1,23 +1,29 @@
 import { Fragment, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import { Container, Typography, Box } from "@mui/material";
 
 import DashboardLayout from "../../../layouts/DashboardLayout";
-import { getReportDetails } from "../../../redux/actions";
+import {
+  getReportDetails,
+  deleteReport,
+  resetReportStatus,
+} from "../../../redux/actions";
 import { STATUS } from "../../../redux/constants";
 
 import useStyles from "./styles";
 import Status from "../Status";
 import CeroButton from "../../../components/CeroButton";
 
-const parse = require('html-react-parser');
+const parse = require("html-react-parser");
 
 const ReportDetails = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
 
   const reportDetails = useSelector(
@@ -26,9 +32,12 @@ const ReportDetails = () => {
   const reportsListStatus = useSelector(
     (state) => state.reports.reportDetails.status
   );
+  const deleteReportStatus = useSelector(
+    (state) => state.reports.deleteReport.status
+  );
 
   const onDeleteReport = () => {
-    //
+    id && dispatch(deleteReport(id));
   };
 
   const onUpdateReport = () => {
@@ -36,8 +45,21 @@ const ReportDetails = () => {
   };
 
   useEffect(() => {
+    if (deleteReportStatus === STATUS.SUCCESS) {
+      enqueueSnackbar("Report deleted successfully", { variant: "success" });
+      dispatch(resetReportStatus());
+      navigate("/reports");
+    } else if (deleteReportStatus === STATUS.ERROR) {
+      enqueueSnackbar("Something went wrong", { variant: "error" });
+      dispatch(resetReportStatus());
+    }
+  }, [deleteReportStatus, enqueueSnackbar, dispatch, navigate]);
+
+  useEffect(() => {
     id && dispatch(getReportDetails(id));
   }, [dispatch, id]);
+
+  const isDeleteLoading = deleteReportStatus === STATUS.RUNNING;
 
   return (
     <DashboardLayout>
@@ -61,9 +83,10 @@ const ReportDetails = () => {
                   variant="outlined"
                 />
                 <CeroButton
-                  buttonText="Delete Report"
+                  buttonText={isDeleteLoading ? "Deleting..." : "Delete Report"}
                   className={classes.buttonPrimary}
                   onClick={onDeleteReport}
+                  disabled={isDeleteLoading}
                 />
               </Box>
             </Box>

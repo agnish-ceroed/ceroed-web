@@ -16,6 +16,11 @@ export const reportsState = {
     status: STATUS.IDLE,
     message: "",
   },
+  deleteReport: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
 };
 
 const reportsActions = {
@@ -60,6 +65,36 @@ const reportsActions = {
           reportDetails: {
             status: { $set: STATUS.ERROR },
             message: { $set: parseError(payload) },
+          },
+        }),
+
+      [ActionTypes.DELETE_REPORT]: (state, { payload }) =>
+        immutable(state, {
+          deleteReport: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.DELETE_REPORT_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          deleteReport: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.DELETE_REPORT_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          deleteReport: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: parseError(payload) },
+          },
+        }),
+
+      [ActionTypes.RESET_REPORT_STATUS]: (state, { payload }) =>
+        immutable(state, {
+          deleteReport: {
+            status: { $set: STATUS.IDLE },
+            message: { $set: "" },
+            data: { $set: [] },
           },
         }),
     },
