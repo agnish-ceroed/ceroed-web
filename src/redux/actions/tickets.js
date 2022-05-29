@@ -6,8 +6,16 @@ export const {
     createTicket,
     resetTicketStatus,
     listTickets,
+    getTicketDetails,
+    addResponse,
+    closeTicket,
+    deleteTicket,
 } = createActions({
     [ActionTypes.CREATE_TICKET]: (payload) => (payload),
     [ActionTypes.RESET_TICKET_STATUS]: () => {},
     [ActionTypes.LIST_TICKETS]: (payload) => (payload),
+    [ActionTypes.GET_TICKET_DETAILS]: (id) => ({id}),
+    [ActionTypes.ADD_RESPONSE]: (payload) => (payload),
+    [ActionTypes.CLOSE_TICKET]: (payload) => (payload),
+    [ActionTypes.DELETE_TICKET]: (id) => ({id}),
 })
