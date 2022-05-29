@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 import { getMonth } from '../../../services/utilityService';
-
 import CeroButton from '../../../components/CeroButton';
+import ListComments from '../ListComment';
 import useStyles from "./styles";
 
 const WasteCombustionDetails = (props) => {
@@ -93,6 +93,7 @@ const WasteCombustionDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={() => onUpdateWasteCombustion()} />
             </Box>
+            <ListComments emissionId={emissionId} />
         </Container>
     )
 }

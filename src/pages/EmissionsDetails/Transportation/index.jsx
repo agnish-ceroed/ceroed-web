@@ -10,6 +10,7 @@ import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/action
 
 import CeroButton from '../../../components/CeroButton';
 import CeroInput from '../../../components/CeroInput';
+import ListComments from '../ListComment';
 import useStyles from "./styles";
 
 const TransportationDetails = (props) => {
@@ -162,6 +163,7 @@ const TransportationDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdateTransportation} />
             </Box>
+            <ListComments emissionId={emissionId} />
         </Container>
     )
 }
