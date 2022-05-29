@@ -10,6 +10,7 @@ import approval from "./approval";
 import audit from "./audit";
 import tickets from "./tickets";
 import reports from "./reports";
+import emissionComment from "./emissionComment";
 
 const rootReducer = {
   ...auth,
@@ -24,6 +25,7 @@ const rootReducer = {
   ...audit,
   ...tickets,
   ...reports,
+  ...emissionComment,
 };
 
 export default rootReducer;

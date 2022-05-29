@@ -1,10 +1,10 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        padding: theme.spacing(2),
-        height: 'fit-content',
-    }
+    listContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
 }));
 
 export default useStyles;
