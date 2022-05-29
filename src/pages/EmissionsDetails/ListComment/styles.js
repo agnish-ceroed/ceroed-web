@@ -2,6 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     listContainer: {
+        maxWidth: 700,
         display: 'flex',
         flexDirection: 'column',
         padding: theme.spacing(6, 0),

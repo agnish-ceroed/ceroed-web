@@ -11,6 +11,11 @@ export const emissionCommentState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addEmissionComment: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -35,6 +40,34 @@ const emissionActions = {
                     listEmissionComments: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.ADD_EMISSION_COMMENT]: (state, { payload }) =>
+                immutable(state, {
+                    addEmissionComment: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_EMISSION_COMMENT_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    addEmissionComment: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.ADD_EMISSION_COMMENT_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addEmissionComment: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+            [ActionTypes.CLEAR_ADD_EMISSION_COMMENT]: (state) =>
+                immutable(state, {
+                    addEmissionComment: {
+                        status: { $set: STATUS.IDLE },
+                        data: { $set: {} }
                     }
                 }),
         },

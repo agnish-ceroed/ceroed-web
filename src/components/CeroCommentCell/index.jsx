@@ -15,7 +15,7 @@ const CeroCommentCell = (props) => {
         <Box className={classes.messageContainer}>
             <Typography className={classes.name}>{props.name}</Typography>
             <Typography className={classes.msg}>{props.msg}</Typography>
-            <Typography className={classes.date}>{dayjs(props.time).format("DD MMM YYYY HH:mm")}</Typography>
+            <Typography className={classes.date}>{dayjs(props.time).format("DD MMM YYYY hh:mm A")}</Typography>
         </Box>
     </Box>
 };
