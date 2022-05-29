@@ -33,6 +33,7 @@ import CompanyDetails from '../pages/CompanyDetails';
 import AuditorDashboard from '../pages/AuditorDashboard';
 import AuditDetails from '../pages/CompanyDetails/AuditDetails';
 import Tickets from '../pages/Tickets';
+import TicketsDetails from '../pages/Tickets/TicketDetails';
 import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 import ReportDetails from '../pages/Reports/ReportDetails';
 
@@ -286,6 +287,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
                                 <Tickets />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/tickets/:id"
+                        element={
+                            <PrivateRoute redirectTo="/" rolesAllowed={allRoles}>
+                                <TicketsDetails />
                             </PrivateRoute>
                         }
                     />

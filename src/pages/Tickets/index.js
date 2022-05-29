@@ -60,7 +60,7 @@ const Tickets = () => {
   );
 
   const onSelectTicket = (selectedRow) => {
-    navigate(`/tickets/?ticketId=${selectedRow.id}`);
+    navigate(`id?ticketId=${selectedRow.id}`);
   };
 
   const onClear = () => {
