@@ -22,6 +22,7 @@ import {
 import { STATUS } from "../../../redux/constants";
 
 import useStyles from "./styles";
+import CeroCommentCell from "../../../components/CeroCommentCell";
 
 const getStatus = (status) => {
   if (status === "open") {
@@ -161,11 +162,11 @@ const TicketDetails = () => {
                   </Typography>
                   {ticketDetails.responses && ticketDetails.responses.length ? (
                     ticketDetails.responses.map((comment) => (
-                      <Comments
-                        owner={comment.response_user_name}
-                        time={comment.created_on}
-                        description={comment.response}
+                      <CeroCommentCell
                         key={comment.response.id}
+                        name={comment.response_user_name}
+                        msg={comment.response}
+                        time={comment.created_on}
                       />
                     ))
                   ) : (

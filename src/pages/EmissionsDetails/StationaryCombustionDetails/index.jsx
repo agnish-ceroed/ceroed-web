@@ -6,6 +6,7 @@ import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
+import ListComments from '../ListComment';
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 import { getMonth } from '../../../services/utilityService';
 
@@ -96,6 +97,7 @@ const StationaryCombustionDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdatePurchasedElectricity} />
             </Box>
+            <ListComments emissionId={emissionId} />
         </Container>
     )
 }
