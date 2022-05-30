@@ -1,30 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
+import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
 
-import { listEmissionComments } from '../../../redux/actions';
+import { addEmissionComment, clearAddEmissionComment, listEmissionComments } from '../../../redux/actions';
 import CeroCommentCell from '../../../components/CeroCommentCell';
 import CeroInput from '../../../components/CeroInput';
 import CeroButton from '../../../components/CeroButton';
+import { STATUS } from '../../../redux/constants';
 import useStyles from "./styles";
 
 const ListComments = ({emissionId}) => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
-    const isCommentLoading = false;
+    const { enqueueSnackbar } = useSnackbar();
 
     const [comment, setComment] = useState('');
 
     const comments = useSelector((state) => state.emissionComment.listEmissionComments.data);
+    const addCommentState = useSelector((state) => state.emissionComment.addEmissionComment);
 
     useEffect(() => {
         dispatch(listEmissionComments(emissionId));
     }, [dispatch]);
 
-    const onAddComment = () => {
+    useEffect(() => {
+        if (addCommentState.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Comment added successfully', { variant: 'success' });
+            dispatch(listEmissionComments(emissionId));
+            dispatch(clearAddEmissionComment(emissionId));
+            setComment('');
+        } else if(addCommentState.status === STATUS.ERROR) {
+            enqueueSnackbar(addCommentState.message || "Add comment failed due to some reason", { variant: 'error' });
+        }
+    }, [addCommentState.status])
 
+    const onAddComment = () => {
+        dispatch(addEmissionComment(emissionId, comment));
     };
 
     return <Box className={classes.listContainer}>
@@ -33,10 +47,10 @@ const ListComments = ({emissionId}) => {
             {comments.map((comment, index) => (
                     <CeroCommentCell
                         key={index}
-                        name={comment.name}
+                        name={comment.commented_by_name}
                         imageUrl={comment.image_url}
-                        msg={comment.msg}
-                        time={comment.time}
+                        msg={comment.comment}
+                        time={comment.commented_on}
                     />
                 )
             )}
@@ -59,14 +73,14 @@ const ListComments = ({emissionId}) => {
             />
             <CeroButton
                 buttonText={
-                isCommentLoading ? "Commenting..." : "Add comment"
+                    addCommentState.status === STATUS.RUNNING ? "Commenting..." : "Add comment"
                 }
                 className={clsx(
                 classes.buttonPrimary,
                 classes.commentButton
                 )}
                 onClick={onAddComment}
-                disabled={!comment || isCommentLoading}
+                disabled={!comment || addCommentState.status === STATUS.RUNNING}
             />
         </Box>
     </Box>

@@ -23,8 +23,29 @@ export function* listEmissionComments(action) {
     }
 }
 
+export function* addComment(action) {
+    try {
+        const { emissionId, comment } = action.payload
+        const response = yield call(request, APIEndpoints.ADD_EMISSION_COMMENT(emissionId), {
+            method: 'POST',
+            payload: { comment }
+        })
+        yield put({
+            type: ActionTypes.ADD_EMISSION_COMMENT_SUCCESS,
+            payload: response
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_EMISSION_COMMENT_FAILURE,
+            payload: err.message
+        })
+    }
+}
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.LIST_EMISSION_COMMENTS, listEmissionComments),
+        takeLatest(ActionTypes.ADD_EMISSION_COMMENT, addComment),
     ])
 }

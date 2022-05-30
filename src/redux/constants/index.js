@@ -65,6 +65,8 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/emissions/${emissionId}`,
   LIST_EMISSION_COMMENTS: (emissionId) =>
   `${API_BASE_URL}/business/comments/${emissionId}`,
+  ADD_EMISSION_COMMENT: (emissionId) =>
+  `${API_BASE_URL}/business/comment/${emissionId}`,
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,

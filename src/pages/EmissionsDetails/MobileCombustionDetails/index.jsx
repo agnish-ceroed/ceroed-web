@@ -8,8 +8,8 @@ import { useSnackbar } from 'notistack';
 import { STATUS } from "../../../redux/constants";
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 import { getMonth } from '../../../services/utilityService';
-
 import CeroButton from '../../../components/CeroButton';
+import ListComments from '../ListComment';
 import useStyles from "./styles";
 
 const MobileCombustionDetails = (props) => {
@@ -98,6 +98,7 @@ const MobileCombustionDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdatePurchasedElectricity} />
             </Box>
+            <ListComments emissionId={emissionId} />
         </Container>
     )
 }

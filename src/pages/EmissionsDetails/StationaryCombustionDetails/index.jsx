@@ -9,7 +9,6 @@ import { STATUS } from "../../../redux/constants";
 import ListComments from '../ListComment';
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 import { getMonth } from '../../../services/utilityService';
-
 import CeroButton from '../../../components/CeroButton';
 import useStyles from "./styles";
 
