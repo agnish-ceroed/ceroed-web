@@ -10,7 +10,7 @@ const CeroCommentCell = (props) => {
 
     return <Box className={classes.commentContainer}>
         <Box>
-            <Avatar alt={props.name} src={props.imageUrl} />
+            <Avatar alt={props.name} src={props.imageUrl} children={props.name?.charAt(0)?.toUpperCase()} />
         </Box>
         <Box className={classes.messageContainer}>
             <Typography className={classes.name}>{props.name}</Typography>

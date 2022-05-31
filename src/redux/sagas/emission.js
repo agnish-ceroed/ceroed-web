@@ -469,7 +469,7 @@ export function* listAuditTrails(action) {
         })
         yield put({
             type: ActionTypes.LIST_EMISSION_AUDIT_TRAILS_SUCCESS,
-            payload: response.comment_list
+            payload: response.audit_status
         })
     } catch (err) {
         /* istanbul ignore next */

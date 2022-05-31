@@ -25,10 +25,10 @@ const ListAuditTrails = ({emissionId}) => {
             {auditList.map((audit, index) => (
                     <AuditTrailCell
                         key={index}
-                        name={audit.audited_by_name}
+                        name={audit.performed_by}
                         imageUrl={audit.image_url}
-                        msg={audit.comment}
-                        time={audit.audited_on}
+                        msg={`${audit.action} ${audit.assigned_to ? `to ${audit.assigned_to}` : ''}`}
+                        time={audit.performed_on}
                     />
                 )
             )}
