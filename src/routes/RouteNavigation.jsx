@@ -185,7 +185,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/reports"
                                 element={
-                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER]}>
                                         <Reports />
                                     </PrivateRoute>
                                 }
@@ -193,7 +193,7 @@ const RootNavigation = () => {
                             <Route
                                 path="/reports/details/:id"
                                 element={
-                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN,rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER]}>
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER]}>
                                         <ReportDetails/>
                                     </PrivateRoute>
                                 }

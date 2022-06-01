@@ -36,6 +36,16 @@ export const listState = {
     status: STATUS.IDLE,
     message: "",
   },
+  frameworkList: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
+  topicList: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
 };
 
 const listActions = {
@@ -99,6 +109,48 @@ const listActions = {
       [ActionTypes.GET_COUNTRY_LIST_FAILURE]: (state, { payload }) =>
         immutable(state, {
           countryList: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: parseError(payload) },
+          },
+        }),
+
+      [ActionTypes.LIST_FRAMEWORK]: (state, { payload }) =>
+        immutable(state, {
+          frameworkList: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.LIST_FRAMEWORK_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          frameworkList: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.LIST_FRAMEWORK_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          frameworkList: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: parseError(payload) },
+          },
+        }),
+
+      [ActionTypes.LIST_TOPIC]: (state, { payload }) =>
+        immutable(state, {
+          topicList: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.LIST_TOPIC_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          topicList: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.LIST_TOPIC_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          topicList: {
             status: { $set: STATUS.ERROR },
             message: { $set: parseError(payload) },
           },

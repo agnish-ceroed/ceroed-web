@@ -7,9 +7,13 @@ export const {
   getReportDetails,
   deleteReport,
   resetReportStatus,
+  createReport,
+  updateReport,
 } = createActions({
   [ActionTypes.GET_ALL_REPORTS]: (year = "") => ({ year }),
   [ActionTypes.GET_REPORT_DETAILS]: (id) => ({ id }),
   [ActionTypes.DELETE_REPORT]: (id) => ({ id }),
   [ActionTypes.RESET_REPORT_STATUS]: () => {},
+  [ActionTypes.CREATE_REPORT]: (payload) => (payload),
+  [ActionTypes.UPDATE_REPORT]: (payload) => (payload),
 });

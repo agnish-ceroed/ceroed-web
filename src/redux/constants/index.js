@@ -77,7 +77,10 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/users/get-managers/${role}${
       facility_id ? `/${facility_id}` : ""
     }`,
-    LIST_ASSIGNEE: `${API_BASE_URL}/business/tickets/assignee-list`,
+
+  LIST_ASSIGNEE: `${API_BASE_URL}/business/tickets/assignee-list`,
+  LIST_FRAMEWORK: `${API_BASE_URL}/business/reports/list-frameworks`,
+  LIST_TOPIC: `${API_BASE_URL}/business/reports/list-topics`,
 
   GET_EMISSION_YEAR: `${API_BASE_URL}/business/graph/emission-year`,
   GET_EMISSION_TYPES: `${API_BASE_URL}/business/graph/emission-type`,
@@ -156,4 +159,7 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/reports/${year}`,
     GET_REPORT_DETAILS: (id) =>
     `${API_BASE_URL}/business/reports/${id}`,
+    CREATE_REPORT: `${API_BASE_URL}/business/reports/create-report`,
+    UPDATE_REPORT: (id) => `${API_BASE_URL}/business/reports/update-report/${id}`,
+    
 };

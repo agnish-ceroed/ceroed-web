@@ -7,10 +7,14 @@ const useStyles = makeStyles((theme) => ({
   tableContainer: {
     padding: 0,
     width: "100%",
-    maxHeight: "calc(100% - 40px)",
+    maxHeight: "calc(100% - 100px)",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     background: theme.palette.background.white,
     marginTop: 20,
+    overflow: "auto",
+  },
+  tableInnerContainer: {
+    maxHeight: "100%",
   },
   buttonContainer: {
     display: "flex",

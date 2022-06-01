@@ -40,10 +40,6 @@ const ReportDetails = () => {
     id && dispatch(deleteReport(id));
   };
 
-  const onUpdateReport = () => {
-    //
-  };
-
   useEffect(() => {
     if (deleteReportStatus === STATUS.SUCCESS) {
       enqueueSnackbar("Report deleted successfully", { variant: "success" });
@@ -79,7 +75,7 @@ const ReportDetails = () => {
                 <CeroButton
                   buttonText="Update Report"
                   className={classes.buttonSecondary}
-                  onClick={onUpdateReport}
+                  onClick={() => {}}
                   variant="outlined"
                 />
                 <CeroButton
@@ -93,7 +89,7 @@ const ReportDetails = () => {
 
             <Status reportDetails={reportDetails} />
             <Box className={classes.detailsContainer}>
-              {parse(reportDetails.body)}
+              {reportDetails.body && parse(reportDetails.body)}
             </Box>
           </Fragment>
         ) : (

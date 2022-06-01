@@ -70,10 +70,68 @@ export function* deleteReport({ payload }) {
   }
 }
 
+export function* createReport({ payload }) {
+  try {
+    const response = yield call(request, APIEndpoints.CREATE_REPORT, {
+      method: "POST",
+      payload,
+    });
+    yield put({
+      type: ActionTypes.GET_ALL_REPORTS,
+      payload: { year: "" },
+    });
+    yield put({
+      type: ActionTypes.CREATE_REPORT_SUCCESS,
+      payload: response.report,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.CREATE_REPORT_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
+export function* updateReport({ payload }) {
+  try {
+    const { framework_id, name, year, topic_id } = payload;
+    const response = yield call(
+      request,
+      APIEndpoints.UPDATE_REPORT(payload.id),
+      {
+        method: "PUT",
+        payload: {
+          framework_id,
+          name,
+          year,
+          topic_id,
+        },
+      }
+    );
+    yield put({
+      type: ActionTypes.GET_REPORT_DETAILS,
+      payload: { id: payload.id },
+    });
+    yield put({
+      type: ActionTypes.UPDATE_REPORT_SUCCESS,
+      payload: response,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.UPDATE_REPORT_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_ALL_REPORTS, getReportList),
     takeLatest(ActionTypes.GET_REPORT_DETAILS, getReportDetails),
     takeLatest(ActionTypes.DELETE_REPORT, deleteReport),
+    takeLatest(ActionTypes.CREATE_REPORT, createReport),
+    takeLatest(ActionTypes.UPDATE_REPORT, updateReport),
   ]);
 }

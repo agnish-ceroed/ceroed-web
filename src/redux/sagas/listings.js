@@ -76,6 +76,42 @@ export function* getAssigneeList() {
   }
 }
 
+export function* getFrameworkList() {
+  try {
+    const response = yield call(request, APIEndpoints.LIST_FRAMEWORK, {
+      method: "GET",
+    });
+    yield put({
+      type: ActionTypes.LIST_FRAMEWORK_SUCCESS,
+      payload: response.frameworks,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.LIST_FRAMEWORK_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
+export function* getTopicList() {
+  try {
+    const response = yield call(request, APIEndpoints.LIST_TOPIC, {
+      method: "GET",
+    });
+    yield put({
+      type: ActionTypes.LIST_TOPIC_SUCCESS,
+      payload: response.topics,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.LIST_TOPIC_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
 export function* listGridRegions(action) {
   try {
     const { countryId } = action.payload;
@@ -128,6 +164,8 @@ export default function* root() {
     takeLatest(ActionTypes.GET_INDUSTRY_TYPES, getIndustryTypes),
     takeLatest(ActionTypes.GET_COUNTRY_LIST, getCountryList),
     takeLatest(ActionTypes.LIST_ASSIGNEE, getAssigneeList),
+    takeLatest(ActionTypes.LIST_FRAMEWORK, getTopicList),
+    takeLatest(ActionTypes.LIST_TOPIC, getFrameworkList),
     takeLatest(ActionTypes.LIST_GRID_REGIONS, listGridRegions),
     takeLatest(ActionTypes.GET_MANAGER_LIST, getManagerList),
   ]);

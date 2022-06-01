@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
@@ -7,11 +7,11 @@ import { Container, Typography, Box } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import CeroButton from "../../components/CeroButton";
+import CreateReportDrawer from "./CreateReportDrawer";
 import { getAllReports } from "../../redux/actions";
 import { STATUS } from "../../redux/constants";
 
 import useStyles from "./styles";
-
 
 export const auditSummaryColumns = [
   {
@@ -46,23 +46,24 @@ const Reports = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const reportsList = useSelector((state) => state.reports.reportsList.data);
   const reportsListStatus = useSelector(
     (state) => state.reports.reportsList.status
   );
 
   const onSelectAuditSummaryData = (row) => {
-    navigate(`details/${row.id}`)
+    navigate(`details/${row.id}`);
   };
 
-  const onCreateReport = () => {
-    //
-  };
-
-  const getReportList = () => reportsList.map((item) => ({
-    ...item,
-    created_ts: item.created_ts ? dayjs(item.created_ts).format('DD MMM YYYY HH:mm') : '-',
-}));
+  const getReportList = () =>
+    reportsList.map((item) => ({
+      ...item,
+      created_ts: item.created_ts
+        ? dayjs(item.created_ts).format("DD MMM YYYY HH:mm")
+        : "-",
+    }));
 
   useEffect(() => {
     dispatch(getAllReports());
@@ -78,7 +79,7 @@ const Reports = () => {
           <CeroButton
             buttonText="Create report"
             className={classes.buttonPrimary}
-            onClick={onCreateReport}
+            onClick={() => setIsDrawerOpen(true)}
           />
         </Box>
 
@@ -86,6 +87,7 @@ const Reports = () => {
           <Container className={classes.tableContainer}>
             <CeroTable
               columns={auditSummaryColumns}
+              classes={{ tableContainer: classes.tableInnerContainer }}
               data={getReportList()}
               hasMore={false}
               loading={false}
@@ -103,6 +105,10 @@ const Reports = () => {
             </Typography>
           </Box>
         )}
+        <CreateReportDrawer
+          isOpen={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+        />
       </Container>
     </DashboardLayout>
   );

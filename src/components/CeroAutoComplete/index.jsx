@@ -18,6 +18,7 @@ const CeroAutoComplete = (props) => {
                 classes={{ root: props.error ? classes.selectError : '' }}
                 options={props.options}
                 onChange={props.onChange}
+                multiple={!!props.multiple}
                 onBlur={props.onBlur}
                 onInputChange={props.onInputChange}
                 renderInput={(params) => (

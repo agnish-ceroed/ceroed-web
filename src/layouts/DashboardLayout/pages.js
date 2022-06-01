@@ -1,7 +1,7 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import FlagOutlined from '@mui/icons-material/FlagOutlined';
+import AssessmentOutlined from '@mui/icons-material/AssessmentOutlined';
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ConfirmationNumberOutlined from '@mui/icons-material/ConfirmationNumberOutlined';
@@ -42,15 +42,15 @@ export const sideMenuItems = [
     },
     {
         text: 'Goals',
-        icon: <PersonOutlineIcon/>,
+        icon: <FlagOutlined/>,
         path: '/goals',
         roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
     },
     {
         text: 'Reports',
-        icon: <ChatBubbleOutlineOutlinedIcon/>,
+        icon: <AssessmentOutlined/>,
         path: '/reports',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+        roles: [rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER]
     },
     {
         text: 'Benchmarking',
