@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Container, Typography } from "@mui/material";
@@ -6,10 +6,17 @@ import _ from "lodash";
 import { useSnackbar } from "notistack";
 
 import CeroTable from "../../../components/CeroTable";
-import Header from "./Header";
-import { getCompanyAuditDetails, approveCompanyAudit, approveCompanyAuditReset } from "../../../redux/actions";
-import { STATUS } from "../../../redux/constants";
 import DashboardLayout from "../../../layouts/DashboardLayout";
+import CreateTicketDrawer from "../../CreateTicketDrawer";
+import Header from "./Header";
+
+import {
+  getCompanyAuditDetails,
+  approveCompanyAudit,
+  approveCompanyAuditReset,
+} from "../../../redux/actions";
+import { STATUS } from "../../../redux/constants";
+
 import useStyles from "./styles";
 
 const AuditDetails = () => {
@@ -18,9 +25,12 @@ const AuditDetails = () => {
   const { company, id, year } = useParams();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const auditDetailsState = useSelector( (state) => state.company.auditDetails );
-  const approveAuditStatus = useSelector( (state) => state.company.approveAudit.status );
+  const auditDetailsState = useSelector((state) => state.company.auditDetails);
+  const approveAuditStatus = useSelector(
+    (state) => state.company.approveAudit.status
+  );
 
   const auditDetails = auditDetailsState.data;
   const summaryData = _.groupBy(auditDetails.response, "topic");
@@ -75,7 +85,9 @@ const AuditDetails = () => {
   ];
 
   useEffect(() => {
-    company && (id || year) && dispatch(getCompanyAuditDetails(company, id, year));
+    company &&
+      (id || year) &&
+      dispatch(getCompanyAuditDetails(company, id, year));
   }, [dispatch, company, id, year]);
 
   useEffect(() => {
@@ -111,9 +123,9 @@ const AuditDetails = () => {
         <Header
           onApplyFilter={onApplyFilter}
           selectedYear={year}
-          isApproveAuditVisible={auditDetails.status === 'pending'}
+          isApproveAuditVisible={auditDetails.status === "pending"}
           onApproveAudit={onApproveAudit}
-          onRaiseAuditTicket={() => {}}
+          onRaiseAuditTicket={() => setIsDrawerOpen(true)}
           isLoading={approveAuditStatus === STATUS.RUNNING}
         />
         {auditDetailsState.status !== STATUS.SUCCESS ? (
@@ -165,6 +177,13 @@ const AuditDetails = () => {
             />
           </Container>
         )}
+        <CreateTicketDrawer
+          isOpen={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+          scope="audit"
+          scopeId={id}
+          companyId={company}
+        />
       </Container>
     </DashboardLayout>
   );

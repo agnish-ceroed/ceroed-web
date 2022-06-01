@@ -11,7 +11,7 @@ import CeroSideSheetDrawer from "../../components/CeroSideSheetDrawer";
 import { listAssignee, createTicket, resetTicketStatus } from "../../redux/actions";
 import { STATUS } from "../../redux/constants";
 
-import { createTicketValidation } from "./schema";
+import { createTicketValidation, createTicketAuditorValidation } from "./schema";
 
 import useStyles from "./styles";
 
@@ -20,7 +20,7 @@ const CreateTicketDrawer = (props) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { ticketData, isOpen, scope, scopeId } = props;
+  const { ticketData, isOpen, scope, scopeId, companyId } = props;
   const userList = useSelector((state) => state.listings.assigneeList.data);
   const createTicketDetailsStatus = useSelector((state) => state.ticket.createTicketDetails.status);
 
@@ -37,7 +37,7 @@ const CreateTicketDrawer = (props) => {
       details: ticketData ? ticketData.details : "",
       assignee: ticketData ? ticketData.assignee : "",
     },
-    validationSchema: createTicketValidation,
+    validationSchema: companyId ? createTicketAuditorValidation : createTicketValidation,
     enableReinitialize: true,
     onSubmit: () => {},
   });
@@ -49,6 +49,7 @@ const CreateTicketDrawer = (props) => {
       assigned_to_id: createTicketForm.values.assignee,
       ticket_scope: scope,
       ticket_scope_id: scopeId,
+      companyId
     };
     dispatch(createTicket(payload))
   };
@@ -70,8 +71,8 @@ const CreateTicketDrawer = (props) => {
 }, [createTicketDetailsStatus, enqueueSnackbar, onClose, dispatch])
 
   useEffect(() => {
-    dispatch(listAssignee());
-  }, [dispatch]);
+    !companyId && dispatch(listAssignee());
+  }, [dispatch, companyId]);
 
   const getPrimaryPaymentDrawer = () => {
     return (
@@ -101,7 +102,7 @@ const CreateTicketDrawer = (props) => {
           error={createTicketForm.errors.details}
           multiline
         />
-        <CeroSelect
+        {!companyId && <CeroSelect
           required
           id="assignee"
           name="assignee"
@@ -112,7 +113,7 @@ const CreateTicketDrawer = (props) => {
           onChange={createTicketForm.handleChange}
           onBlur={createTicketForm.handleBlur}
           error={createTicketForm.errors.assignee}
-        />
+        />}
       </Box>
     );
   };

@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "center",
     },
+    filterContainer: {
+      marginTop: theme.spacing(4)
+    }
 }));
 
 export default useStyles;

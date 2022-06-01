@@ -134,8 +134,18 @@ export const APIEndpoints = {
     CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
     LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/business/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
+    COMPANY_LIST_TICKETS: (payload) =>
+    `${API_BASE_URL}/auditor/company/${payload.company}/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
+    COMPANY_CREATE_TICKET: (payload) =>
+    `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/`,
     GET_TICKET_DETAILS: (payload) =>
     `${API_BASE_URL}/business/tickets/${payload.id}`,
+    GET_COMPANY_TICKET_DETAILS: (payload) =>
+    `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/${payload.id}`,
+    COMPANY_CLOSE_TICKET: (payload) =>
+    `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/${payload.id}/close`,
+    COMPANY_ADD_RESPONSE: (payload) =>
+    `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/response/${payload.id}`,
     ADD_RESPONSE: (payload) =>
     `${API_BASE_URL}/business/tickets/response/${payload.id}`,
     CLOSE_TICKET: (payload) =>

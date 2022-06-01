@@ -13,15 +13,21 @@ export function* createTicket({ payload }) {
       ticket_scope,
       ticket_scope_id,
     } = payload;
-    const response = yield call(request, APIEndpoints.CREATE_TICKET, {
+    let inputPayload = {
+      title,
+      description,
+      assigned_to_id,
+      ticket_scope,
+      ticket_scope_id,
+    };
+    let apiUrl = APIEndpoints.CREATE_TICKET;
+    if (payload.companyId) {
+      apiUrl = APIEndpoints.COMPANY_CREATE_TICKET(payload);
+      delete inputPayload.assigned_to_id;
+    }
+    const response = yield call(request, apiUrl, {
       method: "POST",
-      payload: {
-        title,
-        description,
-        assigned_to_id,
-        ticket_scope,
-        ticket_scope_id,
-      },
+      payload: inputPayload,
     });
     yield put({
       type: ActionTypes.CREATE_TICKET_SUCCESS,
@@ -38,7 +44,10 @@ export function* createTicket({ payload }) {
 
 export function* closeTicket({ payload }) {
   try {
-    const response = yield call(request, APIEndpoints.CLOSE_TICKET(payload), {
+    const apiUrl = payload.companyId
+      ? APIEndpoints.COMPANY_CLOSE_TICKET(payload)
+      : APIEndpoints.CLOSE_TICKET(payload);
+    const response = yield call(request, apiUrl, {
       method: "POST",
       payload,
     });
@@ -57,14 +66,13 @@ export function* closeTicket({ payload }) {
 
 export function* deleteTicket({ payload }) {
   try {
-    const response = yield call(
-      request,
-      APIEndpoints.GET_TICKET_DETAILS(payload),
-      {
-        method: "DELETE",
-        payload,
-      }
-    );
+    const apiUrl = payload.companyId
+      ? APIEndpoints.GET_COMPANY_TICKET_DETAILS(payload)
+      : APIEndpoints.GET_TICKET_DETAILS(payload);
+    const response = yield call(request, apiUrl, {
+      method: "DELETE",
+      payload,
+    });
     yield put({
       type: ActionTypes.DELETE_TICKET_SUCCESS,
       payload: response,
@@ -80,7 +88,10 @@ export function* deleteTicket({ payload }) {
 
 export function* listTickets({ payload }) {
   try {
-    const response = yield call(request, APIEndpoints.LIST_TICKETS(payload), {
+    const apiUrl = payload.company
+      ? APIEndpoints.COMPANY_LIST_TICKETS(payload)
+      : APIEndpoints.LIST_TICKETS(payload);
+    const response = yield call(request, apiUrl, {
       method: "GET",
     });
     yield put({
@@ -98,13 +109,12 @@ export function* listTickets({ payload }) {
 
 export function* getTicketDetails({ payload }) {
   try {
-    const response = yield call(
-      request,
-      APIEndpoints.GET_TICKET_DETAILS(payload),
-      {
-        method: "GET",
-      }
-    );
+    const apiUrl = payload.companyId
+      ? APIEndpoints.GET_COMPANY_TICKET_DETAILS(payload)
+      : APIEndpoints.GET_TICKET_DETAILS(payload);
+    const response = yield call(request, apiUrl, {
+      method: "GET",
+    });
     yield put({
       type: ActionTypes.GET_TICKET_DETAILS_SUCCESS,
       payload: response,
@@ -120,7 +130,10 @@ export function* getTicketDetails({ payload }) {
 
 export function* addResponse({ payload }) {
   try {
-    const response = yield call(request, APIEndpoints.ADD_RESPONSE(payload), {
+    const apiUrl = payload.companyId
+      ? APIEndpoints.COMPANY_ADD_RESPONSE(payload)
+      : APIEndpoints.ADD_RESPONSE(payload);
+    const response = yield call(request, apiUrl, {
       method: "POST",
       payload: {
         response: payload.response,

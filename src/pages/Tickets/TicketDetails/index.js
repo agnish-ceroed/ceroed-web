@@ -47,6 +47,7 @@ const TicketDetails = () => {
   const { enqueueSnackbar } = useSnackbar();
   const queryParams = new URLSearchParams(window.location.search);
   const id = queryParams.get("ticketId");
+  const companyId = queryParams.get("companyId");
 
   const [comment, setComment] = useState("");
 
@@ -70,15 +71,15 @@ const TicketDetails = () => {
   );
 
   const onAddComment = () => {
-    dispatch(addResponse({ id, response: comment }));
+    dispatch(addResponse({ id, response: comment, companyId }));
   };
 
   const onCloseTicket = () => {
-    dispatch(closeTicket({ id }));
+    dispatch(closeTicket({ id, companyId }));
   };
 
   const onDeleteTicket = () => {
-    dispatch(deleteTicket(id));
+    dispatch(deleteTicket({id, companyId}));
   };
 
   const isCommentLoading = addCommentStatus === STATUS.RUNNING;
@@ -90,12 +91,12 @@ const TicketDetails = () => {
       enqueueSnackbar("Comment added successfully", { variant: "success" });
       setComment("");
       dispatch(resetTicketStatus());
-      dispatch(getTicketDetails(id));
+      dispatch(getTicketDetails({ id, companyId }));
     } else if (addCommentStatus === STATUS.ERROR) {
       enqueueSnackbar("Something went wrong", { variant: "error" });
       dispatch(resetTicketStatus());
     }
-  }, [addCommentStatus, enqueueSnackbar, dispatch, id]);
+  }, [addCommentStatus, enqueueSnackbar, dispatch, id, companyId]);
 
   useEffect(() => {
     if (closeTicketDetailsStatus === STATUS.SUCCESS) {
@@ -120,8 +121,8 @@ const TicketDetails = () => {
   }, [deleteTicketDetailsStatus, enqueueSnackbar, dispatch, navigate]);
 
   useEffect(() => {
-    id && dispatch(getTicketDetails(id));
-  }, [dispatch, id]);
+    id && dispatch(getTicketDetails({ id, companyId }));
+  }, [dispatch, id, companyId]);
 
   return (
     <DashboardLayout>

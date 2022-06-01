@@ -7,11 +7,14 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroDropdown from "../../components/CeroDropdown";
 import { sampleYear } from "../../constants";
 import TicketsTable from "./TicketsTable";
-import { listTickets } from "../../redux/actions";
-import useStyles from "./styles";
-import { STATUS } from "../../redux/constants";
 import CeroButton from "../../components/CeroButton";
 import TicketStatus from "./TicketStatus";
+import { rolesEnum } from "../../layouts/DashboardLayout/pages";
+
+import { listTickets, getCompanyList } from "../../redux/actions";
+import { STATUS } from "../../redux/constants";
+
+import useStyles from "./styles";
 
 const ticketTypeOption = [
   {
@@ -51,16 +54,27 @@ const Tickets = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [ticketType, setTicketType] = useState("all");
   const [ticketStatus, setTicketStatus] = useState("all");
+  const [company, setCompany] = useState("");
 
   const userInfo = useSelector((state) => state.auth.userInfo);
   const ticketList = useSelector((state) => state.ticket.listTickets.data);
   const ticketCount = useSelector((state) => state.ticket.listTickets.count);
+  const companyList = useSelector((state) => state.company.companyList.data);
   const ticketListStatus = useSelector(
     (state) => state.ticket.listTickets.status
   );
 
+  const companyListOption = companyList.map((item) => ({
+    key: item.company_id,
+    value: item.company_name,
+  }));
+
+  const isAuditor = userInfo && userInfo.role === rolesEnum.AUDITOR;
+
   const onSelectTicket = (selectedRow) => {
-    navigate(`id?ticketId=${selectedRow.id}`);
+    isAuditor
+      ? navigate(`id?ticketId=${selectedRow.id}&companyId=${company}`)
+      : navigate(`id?ticketId=${selectedRow.id}`);
   };
 
   const onClear = () => {
@@ -70,8 +84,25 @@ const Tickets = () => {
   };
 
   useEffect(() => {
-    dispatch(listTickets({ year, ticketType, ticketStatus }));
-  }, [year, ticketType, ticketStatus, dispatch]);
+    if (isAuditor) {
+      company &&
+        dispatch(listTickets({ year, ticketType, ticketStatus, company }));
+    } else {
+      dispatch(listTickets({ year, ticketType, ticketStatus }));
+    }
+  }, [year, ticketType, ticketStatus, dispatch, isAuditor, company, userInfo]);
+
+  useEffect(() => {
+    isAuditor &&
+      !company &&
+      companyListOption &&
+      companyListOption.length &&
+      setCompany(companyListOption[0].key);
+  }, [company, companyListOption, isAuditor]);
+
+  useEffect(() => {
+    isAuditor && dispatch(getCompanyList());
+  }, [dispatch, isAuditor]);
 
   return (
     <DashboardLayout>
@@ -86,6 +117,18 @@ const Tickets = () => {
           alignItems="center"
           wrap="nowrap"
         >
+          {isAuditor && (
+            <Grid item xs={2.5}>
+              <CeroDropdown
+                id="company"
+                label="Company"
+                fullWidth
+                options={companyListOption}
+                onChange={({ target }) => setCompany(target.value)}
+                selectedValue={company}
+              />
+            </Grid>
+          )}
           <Grid item xs={1.5}>
             <CeroDropdown
               id="year"
