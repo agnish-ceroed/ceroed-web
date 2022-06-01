@@ -27,6 +27,8 @@ export const {
     deleteEmissions,
     addRefrigerants,
     updateRefrigerants,
+    listEmissionAuditTrails,
+    clearListEmissionAuditTrails,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -52,4 +54,6 @@ export const {
     [ActionTypes.DELETE_EMISSIONS]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_REFRIGERANTS]: (requestData) => ({ requestData }),
     [ActionTypes.UPDATE_REFRIGERANTS]: (requestData) => ({ requestData }),
+    [ActionTypes.LIST_EMISSION_AUDIT_TRAILS]: (emissionId) => ({ emissionId }),
+    [ActionTypes.CLEAR_LIST_EMISSION_AUDIT_TRAILS]: () => ({}),
 })

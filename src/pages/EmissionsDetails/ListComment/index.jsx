@@ -42,7 +42,6 @@ const ListComments = ({emissionId}) => {
     };
 
     return <Box className={classes.listContainer}>
-        <Typography variant="h6" component="span">Comments</Typography>
         <Box className={classes.commentContainer} >
             {comments.map((comment, index) => (
                     <CeroCommentCell

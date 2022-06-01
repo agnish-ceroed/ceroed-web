@@ -142,6 +142,11 @@ export const emissionState = {
         message: '',
         isCalculateDone: false,
     },
+    listAuditTrails: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -696,6 +701,34 @@ const emissionActions = {
                     mobileCombustionInputs: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
+                    },
+                }),
+
+            [ActionTypes.LIST_EMISSION_AUDIT_TRAILS]: (state, { payload }) =>
+                immutable(state, {
+                    listAuditTrails: {
+                        status: { $set: STATUS.RUNNING }
+                    },
+                }),
+            [ActionTypes.LIST_EMISSION_AUDIT_TRAILS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    listAuditTrails: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    },
+                }),
+            [ActionTypes.LIST_EMISSION_AUDIT_TRAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    listAuditTrails: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    },
+                }),
+            [ActionTypes.CLEAR_LIST_EMISSION_AUDIT_TRAILS]: (state, { payload }) =>
+                immutable(state, {
+                    listAuditTrails: {
+                        data: { $set: [] },
+                        status: { $set: STATUS.IDLE }
                     },
                 }),
         },

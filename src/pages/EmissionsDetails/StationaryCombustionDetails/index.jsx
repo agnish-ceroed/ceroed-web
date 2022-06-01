@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { Container, Grid, Typography, Box, Tabs, Tab } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -10,6 +10,7 @@ import ListComments from '../ListComment';
 import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/actions';
 import { getMonth } from '../../../services/utilityService';
 import CeroButton from '../../../components/CeroButton';
+import ListAuditTrails from '../ListAuditTrails';
 import useStyles from "./styles";
 
 const StationaryCombustionDetails = (props) => {
@@ -18,6 +19,8 @@ const StationaryCombustionDetails = (props) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen } = props
+
+    const [value, setValue] = useState(0);
 
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
@@ -34,6 +37,10 @@ const StationaryCombustionDetails = (props) => {
 
     const onUpdatePurchasedElectricity = () => {
         navigate(`/emissions/edit/stationary_combustion/${emissionId}`);
+    };
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
     };
 
     const onDeletePurchasedElectricity = () => {
@@ -96,7 +103,14 @@ const StationaryCombustionDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdatePurchasedElectricity} />
             </Box>
-            <ListComments emissionId={emissionId} />
+            <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
+                    <Tab label="Comments" id="comments" />
+                    <Tab label="Audit History" id="audit-history" />
+                </Tabs>
+            </Box>
+            {value === 0 && <ListComments emissionId={emissionId} />}
+            {value === 1 && <ListAuditTrails emissionId={emissionId} />}
         </Container>
     )
 }

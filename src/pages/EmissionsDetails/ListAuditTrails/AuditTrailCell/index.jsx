@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 
 import useStyles from "./styles";
 
-const CeroCommentCell = (props) => {
+const AuditTrailCell = (props) => {
     
     const classes = useStyles();
 
-    return <Box className={classes.commentContainer}>
+    return <Box className={classes.auditContainer}>
         <Box>
-            <Avatar alt={props.name} src={props.imageUrl} children={props.name?.charAt(0)?.toUpperCase()} />
+            <Avatar alt={props.name} src={props.imageUrl} children={props.name?.charAt(0)?.toUpperCase()}/>
         </Box>
         <Box className={classes.messageContainer}>
             <Typography className={classes.name}>{props.name}</Typography>
@@ -20,4 +20,4 @@ const CeroCommentCell = (props) => {
     </Box>
 };
 
-export default CeroCommentCell;
+export default AuditTrailCell;

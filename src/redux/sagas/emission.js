@@ -461,6 +461,24 @@ export function* getMobileCombustionInputs(action) {
     }
 }
 
+export function* listAuditTrails(action) {
+    try {
+        const { emissionId } = action.payload
+        const response = yield call(request, APIEndpoints.LIST_EMISSION_AUDIT_TRAILS(emissionId), {
+            method: 'GET',
+        })
+        yield put({
+            type: ActionTypes.LIST_EMISSION_AUDIT_TRAILS_SUCCESS,
+            payload: response.audit_status
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.LIST_EMISSION_AUDIT_TRAILS_FAILURE,
+            payload: err.message
+        })
+    }
+}
 
 export default function* root() {
     yield all([
@@ -487,6 +505,6 @@ export default function* root() {
         takeLatest(ActionTypes.GET_MOBILE_COMBUSTION_INPUTS, getMobileCombustionInputs),
         takeLatest(ActionTypes.ADD_TRANSPORTATION_COMBUSTION, addTransportationCombustion),
         takeLatest(ActionTypes.EDIT_TRANSPORTATION_COMBUSTION, editTransportationCombustion),
-
+        takeLatest(ActionTypes.LIST_EMISSION_AUDIT_TRAILS, listAuditTrails),
     ])
 }
