@@ -29,6 +29,10 @@ export const {
     updateRefrigerants,
     listEmissionAuditTrails,
     clearListEmissionAuditTrails,
+    listEmissionFiles,
+    clearListEmissionFiles,
+    uploadEmissionAttachement,
+    clearUploadEmissionAttachement,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -56,4 +60,8 @@ export const {
     [ActionTypes.UPDATE_REFRIGERANTS]: (requestData) => ({ requestData }),
     [ActionTypes.LIST_EMISSION_AUDIT_TRAILS]: (emissionId) => ({ emissionId }),
     [ActionTypes.CLEAR_LIST_EMISSION_AUDIT_TRAILS]: () => ({}),
+    [ActionTypes.LIST_EMISSION_FILES]: (emissionId) => ({ emissionId }),
+    [ActionTypes.CLEAR_LIST_EMISSION_FILES]: () => ({}),
+    [ActionTypes.UPLOAD_EMISSION_ATTACHEMENT]: (emissionId, file) => ({emissionId, file}),
+    [ActionTypes.CLEAR_UPLOAD_EMISSION_ATTACHEMENT]: () => ({}),
 })

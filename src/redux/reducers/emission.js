@@ -147,6 +147,16 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    listFiles: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
+    uploadAttachement: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -728,6 +738,62 @@ const emissionActions = {
                 immutable(state, {
                     listAuditTrails: {
                         data: { $set: [] },
+                        status: { $set: STATUS.IDLE }
+                    },
+                }),
+
+            [ActionTypes.LIST_EMISSION_FILES]: (state, { payload }) =>
+                immutable(state, {
+                    listFiles: {
+                        status: { $set: STATUS.RUNNING }
+                    },
+                }),
+            [ActionTypes.LIST_EMISSION_FILES_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    listFiles: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    },
+                }),
+            [ActionTypes.LIST_EMISSION_FILES_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    listFiles: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    },
+                }),
+            [ActionTypes.CLEAR_LIST_EMISSION_FILES]: (state, { payload }) =>
+                immutable(state, {
+                    listFiles: {
+                        data: { $set: [] },
+                        status: { $set: STATUS.IDLE }
+                    },
+                }),
+
+            [ActionTypes.UPLOAD_EMISSION_ATTACHEMENT]: (state, { payload }) =>
+                immutable(state, {
+                    uploadAttachement: {
+                        status: { $set: STATUS.RUNNING }
+                    },
+                }),
+            [ActionTypes.UPLOAD_EMISSION_ATTACHEMENT_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    uploadAttachement: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    },
+                }),
+            [ActionTypes.UPLOAD_EMISSION_ATTACHEMENT_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    uploadAttachement: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    },
+                }),
+            [ActionTypes.CLEAR_UPLOAD_EMISSION_ATTACHEMENT]: (state, { payload }) =>
+                immutable(state, {
+                    uploadAttachement: {
+                        data: { $set: {} },
                         status: { $set: STATUS.IDLE }
                     },
                 }),
