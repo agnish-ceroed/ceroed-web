@@ -57,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
     },
     previewItem: {
         padding: theme.spacing(1, 0)
-    }
+    },
+    tabContainer: {
+        marginTop: theme.spacing(4),
+    },
 }));
 
 export default useStyles;

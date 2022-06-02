@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
 
-import { addEmissionComment, clearAddEmissionComment, listEmissionComments } from '../../../redux/actions';
+import { addEmissionComment, clearAddEmissionComment, listEmissionComments, resetListEmissionComments } from '../../../redux/actions';
 import CeroCommentCell from '../../../components/CeroCommentCell';
 import CeroInput from '../../../components/CeroInput';
 import CeroButton from '../../../components/CeroButton';
@@ -24,6 +24,9 @@ const ListComments = ({emissionId}) => {
 
     useEffect(() => {
         dispatch(listEmissionComments(emissionId));
+        return () => {
+            dispatch(resetListEmissionComments());
+        }
     }, [dispatch]);
 
     useEffect(() => {
@@ -42,21 +45,6 @@ const ListComments = ({emissionId}) => {
     };
 
     return <Box className={classes.listContainer}>
-        <Box className={classes.commentContainer} >
-            {comments.map((comment, index) => (
-                    <CeroCommentCell
-                        key={index}
-                        name={comment.commented_by_name}
-                        imageUrl={comment.image_url}
-                        msg={comment.comment}
-                        time={comment.commented_on}
-                    />
-                )
-            )}
-            {!comments.length && (
-                <Typography variant="h7" component="span"> No comments yet </Typography>
-            )}
-        </Box>
         <Box className={classes.commentBox}>
             <CeroInput
                 classes={{ container: classes.textArea }}
@@ -81,6 +69,21 @@ const ListComments = ({emissionId}) => {
                 onClick={onAddComment}
                 disabled={!comment || addCommentState.status === STATUS.RUNNING}
             />
+        </Box>
+        <Box className={classes.commentContainer} >
+            {comments.map((comment, index) => (
+                    <CeroCommentCell
+                        key={index}
+                        name={comment.commented_by_name}
+                        imageUrl={comment.image_url}
+                        msg={comment.comment}
+                        time={comment.commented_on}
+                    />
+                )
+            )}
+            {!comments.length && (
+                <Typography variant="h7" component="span"> No comments yet </Typography>
+            )}
         </Box>
     </Box>
 };

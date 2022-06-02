@@ -50,7 +50,10 @@ const useStyles = makeStyles((theme) => ({
     bottomContainer: {
         width: '75%',
         marginTop: theme.spacing(5),
-    }
+    },
+    tabContainer: {
+        marginTop: theme.spacing(4),
+    },
 }));
 
 export default useStyles;
