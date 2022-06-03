@@ -9,11 +9,23 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
     fontWeight: 500,
     margin: theme.spacing(4, 0),
-    
+    position: "relative",
   },
   infoContainer: {
     maxWidth: 400,
-  }
+  },
+  waitingIndicationContainer: {
+    height: 10,
+    width: 30,
+    position: "absolute",
+    top: theme.spacing(4),
+    right: theme.spacing(4),
+  },
+  waitingIndication: {
+    height: 30,
+    width: 30,
+    cursor: "pointer",
+  },
 }));
 
 export default useStyles;

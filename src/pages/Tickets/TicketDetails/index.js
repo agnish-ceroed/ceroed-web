@@ -51,6 +51,7 @@ const TicketDetails = () => {
 
   const [comment, setComment] = useState("");
 
+  const userInfo = useSelector((state) => state.auth.userInfo);
   const ticketDetails = useSelector(
     (state) => state.ticket.ticketDetails.data.response
   );
@@ -79,7 +80,7 @@ const TicketDetails = () => {
   };
 
   const onDeleteTicket = () => {
-    dispatch(deleteTicket({id, companyId}));
+    dispatch(deleteTicket({ id, companyId }));
   };
 
   const isCommentLoading = addCommentStatus === STATUS.RUNNING;
@@ -135,7 +136,7 @@ const TicketDetails = () => {
               </Typography>
               {getStatus(ticketDetails.status)}
             </Box>
-            <Status ticketDetails={ticketDetails} />
+            <Status ticketDetails={ticketDetails} userInfo={userInfo} />
             <Box className={classes.detailsContainer}>
               <Box
                 className={
