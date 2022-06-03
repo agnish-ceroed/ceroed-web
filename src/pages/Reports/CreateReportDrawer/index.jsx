@@ -18,7 +18,6 @@ import {
   listTopic,
   resetReportStatus,
   createReport,
-  updateReport,
 } from "../../../redux/actions";
 import { STATUS } from "../../../redux/constants";
 
@@ -29,7 +28,7 @@ const CreateReportDrawer = (props) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { reportData, isOpen, isEdit } = props;
+  const { reportData, isOpen } = props;
   const frameworkList = useSelector(
     (state) => state.listings.frameworkList.data
   );
@@ -37,13 +36,8 @@ const CreateReportDrawer = (props) => {
   const createReportStatus = useSelector(
     (state) => state.reports.createReport.status
   );
-  const updateReportStatus = useSelector(
-    (state) => state.reports.updateReport.status
-  );
 
-  const isButtonLoading =
-    createReportStatus === STATUS.RUNNING ||
-    updateReportStatus === STATUS.RUNNING;
+  const isButtonLoading = createReportStatus === STATUS.RUNNING;
 
   const frameworkOptionList = frameworkList.map((item) => ({
     key: item.id,
@@ -83,10 +77,7 @@ const CreateReportDrawer = (props) => {
       year: createReportForm.values.year,
       topic_id: (createReportForm.values.topic || []).map((item) => item.id),
     };
-    if (isEdit) {
-      payload.id = reportData.id;
-      dispatch(updateReport(payload));
-    } else dispatch(createReport(payload));
+    dispatch(createReport(payload));
   };
   const onClose = useCallback(() => {
     createReportForm.resetForm();
@@ -103,17 +94,6 @@ const CreateReportDrawer = (props) => {
       dispatch(resetReportStatus());
     }
   }, [createReportStatus, enqueueSnackbar, onClose, dispatch]);
-
-  useEffect(() => {
-    if (updateReportStatus === STATUS.SUCCESS) {
-      enqueueSnackbar("Report updated successfully", { variant: "success" });
-      dispatch(resetReportStatus());
-      onClose();
-    } else if (updateReportStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
-      dispatch(resetReportStatus());
-    }
-  }, [updateReportStatus, enqueueSnackbar, onClose, dispatch]);
 
   useEffect(() => {
     dispatch(listFramework());

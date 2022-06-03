@@ -95,23 +95,16 @@ export function* createReport({ payload }) {
 
 export function* updateReport({ payload }) {
   try {
-    const { framework_id, name, year, topic_id } = payload;
-    const response = yield call(
-      request,
-      APIEndpoints.UPDATE_REPORT(payload.id),
-      {
-        method: "PUT",
-        payload: {
-          framework_id,
-          name,
-          year,
-          topic_id,
-        },
-      }
-    );
+    const { id, body } = payload;
+    const response = yield call(request, APIEndpoints.UPDATE_REPORT(id), {
+      method: "PUT",
+      payload: {
+        body,
+      },
+    });
     yield put({
       type: ActionTypes.GET_REPORT_DETAILS,
-      payload: { id: payload.id },
+      payload: { id },
     });
     yield put({
       type: ActionTypes.UPDATE_REPORT_SUCCESS,

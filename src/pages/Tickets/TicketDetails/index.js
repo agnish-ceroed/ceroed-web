@@ -158,51 +158,47 @@ const TicketDetails = () => {
                   </Typography>
                 </Box>
                 <Box className={classes.descriptionContainer}>
+                  {ticketDetailsAction.perform_ticket_response && (
+                    <Box className={classes.commentBox}>
+                      <CeroInput
+                        classes={{ container: classes.textArea }}
+                        rows={3}
+                        multiline
+                        id="comment"
+                        name="comment"
+                        label="Comment"
+                        placeholder="Please type your comment"
+                        value={comment}
+                        fullWidth
+                        onChange={({ target }) => setComment(target.value)}
+                      />
+                      <CeroButton
+                        buttonText={
+                          isCommentLoading ? "Commenting..." : "Add comment"
+                        }
+                        className={clsx(
+                          classes.buttonPrimary,
+                          classes.commentButton
+                        )}
+                        onClick={onAddComment}
+                        disabled={!comment || isCommentLoading}
+                      />
+                    </Box>
+                  )}
                   <Typography variant="h6" component="span">
                     {`Comments`}
                   </Typography>
-                  {ticketDetails.responses && ticketDetails.responses.length ? (
-                    ticketDetails.responses.map((comment) => (
-                      <CeroCommentCell
-                        key={comment.response.id}
-                        name={comment.response_user_name}
-                        msg={comment.response}
-                        time={comment.created_on}
-                      />
-                    ))
-                  ) : (
-                    <Typography variant="h7" component="span">
-                      No comments yet
-                    </Typography>
-                  )}
+                  {ticketDetails.responses && ticketDetails.responses.length
+                    ? ticketDetails.responses.map((comment) => (
+                        <CeroCommentCell
+                          key={comment.response.id}
+                          name={comment.response_user_name}
+                          msg={comment.response}
+                          time={comment.created_on}
+                        />
+                      ))
+                    : ""}
                 </Box>
-                {ticketDetailsAction.perform_ticket_response && (
-                  <Box className={classes.commentBox}>
-                    <CeroInput
-                      classes={{ container: classes.textArea }}
-                      rows={3}
-                      multiline
-                      id="comment"
-                      name="comment"
-                      label="Comment"
-                      placeholder="Please type your comment"
-                      value={comment}
-                      fullWidth
-                      onChange={({ target }) => setComment(target.value)}
-                    />
-                    <CeroButton
-                      buttonText={
-                        isCommentLoading ? "Commenting..." : "Add comment"
-                      }
-                      className={clsx(
-                        classes.buttonPrimary,
-                        classes.commentButton
-                      )}
-                      onClick={onAddComment}
-                      disabled={!comment || isCommentLoading}
-                    />
-                  </Box>
-                )}
               </Box>
               {(ticketDetailsAction.perform_ticket_close ||
                 ticketDetailsAction.perform_ticket_deletion) && (

@@ -2,18 +2,20 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: theme.spacing(2),
+    padding: 0,
+    paddingBottom: theme.spacing(3),
     height: "100%",
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column",
   },
   detailsContainer: {
     flex: 1,
-    overflow: 'auto',
+    overflow: "auto",
     padding: theme.spacing(4),
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     background: theme.palette.background.white,
-    marginBottom: theme.spacing(2),
+    position: "relative",
+    margin: 0,
   },
   loader: {
     width: "100%",
@@ -41,6 +43,24 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
     margin: theme.spacing(0, 5),
   },
+  editorContainer: {
+    height: "calc(100% - 50px)",
+    width: "100%",
+  },
+  saveButton: {
+    float: "right",
+    marginTop: theme.spacing(2),
+  },
+  tooltip: {
+    position: "absolute",
+    top: theme.spacing(3),
+    right: theme.spacing(3),
+    cursor: "pointer",
+    color: theme.palette.text.accent,
+  },
+  footer: {
+    marginTop: theme.spacing(3)
+  }
 }));
 
 export default useStyles;
