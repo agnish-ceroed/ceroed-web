@@ -480,6 +480,51 @@ export function* listAuditTrails(action) {
     }
 }
 
+export function* listEmissionFiles(action) {
+    try {
+        const { emissionId } = action.payload
+        const response = yield call(request, APIEndpoints.LIST_EMISSION_FILES(emissionId), {
+            method: 'GET',
+        })
+        yield put({
+            type: ActionTypes.LIST_EMISSION_FILES_SUCCESS,
+            payload: response.attachments
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.LIST_EMISSION_AUDIT_TRAILS_FAILURE,
+            payload: err.message
+        })
+    }
+}
+
+export function* uploadAttachement(action) {
+    try {
+        const { emissionId, file } = action.payload;
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = yield call(request, APIEndpoints.UPLOAD_EMISSION_ATTACHEMENT(emissionId), {
+            method: 'POST',
+            isFormData: true,
+            payload: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        yield put({
+            type: ActionTypes.UPLOAD_EMISSION_ATTACHEMENT_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPLOAD_EMISSION_ATTACHEMENT_FAILURE,
+            payload: err
+        })
+    }
+}
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_EMISSION_LIST, getEmissionList),
@@ -506,5 +551,7 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_TRANSPORTATION_COMBUSTION, addTransportationCombustion),
         takeLatest(ActionTypes.EDIT_TRANSPORTATION_COMBUSTION, editTransportationCombustion),
         takeLatest(ActionTypes.LIST_EMISSION_AUDIT_TRAILS, listAuditTrails),
+        takeLatest(ActionTypes.LIST_EMISSION_FILES, listEmissionFiles),
+        takeLatest(ActionTypes.UPLOAD_EMISSION_ATTACHEMENT, uploadAttachement),
     ])
 }

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { Container, Grid, Typography, Box, Tabs, Tab } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -10,6 +10,8 @@ import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/action
 import { getMonth } from '../../../services/utilityService';
 import CeroButton from '../../../components/CeroButton';
 import ListComments from '../ListComment';
+import ListAuditTrails from '../ListAuditTrails';
+import ListEmissionFiles from '../ListEmissionFiles';
 import useStyles from "./styles";
 
 const WaterDischargeDetails = (props) => {
@@ -19,6 +21,8 @@ const WaterDischargeDetails = (props) => {
     const { enqueueSnackbar } = useSnackbar();
     const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen } = props
 
+    const [value, setValue] = useState(0);
+    
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
     useEffect(() => {
@@ -36,6 +40,10 @@ const WaterDischargeDetails = (props) => {
         navigate(`/emissions/edit/water_discharge/${emissionId}`);
     };
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    
     const onDeletePurchasedElectricity = () => {
         const requestData = {
             id: emissionId
@@ -93,7 +101,16 @@ const WaterDischargeDetails = (props) => {
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdatePurchasedElectricity} />
             </Box>
-            <ListComments emissionId={emissionId} />
+            <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
+                    <Tab label="Comments" id="comments" />
+                    <Tab label="Audit History" id="audit-history" />
+                    <Tab label="Attachment" id="files" />
+                </Tabs>
+            </Box>
+            {value === 0 && <ListComments emissionId={emissionId} />}
+            {value === 1 && <ListAuditTrails emissionId={emissionId} />}
+            {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
         </Container>
     )
 }

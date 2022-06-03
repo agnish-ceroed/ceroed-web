@@ -63,7 +63,7 @@ export const request = (url, options = {}) => {
   }
   const authToken = getCookie('auth_token_admin')
 
-  if (authToken && !config.isFormData && !options.disableAuthorization) {
+  if (authToken && !options.disableAuthorization) {
     headers.Authorization = `Bearer ${authToken}`
   }
   if (config.payload && config.payload.headers) {
@@ -80,6 +80,9 @@ export const request = (url, options = {}) => {
     params.body = config.isFormData ? config.payload : JSON.stringify(config.payload)
   } else {
     url = getEncodedURL(url, config.payload || {})
+  }
+  if(config.isFormData) {
+    delete params.headers['Content-Type'];
   }
 
   return fetch(url, params).then(async response => {

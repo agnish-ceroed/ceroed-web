@@ -11,6 +11,7 @@ import { resetAddCombustionStatus, deleteEmissions } from '../../../redux/action
 import { getMonth } from '../../../services/utilityService';
 import CeroButton from '../../../components/CeroButton';
 import ListAuditTrails from '../ListAuditTrails';
+import ListEmissionFiles from '../ListEmissionFiles';
 import useStyles from "./styles";
 
 const StationaryCombustionDetails = (props) => {
@@ -107,10 +108,12 @@ const StationaryCombustionDetails = (props) => {
                 <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
                     <Tab label="Comments" id="comments" />
                     <Tab label="Audit History" id="audit-history" />
+                    <Tab label="Attachment" id="files" />
                 </Tabs>
             </Box>
             {value === 0 && <ListComments emissionId={emissionId} />}
             {value === 1 && <ListAuditTrails emissionId={emissionId} />}
+            {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
         </Container>
     )
 }

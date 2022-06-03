@@ -42,6 +42,14 @@ const emissionActions = {
                         message: { $set: parseError(payload) }
                     }
                 }),
+            [ActionTypes.RESET_LIST_EMISSION_COMMENTS]: (state, { payload }) =>
+                immutable(state, {
+                    listEmissionComments: {
+                        status: { $set: STATUS.IDLE },
+                        data: { $set: [] },
+                        message: { $set: '' }
+                    }
+                }),
 
             [ActionTypes.ADD_EMISSION_COMMENT]: (state, { payload }) =>
                 immutable(state, {

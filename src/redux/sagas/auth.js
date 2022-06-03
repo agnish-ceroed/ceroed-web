@@ -18,6 +18,7 @@ export function* login(action) {
     const response = yield call(request, API, {
       method: 'POST',
       isFormData: true,
+      disableAuthorization: true,
       payload: loginFormData,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -164,6 +165,7 @@ export function* refreshToken() {
       const response = yield call(request, APIEndpoints.LOGIN, {
         method: 'POST',
         isFormData: true,
+        disableAuthorization: true,
         payload: loginFormData,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
