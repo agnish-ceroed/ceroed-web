@@ -33,6 +33,8 @@ export const {
     clearListEmissionFiles,
     uploadEmissionAttachement,
     clearUploadEmissionAttachement,
+    deleteEmissionAttachement,
+    clearDeleteEmissionAttachement,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -64,4 +66,6 @@ export const {
     [ActionTypes.CLEAR_LIST_EMISSION_FILES]: () => ({}),
     [ActionTypes.UPLOAD_EMISSION_ATTACHEMENT]: (emissionId, file) => ({emissionId, file}),
     [ActionTypes.CLEAR_UPLOAD_EMISSION_ATTACHEMENT]: () => ({}),
+    [ActionTypes.DELETE_EMISSION_ATTACHEMENT]: (emissionId, attachementId) => ({emissionId, attachementId}),
+    [ActionTypes.CLEAR_DELETE_EMISSION_ATTACHEMENT]: () => ({}),
 })

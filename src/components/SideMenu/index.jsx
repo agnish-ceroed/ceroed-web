@@ -10,7 +10,6 @@ import useStyles from "./styles";
 import { userRoles } from '../../constants';
 
 const SideMenu = ({options, secondaryOptions}) => {
-    const userImage = require('../../assets/userAvatar.png');
     const classes = useStyles();
     const location = useLocation();
     const navigate = useNavigate();

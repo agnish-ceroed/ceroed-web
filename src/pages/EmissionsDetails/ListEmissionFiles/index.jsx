@@ -1,22 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useSnackbar } from 'notistack';
 
-import { clearListEmissionFiles, clearUploadEmissionAttachement, listEmissionFiles, uploadEmissionAttachement } from '../../../redux/actions';
+import {
+    clearListEmissionFiles,
+    clearUploadEmissionAttachement,
+    deleteEmissionAttachement,
+    listEmissionFiles,
+    uploadEmissionAttachement,
+} from '../../../redux/actions';
 import AttachmentCell from './AttachmentCell';
 import { STATUS } from '../../../redux/constants';
 import useStyles from "./styles";
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 
 const ListEmissionFiles = ({emissionId}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
+    const [showConfirm, setShowConfrim] = useState(false);
+    const [selectedFile, setSelectedFile] = useState('');
+
     const fileList = useSelector((state) => state.emission.listFiles.data);
     const uploadAttachementState = useSelector((state) => state.emission.uploadAttachement);
+    const deleteAttachementState = useSelector((state) => state.emission.deleteAttachement);
 
     useEffect(() => {
         dispatch(listEmissionFiles(emissionId));
@@ -35,13 +46,34 @@ const ListEmissionFiles = ({emissionId}) => {
         }
     }, [uploadAttachementState]);
 
+    useEffect(() => {
+        if(deleteAttachementState.status === STATUS.SUCCESS) {
+            enqueueSnackbar('Attachment deleted successfully', { variant: 'success' });
+            dispatch(listEmissionFiles(emissionId));
+            setSelectedFile('');
+            setShowConfrim(false);
+        } else if (deleteAttachementState.status === STATUS.ERROR) {
+            enqueueSnackbar(deleteAttachementState.message || "Something went wrong", { variant: 'error' });
+        }
+    }, [deleteAttachementState]);
+
     const onFileUpload = ({ target }) =>{
         dispatch(uploadEmissionAttachement(emissionId, target.files[0]))
     };
 
-    const onDeleteAttachement = (file) => {
-
+    const onDeleteAttachement = (fileId) => {
+        setSelectedFile(fileId);
+        setShowConfrim(true);
     };
+
+    const onConfirmDelete = () => {
+        dispatch(deleteEmissionAttachement(emissionId, selectedFile));
+    }
+
+    const onCancelDelete = () => {
+        setSelectedFile('');
+        setShowConfrim(false);
+    }
 
     return <Box className={classes.listContainer}>
         <Box>
@@ -61,7 +93,7 @@ const ListEmissionFiles = ({emissionId}) => {
         <Box className={classes.fileListContainer} >
             {fileList.map((file, index) => (
                     <AttachmentCell
-                        key={index}
+                        key={file.id}
                         url={file.blob_url}
                         imageName={file.file_name}
                         imageType={file.content_type}
@@ -74,6 +106,11 @@ const ListEmissionFiles = ({emissionId}) => {
                 <Typography variant="h7" component="span"> No Attachment found </Typography>
             )}
         </Box>
+        {showConfirm && <CeroConfirmDrawer
+            isOpen={showConfirm}
+            onClose={onCancelDelete}
+            onConfirm={onConfirmDelete}
+        />}
     </Box>
 };
 

@@ -37,7 +37,7 @@ export function* getEmission(action) {
         })
         yield put({
             type: ActionTypes.GET_EMISSION_SUCCESS,
-            payload: response.emission
+            payload: response.emission || {}
         })
     } catch (err) {
         /* istanbul ignore next */
@@ -494,7 +494,7 @@ export function* listEmissionFiles(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.LIST_EMISSION_AUDIT_TRAILS_FAILURE,
-            payload: err.message
+            payload: err?.message
         })
     }
 }
@@ -521,6 +521,25 @@ export function* uploadAttachement(action) {
         yield put({
             type: ActionTypes.UPLOAD_EMISSION_ATTACHEMENT_FAILURE,
             payload: err
+        })
+    }
+}
+
+export function* deleteAttachemnt(action) {
+    try {
+        const { emissionId, attachementId } = action.payload
+        const response = yield call(request, APIEndpoints.DELETE_EMISSION_ATTACHEMENT(emissionId, attachementId), {
+            method: 'DELETE',
+        })
+        yield put({
+            type: ActionTypes.DELETE_EMISSION_ATTACHEMENT_SUCCESS,
+            payload: response
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.DELETE_EMISSION_ATTACHEMENT_FAILURE,
+            payload: err.message
         })
     }
 }
@@ -553,5 +572,6 @@ export default function* root() {
         takeLatest(ActionTypes.LIST_EMISSION_AUDIT_TRAILS, listAuditTrails),
         takeLatest(ActionTypes.LIST_EMISSION_FILES, listEmissionFiles),
         takeLatest(ActionTypes.UPLOAD_EMISSION_ATTACHEMENT, uploadAttachement),
+        takeLatest(ActionTypes.DELETE_EMISSION_ATTACHEMENT, deleteAttachemnt),
     ])
 }

@@ -66,10 +66,10 @@ const StationaryCombustionDetails = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
                         <Grid item container direction={'column'} xs={12}>
-                            <Typography className={classes.previewItem}>Facility: {emissionData.facility_name}</Typography>
-                            <Typography className={classes.previewItem}>Month and year: {getMonth[emissionData.month]} {emissionData.year}</Typography>
-                            <Typography className={classes.previewItem}>Fuel: {emissionData.fuel}</Typography>
-                            <Typography className={classes.previewItem}>Amount: {emissionData.amount}{emissionData.unit}</Typography>
+                            <Typography className={classes.previewItem}>Facility: {emissionData?.facility_name}</Typography>
+                            <Typography className={classes.previewItem}>Month and year: {getMonth[emissionData?.month]} {emissionData.year}</Typography>
+                            <Typography className={classes.previewItem}>Fuel: {emissionData?.fuel}</Typography>
+                            <Typography className={classes.previewItem}>Amount: {emissionData?.amount}{emissionData.unit}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
@@ -77,14 +77,14 @@ const StationaryCombustionDetails = (props) => {
                     <Typography variant="h6" component="h6" className={classes.previewTitle}>Emission</Typography>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {emissionData.co2} tonnes</Typography>
-                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {emissionData.ch4} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>: {emissionData?.co2} tonnes</Typography>
+                            <Typography className={classes.previewItem}>CH<sub>4</sub>: {emissionData?.ch4} tonnes</Typography>
                             <Typography className={classes.previewItem}>BioFuel CO<sub>2</sub>: {emissionData.biofuel_co2} tonnes</Typography>
                         </Grid>
                         <Grid item container direction='column' xs={6}>
-                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {emissionData.co2e} tonnes</Typography>
-                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {emissionData.n2o} tonnes</Typography>
-                            <Typography className={classes.previewItem}>EF: {emissionData.ef} kgCO<sub>2</sub>e/unit</Typography>
+                            <Typography className={classes.previewItem}>CO<sub>2</sub>e: {emissionData?.co2e} tonnes</Typography>
+                            <Typography className={classes.previewItem}>N<sub>2</sub>O: {emissionData?.n2o} tonnes</Typography>
+                            <Typography className={classes.previewItem}>EF: {emissionData?.ef} kgCO<sub>2</sub>e/unit</Typography>
                         </Grid>
                     </Grid>
                 </Box>

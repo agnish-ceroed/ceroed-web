@@ -31,7 +31,7 @@ const AttachmentCell = (props) => {
             <IconButton aria-label="download" onClick={downloadFile}>
                 <FileDownloadIcon />
             </IconButton>
-            <IconButton aria-label="delete" onClick={() => props.onDeleteAttachement(props.attachmentId)}>
+            <IconButton aria-label="delete" onClick={() => props.onDeleteAttachment(props.attachmentId)}>
                 <DeleteIcon />
             </IconButton>
         </Box>

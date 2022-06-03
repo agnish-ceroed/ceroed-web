@@ -157,6 +157,11 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    deleteAttachement: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -793,6 +798,34 @@ const emissionActions = {
             [ActionTypes.CLEAR_UPLOAD_EMISSION_ATTACHEMENT]: (state, { payload }) =>
                 immutable(state, {
                     uploadAttachement: {
+                        data: { $set: {} },
+                        status: { $set: STATUS.IDLE }
+                    },
+                }),
+            
+            [ActionTypes.DELETE_EMISSION_ATTACHEMENT]: (state, { payload }) =>
+                immutable(state, {
+                    deleteAttachement: {
+                        status: { $set: STATUS.RUNNING }
+                    },
+                }),
+            [ActionTypes.DELETE_EMISSION_ATTACHEMENT_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    deleteAttachement: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS }
+                    },
+                }),
+            [ActionTypes.DELETE_EMISSION_ATTACHEMENT_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    deleteAttachement: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    },
+                }),
+            [ActionTypes.CLEAR_DELETE_EMISSION_ATTACHEMENT]: (state, { payload }) =>
+                immutable(state, {
+                    deleteAttachement: {
                         data: { $set: {} },
                         status: { $set: STATUS.IDLE }
                     },

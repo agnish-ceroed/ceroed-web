@@ -70,6 +70,7 @@ export const APIEndpoints = {
   LIST_EMISSION_AUDIT_TRAILS: (emissionId) => `${API_BASE_URL}/business/audit-trails/${emissionId}`,
   LIST_EMISSION_FILES: (emissionId) => `${API_BASE_URL}/business/attachment/${emissionId}`,
   UPLOAD_EMISSION_ATTACHEMENT: (emissionId) => `${API_BASE_URL}/business/attachment/${emissionId}`,
+  DELETE_EMISSION_ATTACHEMENT: (emissionId, attachementId) => `${API_BASE_URL}/business/attachment/${emissionId}/${attachementId}`,
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
