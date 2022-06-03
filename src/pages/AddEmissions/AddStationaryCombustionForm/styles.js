@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
     container: {
         backgroundColor: theme.palette.background.white,
-        height: '100%',
+        height: 'fit-content',
         width: '100%',
         borderRadius: 14,
         padding: theme.spacing(5, 7),
@@ -30,10 +30,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
     },
     buttonContainer: {
-        position: 'absolute',
-        bottom: theme.spacing(5),
-        right: theme.spacing(5),
-        backgroundColor: 'transparent',
+        padding: theme.spacing(4, 0),
     },
     button: {
         width: 160,

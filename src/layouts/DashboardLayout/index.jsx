@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../components/Header'
 import SideMenu from '../../components/SideMenu'
 import { listFacilities } from '../../redux/actions';
-import { settingsOption, sideMenuItems } from './pages';
+import { rolesEnum, settingsOption, sideMenuItems } from './pages';
 import useStyles from "./styles";
 
 const DashboardLayout = ({children}) => {
@@ -16,7 +16,9 @@ const DashboardLayout = ({children}) => {
     const role = useSelector((state) => state.auth.role);
 
     useEffect(() => {
-        dispatch(listFacilities());
+        if(role !== rolesEnum.AUDITOR) {
+            dispatch(listFacilities());
+        }
     }, [dispatch]);
 
     return <Box className={classes.dashboardContainer}>

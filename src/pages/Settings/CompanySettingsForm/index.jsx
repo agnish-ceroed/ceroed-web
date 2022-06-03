@@ -22,7 +22,7 @@ const CompanySettingsForm = () => {
     const companyData = useSelector(state => state.account.companyDetails.data)
     const updateCompanyData = useSelector(state => state.account.updateCompanyDetails)
     const userInfo = useSelector(state => state.auth.userInfo);
-    const isAdmin = userInfo.role !== rolesEnum.APPROVER;
+    const isAdmin = userInfo.role !== rolesEnum.AUDITOR;
     const yearList = getYears();
 
     useEffect(() => {

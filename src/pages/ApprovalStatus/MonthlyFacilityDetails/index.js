@@ -180,7 +180,7 @@ const MonthlyFacilityDetails = () => {
           actions={approvalMonthlyData?.actions}
           statusId={approvalMonthlyData?.monthly_approval_status_id}
         />
-        <Status
+        {approvalSummaryData.assigned_auditor_id && <Status
           status={approvalSummaryData.status}
           approvedBy={approvalSummaryData.approved_by_name}
           auditStatus={approvalSummaryData.audited_status}
@@ -188,7 +188,7 @@ const MonthlyFacilityDetails = () => {
           auditorAssigned={approvalSummaryData.assigned_to_name}
           auditorStatus={approvalSummaryData.audited_status}
           actions={approvalMonthlyData?.actions}
-        />
+        />}
         {!!energyAndMaterialsData.length && (
           <Container className={classes.tableContainer}>
             <CeroTable
