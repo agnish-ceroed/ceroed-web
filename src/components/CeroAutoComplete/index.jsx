@@ -24,6 +24,7 @@ const CeroAutoComplete = (props) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
+                        required={props.required}
                         name={props.name}
                         label={props.label}
                         onBlur={props.onBlur}

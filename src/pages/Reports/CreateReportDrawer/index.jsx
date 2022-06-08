@@ -33,9 +33,8 @@ const CreateReportDrawer = (props) => {
     (state) => state.listings.frameworkList.data
   );
   const topicList = useSelector((state) => state.listings.topicList.data);
-  const createReportStatus = useSelector(
-    (state) => state.reports.createReport.status
-  );
+  const topicFetchStatus = useSelector((state) => state.listings.topicList.status);
+  const createReportStatus = useSelector((state) => state.reports.createReport.status );
 
   const isButtonLoading = createReportStatus === STATUS.RUNNING;
 
@@ -63,7 +62,7 @@ const CreateReportDrawer = (props) => {
       name: reportData ? reportData.name : "",
       year: reportData ? dayjs(reportData.created_ts).get("year") : "",
       framework: reportData ? reportData.framework_id : "",
-      topic: reportData ? getReportTopic(reportData.topics) : [],
+      topic: reportData ? getReportTopic(reportData.topics) : topicOptionList,
     },
     validationSchema: createReportValidation,
     enableReinitialize: true,
@@ -99,6 +98,12 @@ const CreateReportDrawer = (props) => {
     dispatch(listFramework());
     dispatch(listTopic());
   }, [dispatch]);
+
+  useEffect(() => {
+    if(topicFetchStatus === STATUS.SUCCESS) {
+      createReportForm.setFieldValue('topic_id', topicOptionList);
+    }
+  }, [topicFetchStatus]);
 
   const getPrimaryPaymentDrawer = () => {
     return (
