@@ -4,23 +4,22 @@ import { Box } from "@mui/material";
 
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
-import CeroButton from '../../../components/CeroButton';
 
 export const TableColumns = [{
-    columnKey: 'company_name',
-    columnId: 'company_name',
+    columnKey: 'name',
+    columnId: 'name',
     columnHeader: 'Company',
 }, {
-    columnKey: 'company_email',
-    columnId: 'company_email',
+    columnKey: 'email',
+    columnId: 'email',
     columnHeader: 'Email',
 }, {
-    columnKey: 'company_estd_year',
-    columnId: 'company_estd_year',
+    columnKey: 'estd_year',
+    columnId: 'estd_year',
     columnHeader: 'Estd Year',
 }, {
-    columnKey: 'company_goal',
-    columnId: 'company_goal',
+    columnKey: 'goal',
+    columnId: 'goal',
     columnHeader: 'Goal',
 }]
 
