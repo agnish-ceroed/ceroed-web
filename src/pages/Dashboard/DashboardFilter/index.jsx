@@ -26,22 +26,22 @@ const DashboardFilter = (props) => {
     const onApply = () => {
         const filterValue = {}
         if (filterPeriod) {
-            filterValue.filterPeriod = filterPeriod;
+            filterValue.duration = filterPeriod;
         }
         if (facility) {
             filterValue.facility = facility;
         }
         if (filterStartYear) {
-            filterValue.filterStartYear = filterStartYear
+            filterValue.start_year = filterStartYear
         }
         if (filterStartMonth) {
-            filterValue.filterStartMonth = filterStartMonth
+            filterValue.start_month = filterStartMonth
         }
         if (filterEndYear) {
-            filterValue.filterEndYear = filterEndYear
+            filterValue.end_year = filterEndYear
         }
         if (filterEndMonth) {
-            filterValue.filterEndMonth = filterEndMonth
+            filterValue.end_month = filterEndMonth
         }
         onApplyFilter(filterValue);
     };

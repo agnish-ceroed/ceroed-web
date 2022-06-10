@@ -8,7 +8,7 @@ const CeroInfoPair = (props) => {
     return (
         <Box className={clsx(classes.container, props.classes?.container)} >
             <Typography className={clsx(classes.title, props.classes?.title)} >{props.title}</Typography>
-            <Typography className={clsx(classes.value, props.classes?.value)} >{props.value || '-'}</Typography>
+            <Typography className={clsx(classes.value, props.classes?.value)} >{props.value === 0 || props.value ?  props.value : '-'}</Typography>
         </Box>
     );
 };
