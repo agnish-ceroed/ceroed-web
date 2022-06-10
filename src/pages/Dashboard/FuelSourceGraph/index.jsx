@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 import CeroSankeyGraph from '../../../components/CeroSankeyGrpah';
 import { getFuelSourceEmission } from '../../../redux/actions';
@@ -20,6 +20,7 @@ const FuelSourceGraph = (props) => {
 
     return (
         <Paper className={classes.container}>
+            <Typography className={classes.graphTitle} >Fuel Source Emission</Typography>
             <CeroSankeyGraph
                 data={graphData}
                 width={window.innerWidth - 256 - 36*2}
