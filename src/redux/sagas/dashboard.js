@@ -104,6 +104,46 @@ export function* getDashboardStatistics(action) {
   }
 }
 
+export function* getFacilityTopicEmissionStatistics(action) {
+  try {
+    const { filter } = action.payload
+    const response = yield call(request, APIEndpoints.GET_FACILITY_TOPIC_EMISSION, {
+      method: 'GET',
+      payload: filter
+    })
+    yield put({
+      type: ActionTypes.GET_FACILITY_TOPIC_EMISSION_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_FACILITY_TOPIC_EMISSION_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
+export function* getFuelSourceEmission(action) {
+  try {
+    const { filter } = action.payload
+    const response = yield call(request, APIEndpoints.GET_FUEL_SOURCE_EMISSION, {
+      method: 'GET',
+      payload: filter
+    })
+    yield put({
+      type: ActionTypes.GET_FUEL_SOURCE_EMISSION_SUCCESS,
+      payload: response.response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_FUEL_SOURCE_EMISSION_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_EMISSION_YEAR, getEmissionYear),
@@ -111,6 +151,7 @@ export default function* root() {
     takeLatest(ActionTypes.GET_EMISSION_REGION, getEmissionRegion),
     takeLatest(ActionTypes.GET_EMISSIONS_BY_MONTH, getEmissionsByMonth),
     takeLatest(ActionTypes.GET_DASHBOARD_STATISTICS, getDashboardStatistics),
-
+    takeLatest(ActionTypes.GET_FACILITY_TOPIC_EMISSION, getFacilityTopicEmissionStatistics),
+    takeLatest(ActionTypes.GET_FUEL_SOURCE_EMISSION, getFuelSourceEmission),
   ])
 }

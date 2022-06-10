@@ -121,7 +121,9 @@ export const APIEndpoints = {
   GET_DASHBOARD_STATISTICS:
   `${API_BASE_URL}/business/dashboard-statistics`,
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
+  GET_FACILITY_TOPIC_EMISSION: `${API_BASE_URL}/business/graph/facilities-drill-down-emission-details`,
   GET_DASHBOARD_SUMMARY: `${API_BASE_URL}/auditor/dashboard-summary`,
+  GET_FUEL_SOURCE_EMISSION: `${API_BASE_URL}/business/graph/fuel-sources-target-sankey`,
 
   GET_YEARLY_AUDIT_SUMMARY: (year) =>
   `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,

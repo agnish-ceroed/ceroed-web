@@ -30,7 +30,17 @@ export const dashboardState = {
         data: {},
         status: STATUS.IDLE,
         message: ''
-    }
+    },
+    getFacilityTopicEmission: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
+    getFuelSource: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const dashboardActions = {
@@ -136,6 +146,48 @@ const dashboardActions = {
             [ActionTypes.GET_DASHBOARD_STATISTICS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     getStatistics: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_FACILITY_TOPIC_EMISSION]: (state) =>
+                immutable(state, {
+                    getFacilityTopicEmission: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_FACILITY_TOPIC_EMISSION_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    getFacilityTopicEmission: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_FACILITY_TOPIC_EMISSION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    getFacilityTopicEmission: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.GET_FUEL_SOURCE_EMISSION]: (state) =>
+                immutable(state, {
+                    getFuelSource: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_FUEL_SOURCE_EMISSION_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    getFuelSource: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.GET_FUEL_SOURCE_EMISSION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    getFuelSource: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }
