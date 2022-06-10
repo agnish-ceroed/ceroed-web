@@ -4,7 +4,10 @@ const useStyles = makeStyles((theme) => ({
     container: {
         padding: theme.spacing(4),
         width: '100%',
-        height: '100%'
+        height: '100%',
+        '& svg': {
+            padding: theme.spacing(0),
+        }
     },
     graphTitle: {
         fontSize: 20,
