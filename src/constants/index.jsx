@@ -170,6 +170,70 @@ export const emissionTypes = [
     id: "water_discharge",
     title: "Water discharge",
   },
+  {
+    id: "employees_turnover",
+    title: "Employees & Turnover",
+  },  {
+    id: "development_training",
+    title: "Development & Training",
+  },
+  {
+    id: "employee_health_safety_incident_record",
+    title: "Employee Health & Safety incident record",
+  },  {
+    id: "worker_safety_training_procedures",
+    title: "Worker safety training and procedures",
+  },
+  {
+    id: "age_based_statistics",
+    title: "Age-based statistics",
+  },  {
+    id: "gender_based_statistics",
+    title: "Gender-based statistics",
+  },  {
+    id: "discrimination_incident_record",
+    title: "Discrimination incident record",
+  },
+  {
+    id: "supplier_screening",
+    title: "Supplier screening",
+  }, {
+    id: "social_engagement_human_rights_training",
+    title: "Human Rights training",
+  },
+  {
+    id: "social_engagement_human_rights_training",
+    title: "Human Rights training",
+  }, {
+    id: "local_communities",
+    title: "Local communities",
+  }, {
+    id: "political_contributions",
+    title: "Political contributions",
+  },
+  {
+    id: "anti_corruption_disclosure",
+    title: "Anti-corruption disclosure",
+  }, {
+    id: "anti_corruption_training",
+    title: "Anti-corruption training",
+  }, {
+    id: "anti_competitive_disclosure",
+    title: "Anti-competitive disclosure",
+  },
+  {
+    id: "direct_economic_impact",
+    title: "Direct economic impact",
+  }, {
+    id: "indirect_economic_impact",
+    title: "Indirect economic impact",
+  }, {
+    id: "subsidies_financial_assistance",
+    title: "Subsidies and Financial Assistance",
+  }, {
+    id: "tax",
+    title: "Tax",
+  }
 ];
 
 export const emissionTypeData = [
@@ -232,12 +296,111 @@ export const emissionTypeData = [
   {
     id: "social",
     title: "Social",
-    subItems: [],
+    subItems: [{
+      id: "employment",
+      title: "Employment",
+      subItems: [
+        {
+          id: "employees_turnover",
+          title: "Employees & Turnover",
+        },  {
+          id: "development_training",
+          title: "Development & Training",
+        },
+      ],
+    }, {
+      id: "health_and_safety",
+      title: "Health & Safety",
+      subItems: [
+        {
+          id: "employee_health_safety_incident_record",
+          title: "Employee Health & Safety incident record",
+        },  {
+          id: "worker_safety_training_procedures",
+          title: "Worker safety training and procedures",
+        },
+      ],
+    }, {
+      id: "diversity",
+      title: "Diversity",
+      subItems: [
+        {
+          id: "age_based_statistics",
+          title: "Age-based statistics",
+        },  {
+          id: "gender_based_statistics",
+          title: "Gender-based statistics",
+        },  {
+          id: "discrimination_incident_record",
+          title: "Discrimination incident record",
+        },
+      ],
+    }, {
+      id: "supplier_and_operational_risk",
+      title: "Supplier and Operational risk",
+      subItems: [
+        {
+          id: "supplier_screening",
+          title: "Supplier screening",
+        }, {
+          id: "social_engagement_human_rights_training",
+          title: "Human Rights training",
+        },
+      ],
+    }, {
+      id: "social_engagement",
+      title: "Social Engagement",
+      subItems: [
+        {
+          id: "social_engagement_human_rights_training",
+          title: "Human Rights training",
+        }, {
+          id: "local_communities",
+          title: "Local communities",
+        }, {
+          id: "political_contributions",
+          title: "Political contributions",
+        },
+      ],
+    },],
   },
   {
     id: "governance",
     title: "Governance",
-    subItems: [],
+    subItems: [{
+      id: "Ethical Behaviour",
+      title: "Ethical Behaviour",
+      subItems: [
+        {
+          id: "anti_corruption_disclosure",
+          title: "Anti-corruption disclosure",
+        }, {
+          id: "anti_corruption_training",
+          title: "Anti-corruption training",
+        }, {
+          id: "anti_competitive_disclosure",
+          title: "Anti-competitive disclosure",
+        },
+      ],
+    }, {
+      id: "economic_and_financial_disclosure",
+      title: "Economic and financial disclosure",
+      subItems: [
+        {
+          id: "direct_economic_impact",
+          title: "Direct economic impact",
+        }, {
+          id: "indirect_economic_impact",
+          title: "Indirect economic impact",
+        }, {
+          id: "subsidies_financial_assistance",
+          title: "Subsidies and Financial Assistance",
+        }, {
+          id: "tax",
+          title: "Tax",
+        }
+      ],
+    },],
   },
 ];
 
