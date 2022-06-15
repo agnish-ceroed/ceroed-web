@@ -32,7 +32,7 @@ export const sideMenuItems = [
         text: 'Emissions',
         icon: <MoreHorizIcon/>,
         path: '/emissions',
-        roles: [rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
+        roles: [rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.SUSTAINABILITY_MANAGER]
     },
     {
         text: 'Simulations',

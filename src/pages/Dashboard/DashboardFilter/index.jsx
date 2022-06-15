@@ -15,9 +15,10 @@ const DashboardFilter = (props) => {
 
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
+    facilitiesList.splice(0, 0, { key: 'all', value: 'All' });
 
-    const [filterPeriod, setPeriod] = useState('');
-    const [facility, setFacility] = useState('');
+    const [filterPeriod, setPeriod] = useState('last_one_year');
+    const [facility, setFacility] = useState('all');
     const [filterStartYear, setStartYear] = useState('');
     const [filterStartMonth, setStartMonth] = useState('');
     const [filterEndYear, setEndYear] = useState('');
@@ -28,7 +29,7 @@ const DashboardFilter = (props) => {
         if (filterPeriod) {
             filterValue.duration = filterPeriod;
         }
-        if (facility) {
+        if (facility && facility !== 'all') {
             filterValue.facility = facility;
         }
         if (filterStartYear) {

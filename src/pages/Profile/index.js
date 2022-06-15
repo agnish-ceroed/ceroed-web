@@ -9,7 +9,7 @@ const Profile = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h4" component="h4" >Profile Page</Typography>
+                <Typography variant="h4" component="h4" >Profile</Typography>
             </Container>
         </DashboardLayout>
     );

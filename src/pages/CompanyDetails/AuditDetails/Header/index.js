@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { Container, Grid, Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Container, Box, IconButton } from "@mui/material";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useNavigate } from "react-router";
 
 import { sampleYear } from "../../../../constants";
 import CeroDropdown from "../../../../components/CeroDropdown";
@@ -15,16 +17,25 @@ const Header = ({
   isLoading,
 }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [filterYear, setYear] = useState(selectedYear);
+
+  useEffect(() => {
+    setYear(selectedYear);
+  }, [selectedYear]);
+
+  const onChangeYear = ({ target }) => {
+    setYear(target.value);
+    onApplyFilter(target.value);
+  }
 
   return (
     <Container className={classes.headerContainer}>
-      <Grid
-        className={classes.filterContainer}
-        container
-        alignItems="center"
-        justifyContent="space-between"
-      >
+        <Box className={classes.backbuttonContainer}>
+            <IconButton className={classes.editIcon} onClick={(e) => navigate(-1)}>
+              <ArrowBackIosIcon />
+            </IconButton>
+        </Box>
         <Box className={classes.yearContainer}>
           <CeroDropdown
             classes={{ container: classes.dropdown }}
@@ -32,16 +43,11 @@ const Header = ({
             label="Year"
             fullWidth
             options={sampleYear}
-            onChange={({ target }) => setYear(target.value)}
-            selectedValue={filterYear}
-          />
-          <CeroButton
-            buttonText="Apply"
-            className={classes.buttonPrimary}
-            onClick={() => onApplyFilter(filterYear)}
+            onChange={onChangeYear}
+            selectedValue={parseInt(filterYear)}
           />
         </Box>
-        <Box className={classes.yearContainer}>
+        <Box className={classes.ticketContainer}>
           <CeroButton
             buttonText={"Raise a ticket"}
             // buttonText={isLoading ? "Loading..." : "Raise a ticket"}
@@ -59,7 +65,6 @@ const Header = ({
             />
           )}
         </Box>
-      </Grid>
     </Container>
   );
 };

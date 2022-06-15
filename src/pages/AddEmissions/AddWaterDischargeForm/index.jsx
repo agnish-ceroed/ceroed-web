@@ -135,15 +135,15 @@ const AddWaterDischargeForm = (props) => {
                             />
                             <CeroSelect
                                 required
-                                id="stressType"
-                                name="stressType"
-                                label="Stress Type"
+                                id="destination"
+                                name="destination"
+                                label="Destination"
                                 fullWidth
-                                options={stressTypeList}
-                                selectedValue={formik.values.stressType}
+                                options={waterDestinationList}
+                                selectedValue={formik.values.destination}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.stressType && formik.errors.stressType}
+                                error={formik.touched.destination && formik.errors.destination}
                             />
                             <CeroSelect
                                 required
@@ -161,7 +161,7 @@ const AddWaterDischargeForm = (props) => {
                                 required
                                 id="amountOfFuel"
                                 name="amountOfFuel"
-                                label="Amount of Fuel"
+                                label="Amount of Water"
                                 value={formik.values.amountOfFuel}
                                 fullWidth
                                 onChange={formik.handleChange}
@@ -170,17 +170,18 @@ const AddWaterDischargeForm = (props) => {
                             />
                         </Grid>
                         <Grid item container direction={'column'} md={6} xs={12}>
+                            
                             <CeroSelect
                                 required
-                                id="destination"
-                                name="destination"
-                                label="Destination"
+                                id="stressType"
+                                name="stressType"
+                                label="Stress Type"
                                 fullWidth
-                                options={waterDestinationList}
-                                selectedValue={formik.values.destination}
+                                options={stressTypeList}
+                                selectedValue={formik.values.stressType}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.destination && formik.errors.destination}
+                                error={formik.touched.stressType && formik.errors.stressType}
                             />
                             <CeroAutoComplete
                                 id="year"
@@ -218,7 +219,7 @@ const AddWaterDischargeForm = (props) => {
                                 required
                                 id="fuelUnit"
                                 name="fuelUnit"
-                                label="Fuel Unit"
+                                label="Unit"
                                 fullWidth
                                 options={fuelUnits}
                                 selectedValue={formik.values.fuelUnit}

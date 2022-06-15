@@ -26,9 +26,9 @@ export const addWaterDischargeCombustionValidation = yup.object({
         .string('Treatment Level is required')
         .required('Treatment Level is required'),
     fuelUnit: yup
-        .string('Fuel unit is required')
-        .required('Fuel unit is required'),
+        .string('Unit is required')
+        .required('Unit is required'),
     amountOfFuel: yup
-        .string('Amount of fuel is required')
-        .required('Amount of fuel is required'),
+        .string('Amount of water is required')
+        .required('Amount of water is required'),
 });

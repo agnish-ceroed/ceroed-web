@@ -15,7 +15,7 @@ import FuelSourceGraph from './FuelSourceGraph';
 
 const Dashboard = () => {
     const classes = useStyles();
-    const [filter, setFilter] = useState();
+    const [filter, setFilter] = useState({ duration: 'last_one_year'});
 
     const onApplyFilter = (filter) => {
         setFilter(filter);

@@ -3,7 +3,8 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   headerContainer: {
     width: "100%",
-    padding: 0,
+    paddingTop: 20,
+    display: 'flex',
   },
   filterContainer: {
     paddingTop: 20,
@@ -11,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
   yearContainer: {
     display: "flex",
+  },
+  ticketContainer:{
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   dropdown: {
     width: 82,
@@ -30,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     height: 37,
     fontSize: 13,
   },
+  backbuttonContainer: {
+    marginRight: theme.spacing(2),
+  }
 }));
 
 export default useStyles;

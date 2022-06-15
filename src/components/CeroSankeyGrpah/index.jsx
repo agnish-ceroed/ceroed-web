@@ -160,7 +160,6 @@ const CeroSankeyGraph = props => {
     );
   };
   
-  console.log('data', props.data)
   if (props.data?.length) {
     const formatSankeyData = formattedSankeyData(props.data)
     graph.current = sankey(formatSankeyData);

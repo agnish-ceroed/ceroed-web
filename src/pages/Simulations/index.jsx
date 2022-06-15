@@ -9,7 +9,7 @@ const Simulations = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h4" component="h4" >Simulations Page</Typography>
+                <Typography variant="h4" component="h4" >Simulations</Typography>
             </Container>
         </DashboardLayout>
     );

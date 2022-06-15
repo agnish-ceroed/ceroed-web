@@ -140,9 +140,10 @@ export function* getManagerList(action) {
     const { role, facility_id } = action.payload;
     const response = yield call(
       request,
-      APIEndpoints.GET_MANAGER_LIST(role, facility_id),
+      APIEndpoints.GET_MANAGER_LIST(role),
       {
         method: "GET",
+        payload: { facility_id }
       }
     );
     yield put({

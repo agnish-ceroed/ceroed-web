@@ -91,6 +91,13 @@ const AuditDetails = () => {
   }, [dispatch, company, id, year]);
 
   useEffect(() => {
+    if (auditDetailsState.status === STATUS.ERROR) {
+      dispatch(approveCompanyAuditReset());
+      enqueueSnackbar(auditDetailsState.message || "Something went wrong", { variant: "error" });
+    }
+  }, [auditDetailsState, dispatch, enqueueSnackbar]);
+
+  useEffect(() => {
     if (approveAuditStatus === STATUS.SUCCESS) {
       dispatch(approveCompanyAuditReset());
       dispatch(getCompanyAuditDetails(company, id, year));
@@ -120,9 +127,10 @@ const AuditDetails = () => {
   return (
     <DashboardLayout>
       <Container className={classes.container}>
+        <Typography className={classes.title}>{`Audit Summary ${auditDetails?.year || ''}`}</Typography>
         <Header
           onApplyFilter={onApplyFilter}
-          selectedYear={year}
+          selectedYear={year || auditDetails.year}
           isApproveAuditVisible={auditDetails.status === "pending"}
           onApproveAudit={onApproveAudit}
           onRaiseAuditTicket={() => setIsDrawerOpen(true)}

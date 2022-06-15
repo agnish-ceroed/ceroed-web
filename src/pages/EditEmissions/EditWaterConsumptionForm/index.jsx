@@ -157,7 +157,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
                                 required
                                 id="amountOfFuel"
                                 name="amountOfFuel"
-                                label="Amount of Fuel"
+                                label="Amount of Water"
                                 value={formik.values.amountOfFuel}
                                 fullWidth
                                 onChange={formik.handleChange}
@@ -204,7 +204,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
                                 required
                                 id="fuelUnit"
                                 name="fuelUnit"
-                                label="Fuel Unit"
+                                label="Unit"
                                 fullWidth
                                 options={fuelUnits}
                                 selectedValue={formik.values.fuelUnit}

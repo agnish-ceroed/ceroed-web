@@ -78,10 +78,8 @@ export const APIEndpoints = {
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
   LIST_GRID_REGIONS: (countryId) =>
     `${API_BASE_URL}/business/listings/countries/${countryId}/grid_regions`,
-  GET_MANAGER_LIST: (role, facility_id) =>
-    `${API_BASE_URL}/business/users/get-managers/${role}${
-      facility_id ? `/${facility_id}` : ""
-    }`,
+  GET_MANAGER_LIST: (role) =>
+    `${API_BASE_URL}/business/users/get-managers/${role}`,
 
   LIST_ASSIGNEE: `${API_BASE_URL}/business/tickets/assignee-list`,
   LIST_FRAMEWORK: `${API_BASE_URL}/business/reports/list-frameworks`,

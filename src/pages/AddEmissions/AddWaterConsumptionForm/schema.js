@@ -20,9 +20,9 @@ export const waterConsumptionValidation = yup.object({
         .string('Source type is required')
         .required('Source type is required'),
     fuelUnit: yup
-        .string('Fuel unit is required')
-        .required('Fuel unit is required'),
+        .string('Unit is required')
+        .required('Unit is required'),
     amountOfFuel: yup
-        .string('Amount of fuel is required')
-        .required('Amount of fuel is required'),
+        .string('Amount of water is required')
+        .required('Amount of water is required'),
 });

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 
 import CeroDropdown from "../../../components/CeroDropdown";
-import CeroButton from "../../../components/CeroButton";
 import { sampleYear } from "../../../constants";
 import useStyles from "./styles";
 
@@ -13,15 +12,12 @@ const CompanyFilter = (props) => {
 
     const [filterYear, setYear] = useState(sampleYear[0].key);
 
-    const onClear = () => {
-        setYear('');
-    }
-
-    const onApply = () => {
+    const onApply = (e) => {
         const filterValue = {};
-        if (filterYear) {
-            filterValue.year = filterYear;
+        if (e.target.value) {
+            filterValue.year = e.target.value;
         }
+        setYear(e.target.value)
         onApplyFilter(filterValue);
     };
 
@@ -34,21 +30,9 @@ const CompanyFilter = (props) => {
                         label="Year"
                         fullWidth
                         options={sampleYear}
-                        onChange={({ target }) => setYear(target.value)}
+                        onChange={onApply}
                         selectedValue={filterYear}
                     />
-                </Grid>
-                <Grid item xs={1.5}>
-                    <CeroButton
-                        buttonText="Clear"
-                        className={classes.button}
-                        onClick={onClear} />
-                </Grid>
-                <Grid item xs={1.5}>
-                    <CeroButton
-                        buttonText="Apply"
-                        className={classes.button}
-                        onClick={onApply} />
                 </Grid>
             </Grid>
         </Box>
