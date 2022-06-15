@@ -34,6 +34,11 @@ export const userState = {
     status: STATUS.IDLE,
     message: ''
   },
+  userInviteLogin: {
+    data: {},
+    status: STATUS.IDLE,
+    message: ''
+  },
 }
 
 const authActions = {
@@ -173,6 +178,28 @@ const authActions = {
       [ActionTypes.REFRESH_TOKEN_FAILURE]: state =>
         immutable(state, {
           refreshStatus: { $set: STATUS.ERROR }
+        }),
+
+      [ActionTypes.USER_INVITE_LOGIN]: state =>
+        immutable(state, {
+          logoutStatus: { $set: STATUS.RUNNING }
+        }),
+      [ActionTypes.USER_INVITE_LOGIN_SUCCESS]: (state, { payload, role }) =>
+        immutable(state, {
+          isAuthenticated: { $set: true },
+          userInfo: { $set: payload },
+          role: { $set: role },
+          userInviteLogin: {
+            status: { $set: STATUS.IDLE },
+            data: { $set: {} }
+          },
+        }),
+      [ActionTypes.USER_INVITE_LOGIN_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          isAuthenticated: { $set: false },
+          userInfo: { $set: {} },
+          status: { $set: STATUS.IDLE },
+          logoutStatus: { $set: STATUS.ERROR }
         }),
 
       [ActionTypes.USER_LOGOUT]: state =>

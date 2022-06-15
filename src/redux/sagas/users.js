@@ -100,6 +100,25 @@ export function* deleteUser(action) {
   }
 }
 
+export function* confirmEmail(action) {
+  try {
+    const { userId, code } = action.payload;
+    const response = yield call(request, APIEndpoints.SET_EMAIL_CONFIRMED(userId, code), {
+      method: "GET",
+    });
+    yield put({
+      type: ActionTypes.SET_EMAIL_CONFIRMED_SUCCESS,
+      payload: response,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.SET_EMAIL_CONFIRMED_FAILURE,
+      payload: err?.detail,
+    });
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.LIST_USERS, listUsers),
@@ -107,5 +126,6 @@ export default function* root() {
     takeLatest(ActionTypes.GET_USER_DETAILS, getUserDetails),
     takeLatest(ActionTypes.EDIT_USER, editUser),
     takeLatest(ActionTypes.DELETE_USER, deleteUser),
+    takeLatest(ActionTypes.SET_EMAIL_CONFIRMED, confirmEmail),
   ]);
 }

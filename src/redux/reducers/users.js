@@ -30,6 +30,11 @@ export const userState = {
         data: [],
         status: STATUS.IDLE,
         message: ''
+    },
+    setEmailConfirmed: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
     }
 }
 
@@ -164,6 +169,34 @@ const userActions = {
                         message: { $set: '' }
                     }
                 }),
+
+            [ActionTypes.SET_EMAIL_CONFIRMED]: (state, { payload }) =>
+                immutable(state, {
+                    setEmailConfirmed: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.SET_EMAIL_CONFIRMED_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    setEmailConfirmed: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.SET_EMAIL_CONFIRMED_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    setEmailConfirmed: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+            [ActionTypes.CLEAR_EMAIL_CONFIRMED_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    setEmailConfirmed: {
+                        status: { $set: STATUS.IDLE }
+                    }
+                }),
+
 
         },
         userState

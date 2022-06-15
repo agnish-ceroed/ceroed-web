@@ -207,6 +207,33 @@ export function* refreshToken() {
   }
 }
 
+export function* userInviteLogin(action) {
+  try {
+    const { userId, name, password, code } = action.payload
+    const response = yield call(request, APIEndpoints.USER_INVITE_LOGIN, {
+      method: 'POST',
+      disableAuthorization: true,
+      payload: { user_id: userId, code, name, password },
+    })
+    yield setCookie('auth_token_admin', response.access_token)
+    yield setCookie('access_token_expiry', response.access_token_expiry)
+    yield setCookie('user_details', JSON.stringify(response))
+    yield setCookie('role', response.role)
+    localStorage.setItem('password', password)
+    yield put({
+      type: ActionTypes.USER_LOGIN_SUCCESS,
+      payload: response,
+      role: response.role
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.USER_LOGIN_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
 export function* logout() {
   try {
     const accessToken = getCookie('auth_token_admin')
@@ -244,5 +271,6 @@ export default function* root() {
     takeLatest(ActionTypes.REFRESH_TOKEN, refreshToken),
     takeLatest(ActionTypes.USER_LOGOUT, logout),
     takeLatest(ActionTypes.CHANGE_PASSWORD, changePassword),
+    takeLatest(ActionTypes.USER_INVITE_LOGIN, userInviteLogin),
   ])
 }

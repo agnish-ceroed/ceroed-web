@@ -13,6 +13,8 @@ export const APIEndpoints = {
   SIGN_UP: `${API_BASE_URL}/business/signup`,
   LOGOUT: `${API_BASE_URL}/log_out`,
   CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
+  SET_EMAIL_CONFIRMED: (userId, code) => `${API_BASE_URL}/business/confirm-email/${userId}/${code}`,
+  USER_INVITE_LOGIN: `${API_BASE_URL}/business/set-password`,
 
   GET_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/account-details`,
   UPDATE_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/update`,

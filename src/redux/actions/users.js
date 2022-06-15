@@ -9,6 +9,8 @@ export const {
   editUser,
   deleteUser,
   resetUserStatus,
+  setEmailConfirmed,
+  clearEmailConfirmed,
 } = createActions({
   [ActionTypes.LIST_USERS]: () => ({}),
   [ActionTypes.ADD_USER]: (email, role, facility, manager) => ({
@@ -27,4 +29,6 @@ export const {
   }),
   [ActionTypes.DELETE_USER]: (userId) => ({ userId }),
   [ActionTypes.RESET_USER_STATUS]: () => ({}),
+  [ActionTypes.SET_EMAIL_CONFIRMED]: (userId, code) => ({ userId, code }),
+  [ActionTypes.CLEAR_EMAIL_CONFIRMED_FAILURE]: () => ({}),
 });
