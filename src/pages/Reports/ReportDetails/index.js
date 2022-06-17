@@ -30,8 +30,6 @@ const ReportDetails = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
-  const [isEditEnabled, setIsEditEnabled] = useState(false);
-  const [editorValue, setEditorValue] = useState("");
 
   const reportDetails = useSelector(
     (state) => state.reports.reportDetails.data
@@ -51,22 +49,9 @@ const ReportDetails = () => {
     id && dispatch(deleteReport(id));
   };
 
-  const onUpdateReport = () => {
-    const payload = {
-      id,
-      body: editorValue,
-    };
-    dispatch(updateReport(payload));
-  };
-
-  const onCancelEdit = () => {
-    setIsEditEnabled(false);
-    setEditorValue(reportDetails.body);
-  };
-
-  useEffect(() => {
-    reportDetails && reportDetails.body && setEditorValue(reportDetails.body);
-  }, [reportDetails]);
+  const onEditReport = () => {
+    window.open(reportDetails.edit_url, "_blank");
+  }
 
   useEffect(() => {
     if (deleteReportStatus === STATUS.SUCCESS) {
@@ -80,22 +65,10 @@ const ReportDetails = () => {
   }, [deleteReportStatus, enqueueSnackbar, dispatch, navigate]);
 
   useEffect(() => {
-    if (updateReportStatus === STATUS.SUCCESS) {
-      enqueueSnackbar("Report updated successfully", { variant: "success" });
-      dispatch(resetReportStatus());
-      setIsEditEnabled(false);
-    } else if (updateReportStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
-      dispatch(resetReportStatus());
-    }
-  }, [updateReportStatus, enqueueSnackbar, dispatch]);
-
-  useEffect(() => {
     id && dispatch(getReportDetails(id));
   }, [dispatch, id]);
 
   const isDeleteLoading = deleteReportStatus === STATUS.RUNNING;
-  const isUpdateLoading = updateReportStatus === STATUS.RUNNING;
 
   return (
     <DashboardLayout>
@@ -119,12 +92,18 @@ const ReportDetails = () => {
                   onClick={onDeleteReport}
                   disabled={isDeleteLoading}
                 />
+                <CeroButton
+                  buttonText="Edit Report"
+                  className={classes.buttonTeritiary}
+                  onClick={onEditReport}
+                  disabled={!reportDetails.preview_url}
+                />
               </Box>
             </Box>
 
             <Status reportDetails={reportDetails} />
             <Box className={classes.detailsContainer}>
-              {isEditEnabled ? (
+              {/* {isEditEnabled ? (
                 <>
                   <Box className={classes.editorContainer}>
                     <CeroEditor value={editorValue} setValue={setEditorValue} />
@@ -146,9 +125,9 @@ const ReportDetails = () => {
                     />
                   </Box>
                 </>
-              ) : (
+              ) : ( */}
                 <Box className={classes.bodyContainer}>
-                  <Tooltip
+                  {/* <Tooltip
                     title="Edit report details"
                     placement="bottom"
                     arrow
@@ -156,10 +135,11 @@ const ReportDetails = () => {
                     className={classes.tooltip}
                   >
                     <EditOutlinedIcon onClick={() => setIsEditEnabled(true)} />
-                  </Tooltip>
-                  {reportDetails.body && parse(reportDetails.body)}
+                  </Tooltip> */}
+                  {/* {reportDetails.body && parse(reportDetails.body)} */}
+                  {reportDetails.preview_url && <iframe title="report-preview" src={reportDetails.preview_url} height={600} width={window.innerWidth - 256 - 36*2}/>}
                 </Box>
-              )}
+              {/* )} */}
             </Box>
           </Fragment>
         ) : (

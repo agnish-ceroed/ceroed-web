@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
     margin: theme.spacing(0, 5),
   },
+  buttonTeritiary:{
+    height: 37,
+    fontSize: 13,
+    margin: theme.spacing(0, 5),
+  },
   editorContainer: {
     height: "calc(100% - 50px)",
     width: "100%",
