@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
   detailsContainer: {
     flex: 1,
-    minHeight: '100vh',
+    minHeight: 'calc( 100vh + 30px )',
     overflow: "hidden",
     padding: theme.spacing(4),
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
