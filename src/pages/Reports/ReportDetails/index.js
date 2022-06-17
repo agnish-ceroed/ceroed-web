@@ -1,28 +1,22 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import clsx from "clsx";
 
-import { Container, Typography, Box, Tooltip, Zoom } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { Container, Typography, Box } from "@mui/material";
 
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import Status from "../Status";
 import CeroButton from "../../../components/CeroButton";
-import CeroEditor from "../../../components/CeroEditor";
 
 import {
   getReportDetails,
   deleteReport,
   resetReportStatus,
-  updateReport,
 } from "../../../redux/actions";
 import { STATUS } from "../../../redux/constants";
 
 import useStyles from "./styles";
-
-const parse = require("html-react-parser");
 
 const ReportDetails = () => {
   const classes = useStyles();
@@ -39,10 +33,6 @@ const ReportDetails = () => {
   );
   const deleteReportStatus = useSelector(
     (state) => state.reports.deleteReport.status
-  );
-
-  const updateReportStatus = useSelector(
-    (state) => state.reports.updateReport.status
   );
 
   const onDeleteReport = () => {
@@ -103,43 +93,9 @@ const ReportDetails = () => {
 
             <Status reportDetails={reportDetails} />
             <Box className={classes.detailsContainer}>
-              {/* {isEditEnabled ? (
-                <>
-                  <Box className={classes.editorContainer}>
-                    <CeroEditor value={editorValue} setValue={setEditorValue} />
-                  </Box>
-                  <Box
-                    className={clsx(classes.buttonContainer, classes.footer)}
-                  >
-                    <CeroButton
-                      buttonText="Cancel"
-                      className={classes.buttonSecondary}
-                      onClick={onCancelEdit}
-                      variant="outlined"
-                    />
-                    <CeroButton
-                      buttonText={isUpdateLoading ? "Saving..." : "Save"}
-                      className={classes.buttonPrimary}
-                      onClick={onUpdateReport}
-                      disabled={!editorValue || isUpdateLoading}
-                    />
-                  </Box>
-                </>
-              ) : ( */}
                 <Box className={classes.bodyContainer}>
-                  {/* <Tooltip
-                    title="Edit report details"
-                    placement="bottom"
-                    arrow
-                    TransitionComponent={Zoom}
-                    className={classes.tooltip}
-                  >
-                    <EditOutlinedIcon onClick={() => setIsEditEnabled(true)} />
-                  </Tooltip> */}
-                  {/* {reportDetails.body && parse(reportDetails.body)} */}
-                  {reportDetails.preview_url && <iframe title="report-preview" src={reportDetails.preview_url} height={600} width={window.innerWidth - 256 - 36*2}/>}
+                  {reportDetails.preview_url && <iframe title="report-preview" src={reportDetails.preview_url} height={window.innerHeight} width={window.innerWidth - 256 - 36*2}/>}
                 </Box>
-              {/* )} */}
             </Box>
           </Fragment>
         ) : (

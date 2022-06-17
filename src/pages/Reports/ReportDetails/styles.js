@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
   },
   detailsContainer: {
     flex: 1,
-    overflow: "auto",
+    minHeight: '100vh',
+    overflow: "hidden",
     padding: theme.spacing(4),
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     background: theme.palette.background.white,
