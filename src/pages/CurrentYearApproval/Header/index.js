@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Container, Grid, Typography, Box } from "@mui/material";
+
 import { sampleYear } from "../../../constants";
 import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
-import CreateTicketDrawer from "../../CreateTicketDrawer";
 
+import CreateTicketDrawer from "../../common/CreateTicketDrawer";
 import useStyles from "./styles";
 
 const Header = ({

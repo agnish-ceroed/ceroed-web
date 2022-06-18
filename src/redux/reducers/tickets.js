@@ -11,6 +11,12 @@ export const ticketState = {
     status: STATUS.IDLE,
     message: "",
   },
+  listScopeTickets: {
+    data: [],
+    count: {},
+    status: STATUS.IDLE,
+    message: "",
+  },
   createTicketDetails: {
     data: [],
     status: STATUS.IDLE,
@@ -62,6 +68,36 @@ const ticketActions = {
             message: { $set: payload },
           },
         }),
+
+      [ActionTypes.LIST_SCOPE_TICKETS]: (state, { payload }) =>
+        immutable(state, {
+          listScopeTickets: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.LIST_SCOPE_TICKETS_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          listScopeTickets: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+            count: { $set: payload.count },
+          },
+        }),
+      [ActionTypes.LIST_SCOPE_TICKETS_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          listScopeTickets: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+      [ActionTypes.RESET_LIST_SCOPE_TICKETS]: (state, { payload }) =>
+        immutable(state, {
+          listScopeTickets: {
+            status: { $set: STATUS.IDLE },
+            data: { $set: [] },
+          },
+        }),
+
 
       [ActionTypes.CREATE_TICKET]: (state, { payload }) =>
         immutable(state, {

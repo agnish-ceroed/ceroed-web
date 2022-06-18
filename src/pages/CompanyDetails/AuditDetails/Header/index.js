@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { Container, Box, IconButton } from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from "react-router";
 
 import { sampleYear } from "../../../../constants";
 import CeroDropdown from "../../../../components/CeroDropdown";
 import CeroButton from "../../../../components/CeroButton";
+import ListTicketDrawer from "../../../common/ListTicketsDrawer";
 import useStyles from "./styles";
 
 const Header = ({
+  auditId,
   onApplyFilter,
   selectedYear,
   isApproveAuditVisible,
@@ -18,7 +21,9 @@ const Header = ({
 }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+
   const [filterYear, setYear] = useState(selectedYear);
+  const [showTickets, setShowTickets] = useState(false);
 
   useEffect(() => {
     setYear(selectedYear);
@@ -28,6 +33,14 @@ const Header = ({
     setYear(target.value);
     onApplyFilter(target.value);
   }
+
+  const onclickShowTickets = () => {
+    setShowTickets(true);
+  };
+
+  const onCloseTickets = () => {
+    setShowTickets(false);
+  };
 
   return (
     <Container className={classes.headerContainer}>
@@ -48,14 +61,6 @@ const Header = ({
           />
         </Box>
         <Box className={classes.ticketContainer}>
-          <CeroButton
-            buttonText={"Raise a ticket"}
-            // buttonText={isLoading ? "Loading..." : "Raise a ticket"}
-            className={classes.buttonSecondary}
-            onClick={onRaiseAuditTicket}
-            // disabled={isLoading}
-            variant="outlined"
-          />
           {isApproveAuditVisible && (
             <CeroButton
               buttonText={isLoading ? "Loading..." : "Approve audit"}
@@ -64,7 +69,19 @@ const Header = ({
               disabled={isLoading}
             />
           )}
+          <CeroButton
+            buttonText={"Raise a ticket"}
+            // buttonText={isLoading ? "Loading..." : "Raise a ticket"}
+            className={classes.buttonSecondary}
+            onClick={onRaiseAuditTicket}
+            // disabled={isLoading}
+            variant="outlined"
+          />
+          <IconButton onClick={onclickShowTickets}>
+              <AssignmentIcon />
+          </IconButton>
         </Box>
+        {showTickets && <ListTicketDrawer isOpen={showTickets} scope="audit" scopeId={auditId} onClose={onCloseTickets} />}
     </Container>
   );
 };

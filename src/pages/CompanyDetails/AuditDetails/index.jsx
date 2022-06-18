@@ -7,16 +7,14 @@ import { useSnackbar } from "notistack";
 
 import CeroTable from "../../../components/CeroTable";
 import DashboardLayout from "../../../layouts/DashboardLayout";
-import CreateTicketDrawer from "../../CreateTicketDrawer";
 import Header from "./Header";
-
 import {
   getCompanyAuditDetails,
   approveCompanyAudit,
   approveCompanyAuditReset,
 } from "../../../redux/actions";
 import { STATUS } from "../../../redux/constants";
-
+import CreateTicketDrawer from "../../common/CreateTicketDrawer";
 import useStyles from "./styles";
 
 const AuditDetails = () => {
@@ -129,6 +127,7 @@ const AuditDetails = () => {
       <Container className={classes.container}>
         <Typography className={classes.title}>{`Audit Summary ${auditDetails?.year || ''}`}</Typography>
         <Header
+          auditId={id}
           onApplyFilter={onApplyFilter}
           selectedYear={year || auditDetails.year}
           isApproveAuditVisible={auditDetails.status === "pending"}

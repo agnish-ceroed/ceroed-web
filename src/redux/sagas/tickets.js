@@ -107,6 +107,24 @@ export function* listTickets({ payload }) {
   }
 }
 
+export function* listScopeTickets({ payload }) {
+  try {
+    const response = yield call(request, APIEndpoints.LIST_SCOPE_TICKETS(payload.scope, payload.scopeId), {
+      method: "GET",
+    });
+    yield put({
+      type: ActionTypes.LIST_SCOPE_TICKETS_SUCCESS,
+      payload: response.tickets,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.LIST_SCOPE_TICKETS_FAILURE,
+      payload: err,
+    });
+  }
+}
+
 export function* getTicketDetails({ payload }) {
   try {
     const apiUrl = payload.companyId
@@ -158,6 +176,7 @@ export default function* root() {
     takeLatest(ActionTypes.CLOSE_TICKET, closeTicket),
     takeLatest(ActionTypes.DELETE_TICKET, deleteTicket),
     takeLatest(ActionTypes.LIST_TICKETS, listTickets),
+    takeLatest(ActionTypes.LIST_SCOPE_TICKETS, listScopeTickets),
     takeLatest(ActionTypes.GET_TICKET_DETAILS, getTicketDetails),
     takeLatest(ActionTypes.ADD_RESPONSE, addResponse),
   ]);

@@ -143,6 +143,7 @@ export const APIEndpoints = {
     CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
     LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/business/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
+    LIST_SCOPE_TICKETS: (scope, scopeId) => `${API_BASE_URL}/business/tickets/scope/${scope}/${scopeId}`,
     COMPANY_LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.company}/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
     COMPANY_CREATE_TICKET: (payload) =>

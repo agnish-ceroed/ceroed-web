@@ -9,8 +9,8 @@ import CeroButton from "../../../../components/CeroButton";
 import { submitApproval, resetApprovalData, requestApproval, approveRequest } from "../../../../redux/actions";
 import { STATUS } from "../../../../redux/constants";
 
+import CreateTicketDrawer from "../../../common/CreateTicketDrawer";
 import useStyles from "./styles";
-import CreateTicketDrawer from "../../../CreateTicketDrawer";
 
 const Header = ({
   onApplyFilter,

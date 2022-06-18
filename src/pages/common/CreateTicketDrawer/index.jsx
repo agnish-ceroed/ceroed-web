@@ -4,15 +4,12 @@ import { Box } from "@mui/material";
 import { useFormik } from "formik";
 import { useSnackbar } from 'notistack';
 
-import CeroInput from "../../components/CeroInput";
-import CeroSelect from "../../components/CeroSelect";
-import CeroSideSheetDrawer from "../../components/CeroSideSheetDrawer";
-
-import { listAssignee, createTicket, resetTicketStatus } from "../../redux/actions";
-import { STATUS } from "../../redux/constants";
-
+import CeroInput from "../../../components/CeroInput";
+import CeroSelect from "../../../components/CeroSelect";
+import CeroSideSheetDrawer from "../../../components/CeroSideSheetDrawer";
+import { listAssignee, createTicket, resetTicketStatus } from "../../../redux/actions";
 import { createTicketValidation, createTicketAuditorValidation } from "./schema";
-
+import { STATUS } from "../../../redux/constants";
 import useStyles from "./styles";
 
 const CreateTicketDrawer = (props) => {

@@ -14,9 +14,9 @@ import WaterConsumptionDetails from "./WaterConsumptionDetails";
 import WaterDischargeDetails from "./WaterDischargeDetails";
 import WasteCombustionDetails from "./WasteCombustionDetails";
 import TransportationDetails from "./Transportation";
-import useStyles from "./styles";
 import { rolesEnum } from "../../layouts/DashboardLayout/pages";
-import CreateTicketDrawer from "../CreateTicketDrawer";
+import CreateTicketDrawer from "../common/CreateTicketDrawer";
+import useStyles from "./styles";
 
 const EmissionsDetails = () => {
   const classes = useStyles();

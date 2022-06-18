@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, Typography, Box, Tabs, Tab } from "@mui/material";
+import { Container, Grid, Typography, Box, Tabs, Tab, IconButton } from "@mui/material";
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -12,6 +13,7 @@ import CeroButton from '../../../components/CeroButton';
 import ListComments from '../ListComment';
 import ListAuditTrails from '../ListAuditTrails';
 import ListEmissionFiles from '../ListEmissionFiles';
+import ListTicketDrawer from '../../common/ListTicketsDrawer';
 import useStyles from "./styles";
 
 const WaterDischargeDetails = (props) => {
@@ -22,7 +24,8 @@ const WaterDischargeDetails = (props) => {
     const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen } = props
 
     const [value, setValue] = useState(0);
-    
+    const [showTickets, setShowTickets] = useState(false);
+
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
     useEffect(() => {
@@ -51,6 +54,14 @@ const WaterDischargeDetails = (props) => {
         dispatch(deleteEmissions(requestData))
     };
 
+    const onclickShowTickets = () => {
+        setShowTickets(true);
+    };
+
+    const onCloseTickets = () => {
+        setShowTickets(false);
+    };
+
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
@@ -62,6 +73,9 @@ const WaterDischargeDetails = (props) => {
                         className={classes.buttonSecondary}
                         onClick={() => setIsDrawerOpen(true)}
                     />
+                    <IconButton onClick={onclickShowTickets}>
+                        <AssignmentIcon />
+                    </IconButton>
                 </Box>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
@@ -111,6 +125,7 @@ const WaterDischargeDetails = (props) => {
             {value === 0 && <ListComments emissionId={emissionId} />}
             {value === 1 && <ListAuditTrails emissionId={emissionId} />}
             {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
+            {showTickets && <ListTicketDrawer isOpen={showTickets} scope="emission" scopeId={emissionId} onClose={onCloseTickets} />}
         </Container>
     )
 }
