@@ -1,22 +1,19 @@
 import { Container } from "@mui/material";
-import { Box } from "@mui/system";
+import dayjs from "dayjs";
 
+import CeroInfoPair from "../../../components/CeroInfoPair";
 import useStyles from "./styles";
 
 const Status = (props) => {
   const classes = useStyles();
-  const { status, assignedTo, auditStatus, noOfTickets } = props;
 
   return (
     <Container className={classes.container}>
-      {status && <Box>{`Status: ${status}`}</Box>}
-      <Box>{`Audit assigned to: ${assignedTo} (Auditor)`}</Box>
-      <Box>{`Audit status: ${auditStatus}`}</Box>
-      {noOfTickets && (
-        <Box
-          className={classes.ticket}
-        >{`No of tickets opened: ${noOfTickets}`}</Box>
-      )}
+      <CeroInfoPair title="Status" value={props.status} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Assignee" value={props.assignedTo} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Audited by" value={props.auditedBy} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Audited on" value={props.auditedOn ? dayjs(props.props.auditedOn).format('DD/MM/YYYY') : '-'} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="No of Tickets" value={props.noOfTickets} classes={{ container: classes.infoContainer}} />
     </Container>
   );
 };

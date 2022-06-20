@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   ticket: {
     color: theme.palette.text.accent,
   },
+  infoContainer: {
+    maxWidth: 400,
+  }
 }));
 
 export default useStyles;

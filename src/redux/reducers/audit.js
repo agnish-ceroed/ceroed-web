@@ -17,6 +17,12 @@ export const auditState = {
     message: "",
   },
 
+  auditYearlySummaryOverview: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
+
   requestAudit: {
     status: STATUS.IDLE,
     message: "",
@@ -63,6 +69,27 @@ const auditActions = {
       [ActionTypes.GET_YEARLY_AUDIT_SUMMARY_FAILURE]: (state, { payload }) =>
         immutable(state, {
           auditYearlySummary: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+
+      [ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW]: (state, { payload }) =>
+        immutable(state, {
+          auditYearlySummaryOverview: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          auditYearlySummaryOverview: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          auditYearlySummaryOverview: {
             status: { $set: STATUS.ERROR },
             message: { $set: payload },
           },

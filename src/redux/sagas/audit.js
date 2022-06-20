@@ -49,6 +49,28 @@ export function* getYearlyAuditSummary({ payload }) {
   }
 }
 
+export function* getYearlyAuditSummaryOverview({ payload }) {
+  try {
+    const response = yield call(
+      request,
+      APIEndpoints.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW(payload.year),
+      {
+        method: "GET",
+      }
+    );
+    yield put({
+      type: ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW_SUCCESS,
+      payload: response.yearly_audit_summary,
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW_FAILURE,
+      payload: err.error,
+    });
+  }
+}
+
 export function* requestAudit({ payload }) {
   try {
     const response = yield call(
@@ -77,6 +99,7 @@ export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_AUDIT_SUMMARY, getAuditSummaryList),
     takeLatest(ActionTypes.GET_YEARLY_AUDIT_SUMMARY, getYearlyAuditSummary),
+    takeLatest(ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW, getYearlyAuditSummaryOverview),
     takeLatest(ActionTypes.REQUEST_AUDIT, requestAudit),
   ]);
 }

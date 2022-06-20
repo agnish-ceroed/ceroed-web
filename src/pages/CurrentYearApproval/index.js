@@ -15,6 +15,7 @@ import {
   resetRequestAuditData,
   getYearlyAuditSummary,
   requestAudit,
+  getYearlyAuditSummaryOverview,
 } from "../../redux/actions";
 import { STATUS } from "../../redux/constants";
 
@@ -31,6 +32,9 @@ const CurrentYearApproval = () => {
 
   const auditYearlySummary = useSelector(
     (state) => state.audit.auditYearlySummary.data
+  );
+  const auditYearlySummaryOverView = useSelector(
+    (state) => state.audit.auditYearlySummaryOverview.data
   );
   const auditYearlySummaryStatus = useSelector(
     (state) => state.audit.auditYearlySummary.status
@@ -94,7 +98,10 @@ const CurrentYearApproval = () => {
   ];
 
   useEffect(() => {
-    year && dispatch(getYearlyAuditSummary({year}));
+    if(year) {
+      dispatch(getYearlyAuditSummary(year));
+      dispatch(getYearlyAuditSummaryOverview(year))
+    }
   }, [dispatch, year]);
 
   useEffect(() => {
@@ -163,10 +170,11 @@ const CurrentYearApproval = () => {
         )}
         {auditYearlySummaryStatus === STATUS.SUCCESS && (
           <Status
-            // status={auditStatus[auditYearlySummary.status]}
-            assignedTo={auditYearlySummary.actions.auditor_name}
-            auditStatus={auditStatus[auditYearlySummary.status]}
-            // noOfTickets="01/04"
+            status={auditStatus[auditYearlySummaryOverView.status]}
+            assignedTo={auditYearlySummaryOverView.assigned_to_name}
+            auditedBy={auditYearlySummaryOverView.audited_by_name}
+            auditedOn={auditYearlySummaryOverView.audited_on}
+            noOfTickets={auditYearlySummaryOverView.total_tickets}
           />
         )}
         {auditYearlySummaryStatus === STATUS.SUCCESS && (
