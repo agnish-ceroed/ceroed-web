@@ -41,6 +41,21 @@ export const dashboardState = {
         status: STATUS.IDLE,
         message: ''
     },
+    notificationList: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
+    markAllRead: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
+    markAsRead: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const dashboardActions = {
@@ -188,6 +203,69 @@ const dashboardActions = {
             [ActionTypes.GET_FUEL_SOURCE_EMISSION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     getFuelSource: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.LIST_NOTIFICATIONS]: (state) =>
+                immutable(state, {
+                    notificationList: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.LIST_NOTIFICATIONS_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    notificationList: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.LIST_NOTIFICATIONS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    notificationList: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.MARK_ALL_READ]: (state) =>
+                immutable(state, {
+                    markAllRead: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.MARK_ALL_READ_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    markAllRead: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.MARK_ALL_READ_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    markAllRead: {
+                        status: { $set: STATUS.ERROR },
+                        message: { $set: parseError(payload) }
+                    }
+                }),
+
+            [ActionTypes.MARK_AS_READ]: (state) =>
+                immutable(state, {
+                    markAsRead: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.MARK_AS_READ_SUCCESS]: (state, { payload }) =>
+                immutable(state, {
+                    markAsRead: {
+                        status: { $set: STATUS.SUCCESS },
+                        data: { $set: payload },
+                    }
+                }),
+            [ActionTypes.MARK_AS_READ_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    markAsRead: {
                         status: { $set: STATUS.ERROR },
                         message: { $set: parseError(payload) }
                     }

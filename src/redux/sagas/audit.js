@@ -27,9 +27,11 @@ export function* getAuditSummaryList() {
 
 export function* getYearlyAuditSummary({ payload }) {
   try {
+    const {year, statusId} = payload
+    const apiEndpoint = year ? APIEndpoints.GET_YEARLY_AUDIT_SUMMARY(year) : APIEndpoints.GET_AUDIT_SUMMARY_BY_ID(statusId)
     const response = yield call(
       request,
-      APIEndpoints.GET_YEARLY_AUDIT_SUMMARY(payload.year),
+      apiEndpoint,
       {
         method: "GET",
       }

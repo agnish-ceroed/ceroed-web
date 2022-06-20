@@ -1,7 +1,8 @@
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+// import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import { Box } from '@mui/system';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SettingsMenu from './SettingsMenu'
-import { Box } from '@mui/system';
+import NotificationIcon from './NotificationIcon'
 
 import useStyles from "./styles";
 
@@ -17,7 +18,7 @@ const Header = ({placeholder, onChange}) => {
                 onChange={onChange}/> */}
         </Box>
         <Box className={classes.notificationContainer}>
-            <NotificationsOutlinedIcon className={classes.notificationIcon}/>
+            <NotificationIcon />
             <SettingsMenu/>
         </Box>
     </Box>

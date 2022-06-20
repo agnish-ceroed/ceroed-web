@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
         outline: 'none',
 
     },
-    notificationIcon: {
-        color: `${theme.palette.icon.gray}!important`,
-    },
     notificationContainer: {
         display: 'flex',
         alignItems: 'center',

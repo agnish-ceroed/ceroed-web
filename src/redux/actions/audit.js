@@ -9,7 +9,7 @@ export const {
   resetRequestAuditData,
 } = createActions({
   [ActionTypes.GET_AUDIT_SUMMARY]: () => {},
-  [ActionTypes.GET_YEARLY_AUDIT_SUMMARY]: (year) => ({ year }),
+  [ActionTypes.GET_YEARLY_AUDIT_SUMMARY]: (year) => (year),
   [ActionTypes.REQUEST_AUDIT]: (payload) => (payload),
   [ActionTypes.RESET_REQUEST_AUDIT_DATA]: () => {},
 });

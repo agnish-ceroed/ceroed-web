@@ -124,9 +124,17 @@ export const APIEndpoints = {
   GET_FACILITY_TOPIC_EMISSION: `${API_BASE_URL}/business/graph/facilities-drill-down-emission-details`,
   GET_DASHBOARD_SUMMARY: `${API_BASE_URL}/auditor/dashboard-summary`,
   GET_FUEL_SOURCE_EMISSION: `${API_BASE_URL}/business/graph/fuel-sources-target-sankey`,
+  MARK_ALL_READ_AUDITOR_NOTIFICATIONS: `${API_BASE_URL}/auditor/notifications/mark-all-read`,
+  MARK_ALL_READ: `${API_BASE_URL}/business/notifications/mark-all-read`,
+  MARK_AS_READ_AUDITOR_NOTIFICATIONS: (id) => `${API_BASE_URL}/auditor/notifications/mark-read/${id}`,
+  MARK_AS_READ: (id) => `${API_BASE_URL}/business/notifications/mark-read/${id}`,
+  LIST_NOTIFICATIONS: (unread = true) => `${API_BASE_URL}/business/notifications?unread=${unread}`,
+  LIST_AUDITOR_NOTIFICATIONS: (unread = true) => `${API_BASE_URL}/auditor/notifications?unread=${unread}`,
 
   GET_YEARLY_AUDIT_SUMMARY: (year) =>
   `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
+  GET_AUDIT_SUMMARY_BY_ID: (id) =>
+  `${API_BASE_URL}/business/yearly-audit-status-summary?audit_status_id=${id}`,
 
   REQUEST_AUDIT: (audit_status_id) =>
     `${API_BASE_URL}/business/yearly-audit-summary-assign-to-audit/${audit_status_id}`,

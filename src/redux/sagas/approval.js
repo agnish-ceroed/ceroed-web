@@ -45,12 +45,18 @@ export function* getApprovalDetails(action) {
 
 export function* getApprovalMonthlyDetails({payload}) {
   const requestPayload = {
-    year: payload.year,
-    facility_id: payload.facility,
-    month: payload.month,
   }
   if(payload.id) {
     requestPayload.monthly_approval_status_id = payload.id
+  }
+  if(payload.year && payload.year !== 'null') {
+    requestPayload.year = payload.year
+  }
+  if(payload.facility) {
+    requestPayload.facility_id = payload.facility
+  }
+  if(payload.month) {
+    requestPayload.month = payload.month
   }
     try {
         const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_DETAILS, {
@@ -70,13 +76,18 @@ export function* getApprovalMonthlyDetails({payload}) {
 }
 
 export function* getApprovalMonthlySummary({payload}) {
-  const requestPayload = {
-    year: payload.year,
-    facility_id: payload.facility,
-    month: payload.month,
-    }
+  const requestPayload = {}
     if(payload.id) {
       requestPayload.monthly_approval_status_id = payload.id
+    }
+    if(payload.year && payload.year !== 'null') {
+      requestPayload.year = payload.year
+    }
+    if(payload.facility) {
+      requestPayload.facility_id = payload.facility
+    }
+    if(payload.month) {
+      requestPayload.month = payload.month
     }
     try {
         const response = yield call(request, APIEndpoints.GET_APPROVAL_MONTHLY_SUMMARY, {

@@ -26,6 +26,8 @@ const CurrentYearApproval = () => {
   const { year } = useParams();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const queryParams = new URLSearchParams(window.location.search);
+  const statusId = queryParams.get("id");
 
   const auditYearlySummary = useSelector(
     (state) => state.audit.auditYearlySummary.data
@@ -92,8 +94,12 @@ const CurrentYearApproval = () => {
   ];
 
   useEffect(() => {
-    year && dispatch(getYearlyAuditSummary(year));
+    year && dispatch(getYearlyAuditSummary({year}));
   }, [dispatch, year]);
+
+  useEffect(() => {
+    statusId && dispatch(getYearlyAuditSummary({statusId}));
+  }, [dispatch, statusId]);
 
   useEffect(() => {
     if (requestAuditStatus === STATUS.SUCCESS) {

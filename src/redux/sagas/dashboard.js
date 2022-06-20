@@ -144,6 +144,76 @@ export function* getFuelSourceEmission(action) {
   }
 }
 
+export function* getAllNotifications({payload}) {
+  try {
+    const { unread, isAuditor } = payload
+    const apiEndpoint = isAuditor ? APIEndpoints.LIST_AUDITOR_NOTIFICATIONS(unread) : APIEndpoints.LIST_NOTIFICATIONS(unread)
+    const response = yield call(request, apiEndpoint, {
+      method: 'GET',
+    })
+    yield put({
+      type: ActionTypes.LIST_NOTIFICATIONS_SUCCESS,
+      payload: response.notification_details
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.LIST_NOTIFICATIONS_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
+export function* markAllRead({payload}) {
+  try {
+    const { isAuditor, unread } = payload
+    const apiEndpoint = isAuditor ? APIEndpoints.MARK_ALL_READ_AUDITOR_NOTIFICATIONS : APIEndpoints.MARK_ALL_READ
+    const response = yield call(request, apiEndpoint, {
+      method: 'POST',
+      payload: {}
+    })
+    yield put({
+      type: ActionTypes.LIST_NOTIFICATIONS,
+      payload: {isAuditor, unread}
+    })
+    yield put({
+      type: ActionTypes.MARK_ALL_READ_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.MARK_ALL_READ_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
+export function* markAsRead({payload}) {
+  try {
+    const { isAuditor, unread, id } = payload
+    const apiEndpoint = isAuditor ? APIEndpoints.MARK_AS_READ_AUDITOR_NOTIFICATIONS(id) : APIEndpoints.MARK_AS_READ(id)
+    const response = yield call(request, apiEndpoint, {
+      method: 'POST',
+      payload: {}
+    })
+    yield put({
+      type: ActionTypes.LIST_NOTIFICATIONS,
+      payload: {isAuditor, unread}
+    })
+    yield put({
+      type: ActionTypes.MARK_AS_READ_SUCCESS,
+      payload: response
+    })
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.MARK_AS_READ_FAILURE,
+      payload: err.message
+    })
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_EMISSION_YEAR, getEmissionYear),
@@ -153,5 +223,8 @@ export default function* root() {
     takeLatest(ActionTypes.GET_DASHBOARD_STATISTICS, getDashboardStatistics),
     takeLatest(ActionTypes.GET_FACILITY_TOPIC_EMISSION, getFacilityTopicEmissionStatistics),
     takeLatest(ActionTypes.GET_FUEL_SOURCE_EMISSION, getFuelSourceEmission),
+    takeLatest(ActionTypes.LIST_NOTIFICATIONS, getAllNotifications),
+    takeLatest(ActionTypes.MARK_ALL_READ, markAllRead),
+    takeLatest(ActionTypes.MARK_AS_READ, markAsRead),
   ])
 }
