@@ -172,6 +172,7 @@ const MonthlyFacilityDetails = () => {
     <DashboardLayout>
       <Container className={classes.container}>
         <Header
+          approveId={selectedId}
           onApplyFilter={onApplyFilter}
           selectedYear={year}
           selectedMonth={selectedMonth}

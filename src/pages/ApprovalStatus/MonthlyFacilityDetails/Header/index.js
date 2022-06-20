@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { Container, Grid, Typography, Box, IconButton } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { sampleYear, months } from "../../../../constants";
 import CeroDropdown from "../../../../components/CeroDropdown";
 import CeroButton from "../../../../components/CeroButton";
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { submitApproval, resetApprovalData, requestApproval, approveRequest } from "../../../../redux/actions";
 import { STATUS } from "../../../../redux/constants";
 
 import CreateTicketDrawer from "../../../common/CreateTicketDrawer";
+import ListTicketDrawer from "../../../common/ListTicketsDrawer";
 import useStyles from "./styles";
 
 const Header = ({
+  approveId,
   onApplyFilter,
   selectedYear,
   selectedMonth,
@@ -40,7 +43,8 @@ const Header = ({
   const [filterYear, setYear] = useState(selectedYear);
   const [filterMonth, setMonth] = useState(selectedMonth);
   const [facility, setFacility] = useState(selectedFacility);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [showTickets, setShowTickets] = useState(false);
 
   const isSubmitLoading = submitApprovalStatus === STATUS.RUNNING;
   const isRequestApprovalLoading = requestApprovalStatus === STATUS.RUNNING;
@@ -71,6 +75,14 @@ const Header = ({
         'Approved',
       )
     );
+  };
+
+  const onclickShowTickets = () => {
+    setShowTickets(true);
+  };
+
+  const onCloseTickets = () => {
+    setShowTickets(false);
   };
 
   useEffect(() => {
@@ -161,12 +173,6 @@ const Header = ({
           />
         </Box>
         <Box className={classes.buttonContainer}>
-          <CeroButton
-            variant="outlined"
-            buttonText="Raise a ticket"
-            className={classes.buttonSecondary}
-            onClick={() => setIsDrawerOpen(true)}
-          />
           {actions && actions.perform_approval && (
             <CeroButton
               buttonText={isApproveRequestLoading ? "Approving..." : "Approve"}
@@ -191,7 +197,17 @@ const Header = ({
               disabled={isSubmitLoading}
             />
           )}
+          <CeroButton
+            variant="outlined"
+            buttonText="Raise a ticket"
+            className={classes.buttonSecondary}
+            onClick={() => setIsDrawerOpen(true)}
+          />
+          <IconButton onClick={onclickShowTickets}>
+            <AssignmentIcon />
+          </IconButton>
         </Box>
+        {showTickets && <ListTicketDrawer isOpen={showTickets} scope="approval" scopeId={approveId} onClose={onCloseTickets} />}
         <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="approval" scopeId={statusId}/>
       </Grid>
     </Container>
