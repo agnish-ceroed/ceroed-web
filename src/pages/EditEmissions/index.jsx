@@ -15,6 +15,7 @@ import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
 import EditTransportationForm from "./EditTransportationForm";
 import EditRefrigerantsForm from "./EditRefrigerantsForm";
 import useStyles from "./styles";
+import { rolesEnum } from "../../layouts/DashboardLayout/pages";
 import _ from "lodash";
 
 const EditEmissions = () => {
@@ -22,10 +23,13 @@ const EditEmissions = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { pathname } = useLocation();
+
     const emissionData = useSelector(state => state.emission.emissionDetails.data)
     const emissionDataStatus = useSelector(state => state.emission.emissionDetails.status)
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const emissionInputs = useSelector(state => state.emission.emissionInputs.data)
+    const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
+    const userRole = useSelector(state => state.auth.userInfo.role);
+    const isDeleteEnable = [rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER].includes(userRole)
 
     const pathNameArr = pathname.split('/')
     const emissionType = pathNameArr[pathNameArr.length - 2]
@@ -51,6 +55,7 @@ const EditEmissions = () => {
                     <>
                         {emissionType === "purchased_electricity" && (
                             <EditPurchasedElectricityForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -61,6 +66,7 @@ const EditEmissions = () => {
 
                         {emissionType === "stationary_combustion" && (
                             <EditStationaryCombustionForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -69,6 +75,7 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "mobile_combustion" && (
                             <EditMobileCombustionForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -78,6 +85,7 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "water_discharge" && (
                             <EditWaterDistributionForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -87,6 +95,7 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "water_consumption" && (
                             <EditWaterConsumptionForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -95,6 +104,7 @@ const EditEmissions = () => {
                             />)}
                         {emissionType === "refrigerants" && (
                             <EditRefrigerantsForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -104,6 +114,7 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "transportation" && (
                             <EditTransportationForm
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}
@@ -113,6 +124,7 @@ const EditEmissions = () => {
                         )}
                         {emissionType === "waste" && (
                             <EditWasteCombustion
+                                isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 facilitiesData={facilitiesData}

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     button: {
-        width: 160,
+        width: 'fit-content',
         height: 42
     },
     buttonPrimary: {
@@ -41,8 +41,15 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonSecondary: {
         color: theme.palette.text.accent,
-        marginRight: theme.spacing(5),
-        marginLeft: theme.spacing(5),
+        marginRight: theme.spacing(4),
+    },
+    deleteButton: {
+        marginLeft: theme.spacing(4),
+        marginRight: theme.spacing(2),
+        backgroundColor: theme.palette.Primary.main,
+        '&:hover': {
+            backgroundColor: theme.palette.Primary.dark,
+        }
     },
     topContainer: {
         width: '75%'

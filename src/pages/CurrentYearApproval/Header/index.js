@@ -20,6 +20,11 @@ const Header = ({
   const [filterYear, setYear] = useState(selectedYear);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const onSelectYear = ({ target }) => {
+    setYear(target.value);
+    onApplyFilter(target.value)
+  };
+
   return (
     <Container className={classes.headerContainer}>
       <Typography variant="h7" component="span">
@@ -38,14 +43,14 @@ const Header = ({
             label="Year"
             fullWidth
             options={sampleYear}
-            onChange={({ target }) => setYear(target.value)}
+            onChange={onSelectYear}
             selectedValue={filterYear}
           />
-          <CeroButton
+          {/* <CeroButton
             buttonText="Apply"
             className={classes.buttonPrimary}
             onClick={() => onApplyFilter(filterYear)}
-          />
+          /> */}
         </Box>
         <Box className={classes.yearContainer}>
           <CeroButton

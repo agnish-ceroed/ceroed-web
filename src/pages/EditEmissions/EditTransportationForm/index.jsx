@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -14,13 +15,16 @@ import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import CeroInfoPair from '../../../components/CeroInfoPair';
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 import useStyles from "./styles";
 
 const EditTransportationForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const { emissionId, emissionData, onCancel } = props
+    const { emissionId, emissionData, onCancel } = props;
+
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const isCalculateDone = useSelector(state => state.emission.editTransportationCombustion.isCalculateDone)
     const updateEmissionData = useSelector(state => state.emission.editTransportationCombustion)
@@ -118,7 +122,7 @@ const EditTransportationForm = (props) => {
         dispatch(editTransportationCombustion(requestData));
     };
 
-    const onDeleteStationaryCombustion = () => {
+    const onConfirmDelete = () => {
         const requestData = {
             id: emissionId
         }
@@ -284,20 +288,25 @@ const EditTransportationForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete Data"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onDeleteStationaryCombustion} />
-                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={onCancel} />
+                {props.isDeleteEnable && <CeroButton
+                    buttonText={<DeleteOutlineIcon />}
+                    className={clsx(classes.button, classes.deleteButton)}
+                    onClick={() => setDisplayWarning(true)} />}
                 <CeroButton
                     buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onEditTransportationData} />
             </Box>
+            {displayWarning && <CeroConfirmDrawer
+                isOpen={displayWarning}
+                onClose={() => setDisplayWarning(false)}
+                onConfirm={onConfirmDelete}
+            />}
         </Container>
     )
 }

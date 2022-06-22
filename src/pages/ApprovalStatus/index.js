@@ -79,13 +79,13 @@ const ApprovalStatus = () => {
               selectedValue={facility}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <SearchBox
               placeholder="Search"
               onChange={({ target }) => setSearchText(target.value)}
               value={searchText}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <Status year={filterYear} />
         <MonthlySummaryTable

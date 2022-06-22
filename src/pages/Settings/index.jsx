@@ -17,7 +17,7 @@ const Settings = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h5" component="h5">Settings Page</Typography>
+                <Typography variant="h5" component="h5">Settings</Typography>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Profile" id="profile" />

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box, Tabs, Tab, IconButton } from "@mui/material";
 import { useSnackbar } from 'notistack';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ import ListComments from '../ListComment';
 import ListAuditTrails from '../ListAuditTrails';
 import ListEmissionFiles from '../ListEmissionFiles';
 import ListTicketDrawer from '../../common/ListTicketsDrawer';
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 import useStyles from "./styles";
 
 const WasteCombustionDetails = (props) => {
@@ -25,6 +27,7 @@ const WasteCombustionDetails = (props) => {
 
     const [value, setValue] = useState(0);
     const [showTickets, setShowTickets] = useState(false);
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
@@ -43,7 +46,7 @@ const WasteCombustionDetails = (props) => {
         setValue(newValue);
     };
     
-    const onDeleteWasteCombustion = () => {
+    const onConfirmDelete = () => {
         const requestData = {
             id: emissionId
         }
@@ -101,19 +104,19 @@ const WasteCombustionDetails = (props) => {
                 </Box>
             </Box>
             <Box className={classes.buttonContainer}>
-                {isDeleteEnable && <CeroButton
-                    buttonText="Delete Data"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onDeleteWasteCombustion()} />}
                 <CeroButton
-                    buttonText="Cancel"
+                    buttonText="Back"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={props.onCancel} />
+                {isDeleteEnable && <CeroButton
+                    buttonText={<DeleteOutlineIcon />}
+                    className={clsx(classes.button, classes.deleteButton)}
+                    onClick={() => setDisplayWarning(true)} />}
                 <CeroButton
-                    buttonText="Update Data"
+                    buttonText="Update"
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onUpdateWasteCombustion()} />
+                    onClick={onUpdateWasteCombustion} />
             </Box>
             <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
@@ -125,6 +128,11 @@ const WasteCombustionDetails = (props) => {
             {value === 0 && <ListComments emissionId={emissionId} />}
             {value === 1 && <ListAuditTrails emissionId={emissionId} />}
             {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
+            {displayWarning && <CeroConfirmDrawer
+                isOpen={displayWarning}
+                onClose={() => setDisplayWarning(false)}
+                onConfirm={onConfirmDelete}
+            />}
             {showTickets && <ListTicketDrawer isOpen={showTickets} scope="emission" scopeId={emissionId} onClose={onCloseTickets} />}
         </Container>
     )

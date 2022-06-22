@@ -117,13 +117,13 @@ const EmissionTableFilter = (props) => {
           />
         </Grid>
       )}
-      <Grid item xs={3}>
+      {/* <Grid item xs={3}>
         <SearchBox
           placeholder="Search"
           onChange={({ target }) => setSearchText(target.value)}
           value={searchText}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={1.5}>
         <CeroButton
           buttonText="Clear"

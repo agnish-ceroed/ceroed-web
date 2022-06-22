@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -15,6 +16,7 @@ import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import CeroInfoPair from '../../../components/CeroInfoPair';
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 import useStyles from "./styles";
 
 const EditPurchasedElectricityForm = (props) => {
@@ -25,6 +27,7 @@ const EditPurchasedElectricityForm = (props) => {
 
     const [isFiltered, setIsFiltered] = useState(false);
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const isCalculateDone = useSelector(state => state.emission.updatePurchasedElectricity.isCalculateDone)
     const updateEmissionData = useSelector(state => state.emission.updatePurchasedElectricity)
@@ -113,7 +116,7 @@ const EditPurchasedElectricityForm = (props) => {
         dispatch(updatePurchasedElectricity(requestData))
     };
 
-    const onDeletePurchasedElectricity = () => {
+    const onConfirmDelete = () => {
         const requestData = {
             id: emissionId
         }
@@ -242,20 +245,25 @@ const EditPurchasedElectricityForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onDeletePurchasedElectricity(formik.values)} />
-                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={props.onCancel} />
+                {props.isDeleteEnable && <CeroButton
+                    buttonText={<DeleteOutlineIcon />}
+                    className={clsx(classes.button, classes.deleteButton)}
+                    onClick={() => setDisplayWarning(true)} />}
                 <CeroButton
                     buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onUpdatePurchasedElectricity(formik.values)} />
+                    onClick={onUpdatePurchasedElectricity} />
             </Box>
+            {displayWarning && <CeroConfirmDrawer
+                isOpen={displayWarning}
+                onClose={() => setDisplayWarning(false)}
+                onConfirm={onConfirmDelete}
+            />}
         </Container>
     )
 }

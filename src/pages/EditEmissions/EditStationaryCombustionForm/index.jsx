@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Container, Grid, Typography, Box } from "@mui/material";
 import { useSnackbar } from 'notistack';
 
@@ -14,14 +15,17 @@ import CeroAutoComplete from '../../../components/CeroAutoComplete';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
-import useStyles from "./styles";
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 import CeroInfoPair from '../../../components/CeroInfoPair';
+import useStyles from "./styles";
 
 const EditStationaryCombustionForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const { emissionId, emissionData, facilitiesData, onCancel } = props
+
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const isCalculateDone = useSelector(state => state.emission.updateStationaryCombustion.isCalculateDone)
     const updateEmissionData = useSelector(state => state.emission.updateStationaryCombustion)
@@ -104,7 +108,7 @@ const EditStationaryCombustionForm = (props) => {
         dispatch(updateStationaryCombustion(requestData))
     };
 
-    const onDeleteStationaryCombustion = () => {
+    const onConfirmDelete = () => {
         const requestData = {
             id: emissionId
         }
@@ -229,20 +233,25 @@ const EditStationaryCombustionForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onDeleteStationaryCombustion(formik.values)} />
-                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={props.onCancel} />
+                {props.isDeleteEnable && <CeroButton
+                    buttonText={<DeleteOutlineIcon />}
+                    className={clsx(classes.button, classes.deleteButton)}
+                    onClick={() => setDisplayWarning(true)} />}
                 <CeroButton
                     buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onUpdateStationaryCombustion(formik.values)} />
+                    onClick={onUpdateStationaryCombustion} />
             </Box>
+            {displayWarning && <CeroConfirmDrawer
+                isOpen={displayWarning}
+                onClose={() => setDisplayWarning(false)}
+                onConfirm={onConfirmDelete}
+            />}
         </Container>
     )
 }

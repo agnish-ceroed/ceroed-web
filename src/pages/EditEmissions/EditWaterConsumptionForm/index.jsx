@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid, Typography, Box } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSnackbar } from 'notistack';
 
 import { STATUS } from "../../../redux/constants";
@@ -15,13 +16,16 @@ import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import CeroInfoPair from '../../../components/CeroInfoPair';
+import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 import useStyles from "./styles";
 
 const EditWaterConsumptionCombustionForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const { emissionId, emissionData, facilitiesData, onCancel, emissionInputs } = props
+    const { emissionId, emissionData, facilitiesData, onCancel, emissionInputs } = props;
+
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     const isCalculateDone = useSelector(state => state.emission.updateWaterConsumptionCombustion.isCalculateDone)
     const updateEmissionData = useSelector(state => state.emission.updateWaterConsumptionCombustion)
@@ -103,7 +107,7 @@ const EditWaterConsumptionCombustionForm = (props) => {
         dispatch(updateWaterConsumptionCombustion(requestData))
     };
 
-    const onDeleteWaterConsumptionCombustion = () => {
+    const onConfirmDelete = () => {
         const requestData = {
             id: emissionId
         }
@@ -232,20 +236,25 @@ const EditWaterConsumptionCombustionForm = (props) => {
             </Box>
             <Box className={classes.buttonContainer}>
                 <CeroButton
-                    buttonText="Delete"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onDeleteWaterConsumptionCombustion(formik.values)} />
-                <CeroButton
                     buttonText="Cancel"
                     variant="outlined"
                     className={clsx(classes.button, classes.buttonSecondary)}
                     onClick={props.onCancel} />
+                {props.isDeleteEnable && <CeroButton
+                    buttonText={<DeleteOutlineIcon />}
+                    className={clsx(classes.button, classes.deleteButton)}
+                    onClick={() => setDisplayWarning(true)} />}
                 <CeroButton
                     buttonText="Update"
                     disabled={!isCalculateDone}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={() => onUpdateWaterConsumptionCombustion(formik.values)} />
+                    onClick={onUpdateWaterConsumptionCombustion} />
             </Box>
+            {displayWarning && <CeroConfirmDrawer
+                isOpen={displayWarning}
+                onClose={() => setDisplayWarning(false)}
+                onConfirm={onConfirmDelete}
+            />}
         </Container>
     )
 }

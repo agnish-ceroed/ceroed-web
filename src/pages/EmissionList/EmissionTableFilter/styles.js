@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
     filterContainer: {
         height: '40px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'left',
     },
     primaryContainer: {
         height: 35,
