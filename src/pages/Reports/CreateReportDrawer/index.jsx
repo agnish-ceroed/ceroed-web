@@ -95,11 +95,6 @@ const CreateReportDrawer = (props) => {
   }, [createReportStatus, enqueueSnackbar, onClose, dispatch]);
 
   useEffect(() => {
-    dispatch(listFramework());
-    dispatch(listTopic());
-  }, [dispatch]);
-
-  useEffect(() => {
     if(topicFetchStatus === STATUS.SUCCESS) {
       createReportForm.setFieldValue('topic_id', topicOptionList);
     }

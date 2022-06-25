@@ -8,8 +8,9 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import CeroButton from "../../components/CeroButton";
 import CreateReportDrawer from "./CreateReportDrawer";
-import { getAllReports } from "../../redux/actions";
+import { getAllReports, listFramework, listTopic } from "../../redux/actions";
 import { STATUS } from "../../redux/constants";
+import Filter from "./Filter";
 
 import useStyles from "./styles";
 
@@ -47,10 +48,14 @@ const Reports = () => {
   const dispatch = useDispatch();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [filter, setFilter] = useState({});
 
   const reportsList = useSelector((state) => state.reports.reportsList.data);
   const reportsListStatus = useSelector(
     (state) => state.reports.reportsList.status
+  );
+  const frameworkList = useSelector(
+    (state) => state.listings.frameworkList.data
   );
 
   const onSelectAuditSummaryData = (row) => {
@@ -66,7 +71,12 @@ const Reports = () => {
     }));
 
   useEffect(() => {
-    dispatch(getAllReports());
+    dispatch(getAllReports(filter));
+  }, [dispatch, filter]);
+
+  useEffect(() => {
+    dispatch(listTopic());
+    dispatch(listFramework());
   }, [dispatch]);
 
   return (
@@ -76,6 +86,7 @@ const Reports = () => {
           Reports
         </Typography>
         <Box className={classes.buttonContainer}>
+          <Filter frameworkList={frameworkList} setFilter={setFilter}/>
           <CeroButton
             buttonText="Create report"
             className={classes.buttonPrimary}

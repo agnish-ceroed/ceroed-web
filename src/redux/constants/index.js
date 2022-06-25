@@ -171,8 +171,7 @@ export const APIEndpoints = {
     CLOSE_TICKET: (payload) =>
     `${API_BASE_URL}/business/tickets/${payload.id}/close`,
 
-    LIST_REPORTS: (year) =>
-    `${API_BASE_URL}/business/reports/${year}`,
+    LIST_REPORTS: `${API_BASE_URL}/business/reports/`,
     GET_REPORT_DETAILS: (id) =>
     `${API_BASE_URL}/business/reports/${id}`,
     CREATE_REPORT: `${API_BASE_URL}/business/reports/create-report`,

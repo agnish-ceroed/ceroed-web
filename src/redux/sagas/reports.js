@@ -3,16 +3,14 @@ import { all, put, call, takeLatest } from "redux-saga/effects";
 import { request } from "../../services/client";
 import { ActionTypes } from "../constants/actions";
 import { APIEndpoints } from "../constants";
+import { stringifyQuery } from "../../services/utilityService";
 
 export function* getReportList({ payload }) {
   try {
-    const response = yield call(
-      request,
-      APIEndpoints.LIST_REPORTS(payload.year),
-      {
-        method: "GET",
-      }
-    );
+    const apiEndpoint = `${APIEndpoints.LIST_REPORTS}?${stringifyQuery(payload)}`
+    const response = yield call(request, apiEndpoint, {
+      method: "GET",
+    });
     yield put({
       type: ActionTypes.GET_ALL_REPORTS_SUCCESS,
       payload: response.reports,

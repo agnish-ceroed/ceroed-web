@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonPrimary: {
     backgroundColor: theme.palette.text.accent,
-    width: 140,
+    width: 160,
     height: 37,
     fontSize: 13,
     marginLeft: theme.spacing(6),

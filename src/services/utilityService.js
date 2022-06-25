@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export const getMonth = {
     1: 'January',
     2: 'February',
@@ -20,3 +22,18 @@ export const getYears = (start = 1900, end = new Date().getFullYear()) => {
     }
     return years;
 }
+
+export const stringifyQuery = (params = {}, replacer) => {
+    if (!_.isFunction(replacer))
+      replacer = (key, value) =>
+        value != null
+          ? _.isArray(value)
+            ? value.map(v => ({key, value: v}))
+            : {key, value}
+          : null
+  
+    return Object.keys(params)
+      .reduce((pairs, key) => pairs.concat(replacer(key, params[key]) || []), [])
+      .map(({key, value}) => [key, value].map(encodeURIComponent).join('='))
+      .join('&')
+  }
