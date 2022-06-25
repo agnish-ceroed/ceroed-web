@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: 155,
     height: 37,
     fontSize: 13,
-    marginRight: theme.spacing(2)
+    margin: theme.spacing(0, 2)
   },
   backbuttonContainer: {
     marginRight: theme.spacing(2),

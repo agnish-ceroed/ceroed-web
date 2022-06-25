@@ -17,7 +17,7 @@ const Header = ({
   statusId,
 }) => {
   const classes = useStyles();
-  const [filterYear, setYear] = useState(selectedYear);
+  const [filterYear, setYear] = useState(parseInt(selectedYear));
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const onSelectYear = ({ target }) => {

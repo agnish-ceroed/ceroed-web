@@ -6,15 +6,17 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   filterContainer: {
-    paddingTop: 20,
+    paddingTop: theme.spacing(2),
     width: "100%",
   },
   yearContainer: {
     display: "flex",
-    width: "60%",
+    width: "50%",
+    paddingTop: theme.spacing(2)
   },
   buttonContainer: {
     display: "flex",
+    paddingTop: theme.spacing(2)
   },
   dropdown: {
     width: 82,
@@ -30,18 +32,17 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonPrimary: {
     backgroundColor: theme.palette.text.accent,
-    width: 140,
+    width: 'fit-content',
     height: 37,
     fontSize: 13,
-    marginLeft: theme.spacing(6),
   },
   buttonSecondary: {
     color: theme.palette.text.accent,
     borderColor: theme.palette.text.accent,
-    width: 155,
+    width: 'fit-content',
     height: 37,
     fontSize: 13,
-    marginRight: theme.spacing(2),
+    margin: theme.spacing(0, 2),
   },
   requestApproval: {
     width: 163,

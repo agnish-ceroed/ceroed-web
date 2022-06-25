@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 
 import CeroDropdown from "../../../components/CeroDropdown";
-import SearchBox from "../../../components/SearchBox";
 import CeroButton from "../../../components/CeroButton";
 import { months, sampleYear } from "../../../constants";
 import useStyles from "./styles";
@@ -30,12 +29,17 @@ const EmissionTableFilter = (props) => {
     key: item.id,
     value: item.name,
   }));
+  
 
   const [searchText, setSearchText] = useState("");
   const [filterYear, setYear] = useState(filter?.year || "");
-  const [filterMonth, setMonth] = useState(filter?.month || "");
+  const [filterMonth, setMonth] = useState(filter?.month || "all");
   const [filterType, setFilterType] = useState("");
-  const [facility, setFacility] = useState(filter?.facility_id || "");
+  const [facility, setFacility] = useState(filter?.facility_id || "all");
+
+  const monthOptions = [...months];
+  monthOptions.splice(0, 0, ({ key: 'all', value: 'All' }));
+  facilitiesList.splice(0, 0, ({ key: 'all', value: 'All' }));
 
   const onClear = () => {
     setSearchText("");
@@ -52,13 +56,13 @@ const EmissionTableFilter = (props) => {
     if (filterYear) {
       filterValue.year = filterYear;
     }
-    if (filterMonth) {
+    if (filterMonth !== 'all') {
       filterValue.month = filterMonth;
     }
     if (filterType) {
       filterValue.filterType = filterType;
     }
-    if (facility) {
+    if (facility !== 'all') {
       filterValue.facity_id = facility;
     }
     onApplyFilter(filterValue);
@@ -89,7 +93,7 @@ const EmissionTableFilter = (props) => {
             id="month"
             label="Month"
             fullWidth
-            options={months}
+            options={monthOptions}
             onChange={({ target }) => setMonth(target.value)}
             selectedValue={filterMonth}
           />

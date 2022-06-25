@@ -16,7 +16,7 @@ import useStyles from "./styles";
 
 const Header = ({
   approveId,
-  onApplyFilter,
+  onApplyFilter, 
   selectedYear,
   selectedMonth,
   facilitiesList,
@@ -188,7 +188,7 @@ const Header = ({
               onClick={onRequestApproval}
               disabled={isRequestApprovalLoading}
             />
-          )}
+           )}
           {actions && actions.perform_submission && (
             <CeroButton
               buttonText={isSubmitLoading ? "Submitting..." : "Submit"}

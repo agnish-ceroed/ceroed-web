@@ -168,7 +168,7 @@ const CurrentYearApproval = () => {
         ) : (
           ""
         )}
-        {auditYearlySummaryStatus === STATUS.SUCCESS && (
+        {auditYearlySummaryStatus === STATUS.SUCCESS && !!auditYearlySummary.response?.length && (
           <Status
             status={auditStatus[auditYearlySummaryOverView.status]}
             assignedTo={auditYearlySummaryOverView.assigned_to_name}

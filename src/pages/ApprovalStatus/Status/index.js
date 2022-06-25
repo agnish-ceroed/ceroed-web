@@ -22,7 +22,7 @@ const Status = (props) => {
       <CeroInfoPair title="Assigned By" value={approvalSummaryDetails.assigned_by} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Assigned on" value={dayjs(approvalSummaryDetails.assigned_on).format('DD/MM/YYYY')} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Audited By" value={approvalSummaryDetails.audited_by_name} classes={{ container: classes.infoContainer}} />
-      <CeroInfoPair title="Audited on" value={dayjs(approvalSummaryDetails.audited_on).format('DD/MM/YYYY')} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Audited on" value={approvalSummaryDetails.audited_on ? dayjs(approvalSummaryDetails.audited_on).format('DD/MM/YYYY'): ''} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Status" value={approvalSummaryDetails.audited_status} classes={{ container: classes.infoContainer}} />
     </Container>
   );
