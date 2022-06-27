@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingTop: 20,
     display: 'flex',
+    alignItems:'center'
   },
   filterContainer: {
     paddingTop: 20,

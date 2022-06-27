@@ -37,6 +37,7 @@ import TicketsDetails from '../pages/Tickets/TicketDetails';
 import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 import ReportDetails from '../pages/Reports/ReportDetails';
 import UserInviteLogin from '../pages/UserInviteLogin';
+import QualitativeData from '../pages/QualitativeData';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
@@ -117,6 +118,14 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER]}>
                                 <CurrentYearApproval />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/audit-status/qualitative-data/:id"
+                        element={
+                            <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.SUSTAINABILITY_MANAGER]}>
+                                <QualitativeData />
                             </PrivateRoute>
                         }
                     />
@@ -240,6 +249,14 @@ const RootNavigation = () => {
                                 element={
                                     <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
                                         <AuditDetails />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/companies/:company/audit/:id/qualitative-data"
+                                element={
+                                    <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.AUDITOR]}>
+                                        <QualitativeData />
                                     </PrivateRoute>
                                 }
                             />
