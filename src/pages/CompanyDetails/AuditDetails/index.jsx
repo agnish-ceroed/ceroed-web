@@ -12,10 +12,12 @@ import {
   getCompanyAuditDetails,
   approveCompanyAudit,
   approveCompanyAuditReset,
+  getYearlyAuditStatusSummaryOverview,
 } from "../../../redux/actions";
 import { STATUS } from "../../../redux/constants";
 import CreateTicketDrawer from "../../common/CreateTicketDrawer";
 import useStyles from "./styles";
+import Status from "./Status";
 
 const AuditDetails = () => {
   const classes = useStyles();
@@ -29,6 +31,7 @@ const AuditDetails = () => {
   const approveAuditStatus = useSelector(
     (state) => state.company.approveAudit.status
   );
+  const auditStatusSummaryState = useSelector((state) => state.audit.auditStatusYearlySummaryOverview);
 
   const auditDetails = auditDetailsState.data;
   const summaryData = _.groupBy(auditDetails.response, "topic");
@@ -86,6 +89,7 @@ const AuditDetails = () => {
     company &&
       (id || year) &&
       dispatch(getCompanyAuditDetails(company, id, year));
+      dispatch(getYearlyAuditStatusSummaryOverview(company, id, year));
   }, [dispatch, company, id, year]);
 
   useEffect(() => {
@@ -99,6 +103,7 @@ const AuditDetails = () => {
     if (approveAuditStatus === STATUS.SUCCESS) {
       dispatch(approveCompanyAuditReset());
       dispatch(getCompanyAuditDetails(company, id, year));
+      dispatch(getYearlyAuditStatusSummaryOverview(company, id, year));
       enqueueSnackbar("Successfully approved audit", {
         variant: "success",
       });
@@ -133,7 +138,7 @@ const AuditDetails = () => {
           isApproveAuditVisible={auditDetails.status === "pending"}
           onApproveAudit={onApproveAudit}
           onRaiseAuditTicket={() => setIsDrawerOpen(true)}
-          isLoading={approveAuditStatus === STATUS.RUNNING}
+          isLoading={auditDetailsState === STATUS.RUNNING}
         />
         {auditDetailsState.status !== STATUS.SUCCESS ? (
           <Box className={classes.loader}>
@@ -147,6 +152,9 @@ const AuditDetails = () => {
           </Box>
         ) : (
           ""
+        )}
+        {auditStatusSummaryState.status === STATUS.SUCCESS && (
+          <Status details={auditStatusSummaryState.data} />
         )}
         {auditDetailsState.status === STATUS.SUCCESS && (
           <Container className={classes.tableContainer}>

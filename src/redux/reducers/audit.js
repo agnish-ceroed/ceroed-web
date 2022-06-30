@@ -23,6 +23,23 @@ export const auditState = {
     message: "",
   },
 
+  questionsList: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
+
+  answerQuestion: {
+    data: [],
+    status: STATUS.IDLE,
+    message: "",
+  },
+
+  auditStatusYearlySummaryOverview: {
+    data: {},
+    status: STATUS.IDLE,
+    message: "",
+  },
   requestAudit: {
     status: STATUS.IDLE,
     message: "",
@@ -92,6 +109,89 @@ const auditActions = {
           auditYearlySummaryOverview: {
             status: { $set: STATUS.ERROR },
             message: { $set: payload },
+          },
+        }),
+
+      [ActionTypes.GET_ALL_QUESTIONS]: (state, { payload }) =>
+        immutable(state, {
+          questionsList: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.GET_ALL_QUESTIONS_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          questionsList: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.GET_ALL_QUESTIONS_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          questionsList: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+
+      [ActionTypes.GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW]: (state, { payload }) =>
+        immutable(state, {
+          auditStatusYearlySummaryOverview: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          auditStatusYearlySummaryOverview: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+        }),
+      [ActionTypes.GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          auditStatusYearlySummaryOverview: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+
+      [ActionTypes.ANSWER_QUALITATIVE_QUESTION]: (state, { payload }) =>
+        immutable(state, {
+          answerQuestion: {
+            status: { $set: STATUS.RUNNING },
+          },
+        }),
+      [ActionTypes.ANSWER_QUALITATIVE_QUESTION_SUCCESS]: (state, { payload }) =>
+        immutable(state, {
+          answerQuestion: {
+            status: { $set: STATUS.SUCCESS },
+            data: { $set: payload },
+          },
+          questionsList: {
+            data: {
+              $set: state.questionsList.data.map(item => {
+                if(item.id === payload.question_id) {
+                  item = {...item, ...payload}
+                }
+                return item
+              }),
+            },
+            status: { $set: STATUS.SUCCESS },
+          },
+        }),
+      [ActionTypes.ANSWER_QUALITATIVE_QUESTION_FAILURE]: (state, { payload }) =>
+        immutable(state, {
+          answerQuestion: {
+            status: { $set: STATUS.ERROR },
+            message: { $set: payload },
+          },
+        }),
+
+      [ActionTypes.RESET_QUESTION_ANSWER_STATUS]: (state, { payload }) =>
+        immutable(state, {
+          answerQuestion: {
+            status: { $set: STATUS.IDLE },
+            message: { $set: '' },
+            data: { $set: [] },
           },
         }),
 

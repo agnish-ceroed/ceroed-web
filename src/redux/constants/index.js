@@ -136,11 +136,20 @@ export const APIEndpoints = {
   `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
   GET_YEARLY_AUDIT_SUMMARY_OVERVIEW: (year) =>
   `${API_BASE_URL}/business/yearly-audit-status-summary-overview?year=${year}`,
+  GET_ALL_QUESTIONS: (payload) =>
+  `${API_BASE_URL}/business/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
+  GET_ALL_AUDITOR_QUESTIONS: (payload) =>
+  `${API_BASE_URL}/auditor/company/${payload.company}/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
+  GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW: (companyId) =>
+  `${API_BASE_URL}/auditor/company/${companyId}/yearly-audit-status-summary-overview`,
   GET_AUDIT_SUMMARY_BY_ID: (id) =>
   `${API_BASE_URL}/business/yearly-audit-status-summary?audit_status_id=${id}`,
 
   REQUEST_AUDIT: (audit_status_id) =>
     `${API_BASE_URL}/business/yearly-audit-summary-assign-to-audit/${audit_status_id}`,
+
+    ANSWER_QUALITATIVE_QUESTION: (audit_status_id) =>
+    `${API_BASE_URL}/business/audit-qualitative-qa-data/${audit_status_id}`,
 
     SUBMIT_APPROVAL: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval_summary-assign-to-submit/${status_id}`,

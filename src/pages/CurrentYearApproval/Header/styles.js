@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   yearContainer: {
     display: "flex",
+    alignItems: 'center'
   },
   dropdown: {
     width: 82,

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Container, Grid, Typography, Box, Chip } from "@mui/material";
 
 import { sampleYear } from "../../../constants";
 import CeroDropdown from "../../../components/CeroDropdown";
@@ -17,12 +18,14 @@ const Header = ({
   statusId,
 }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [filterYear, setYear] = useState(parseInt(selectedYear));
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const onSelectYear = ({ target }) => {
     setYear(target.value);
-    onApplyFilter(target.value)
+    onApplyFilter(target.value);
   };
 
   return (
@@ -46,11 +49,14 @@ const Header = ({
             onChange={onSelectYear}
             selectedValue={filterYear}
           />
-          {/* <CeroButton
-            buttonText="Apply"
-            className={classes.buttonPrimary}
-            onClick={() => onApplyFilter(filterYear)}
-          /> */}
+          <Chip
+            label="Qualitative data"
+            color="primary"
+            variant="outlined"
+            onClick={() =>
+              navigate(`/audit-status/qualitative-data/${statusId}`)
+            }
+          />
         </Box>
         <Box className={classes.yearContainer}>
           <CeroButton
@@ -69,7 +75,12 @@ const Header = ({
           )}
         </Box>
       </Grid>
-      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="audit" scopeId={statusId}/>
+      <CreateTicketDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        scope="audit"
+        scopeId={statusId}
+      />
     </Container>
   );
 };
