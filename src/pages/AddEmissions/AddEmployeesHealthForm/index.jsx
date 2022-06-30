@@ -15,7 +15,7 @@ import CeroInput from '../../../components/CeroInput';
 import CeroEpochDatePicker from '../../../components/CeroDateTimePicker/CeroEpochDatePicker';
 import useStyles from "./styles";
 
-const AddDevelopmentTrainingForm = (props) => {
+const AddEmployeesHealthForm = (props) => {
     const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -42,7 +42,7 @@ const AddDevelopmentTrainingForm = (props) => {
 
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Development Training details added successfully', { variant: 'success' });
+            enqueueSnackbar('Employees Health and Safety incident details added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
@@ -67,7 +67,7 @@ const AddDevelopmentTrainingForm = (props) => {
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography className={classes.title} variant="h6" component="div" >Add Development Training</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Employees Health and Safety incident</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' md={6} xs={12}>
@@ -174,4 +174,4 @@ const AddDevelopmentTrainingForm = (props) => {
     )
 }
 
-export default AddDevelopmentTrainingForm;
+export default AddEmployeesHealthForm;
