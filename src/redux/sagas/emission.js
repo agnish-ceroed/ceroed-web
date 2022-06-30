@@ -544,6 +544,28 @@ export function* deleteAttachemnt(action) {
     }
 }
 
+export function* addDevelopmentTraining(action) {
+    try {
+        const { requestData } = action.payload;
+        console.log('development', requestData)
+        const response = yield call(request, APIEndpoints.ADD_DEVELOPMET_TRAINING_DETAILS, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_FAILURE,
+            payload: err
+        })
+    }
+}
+
+
 export default function* root() {
     yield all([
         takeLatest(ActionTypes.GET_EMISSION_LIST, getEmissionList),
@@ -573,5 +595,6 @@ export default function* root() {
         takeLatest(ActionTypes.LIST_EMISSION_FILES, listEmissionFiles),
         takeLatest(ActionTypes.UPLOAD_EMISSION_ATTACHEMENT, uploadAttachement),
         takeLatest(ActionTypes.DELETE_EMISSION_ATTACHEMENT, deleteAttachemnt),
+        takeLatest(ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS, addDevelopmentTraining),
     ])
 }
