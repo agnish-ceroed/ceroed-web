@@ -374,3 +374,33 @@ export const WasteCombustionColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const DevelopmentTrainingColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'hours',
+    columnId: 'hours',
+    columnHeader: 'No of Hours',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

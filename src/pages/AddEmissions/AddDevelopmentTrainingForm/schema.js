@@ -1,28 +1,18 @@
 import * as yup from 'yup';
 
-export const addMobileCombustionValidation = yup.object({
-    facility: yup
-        .string('Facility is required')
-        .required('Facility is required'),
-    month: yup
-        .string('Year is required')
-        .required('Year is required'),
-    year: yup
-        .string('Year is required')
-        .required('Year is required'),
-    activityType: yup
-        .string('Activity Type is required')
-        .required('Activity Type is required'),
-    vehicleType: yup
-        .string('Vehicle Type is required')
-        .required('Vehicle Type is required'),
-    fuelSource: yup
-        .string('Fuel Source is required')
-        .required('Fuel Source is required'),
-    fuelUnit: yup
-        .string('Fuel unit is required')
-        .required('Fuel unit is required'),
-    amountOfFuel: yup
-        .string('Amount of fuel is required')
-        .required('Amount of fuel is required'),
+export const schemeValidation = yup.object({
+   
+    numberOfAttendee: yup
+        .number('Number of Attendees is required')
+        .required('Number of Attendees is required'),
+    numberOfHours: yup
+        .number('Number of hours is required')
+        .required('Number of hours is required'),
+    content: yup
+        .string('Content Covered is required')
+        .required('Content Covered is required'),
+    objective: yup
+        .string('Objective is required')
+        .required('Objective is required'),
+    
 });

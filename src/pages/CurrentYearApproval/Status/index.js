@@ -12,7 +12,7 @@ const Status = (props) => {
       <CeroInfoPair title="Status" value={props.status} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Assignee" value={props.assignedTo} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="Audited by" value={props.auditedBy} classes={{ container: classes.infoContainer}} />
-      <CeroInfoPair title="Audited on" value={props.auditedOn ? dayjs(props.props.auditedOn).format('DD/MM/YYYY') : '-'} classes={{ container: classes.infoContainer}} />
+      <CeroInfoPair title="Audited on" value={props.auditedOn ? dayjs(props.auditedOn).format('DD/MM/YYYY') : '-'} classes={{ container: classes.infoContainer}} />
       <CeroInfoPair title="No of Tickets" value={props.noOfTickets} classes={{ container: classes.infoContainer}} />
     </Container>
   );

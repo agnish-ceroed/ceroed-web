@@ -12,6 +12,7 @@ import {
     RefrigerantsColumns,
     TransportationColumns,
     WasteCombustionColumns,
+    DevelopmentTrainingColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -30,7 +31,8 @@ const EmissionTable = (props) => {
         water_consumption: WaterConsumptionColumns,
         refrigerants: RefrigerantsColumns,
         transportation: TransportationColumns,
-        waste: WasteCombustionColumns
+        waste: WasteCombustionColumns,
+        development_training: DevelopmentTrainingColumns,
     }
 
     const onSelectEmissionData = (emission) => {

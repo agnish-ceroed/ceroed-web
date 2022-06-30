@@ -35,6 +35,7 @@ export const {
     clearUploadEmissionAttachement,
     deleteEmissionAttachement,
     clearDeleteEmissionAttachement,
+    addDevelopmentTrainingDetails,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -68,4 +69,5 @@ export const {
     [ActionTypes.CLEAR_UPLOAD_EMISSION_ATTACHEMENT]: () => ({}),
     [ActionTypes.DELETE_EMISSION_ATTACHEMENT]: (emissionId, attachementId) => ({emissionId, attachementId}),
     [ActionTypes.CLEAR_DELETE_EMISSION_ATTACHEMENT]: () => ({}),
+    [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS]: (requestData) => ({ requestData }),
 })

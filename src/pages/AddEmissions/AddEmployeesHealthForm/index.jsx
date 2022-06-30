@@ -10,6 +10,7 @@ import { STATUS } from "../../../redux/constants";
 import { schemeValidation } from './schema';
 import { addDevelopmentTrainingDetails, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
+import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import CeroEpochDatePicker from '../../../components/CeroDateTimePicker/CeroEpochDatePicker';
 import useStyles from "./styles";
@@ -25,10 +26,12 @@ const AddDevelopmentTrainingForm = (props) => {
 
     const formik = useFormik({
         initialValues: {
+            facility: '',
             numberOfAttendee: '',
             numberOfHours: '',
-            content: '',
-            objective: '',
+            department: '',
+            correctiveAction: '',
+            details: '',
             date: dayjs().unix(),
         },
         validationSchema: schemeValidation,
@@ -50,11 +53,13 @@ const AddDevelopmentTrainingForm = (props) => {
 
     const onAddDevelopmentTrainingData = () => {
         const requestData = {
+            facility_id: formik.values.facility,
             date: dayjs(formik.values.date).format("DD/MM/YYYY"),
             attended: formik.values.numberOfAttendee,
             hours: formik.values.numberOfHours,
-            objective: formik.values.objective,
-            content: formik.values.content,
+            objective: formik.values.correctiveAction,
+            content: formik.values.details,
+            department: formik.values.department
         }
         dispatch(addDevelopmentTrainingDetails(requestData))
     };
@@ -66,6 +71,18 @@ const AddDevelopmentTrainingForm = (props) => {
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' md={6} xs={12}>
+                            <CeroSelect
+                                required
+                                id="facility"
+                                name="facility"
+                                label="Facility"
+                                fullWidth
+                                options={facilitiesList}
+                                selectedValue={formik.values.facility}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.facility && formik.errors.facility}
+                            />
                             <CeroInput
                                 required
                                 id="numberOfAttendee"
@@ -80,16 +97,16 @@ const AddDevelopmentTrainingForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="objective"
-                                name="objective"
-                                label="objective"
-                                value={formik.values.objective}
+                                id="details"
+                                name="details"
+                                label="Details"
+                                value={formik.values.details}
                                 fullWidth
                                 multiline
                                 rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.objective && formik.errors.objective}
+                                error={formik.touched.details && formik.errors.details}
                                 classes={{ container: classes.textAreaContainer }}
                             />
                             <CeroEpochDatePicker
@@ -101,6 +118,17 @@ const AddDevelopmentTrainingForm = (props) => {
                             />
                         </Grid>
                         <Grid item container direction={'column'} md={6} xs={12}>
+                            <CeroInput
+                                required
+                                id="department"
+                                name="department"
+                                label="Department"
+                                value={formik.values.department}
+                                fullWidth
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.department && formik.errors.department}
+                            />
                             <CeroInput
                                 required
                                 id="numberOfHours"
@@ -115,16 +143,16 @@ const AddDevelopmentTrainingForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="content"
-                                name="content"
-                                label="Content Covered"
-                                value={formik.values.content}
+                                id="correctiveAction"
+                                name="correctiveAction"
+                                label="Corrective Action"
+                                value={formik.values.correctiveAction}
                                 fullWidth
                                 multiline
                                 rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.content && formik.errors.content}
+                                error={formik.touched.correctiveAction && formik.errors.correctiveAction}
                             />
                         </Grid>
                     </Grid>
