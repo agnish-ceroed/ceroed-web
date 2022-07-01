@@ -418,6 +418,10 @@ export const EmployeeHealthDetailsColumns = [{
     columnId: 'department',
     columnHeader: 'Department',
 }, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
     columnKey: 'details',
     columnId: 'details',
     columnHeader: 'Details',
