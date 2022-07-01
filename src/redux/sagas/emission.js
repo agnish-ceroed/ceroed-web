@@ -584,6 +584,26 @@ export function* addEmployeeHealthDetails(action) {
     }
 }
 
+export function* addWorkerSafetyTraining(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_WORKER_SAFETY_TRAINING, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_WORKER_SAFETY_TRAINING_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_WORKER_SAFETY_TRAINING_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -616,5 +636,6 @@ export default function* root() {
         takeLatest(ActionTypes.DELETE_EMISSION_ATTACHEMENT, deleteAttachemnt),
         takeLatest(ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS, addDevelopmentTraining),
         takeLatest(ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS, addDevelopmentTraining),
+        takeLatest(ActionTypes.ADD_WORKER_SAFETY_TRAINING, addWorkerSafetyTraining),
     ])
 }

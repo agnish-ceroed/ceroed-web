@@ -8,40 +8,34 @@ import dayjs from 'dayjs';
 
 import { STATUS } from "../../../redux/constants";
 import { schemeValidation } from './schema';
-import { addEmployeeHealthDetails, resetAddCombustionStatus } from '../../../redux/actions';
+import { addWorkerSafetyTraining, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
-import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
 import CeroEpochDatePicker from '../../../components/CeroDateTimePicker/CeroEpochDatePicker';
 import useStyles from "./styles";
 
-const AddEmployeesHealthForm = (props) => {
+const AddWorkerSafetyTrainingForm = (props) => {
     const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const addEmissionData = useSelector(state => state.emission.addEmployeeHealth)
+    const addEmissionData = useSelector(state => state.emission.addWorkerSafetyTraining)
 
     const formik = useFormik({
         initialValues: {
-            facility: '',
-            affected: '',
-            department: '',
-            correctiveAction: '',
-            details: '',
+            attended: '',
+            content: '',
+            objective: '',
             date: dayjs().unix(),
         },
         validationSchema: schemeValidation,
         onSubmit: () => { },
     });
 
-    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Employees Health and Safety incident details added successfully', { variant: 'success' });
+            enqueueSnackbar('Worker Safety Training and Procedure added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
@@ -50,78 +44,53 @@ const AddEmployeesHealthForm = (props) => {
         }
     }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
 
-    const onAddEmployeeHealthDetails = () => {
+    const onAddWorkerSafetyTaining = () => {
         const requestData = {
-            facility_id: formik.values.facility,
             date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
-            affected: formik.values.affected,
-            details: formik.values.details,
-            corrective_action: formik.values.correctiveAction,
-            department: formik.values.department,
+            attended: formik.values.attended,
+            objective: formik.values.objective,
+            content: formik.values.content,
             save: 'true',
         }
-        dispatch(addEmployeeHealthDetails(requestData))
+        dispatch(addWorkerSafetyTraining(requestData))
     };
 
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography className={classes.title} variant="h6" component="div" >Add Employees Health and Safety incident</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Worker Safety Training and Procedures</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' md={6} xs={12}>
-                            <CeroSelect
-                                required
-                                id="facility"
-                                name="facility"
-                                label="Facility"
-                                fullWidth
-                                options={facilitiesList}
-                                selectedValue={formik.values.facility}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.facility && formik.errors.facility}
-                            />
                             <CeroInput
                                 required
-                                id="affected"
-                                name="affected"
-                                label="Number of Affected"
-                                value={formik.values.affected}
+                                id="attended"
+                                name="attended"
+                                label="Number of Attendees"
+                                value={formik.values.attended}
                                 type="number"
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.affected && formik.errors.affected}
+                                error={formik.touched.attended && formik.errors.attended}
                             />
                             <CeroInput
                                 required
-                                id="details"
-                                name="details"
-                                label="Details"
-                                value={formik.values.details}
+                                id="objective"
+                                name="objective"
+                                label="Objective"
+                                value={formik.values.objective}
                                 fullWidth
                                 multiline
                                 rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.details && formik.errors.details}
+                                error={formik.touched.objective && formik.errors.objective}
                                 classes={{ container: classes.textAreaContainer }}
                             />
                             
                         </Grid>
                         <Grid item container direction={'column'} md={6} xs={12}>
-                            <CeroInput
-                                required
-                                id="department"
-                                name="department"
-                                label="Department"
-                                value={formik.values.department}
-                                fullWidth
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.department && formik.errors.department}
-                            />
                             <CeroEpochDatePicker
                                 name="date"
                                 value={formik.values.date}
@@ -131,16 +100,16 @@ const AddEmployeesHealthForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="correctiveAction"
-                                name="correctiveAction"
-                                label="Corrective Action"
-                                value={formik.values.correctiveAction}
+                                id="content"
+                                name="content"
+                                label="Content Covered"
+                                value={formik.values.content}
                                 fullWidth
                                 multiline
                                 rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.correctiveAction && formik.errors.correctiveAction}
+                                error={formik.touched.content && formik.errors.content}
                             />
                         </Grid>
                     </Grid>
@@ -156,10 +125,10 @@ const AddEmployeesHealthForm = (props) => {
                     buttonText="Add Data"
                     disabled={!formik.dirty || !formik.isValid}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onAddEmployeeHealthDetails} />
+                    onClick={onAddWorkerSafetyTaining} />
             </Box>
         </Container >
     )
 }
 
-export default AddEmployeesHealthForm;
+export default AddWorkerSafetyTrainingForm;

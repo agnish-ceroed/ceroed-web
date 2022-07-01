@@ -47,7 +47,7 @@ const AddDevelopmentTrainingForm = (props) => {
 
     const onAddDevelopmentTrainingData = () => {
         const requestData = {
-            date: dayjs(formik.values.date).format("DD/MM/YYYY"),
+            date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
             attended: formik.values.numberOfAttendee,
             hours: formik.values.numberOfHours,
             objective: formik.values.objective,

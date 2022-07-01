@@ -392,10 +392,6 @@ export const DevelopmentTrainingColumns = [{
     columnId: 'content',
     columnHeader: 'Content',
 }, {
-    columnKey: 'month',
-    columnId: 'month',
-    columnHeader: 'Month',
-}, {
     columnKey: 'year',
     columnId: 'year',
     columnHeader: 'Year',
@@ -426,9 +422,27 @@ export const EmployeeHealthDetailsColumns = [{
     columnId: 'details',
     columnHeader: 'Details',
 }, {
-    columnKey: 'month',
-    columnId: 'month',
-    columnHeader: 'Month',
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const WorkerSafetyTrainingColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
 }, {
     columnKey: 'year',
     columnId: 'year',

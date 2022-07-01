@@ -37,6 +37,7 @@ export const {
     clearDeleteEmissionAttachement,
     addDevelopmentTrainingDetails,
     addEmployeeHealthDetails,
+    addWorkerSafetyTraining,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -72,4 +73,5 @@ export const {
     [ActionTypes.CLEAR_DELETE_EMISSION_ATTACHEMENT]: () => ({}),
     [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_WORKER_SAFETY_TRAINING]: (requestData) => ({ requestData }),
 })
