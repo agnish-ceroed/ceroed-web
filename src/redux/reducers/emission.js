@@ -167,6 +167,16 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addEmployeeHealth: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addWorkerSafetyTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -854,6 +864,52 @@ const emissionActions = {
             [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addDevelopmentTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    addEmployeeHealth: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addEmployeeHealth: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addEmployeeHealth: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_WORKER_SAFETY_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addWorkerSafetyTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_WORKER_SAFETY_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addWorkerSafetyTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_WORKER_SAFETY_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addWorkerSafetyTraining: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

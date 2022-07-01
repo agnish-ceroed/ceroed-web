@@ -4,12 +4,9 @@ export const schemeValidation = yup.object({
     facility: yup
         .string('Facility is required')
         .required('Facility is required'),
-    numberOfAttendee: yup
-        .number('Number of Attendees is required')
-        .required('Number of Attendees is required'),
-    numberOfHours: yup
-        .number('Number of hours is required')
-        .required('Number of hours is required'),
+    affected: yup
+        .number('Number of Affected is required')
+        .required('Number of Affected is required'),
     department: yup
         .string('Department is required')
         .required('Department is required'),

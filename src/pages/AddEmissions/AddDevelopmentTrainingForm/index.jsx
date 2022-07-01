@@ -20,7 +20,6 @@ const AddDevelopmentTrainingForm = (props) => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const facilitiesData = useSelector(state => state.listings.listFacilities.data);
     const addEmissionData = useSelector(state => state.emission.addDevelopmentTraining)
 
     const formik = useFormik({
@@ -35,8 +34,6 @@ const AddDevelopmentTrainingForm = (props) => {
         onSubmit: () => { },
     });
 
-    const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
-
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Development Training details added successfully', { variant: 'success' });
@@ -50,11 +47,12 @@ const AddDevelopmentTrainingForm = (props) => {
 
     const onAddDevelopmentTrainingData = () => {
         const requestData = {
-            date: dayjs(formik.values.date).format("DD/MM/YYYY"),
+            date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
             attended: formik.values.numberOfAttendee,
             hours: formik.values.numberOfHours,
             objective: formik.values.objective,
             content: formik.values.content,
+            save: 'true',
         }
         dispatch(addDevelopmentTrainingDetails(requestData))
     };
