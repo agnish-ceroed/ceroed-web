@@ -50,6 +50,7 @@ export const APIEndpoints = {
   ADD_WATER_CONSUMPTION: `${API_BASE_URL}/business/emissions/water_consumption`,
   ADD_WASTE_COMBUSTION: `${API_BASE_URL}/business/emissions/waste`,
   ADD_DEVELOPMET_TRAINING_DETAILS: `${API_BASE_URL}/business/emissions/development-training`,
+  ADD_EMPLOYEE_HEALTH_DETAILS: `${API_BASE_URL}/business/emissions/employee_health_safety_incident_record`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

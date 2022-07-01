@@ -547,7 +547,6 @@ export function* deleteAttachemnt(action) {
 export function* addDevelopmentTraining(action) {
     try {
         const { requestData } = action.payload;
-        console.log('development', requestData)
         const response = yield call(request, APIEndpoints.ADD_DEVELOPMET_TRAINING_DETAILS, {
             method: 'POST',
             payload: requestData
@@ -560,6 +559,26 @@ export function* addDevelopmentTraining(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* addEmployeeHealthDetails(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_EMPLOYEE_HEALTH_DETAILS, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS_FAILURE,
             payload: err
         })
     }
@@ -596,5 +615,6 @@ export default function* root() {
         takeLatest(ActionTypes.UPLOAD_EMISSION_ATTACHEMENT, uploadAttachement),
         takeLatest(ActionTypes.DELETE_EMISSION_ATTACHEMENT, deleteAttachemnt),
         takeLatest(ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS, addDevelopmentTraining),
+        takeLatest(ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS, addDevelopmentTraining),
     ])
 }

@@ -404,3 +404,33 @@ export const DevelopmentTrainingColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const EmployeeHealthDetailsColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'affected',
+    columnId: 'affected',
+    columnHeader: 'No of Affected',
+}, {
+    columnKey: 'department',
+    columnId: 'department',
+    columnHeader: 'Department',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'month',
+    columnId: 'month',
+    columnHeader: 'Month',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

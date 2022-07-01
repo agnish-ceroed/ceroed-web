@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import { STATUS } from "../../../redux/constants";
 import { schemeValidation } from './schema';
-import { addDevelopmentTrainingDetails, resetAddCombustionStatus } from '../../../redux/actions';
+import { addEmployeeHealthDetails, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroSelect from '../../../components/CeroSelect';
 import CeroInput from '../../../components/CeroInput';
@@ -22,13 +22,12 @@ const AddEmployeesHealthForm = (props) => {
     const { enqueueSnackbar } = useSnackbar();
 
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
-    const addEmissionData = useSelector(state => state.emission.addDevelopmentTraining)
+    const addEmissionData = useSelector(state => state.emission.addEmployeeHealth)
 
     const formik = useFormik({
         initialValues: {
             facility: '',
-            numberOfAttendee: '',
-            numberOfHours: '',
+            affected: '',
             department: '',
             correctiveAction: '',
             details: '',
@@ -51,17 +50,17 @@ const AddEmployeesHealthForm = (props) => {
         }
     }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
 
-    const onAddDevelopmentTrainingData = () => {
+    const onAddEmployeeHealthDetails = () => {
         const requestData = {
             facility_id: formik.values.facility,
             date: dayjs(formik.values.date).format("DD/MM/YYYY"),
-            attended: formik.values.numberOfAttendee,
-            hours: formik.values.numberOfHours,
-            objective: formik.values.correctiveAction,
-            content: formik.values.details,
-            department: formik.values.department
+            affected: formik.values.affected,
+            details: formik.values.details,
+            corrective_action: formik.values.correctiveAction,
+            department: formik.values.department,
+            save: 'true',
         }
-        dispatch(addDevelopmentTrainingDetails(requestData))
+        dispatch(addEmployeeHealthDetails(requestData))
     };
 
     return (
@@ -85,15 +84,15 @@ const AddEmployeesHealthForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="numberOfAttendee"
-                                name="numberOfAttendee"
-                                label="Number of Attendees"
-                                value={formik.values.numberOfAttendee}
+                                id="affected"
+                                name="affected"
+                                label="Number of Affected"
+                                value={formik.values.affected}
                                 type="number"
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.numberOfAttendee && formik.errors.numberOfAttendee}
+                                error={formik.touched.affected && formik.errors.affected}
                             />
                             <CeroInput
                                 required
@@ -109,13 +108,7 @@ const AddEmployeesHealthForm = (props) => {
                                 error={formik.touched.details && formik.errors.details}
                                 classes={{ container: classes.textAreaContainer }}
                             />
-                            <CeroEpochDatePicker
-                                name="date"
-                                value={formik.values.date}
-                                label="Date"
-                                onChange={formik.setFieldValue}
-                                error={formik.touched.date && formik.errors.date}
-                            />
+                            
                         </Grid>
                         <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroInput
@@ -129,17 +122,12 @@ const AddEmployeesHealthForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.department && formik.errors.department}
                             />
-                            <CeroInput
-                                required
-                                id="numberOfHours"
-                                name="numberOfHours"
-                                label="Number of Hours"
-                                value={formik.values.numberOfHours}
-                                type="number"
-                                fullWidth
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.numberOfHours && formik.errors.numberOfHours}
+                            <CeroEpochDatePicker
+                                name="date"
+                                value={formik.values.date}
+                                label="Date"
+                                onChange={formik.setFieldValue}
+                                error={formik.touched.date && formik.errors.date}
                             />
                             <CeroInput
                                 required
@@ -168,7 +156,7 @@ const AddEmployeesHealthForm = (props) => {
                     buttonText="Add Data"
                     disabled={!formik.dirty || !formik.isValid}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onAddDevelopmentTrainingData} />
+                    onClick={onAddEmployeeHealthDetails} />
             </Box>
         </Container >
     )
