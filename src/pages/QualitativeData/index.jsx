@@ -80,6 +80,7 @@ const getChildComponent = (groupedQuestions, classes, countryList, isAuditor) =>
           classes={classes}
           countryList={countryList}
           isAuditor={isAuditor}
+          defaultExpanded
         />
       );
       innerChildComponent.push(subCategoryComponent);
