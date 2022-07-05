@@ -452,3 +452,121 @@ export const WorkerSafetyTrainingColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const EmployeeDescriminationIncidentColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'affected',
+    columnId: 'affected',
+    columnHeader: 'No of Affected',
+}, {
+    columnKey: 'department',
+    columnId: 'department',
+    columnHeader: 'Department',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const SupplierHumanRightsTrainigColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const SocialHumanRightsTrainigColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const SupplierScreeningColumns = [{
+    columnKey: 'supplier',
+    columnId: 'supplier',
+    columnHeader: 'No of Suppliers',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}];
+
+export const LocalCommunitiesColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'department',
+    columnId: 'department',
+    columnHeader: 'Department',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

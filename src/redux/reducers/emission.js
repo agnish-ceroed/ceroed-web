@@ -177,6 +177,31 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addDescriminationIncident: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addSupplierHumanRightsTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addSocialHumanRightsTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addSupplierScreening: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addLocalCommunities: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    }
 }
 
 const emissionActions = {
@@ -910,6 +935,121 @@ const emissionActions = {
             [ActionTypes.ADD_WORKER_SAFETY_TRAINING_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addWorkerSafetyTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD]: (state, { payload }) =>
+                immutable(state, {
+                    addDescriminationIncident: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addDescriminationIncident: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addDescriminationIncident: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addSocialHumanRightsTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSocialHumanRightsTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSocialHumanRightsTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SUPPLIER_SCREENING]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierScreening: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SUPPLIER_SCREENING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSupplierScreening: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SUPPLIER_SCREENING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierScreening: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_LOCAL_COMMUNITIES]: (state, { payload }) =>
+                immutable(state, {
+                    addLocalCommunities: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_LOCAL_COMMUNITIES_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addLocalCommunities: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_LOCAL_COMMUNITIES_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addLocalCommunities: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

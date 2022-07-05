@@ -41,7 +41,7 @@ const EmissionSelectionDrawer = (props) => {
     const getSecondaryDrawer = () => {
         const subEmissions = emissionTypeData.find(item => item.id === selectedEmission);
         return (
-            <Box className={classes.mainContainer}>
+            <Box className={classes.subContainer}>
                 {subEmissions?.subItems.map(group => (<Box className={classes.typeItemGroup}>
                     <Typography className={classes.tyupeItemGroupTitle}>{group.title}</Typography>
                     {group?.subItems.map(type => (<Box className={classes.typeItem} onClick={() => handleSubEmissionChange(type.id)}>
@@ -60,13 +60,10 @@ const EmissionSelectionDrawer = (props) => {
             onClose: props.onClose,
             content: getPrimaryPaymentDrawer(),
             header: { title: "Emission Types" },
-            footer: {
-              hideSecondaryBtn: true,
-              hidePrimaryBtn: true,
-            },
+            hideFooter: true,
             classes: {
-              drawerContainer: classes.drawerContainer,
-              contentArea: classes.drawerContentArea,
+              drawerContainer: classes.container,
+              contentArea: classes.drawerContainer,
             },
           }}
           secondaryDrawer={{
@@ -80,13 +77,8 @@ const EmissionSelectionDrawer = (props) => {
             //   hideSecondaryBtn: true,
             //   primaryBtnAction: onEmissionSelection,
             // },
-            footer: {
-              primaryBtnTitle: 'Done',
-              disablePrimaryBtn: !selectedSubEmission,
-              hideSecondaryBtn: true,
-              hidePrimaryBtn: true,
-            },
-            classes: { contentArea: classes.drawerContentArea },
+            hideFooter: true,
+            classes: { contentArea: classes.drawerContainer },
           }}
         />
       );
