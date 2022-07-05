@@ -15,6 +15,7 @@ import {
     DevelopmentTrainingColumns,
     EmployeeHealthDetailsColumns,
     WorkerSafetyTrainingColumns,
+    EmployeeDescriminationIncidentColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -37,6 +38,7 @@ const EmissionTable = (props) => {
         development_training: DevelopmentTrainingColumns,
         employee_health_safety_incident_record: EmployeeHealthDetailsColumns,
         worker_safety_training_procedures: WorkerSafetyTrainingColumns,
+        discrimination_incident_record: EmployeeDescriminationIncidentColumns,
     }
 
     const onSelectEmissionData = (emission) => {

@@ -452,3 +452,33 @@ export const WorkerSafetyTrainingColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const EmployeeDescriminationIncidentColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'affected',
+    columnId: 'affected',
+    columnHeader: 'No of Affected',
+}, {
+    columnKey: 'department',
+    columnId: 'department',
+    columnHeader: 'Department',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

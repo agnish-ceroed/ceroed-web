@@ -604,6 +604,26 @@ export function* addWorkerSafetyTraining(action) {
     }
 }
 
+export function* addDescriminationIncident(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_DESCRIMINATION_INCIDENT_RECORD, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -637,5 +657,6 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_DEVELOPMENT_TRAINING_DETAILS, addDevelopmentTraining),
         takeLatest(ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS, addDevelopmentTraining),
         takeLatest(ActionTypes.ADD_WORKER_SAFETY_TRAINING, addWorkerSafetyTraining),
+        takeLatest(ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD, addDescriminationIncident),
     ])
 }

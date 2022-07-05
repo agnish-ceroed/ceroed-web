@@ -177,6 +177,11 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addDescriminationIncident: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -910,6 +915,29 @@ const emissionActions = {
             [ActionTypes.ADD_WORKER_SAFETY_TRAINING_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addWorkerSafetyTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD]: (state, { payload }) =>
+                immutable(state, {
+                    addDescriminationIncident: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addDescriminationIncident: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addDescriminationIncident: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }
