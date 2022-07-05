@@ -192,6 +192,11 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addSupplierScreening: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    }
 }
 
 const emissionActions = {
@@ -994,6 +999,29 @@ const emissionActions = {
             [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addSocialHumanRightsTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SUPPLIER_SCREENING]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierScreening: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SUPPLIER_SCREENING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSupplierScreening: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SUPPLIER_SCREENING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierScreening: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

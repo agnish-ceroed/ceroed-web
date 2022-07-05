@@ -55,6 +55,7 @@ export const APIEndpoints = {
   ADD_DESCRIMINATION_INCIDENT_RECORD: `${API_BASE_URL}/business/emissions/discrimination-incident-record`,
   ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING: `${API_BASE_URL}/business/emissions/operational-human-rights-training`,
   ADD_SOCIAL_HUMAN_RIGHTS_TRAINING: `${API_BASE_URL}/business/emissions/social-engagement-human-rights-training`,
+  ADD_SUPPLIER_SCREENING: `${API_BASE_URL}/business/emissions/supplier-screening`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

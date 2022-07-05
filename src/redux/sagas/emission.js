@@ -664,6 +664,26 @@ export function* addSocialHumanRightsTraining(action) {
     }
 }
 
+export function* addSupplierScreening(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_SUPPLIER_SCREENING, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_SUPPLIER_SCREENING_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_SUPPLIER_SCREENING_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -700,5 +720,6 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD, addDescriminationIncident),
         takeLatest(ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING, addSupplierHumanRightsTraining),
         takeLatest(ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING, addSocialHumanRightsTraining),
+        takeLatest(ActionTypes.ADD_SUPPLIER_SCREENING, addSupplierScreening),
     ])
 }

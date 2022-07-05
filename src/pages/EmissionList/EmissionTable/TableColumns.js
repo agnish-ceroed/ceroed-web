@@ -526,3 +526,21 @@ export const SocialHumanRightsTrainigColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const SupplierScreeningColumns = [{
+    columnKey: 'supplier',
+    columnId: 'supplier',
+    columnHeader: 'No of Suppliers',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
