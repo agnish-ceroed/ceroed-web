@@ -48,7 +48,7 @@ const AddSupplierScreeningForm = (props) => {
             date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
             details: formik.values.details,
             supplier: formik.values.supplier,
-            save: 'true',
+            save: true,
         }
         dispatch(addSupplierScreening(requestData))
     };

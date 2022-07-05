@@ -52,7 +52,7 @@ const AddDevelopmentTrainingForm = (props) => {
             hours: formik.values.numberOfHours,
             objective: formik.values.objective,
             content: formik.values.content,
-            save: 'true',
+            save: true,
         }
         dispatch(addDevelopmentTrainingDetails(requestData))
     };

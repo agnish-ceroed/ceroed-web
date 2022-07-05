@@ -19,6 +19,7 @@ import AddSupplierHumanRightsTrainingForm from "./AddSupplierHumanRightsTraining
 import AddSocialHumanRightsTrainingForm from "./AddSocialHumanRightsTrainingForm";
 import AddSupplierScreeningForm from "./AddSupplierScreeningForm";
 import AddLocalCommunitiesForm from "./AddLocalCommunitiesForm";
+import AddPoliticalContributionForm from "./AddPoliticalContributionForm";
 import useStyles from "./styles";
 
 const AddEmissions = () => {
@@ -51,6 +52,7 @@ const AddEmissions = () => {
                 {emissionType === 'operational_human_rights_training' && <AddSupplierHumanRightsTrainingForm onCancel={onCancelAdd} />}
                 {emissionType === 'social_engagement_human_rights_training' && <AddSocialHumanRightsTrainingForm onCancel={onCancelAdd} />}
                 {emissionType === 'local_communities' && <AddLocalCommunitiesForm onCancel={onCancelAdd} />}
+                {emissionType === 'political_contributions' && <AddPoliticalContributionForm onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );
