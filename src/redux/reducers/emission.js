@@ -196,6 +196,11 @@ export const emissionState = {
         data: {},
         status: STATUS.IDLE,
         message: ''
+    },
+    addLocalCommunities: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
     }
 }
 
@@ -1022,6 +1027,29 @@ const emissionActions = {
             [ActionTypes.ADD_SUPPLIER_SCREENING_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addSupplierScreening: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_LOCAL_COMMUNITIES]: (state, { payload }) =>
+                immutable(state, {
+                    addLocalCommunities: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_LOCAL_COMMUNITIES_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addLocalCommunities: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_LOCAL_COMMUNITIES_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addLocalCommunities: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

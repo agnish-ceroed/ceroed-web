@@ -543,4 +543,30 @@ export const SupplierScreeningColumns = [{
     columnKey: 'action',
     columnId: 'action',
     columnHeader: '',
+}];
+
+export const LocalCommunitiesColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'department',
+    columnId: 'department',
+    columnHeader: 'Department',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
 }]

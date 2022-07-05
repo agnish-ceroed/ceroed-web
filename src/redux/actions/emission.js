@@ -42,6 +42,7 @@ export const {
     addSupplierHumanRightsTraining,
     addSocialHumanRightsTraining,
     addSupplierScreening,
+    addLocalCommunities,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -82,4 +83,5 @@ export const {
     [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_SUPPLIER_SCREENING]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_LOCAL_COMMUNITIES]: (requestData) => ({ requestData }),
 })

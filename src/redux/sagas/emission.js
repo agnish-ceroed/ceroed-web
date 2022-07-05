@@ -684,6 +684,26 @@ export function* addSupplierScreening(action) {
     }
 }
 
+export function* addLocalCommunities(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_LOCAL_COMMUNITIES, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_LOCAL_COMMUNITIES_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_LOCAL_COMMUNITIES_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -721,5 +741,6 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING, addSupplierHumanRightsTraining),
         takeLatest(ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING, addSocialHumanRightsTraining),
         takeLatest(ActionTypes.ADD_SUPPLIER_SCREENING, addSupplierScreening),
+        takeLatest(ActionTypes.ADD_LOCAL_COMMUNITIES, addLocalCommunities),
     ])
 }

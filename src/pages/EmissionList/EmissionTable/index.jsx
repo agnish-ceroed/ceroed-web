@@ -19,6 +19,7 @@ import {
     SupplierHumanRightsTrainigColumns,
     SocialHumanRightsTrainigColumns,
     SupplierScreeningColumns,
+    LocalCommunitiesColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -45,6 +46,7 @@ const EmissionTable = (props) => {
         supplier_screening: SupplierScreeningColumns,
         operational_human_rights_training: SupplierHumanRightsTrainigColumns,
         social_engagement_human_rights_training: SocialHumanRightsTrainigColumns,
+        local_communities: LocalCommunitiesColumns,
     }
 
     const onSelectEmissionData = (emission) => {
