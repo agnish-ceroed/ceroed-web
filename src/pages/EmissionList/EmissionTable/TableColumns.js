@@ -482,3 +482,47 @@ export const EmployeeDescriminationIncidentColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const SupplierHumanRightsTrainigColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const SocialHumanRightsTrainigColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

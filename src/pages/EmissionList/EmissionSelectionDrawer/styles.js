@@ -5,9 +5,18 @@ const useStyles = makeStyles((theme) => ({
         padding: 0,
         margin: 0,
     },
+    drawerContainer: {
+        overflow: 'auto',
+    },
     mainContainer: {
         marginTop: theme.spacing(5),
         borderTop: `1px solid ${theme.palette.background.gray}`,
+        overflow: 'auto',
+    },
+    subContainer: {
+        paddingTop: theme.spacing(5),
+        borderTop: `1px solid ${theme.palette.background.gray}`,
+        overflow: 'auto',
     },
     typeItemGroup: {
         borderBottom: `1px solid ${theme.palette.background.gray}`,

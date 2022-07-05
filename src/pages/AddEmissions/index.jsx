@@ -15,6 +15,8 @@ import AddDevelopmentTrainingForm from "./AddDevelopmentTrainingForm";
 import AddEmployeesHealthForm from "./AddEmployeesHealthForm";
 import AddWorkerSafetyTrainingForm from "./AddWorkerSafetyTrainingForm";
 import AddDescriminationIncidentForm from "./AddDescriminationIncidentForm";
+import AddSupplierHumanRightsTrainingForm from "./AddSupplierHumanRightsTrainingForm";
+import AddSocialHumanRightsTrainingForm from "./AddSocialHumanRightsTrainingForm";
 import useStyles from "./styles";
 
 const AddEmissions = () => {
@@ -43,6 +45,8 @@ const AddEmissions = () => {
                 {emissionType === 'employee_health_safety_incident_record' && <AddEmployeesHealthForm onCancel={onCancelAdd} />}
                 {emissionType === 'worker_safety_training_procedures' && <AddWorkerSafetyTrainingForm onCancel={onCancelAdd} />}
                 {emissionType === 'discrimination_incident_record' && <AddDescriminationIncidentForm onCancel={onCancelAdd} />}
+                {emissionType === 'operational_human_rights_training' && <AddSupplierHumanRightsTrainingForm onCancel={onCancelAdd} />}
+                {emissionType === 'social_engagement_human_rights_training' && <AddSocialHumanRightsTrainingForm onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );

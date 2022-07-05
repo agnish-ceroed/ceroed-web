@@ -39,6 +39,8 @@ export const {
     addEmployeeHealthDetails,
     addWorkerSafetyTraining,
     addDescriminationIncidentRecord,
+    addSupplierHumanRightsTraining,
+    addSocialHumanRightsTraining,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -76,4 +78,6 @@ export const {
     [ActionTypes.ADD_EMPLOYEE_HEALTH_DETAILS]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_WORKER_SAFETY_TRAINING]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING]: (requestData) => ({ requestData }),
 })

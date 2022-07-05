@@ -182,6 +182,16 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    addSupplierHumanRightsTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addSocialHumanRightsTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
 }
 
 const emissionActions = {
@@ -938,6 +948,52 @@ const emissionActions = {
             [ActionTypes.ADD_DESCRIMINATION_INCIDENT_RECORD_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addDescriminationIncident: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SUPPLIER_HUMAN_RIGHTS_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSupplierHumanRightsTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addSocialHumanRightsTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addSocialHumanRightsTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addSocialHumanRightsTraining: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

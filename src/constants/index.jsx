@@ -347,7 +347,7 @@ export const emissionTypeData = [
           id: "supplier_screening",
           title: "Supplier screening",
         }, {
-          id: "social_engagement_human_rights_training",
+          id: "operational_human_rights_training",
           title: "Human Rights training",
         },
       ],
