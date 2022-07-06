@@ -8,25 +8,25 @@ import dayjs from 'dayjs';
 
 import { STATUS } from "../../../redux/constants";
 import { schemeValidation } from './schema';
-import { addWorkerSafetyTraining, resetAddCombustionStatus } from '../../../redux/actions';
+import { addPoliticalContribution, resetAddCombustionStatus } from '../../../redux/actions';
 import CeroButton from '../../../components/CeroButton';
 import CeroInput from '../../../components/CeroInput';
 import CeroEpochDatePicker from '../../../components/CeroDateTimePicker/CeroEpochDatePicker';
 import useStyles from "./styles";
 
-const AddWorkerSafetyTrainingForm = (props) => {
+const AddPoliticalContributionForm = (props) => {
     const { onCancel } = props
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
-    const addEmissionData = useSelector(state => state.emission.addWorkerSafetyTraining)
+    const addEmissionData = useSelector(state => state.emission.addPoliticalContributions)
 
     const formik = useFormik({
         initialValues: {
-            attended: '',
-            content: '',
-            objective: '',
+            amount: '',
+            details: '',
+            recipient: '',
             date: dayjs().unix(),
         },
         validationSchema: schemeValidation,
@@ -35,7 +35,7 @@ const AddWorkerSafetyTrainingForm = (props) => {
 
     useEffect(() => {
         if (addEmissionData.status === STATUS.SUCCESS) {
-            enqueueSnackbar('Worker Safety Training and Procedure added successfully', { variant: 'success' });
+            enqueueSnackbar('Political Contribution added successfully', { variant: 'success' });
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
@@ -44,51 +44,50 @@ const AddWorkerSafetyTrainingForm = (props) => {
         }
     }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
 
-    const onAddWorkerSafetyTaining = () => {
+    const onAddPoliticalContribution = () => {
         const requestData = {
             date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
-            attended: formik.values.attended,
-            objective: formik.values.objective,
-            content: formik.values.content,
+            amount: formik.values.amount,
+            details: formik.values.details,
+            recipient: formik.values.recipient,
             save: true,
         }
-        dispatch(addWorkerSafetyTraining(requestData))
+        dispatch(addPoliticalContribution(requestData))
     };
 
     return (
         <Container className={classes.container}>
             <Box className={classes.innerContainer}>
-                <Typography className={classes.title} variant="h6" component="div" >Add Worker Safety Training and Procedures</Typography>
+                <Typography className={classes.title} variant="h6" component="div" >Add Political Contribution</Typography>
                 <Box className={classes.topContainer}>
                     <Grid container direction='row' wrap='nowrap' justifyContent='space-between' spacing={8}>
                         <Grid item container direction='column' md={6} xs={12}>
                             <CeroInput
                                 required
-                                id="attended"
-                                name="attended"
-                                label="Number of Attendees"
-                                value={formik.values.attended}
+                                id="amount"
+                                name="amount"
+                                label="Amount"
+                                value={formik.values.amount}
                                 type="number"
                                 fullWidth
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.attended && formik.errors.attended}
+                                error={formik.touched.amount && formik.errors.amount}
                             />
                             <CeroInput
                                 required
-                                id="objective"
-                                name="objective"
-                                label="Objective"
-                                value={formik.values.objective}
+                                id="details"
+                                name="details"
+                                label="Details"
+                                value={formik.values.details}
                                 fullWidth
                                 multiline
                                 rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.objective && formik.errors.objective}
+                                error={formik.touched.details && formik.errors.details}
                                 classes={{ container: classes.textAreaContainer }}
                             />
-                            
                         </Grid>
                         <Grid item container direction={'column'} md={6} xs={12}>
                             <CeroEpochDatePicker
@@ -100,16 +99,14 @@ const AddWorkerSafetyTrainingForm = (props) => {
                             />
                             <CeroInput
                                 required
-                                id="content"
-                                name="content"
-                                label="Content Covered"
-                                value={formik.values.content}
+                                id="recipient"
+                                name="recipient"
+                                label="Recipient"
+                                value={formik.values.recipient}
                                 fullWidth
-                                multiline
-                                rows="3"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.content && formik.errors.content}
+                                error={formik.touched.recipient && formik.errors.recipient}
                             />
                         </Grid>
                     </Grid>
@@ -125,10 +122,10 @@ const AddWorkerSafetyTrainingForm = (props) => {
                     buttonText="Add Data"
                     disabled={!formik.dirty || !formik.isValid}
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onAddWorkerSafetyTaining} />
+                    onClick={onAddPoliticalContribution} />
             </Box>
         </Container >
     )
 }
 
-export default AddWorkerSafetyTrainingForm;
+export default AddPoliticalContributionForm;

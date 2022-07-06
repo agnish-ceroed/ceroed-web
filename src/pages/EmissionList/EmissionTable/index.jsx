@@ -20,6 +20,7 @@ import {
     SocialHumanRightsTrainigColumns,
     SupplierScreeningColumns,
     LocalCommunitiesColumns,
+    PoliticalContributionColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -47,6 +48,7 @@ const EmissionTable = (props) => {
         operational_human_rights_training: SupplierHumanRightsTrainigColumns,
         social_engagement_human_rights_training: SocialHumanRightsTrainigColumns,
         local_communities: LocalCommunitiesColumns,
+        political_contributions: PoliticalContributionColumns,
     }
 
     const onSelectEmissionData = (emission) => {
@@ -74,7 +76,7 @@ const EmissionTable = (props) => {
     const getEmissionData = () => emissionData.map((item) => ({
         ...item,
         year: `${item.month}/${item.year}`,
-        amount: `${item.amount}  ${item.unit}`,
+        amount: `${item.amount}  ${item.unit ? item.unit : ''}`,
         status: getStatus(item.status),
         treatment_required: item.treatment_required ? "Yes" : "No",
         action: (

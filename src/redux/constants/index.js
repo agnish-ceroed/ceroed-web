@@ -57,6 +57,7 @@ export const APIEndpoints = {
   ADD_SOCIAL_HUMAN_RIGHTS_TRAINING: `${API_BASE_URL}/business/emissions/social-engagement-human-rights-training`,
   ADD_SUPPLIER_SCREENING: `${API_BASE_URL}/business/emissions/supplier-screening`,
   ADD_LOCAL_COMMUNITIES: `${API_BASE_URL}/business/emissions/local-communities`,
+  ADD_POLITICAL_CONTRIBUTION: `${API_BASE_URL}/business/emissions/political-contributions`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

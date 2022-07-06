@@ -56,7 +56,7 @@ const AddLocalCommunitiesForm = (props) => {
             details: formik.values.details,
             corrective_action: formik.values.correctiveAction,
             department: formik.values.department,
-            save: 'true',
+            save: true,
         }
         dispatch(addLocalCommunities(requestData))
     };

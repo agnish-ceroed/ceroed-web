@@ -570,3 +570,25 @@ export const LocalCommunitiesColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const PoliticalContributionColumns = [{
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'recipient',
+    columnId: 'recipient',
+    columnHeader: 'Recipient',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

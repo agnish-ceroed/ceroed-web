@@ -704,6 +704,26 @@ export function* addLocalCommunities(action) {
     }
 }
 
+export function* addPoliticalContribution(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_POLITICAL_CONTRIBUTION, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_POLITICAL_CONTRIBUTION_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_POLITICAL_CONTRIBUTION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -742,5 +762,6 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_SOCIAL_HUMAN_RIGHTS_TRAINING, addSocialHumanRightsTraining),
         takeLatest(ActionTypes.ADD_SUPPLIER_SCREENING, addSupplierScreening),
         takeLatest(ActionTypes.ADD_LOCAL_COMMUNITIES, addLocalCommunities),
+        takeLatest(ActionTypes.ADD_POLITICAL_CONTRIBUTION, addPoliticalContribution),
     ])
 }
