@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   cellContainer: {
     boxShadow: "none",
   },
+  generalCellContainer: {
+    width: '50%',
+    boxShadow: "none",
+  },
   loader: {
     width: "100%",
     height: 100,

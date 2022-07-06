@@ -97,15 +97,30 @@ const CurrentYearApproval = () => {
     },
   ];
 
+  const generalColumnConfig = [
+    {
+      columnKey: "sector",
+      columnId: "sector",
+      columnHeader: "Sector",
+      classes: { column: classes.generalCellContainer },
+    },
+    {
+      columnKey: "detailsColumn",
+      columnId: "detailsColumn",
+      columnHeader: "Details",
+      classes: { column: classes.cellContainer },
+    },
+  ];
+
   useEffect(() => {
-    if(year) {
+    if (year) {
       dispatch(getYearlyAuditSummary(year));
-      dispatch(getYearlyAuditSummaryOverview(year))
+      dispatch(getYearlyAuditSummaryOverview(year));
     }
   }, [dispatch, year]);
 
   useEffect(() => {
-    statusId && dispatch(getYearlyAuditSummary({statusId}));
+    statusId && dispatch(getYearlyAuditSummary({ statusId }));
   }, [dispatch, statusId]);
 
   useEffect(() => {
@@ -139,6 +154,76 @@ const CurrentYearApproval = () => {
       usage: `${item.usage} ${item.unit}`,
     }));
 
+  const getData = (columnData) => {
+    if (columnData.type === "development_training") {
+      return `Attended: ${columnData.attended}, Hours: ${columnData.hours}`;
+    } else if (
+      columnData.type === "employee_health_safety_incident_record" ||
+      columnData.type === "discrimination_incident_record"
+    ) {
+      return `Affected: ${columnData.affected}`;
+    } else if (
+      columnData.type === "worker_safety_training_procedures" ||
+      columnData.type === "operational_human_rights_training" ||
+      columnData.type === "anti_corruption_training" ||
+      columnData.type === "social_engagement_human_rights_training"
+    ) {
+      return `Attended: ${columnData.attended}`;
+    } else if (
+      columnData.type === "political_contributions" ||
+      columnData.type === "subsidies_financial_assistance"
+    ) {
+      return `Amount: ${columnData.amount}`;
+    } else return `Records: ${columnData.records}`;
+  };
+
+  const getGeneralTableData = (data) =>
+    data.map((item) => ({
+      ...item,
+      detailsColumn: getData(item),
+    }));
+
+  const getColumnConfig = (topic) => {
+    if (topic === "Green house gas emissions") {
+      return combustionSummaryColumns;
+    } else if (topic === "Water & Waste") {
+      return waterSummaryColumns;
+    } else return generalColumnConfig;
+  };
+
+  const getTableData = (topic) => {
+    if (topic === "Green house gas emissions") {
+      return summaryData[topic];
+    } else if (topic === "Water & Waste") {
+      return getWaterData(summaryData[topic]);
+    } else {
+      return getGeneralTableData(summaryData[topic]);
+    }
+  };
+
+  const getTable = () => {
+    return topicKeys.map((topic) => {
+      return (
+        <Container className={classes.tableContainer} key={topic}>
+          <Typography
+            variant="h7"
+            component="div"
+            className={classes.tableHeaderContainer}
+          >
+            {topic}
+          </Typography>
+          <CeroTable
+            columns={getColumnConfig(topic)}
+            data={getTableData(topic) || []}
+            hasMore={false}
+            loading={false}
+            onSelectRow={onSelectData}
+          />
+        </Container>
+      );
+    });
+  };
+  
   return (
     <DashboardLayout>
       <Container className={classes.container}>
@@ -153,7 +238,7 @@ const CurrentYearApproval = () => {
           }
           onRequestAudit={onRequestAudit}
           isLoading={requestAuditStatus === STATUS.RUNNING}
-          statusId = {auditYearlySummary && auditYearlySummary.audit_status_id}
+          statusId={auditYearlySummary && auditYearlySummary.audit_status_id}
         />
         {auditYearlySummaryStatus !== STATUS.SUCCESS ? (
           <Box className={classes.loader}>
@@ -168,51 +253,20 @@ const CurrentYearApproval = () => {
         ) : (
           ""
         )}
-        {auditYearlySummaryStatus === STATUS.SUCCESS && !!auditYearlySummary.response?.length && (
-          <Status
-            status={auditStatus[auditYearlySummaryOverView.status]}
-            assignedTo={auditYearlySummaryOverView.assigned_to_name}
-            auditedBy={auditYearlySummaryOverView.audited_by_name}
-            auditedOn={auditYearlySummaryOverView.audited_on}
-            noOfTickets={auditYearlySummaryOverView.total_tickets}
-          />
-        )}
-        {auditYearlySummaryStatus === STATUS.SUCCESS && (
-          <Container className={classes.tableContainer}>
-            <Typography
-              variant="h7"
-              component="div"
-              className={classes.tableHeaderContainer}
-            >
-              {topicKeys[0]}
-            </Typography>
-            <CeroTable
-              columns={combustionSummaryColumns}
-              data={summaryData[topicKeys[0]] || []}
-              hasMore={false}
-              loading={false}
-              onSelectRow={onSelectData}
+        {auditYearlySummaryStatus === STATUS.SUCCESS &&
+          !!auditYearlySummary.response?.length && (
+            <Status
+              status={auditStatus[auditYearlySummaryOverView.status]}
+              assignedTo={auditYearlySummaryOverView.assigned_to_name}
+              auditedBy={auditYearlySummaryOverView.audited_by_name}
+              auditedOn={auditYearlySummaryOverView.audited_on}
+              noOfTickets={auditYearlySummaryOverView.total_tickets}
             />
-          </Container>
-        )}
-        {auditYearlySummaryStatus === STATUS.SUCCESS && topicKeys[1] && (
-          <Container className={classes.tableContainer}>
-            <Typography
-              variant="h7"
-              component="div"
-              className={classes.tableHeaderContainer}
-            >
-              {topicKeys[1]}
-            </Typography>
-            <CeroTable
-              columns={waterSummaryColumns}
-              data={getWaterData(summaryData[topicKeys[1]] || [])}
-              hasMore={false}
-              loading={false}
-              onSelectRow={onSelectData}
-            />
-          </Container>
-        )}
+          )}
+        {auditYearlySummaryStatus === STATUS.SUCCESS &&
+          topicKeys &&
+          topicKeys.length &&
+          getTable()}
       </Container>
     </DashboardLayout>
   );
