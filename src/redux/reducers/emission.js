@@ -201,6 +201,11 @@ export const emissionState = {
         data: {},
         status: STATUS.IDLE,
         message: ''
+    },
+    addPoliticalContributions: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
     }
 }
 
@@ -1050,6 +1055,29 @@ const emissionActions = {
             [ActionTypes.ADD_LOCAL_COMMUNITIES_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addLocalCommunities: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_POLITICAL_CONTRIBUTION]: (state, { payload }) =>
+                immutable(state, {
+                    addPoliticalContributions: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_POLITICAL_CONTRIBUTION_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addPoliticalContributions: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_POLITICAL_CONTRIBUTION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addPoliticalContributions: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

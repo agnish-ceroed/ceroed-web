@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   filterContainer: {
-    marginBottom: theme.spacing(4)
+    margin: theme.spacing(5, 0)
   }
 }));
 

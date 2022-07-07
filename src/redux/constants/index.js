@@ -6,7 +6,7 @@ export const STATUS = {
   ERROR: "error",
 };
 
-const API_BASE_URL = "https://ceroed-api-cd-development.azurewebsites.net";
+const API_BASE_URL = process.env.API_BASE_URL;
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
@@ -57,6 +57,7 @@ export const APIEndpoints = {
   ADD_SOCIAL_HUMAN_RIGHTS_TRAINING: `${API_BASE_URL}/business/emissions/social-engagement-human-rights-training`,
   ADD_SUPPLIER_SCREENING: `${API_BASE_URL}/business/emissions/supplier-screening`,
   ADD_LOCAL_COMMUNITIES: `${API_BASE_URL}/business/emissions/local-communities`,
+  ADD_POLITICAL_CONTRIBUTION: `${API_BASE_URL}/business/emissions/political-contributions`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

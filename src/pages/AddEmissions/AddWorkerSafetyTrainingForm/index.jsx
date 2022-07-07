@@ -50,7 +50,7 @@ const AddWorkerSafetyTrainingForm = (props) => {
             attended: formik.values.attended,
             objective: formik.values.objective,
             content: formik.values.content,
-            save: 'true',
+            save: true,
         }
         dispatch(addWorkerSafetyTraining(requestData))
     };

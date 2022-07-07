@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import _ from "lodash";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import CeroTable from "../../../components/CeroTable";
 import { getApprovalMonthlyDetails, getApprovalMonthlySummary } from "../../../redux/actions";
@@ -29,15 +30,25 @@ const MonthlyFacilityDetails = () => {
   const waterConsumptionCombustionData = (approvalData ||[]).filter(item => item.type === 'water_consumption');
   const wasteCombustionData = (approvalData ||[]).filter(item => item.type === 'waste');
   const purchasedElectricityCombustionData = (approvalData ||[]).filter(item => item.type === 'purchased_electricity');
+  const generalEmissionData = (approvalData ||[]).filter(item => (
+    item.type !== 'stationary_combustion'&&
+    item.type !== 'mobile_combustion'&&
+    item.type !== 'refrigerants'&&
+    item.type !== 'transportation'&&
+    item.type !== 'water_discharge'&&
+    item.type !== 'water_consumption'&&
+    item.type !== 'waste'&&
+    item.type !== 'purchased_electricity'
+    ))
 
-  const energyAndMaterialsData = [
+    const energyAndMaterialsData = [
     ...stationaryCombustionData,
     ...mobileCombustionData,
     ...purchasedElectricityCombustionData,
     ...refrigerantsCombustionData,
     ...transportationCombustionData,
   ];
-  const waterData = [ ...waterDischargeCombustionData, ...waterConsumptionCombustionData ];
+  const waterData = [ ...waterDischargeCombustionData, ...waterConsumptionCombustionData, ...wasteCombustionData ];
 
   const facilitiesList = facilitiesData.map((item) => ({
     key: item.id,
@@ -68,12 +79,6 @@ const MonthlyFacilityDetails = () => {
       columnKey: "sector",
       columnId: "sector",
       columnHeader: "Sector",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "topic",
-      columnId: "topic",
-      columnHeader: "Topic",
       classes: { column: classes.cellContainer },
     },
     {
@@ -110,53 +115,30 @@ const MonthlyFacilityDetails = () => {
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "topic",
-      columnId: "topic",
-      columnHeader: "Topic",
+      columnKey: "usage",
+      columnId: "usage",
+      columnHeader: "Usage",
       classes: { column: classes.cellContainer },
     },
     {
-      columnKey: "amount",
-      columnId: "amount",
-      columnHeader: "Amount",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "total_records",
-      columnId: "total_records",
+      columnKey: "records",
+      columnId: "records",
       columnHeader: "No or records",
       classes: { column: classes.cellContainer },
     },
   ];
 
-  const wasteSummaryColumns = [
+  const generalColumnConfig = [
     {
       columnKey: "sector",
       columnId: "sector",
       columnHeader: "Sector",
-      classes: { column: classes.cellContainer },
-    },{
-      columnKey: "topic",
-      columnId: "topic",
-      columnHeader: "Topic",
-      classes: { column: classes.cellContainer },
+      classes: { column: classes.generalCellContainer },
     },
     {
-      columnKey: "amount",
-      columnId: "amount",
-      columnHeader: "Amount",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "total_bioFuel",
-      columnId: "total_bioFuel",
-      columnHeader: "Biofuel CO2 (tonnes)",
-      classes: { column: classes.cellContainer },
-    },
-    {
-      columnKey: "total_records",
-      columnId: "total_records",
-      columnHeader: "No or records",
+      columnKey: "detailsColumn",
+      columnId: "detailsColumn",
+      columnHeader: "Details",
       classes: { column: classes.cellContainer },
     },
   ];
@@ -166,6 +148,67 @@ const MonthlyFacilityDetails = () => {
       `?${filter.month ? `&month=${filter.month}` : ''}${filter.facility ?  `&facility=${filter.facility}` : ''}`
     );
     navigate(`/approval-status/${filter.year}${currentFilter}`);
+  };
+
+  const getWaterData = (data) =>
+    data.map((item) => ({
+      ...item,
+      usage: `${item.usage} ${item.unit}`,
+    }));
+
+  const summaryData = _.groupBy(generalEmissionData, "topic");
+  const topicKeys = _.keys(summaryData);
+
+  const getData = (columnData) => {
+    if (columnData.type === "development_training") {
+      return `Attended: ${columnData.attended}, Hours: ${columnData.hours}`;
+    } else if (
+      columnData.type === "employee_health_safety_incident_record" ||
+      columnData.type === "discrimination_incident_record"
+    ) {
+      return `Affected: ${columnData.affected}`;
+    } else if (
+      columnData.type === "worker_safety_training_procedures" ||
+      columnData.type === "operational_human_rights_training" ||
+      columnData.type === "anti_corruption_training" ||
+      columnData.type === "social_engagement_human_rights_training"
+    ) {
+      return `Attended: ${columnData.attended}`;
+    } else if (
+      columnData.type === "political_contributions" ||
+      columnData.type === "subsidies_financial_assistance"
+    ) {
+      return `Amount: ${columnData.amount}`;
+    } else return `Records: ${columnData.records}`;
+  };
+
+  const getGeneralTableData = (data) =>
+    data.map((item) => ({
+      ...item,
+      detailsColumn: getData(item),
+    }));
+
+  const getGeneralTable = () => {
+    return topicKeys.map((topic) => {
+      return (
+        <Container className={classes.tableContainer} key={topic}>
+          <Typography
+            variant="h7"
+            component="div"
+            className={classes.tableHeaderContainer}
+          >
+            {topic}
+          </Typography>
+          <CeroTable
+            columns={generalColumnConfig}
+            data={getGeneralTableData(summaryData[topic]) || []}
+            hasMore={false}
+            loading={false}
+            onSelectRow={onSelectData}
+          />
+        </Container>
+      );
+    });
   };
 
   return (
@@ -192,6 +235,13 @@ const MonthlyFacilityDetails = () => {
         />}
         {!!energyAndMaterialsData.length && (
           <Container className={classes.tableContainer}>
+            <Typography
+            variant="h7"
+            component="div"
+            className={classes.tableHeaderContainer}
+          >
+            {energyAndMaterialsData[0].topic}
+          </Typography>
             <CeroTable
               columns={combustionSummaryColumns}
               data={energyAndMaterialsData}
@@ -203,25 +253,24 @@ const MonthlyFacilityDetails = () => {
         )}
         {!!waterData.length && (
           <Container className={classes.tableContainer}>
+            <Typography
+            variant="h7"
+            component="div"
+            className={classes.tableHeaderContainer}
+          >
+            {waterData[0].topic}
+          </Typography>
             <CeroTable
               columns={waterSummaryColumns}
-              data={waterData}
+              data={getWaterData(waterData)}
               hasMore={false}
               loading={false}
               onSelectRow={onSelectData}
             />
           </Container>
         )}
-        { !!wasteCombustionData.length && (
-          <Container className={classes.tableContainer}>
-            <CeroTable
-              columns={wasteSummaryColumns}
-              data={wasteCombustionData}
-              hasMore={false}
-              loading={false}
-              onSelectRow={onSelectData}
-            />
-          </Container>
+        { !!generalEmissionData.length && (
+          getGeneralTable()
         )}
       </Container>
     </DashboardLayout>
