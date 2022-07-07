@@ -6,7 +6,7 @@ export const STATUS = {
   ERROR: "error",
 };
 
-const API_BASE_URL = "https://ceroed-api-cd-development.azurewebsites.net";
+const API_BASE_URL = process.env.API_BASE_URL;
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
