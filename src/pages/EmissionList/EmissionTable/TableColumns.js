@@ -592,3 +592,113 @@ export const PoliticalContributionColumns = [{
     columnId: 'action',
     columnHeader: '',
 }]
+
+export const AntiCorruptionDisclosureColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'recipient',
+    columnId: 'recipient',
+    columnHeader: 'Recipient',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const AntiCorruptionTrainigColumns = [{
+    columnKey: 'objective',
+    columnId: 'objective',
+    columnHeader: 'Objective',
+}, {
+    columnKey: 'attended',
+    columnId: 'attended',
+    columnHeader: 'No of Attendee',
+}, {
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const AntiCompetitiveDisclosureColumns = [{
+    columnKey: 'facility_name',
+    columnId: 'facility_name',
+    columnHeader: 'Facility',
+}, {
+    columnKey: 'affected_party',
+    columnId: 'affected_party',
+    columnHeader: 'Affected Party',
+}, {
+    columnKey: 'corrective_action',
+    columnId: 'corrective_action',
+    columnHeader: 'Corrective Action',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const FinancialAssistanceColumns = [{
+    columnKey: 'amount',
+    columnId: 'amount',
+    columnHeader: 'Amount',
+}, {
+    columnKey: 'donor',
+    columnId: 'donor',
+    columnHeader: 'Donor',
+}, {
+    columnKey: 'details',
+    columnId: 'details',
+    columnHeader: 'Details',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]
+
+export const UploadFileEmissionColumns = [{
+    columnKey: 'content',
+    columnId: 'content',
+    columnHeader: 'Content',
+}, {
+    columnKey: 'year',
+    columnId: 'year',
+    columnHeader: 'Year',
+}, {
+    columnKey: 'action',
+    columnId: 'action',
+    columnHeader: '',
+}]

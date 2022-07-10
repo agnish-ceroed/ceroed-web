@@ -20,7 +20,21 @@ import AddSocialHumanRightsTrainingForm from "./AddSocialHumanRightsTrainingForm
 import AddSupplierScreeningForm from "./AddSupplierScreeningForm";
 import AddLocalCommunitiesForm from "./AddLocalCommunitiesForm";
 import AddPoliticalContributionForm from "./AddPoliticalContributionForm";
+import AddAntiCorruptionDisclosureForm from "./AddAntiCorruptionDisclosureForm";
+import AddAntiCorruptionTrainingForm from "./AddAntiCorruptionTrainingForm";
+import AddAntiCompetitiveDisclosureForm from "./AddAntiCompetitiveDisclosureForm";
+import AddSubsidiesFinancialForm from "./AddSubsidiesFinancialForm";
 import useStyles from "./styles";
+import AddUploadEmissionForm from "./AddUploadEmissionForm";
+
+const uploadFileEmissions = [
+    'employees_turnover',
+    'age_based_statistics',
+    'gender_based_statistics',
+    'board_diversity',
+    'management_diversity',
+    'tax',
+];
 
 const AddEmissions = () => {
     const classes = useStyles();
@@ -53,6 +67,11 @@ const AddEmissions = () => {
                 {emissionType === 'social_engagement_human_rights_training' && <AddSocialHumanRightsTrainingForm onCancel={onCancelAdd} />}
                 {emissionType === 'local_communities' && <AddLocalCommunitiesForm onCancel={onCancelAdd} />}
                 {emissionType === 'political_contributions' && <AddPoliticalContributionForm onCancel={onCancelAdd} />}
+                {emissionType === 'anti_corruption_disclosure' && <AddAntiCorruptionDisclosureForm onCancel={onCancelAdd} />}
+                {emissionType === 'anti_corruption_training' && <AddAntiCorruptionTrainingForm onCancel={onCancelAdd} />}
+                {emissionType === 'anti_competitive_disclosure' && <AddAntiCompetitiveDisclosureForm onCancel={onCancelAdd} />}
+                {emissionType === 'subsidies_financial_assistance' && <AddSubsidiesFinancialForm onCancel={onCancelAdd} />}
+                {uploadFileEmissions.includes(emissionType) && <AddUploadEmissionForm emissionType={emissionType} onCancel={onCancelAdd} />}
             </Container>
         </DashboardLayout>
     );

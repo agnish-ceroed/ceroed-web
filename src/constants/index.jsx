@@ -372,6 +372,18 @@ export const emissionTypeData = [
     id: "governance",
     title: "Governance",
     subItems: [{
+      id: "Management",
+      title: "Management",
+      subItems: [
+        {
+          id: "board_diversity",
+          title: "Board Diversity",
+        }, {
+          id: "management_diversity",
+          title: "Management Diversity",
+        },
+      ],
+    }, {
       id: "Ethical Behaviour",
       title: "Ethical Behaviour",
       subItems: [

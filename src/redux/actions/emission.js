@@ -44,6 +44,11 @@ export const {
     addSupplierScreening,
     addLocalCommunities,
     addPoliticalContribution,
+    addAntiCorruptionDisclosure,
+    addAntiCorruptionTraining,
+    addAntiCompetitiveDisclosure,
+    addSubsidiesFinancialAssistance,
+    addUploadFileEmission,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter) => ({ emissionType, filter }),
     [ActionTypes.CLEAR_EMISSION_LIST]: () => ({}),
@@ -86,4 +91,9 @@ export const {
     [ActionTypes.ADD_SUPPLIER_SCREENING]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_LOCAL_COMMUNITIES]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_POLITICAL_CONTRIBUTION]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_ANTI_CORRUPTION_TRAINING]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE]: (requestData) => ({ requestData }),
+    [ActionTypes.ADD_UPLOAD_FILE_EMISSION]: (requestData) => ({ requestData }),
 })

@@ -21,6 +21,11 @@ import {
     SupplierScreeningColumns,
     LocalCommunitiesColumns,
     PoliticalContributionColumns,
+    AntiCorruptionDisclosureColumns,
+    AntiCorruptionTrainigColumns,
+    AntiCompetitiveDisclosureColumns,
+    FinancialAssistanceColumns,
+    UploadFileEmissionColumns,
 } from "./TableColumns";
 import CeroTable from '../../../components/CeroTable';
 import useStyles from "./styles";
@@ -49,6 +54,16 @@ const EmissionTable = (props) => {
         social_engagement_human_rights_training: SocialHumanRightsTrainigColumns,
         local_communities: LocalCommunitiesColumns,
         political_contributions: PoliticalContributionColumns,
+        anti_corruption_disclosure: AntiCorruptionDisclosureColumns,
+        anti_corruption_training: AntiCorruptionTrainigColumns,
+        anti_competitive_disclosure: AntiCompetitiveDisclosureColumns,
+        subsidies_financial_assistance: FinancialAssistanceColumns,
+        employees_turnover: UploadFileEmissionColumns,
+        age_based_statistics: UploadFileEmissionColumns,
+        gender_based_statistics: UploadFileEmissionColumns,
+        board_diversity: UploadFileEmissionColumns,
+        management_diversity: UploadFileEmissionColumns,
+        tax: UploadFileEmissionColumns,
     }
 
     const onSelectEmissionData = (emission) => {

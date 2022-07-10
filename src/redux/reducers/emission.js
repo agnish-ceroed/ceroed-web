@@ -206,6 +206,31 @@ export const emissionState = {
         data: {},
         status: STATUS.IDLE,
         message: ''
+    },
+    addCorruptionDisclosure: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addCorruptionTraining: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addCompetitiveDisclosure: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addFinancialAssistance: {
+        data: {},
+        status: STATUS.IDLE,
+        message: ''
+    },
+    addUploadFileEmission: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '' 
     }
 }
 
@@ -1078,6 +1103,121 @@ const emissionActions = {
             [ActionTypes.ADD_POLITICAL_CONTRIBUTION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addPoliticalContributions: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE]: (state, { payload }) =>
+                immutable(state, {
+                    addCorruptionDisclosure: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addCorruptionDisclosure: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addCorruptionDisclosure: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_ANTI_CORRUPTION_TRAINING]: (state, { payload }) =>
+                immutable(state, {
+                    addCorruptionTraining: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_ANTI_CORRUPTION_TRAINING_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addCorruptionTraining: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_ANTI_CORRUPTION_TRAINING_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addCorruptionTraining: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE]: (state, { payload }) =>
+                immutable(state, {
+                    addCompetitiveDisclosure: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addCompetitiveDisclosure: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addCompetitiveDisclosure: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE]: (state, { payload }) =>
+                immutable(state, {
+                    addFinancialAssistance: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addFinancialAssistance: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addFinancialAssistance: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.ADD_UPLOAD_FILE_EMISSION]: (state, { payload }) =>
+                immutable(state, {
+                    addUploadFileEmission: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.ADD_UPLOAD_FILE_EMISSION_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    addUploadFileEmission: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !payload.save }
+                    }
+                })
+            },
+            [ActionTypes.ADD_UPLOAD_FILE_EMISSION_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    addUploadFileEmission: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

@@ -4,6 +4,15 @@ import { request } from '../../services/client'
 import { ActionTypes } from '../constants/actions';
 import { APIEndpoints } from '../constants';
 
+const uploadFileEmissionUrlMap = {
+    employees_turnover: APIEndpoints.ADD_EMPLOYEES_TURNOVER,
+    age_based_statistics: APIEndpoints.ADD_AGE_BASED_STATISTICS,
+    gender_based_statistics: APIEndpoints.ADD_GENDER_BASED_STATISTICS,
+    board_diversity: APIEndpoints.ADD_BOARD_DIVERSITY,
+    management_diversity: APIEndpoints.ADD_MANAGEMENT_DIVERSITY,
+    tax: APIEndpoints.ADD_TAX
+}
+
 export function* getEmissionList(action) {
     try {
         const { emissionType, filter } = action.payload
@@ -724,6 +733,106 @@ export function* addPoliticalContribution(action) {
     }
 }
 
+export function* addAntiCorruptionDisclosure(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_ANTI_CORRUPTION_DISCLOSURE, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* addAntiCorruptionTraining(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_ANTI_CORRUPTION_TRAINING, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_ANTI_CORRUPTION_TRAINING_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_ANTI_CORRUPTION_TRAINING_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* addAntiCompetitiveDisclosure(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_ANTI_COMPETITIVE_DISCLOSURE, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* addFinancialAssistance(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, APIEndpoints.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE, {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE_FAILURE,
+            payload: err
+        })
+    }
+}
+
+export function* addUploadFileEmissions(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, uploadFileEmissionUrlMap[requestData.emissionType], {
+            method: 'POST',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.ADD_UPLOAD_FILE_EMISSION_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.ADD_UPLOAD_FILE_EMISSION_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -763,5 +872,10 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_SUPPLIER_SCREENING, addSupplierScreening),
         takeLatest(ActionTypes.ADD_LOCAL_COMMUNITIES, addLocalCommunities),
         takeLatest(ActionTypes.ADD_POLITICAL_CONTRIBUTION, addPoliticalContribution),
+        takeLatest(ActionTypes.ADD_ANTI_CORRUPTION_DISCLOSURE, addAntiCorruptionDisclosure),
+        takeLatest(ActionTypes.ADD_ANTI_CORRUPTION_TRAINING, addAntiCorruptionTraining),
+        takeLatest(ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE, addAntiCompetitiveDisclosure),
+        takeLatest(ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE, addFinancialAssistance),
+        takeLatest(ActionTypes.ADD_UPLOAD_FILE_EMISSION, addUploadFileEmissions),
     ])
 }

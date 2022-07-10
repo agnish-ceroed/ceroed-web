@@ -6,7 +6,7 @@ export const STATUS = {
   ERROR: "error",
 };
 
-const API_BASE_URL = process.env.API_BASE_URL;
+const API_BASE_URL = process.env.API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
@@ -58,6 +58,16 @@ export const APIEndpoints = {
   ADD_SUPPLIER_SCREENING: `${API_BASE_URL}/business/emissions/supplier-screening`,
   ADD_LOCAL_COMMUNITIES: `${API_BASE_URL}/business/emissions/local-communities`,
   ADD_POLITICAL_CONTRIBUTION: `${API_BASE_URL}/business/emissions/political-contributions`,
+  ADD_ANTI_CORRUPTION_DISCLOSURE: `${API_BASE_URL}/business/emissions/anti-corruption-disclosure`,
+  ADD_ANTI_CORRUPTION_TRAINING: `${API_BASE_URL}/business/emissions/anti-corruption-training`,
+  ADD_ANTI_COMPETITIVE_DISCLOSURE: `${API_BASE_URL}/business/emissions/anti-competitive-disclosure`,
+  ADD_SUBSIDIES_FINANCIAL_ASSISTANCE: `${API_BASE_URL}/business/emissions/subsidies-financial-assistance`,
+  ADD_EMPLOYEES_TURNOVER: `${API_BASE_URL}/business/emissions/employees-turnover`,
+  ADD_AGE_BASED_STATISTICS: `${API_BASE_URL}/business/emissions/age-based-statistics`,
+  ADD_GENDER_BASED_STATISTICS: `${API_BASE_URL}/business/emissions/gender-based-statistics`,
+  ADD_BOARD_DIVERSITY: `${API_BASE_URL}/business/emissions/board-diversity`,
+  ADD_MANAGEMENT_DIVERSITY: `${API_BASE_URL}/business/emissions/management-diversity`,
+  ADD_TAX: `${API_BASE_URL}/business/emissions/tax`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>
