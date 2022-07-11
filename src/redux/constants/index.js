@@ -6,7 +6,7 @@ export const STATUS = {
   ERROR: "error",
 };
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-staging.azurewebsites.net';
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
