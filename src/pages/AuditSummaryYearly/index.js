@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Chip } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import { auditStatus } from "../../constants";
@@ -63,7 +63,7 @@ const AuditSummaryYearly = () => {
   const getAuditData = () =>
     auditSummary.map((item) => ({
       ...item,
-      audited_status: auditStatus[item.audited_status],
+      audited_status: getStatus(item.audited_status),
       audited_on: item.audited_on
         ? new Date(item.audited_on).toDateString()
         : "",
@@ -71,6 +71,16 @@ const AuditSummaryYearly = () => {
         ? new Date(item.assigned_on).toDateString()
         : "",
     }));
+
+    const getStatus = (status) => {
+      if (status === 'audited') {
+          return <Chip label={auditStatus[status]} color="success" variant='outlined' />
+      }else if (status === 'pending') {
+          return <Chip label={auditStatus[status]} color="warning" variant='outlined' />
+      } else {
+          return <Chip label={auditStatus[status]} color="info" variant='outlined' />
+      }
+  };
 
   useEffect(() => {
     dispatch(getAuditSummary());

@@ -1,4 +1,4 @@
-import { Container, Box } from "@mui/material";
+import { Container, Box, Chip } from "@mui/material";
 import CeroTable from "../../../components/CeroTable";
 import { months } from "../../../constants";
 import dayjs from "dayjs";
@@ -47,6 +47,20 @@ const MonthlySummaryTable = (props) => {
   const classes = useStyles();
   const { onSelectApprovalSummaryData, summaryData } = props;
 
+  const getStatus = (status) => {
+    if (status === 'approved') {
+        return <Chip label={status} color="success" variant='outlined' />
+    }else if (status === 'assigned') {
+        return <Chip label={status} color="warning" variant='outlined' />
+    } else if (status === 'audited') {
+        return <Chip label={status} color="secondary" variant='outlined' />
+    } else if (status === 'reported') {
+        return <Chip label={status} color="error" variant='outlined' />
+    } else {
+        return <Chip label={status} color="info" variant='outlined' />
+    }
+};
+
   const getSummaryData = () =>
     summaryData.map((item) => ({
       ...item,
@@ -56,6 +70,7 @@ const MonthlySummaryTable = (props) => {
           {months.find((month) => month.key === item.month)?.value}
         </Box>
       ),
+      status: getStatus(item.status),
     }));
 
   return (

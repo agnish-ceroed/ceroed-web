@@ -78,11 +78,13 @@ const EmissionTable = (props) => {
 
     const getStatus = (status) => {
         if (status === 'approved') {
-            return <Chip label={status} color="primary" variant='outlined' />
+            return <Chip label={status} color="success" variant='outlined' />
+        }else if (status === 'submitted') {
+            return <Chip label={status} color="warning" variant='outlined' />
         } else if (status === 'audited') {
             return <Chip label={status} color="secondary" variant='outlined' />
         } else if (status === 'reported') {
-            return <Chip label={status} color="warning" variant='outlined' />
+            return <Chip label={status} color="error" variant='outlined' />
         } else {
             return <Chip label={status} color="info" variant='outlined' />
         }

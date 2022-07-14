@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: "flex",
     alignItems: "center",
+    justifyContent: 'space-between',
     borderBottom: `1px solid ${theme.palette.border.gray}`,
     "&:hover": {
       background: theme.palette.Secondary.background,
