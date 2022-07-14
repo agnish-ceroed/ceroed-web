@@ -56,6 +56,7 @@ const AddUploadEmissionForm = (props) => {
             emissionType: props.emissionType,
             date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
             content: formik.values.content,
+            save: true,
         }
         dispatch(addUploadFileEmission(requestData))
     };

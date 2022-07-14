@@ -30,11 +30,6 @@ const AddPurchasedElectricityForm = (props) => {
     const addEmissionData = useSelector(state => state.emission.addPurchasedElectricity);
     const emissionInputs = useSelector(state => state.emission.emissionInputs.data);
 
-    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
-    const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
-    const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
-    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
-
     const formik = useFormik({
         initialValues: {
             facility: '',
@@ -44,10 +39,18 @@ const AddPurchasedElectricityForm = (props) => {
             typeOfEmissionFactor: '',
             unit: '',
             amount: '',
+            customEmissionType: '',
         },
         validationSchema: addPurchasedElectricityValidation,
         onSubmit: () => { },
     });
+
+    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
+    const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
+    const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
+    const customEmissionTypes = (emissionInputs.custom_types_of_emissions || []).filter(item => item.scope_activity === (emissionInputs.calculation_approaches || []).find(item => item.id === formik.values.calculationApproach)?.scope_activity)
+    .map(item => ({ key: item?.id, value: item?.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
         dispatch(getEmissionInputFormat('purchased_electricity'))
@@ -68,7 +71,6 @@ const AddPurchasedElectricityForm = (props) => {
             onCancel('purchased_electricity');
         } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus())
         }
     }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
 
@@ -81,6 +83,8 @@ const AddPurchasedElectricityForm = (props) => {
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
             unit: formik.values.unit + '',
             amount: parseFloat(formik.values.amount),
+            custom_type_emission_id: typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor'
+                ? formik.values.customEmissionType : null,
             save: false
         }
         dispatch(addPurchasedElectricity(requestData))
@@ -95,6 +99,8 @@ const AddPurchasedElectricityForm = (props) => {
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
             unit: formik.values.unit + '',
             amount: parseFloat(formik.values.amount),
+            custom_type_emission_id: typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor'
+                ? formik.values.customEmissionType : null,
             save: true
         }
         dispatch(addPurchasedElectricity(requestData))
@@ -194,6 +200,19 @@ const AddPurchasedElectricityForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.unit && formik.errors.unit}
                             />
+                            {typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor' && (<CeroSelect
+                                required
+                                id="customEmissionType"
+                                key="customEmissionType"
+                                name="customEmissionType"
+                                label="Custom Emission Type"
+                                fullWidth
+                                options={customEmissionTypes}
+                                selectedValue={formik.values.customEmissionType || ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.customEmissionType && formik.errors.customEmissionType}
+                            />)}
                         </Grid>
                     </Grid>
                     <CeroButton

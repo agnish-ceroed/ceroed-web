@@ -51,9 +51,11 @@ const EditTransportationForm = (props) => {
     const vehicleTypes = (emissionInputs?.vehicle_types || []).filter((item) => !formik.values.modeOfTransport || item.transport_mode_id === formik.values.modeOfTransport)
         .map(item => ({ key: item?.id, value: item?.name }));
     const activityTypes = (emissionInputs?.activity_types || []).map(item => ({ key: item?.id, value: item?.name, type: item?.unit_type }));
+    const customActivityTypes = (emissionInputs?.custom_activity_types || []).map(item => ({ key: item?.id, value: item?.name, type: item?.unit_type }));
     const units = (emissionInputs?.units || []).filter((item) => !formik.values.activityType || item.type === activityTypes.find(item => item.key === formik.values.activityType)?.type)
         .map(item => ({ key: item?.name, value: item?.description }));
-    const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
+    const customUnits = (emissionInputs?.units || []).filter((item) => item.type === 'distance')
+        .map(item => ({ key: item?.name, value: item?.description }));const transportModes = (emissionInputs?.transport_modes || []).map(item => ({ key: item?.id, value: item?.name }));
     const emissionFactorDataset = (emissionInputs?.ef_dataset || []).map(item => ({ key: item?.id, value: item?.name }));
     const categories = (emissionInputs?.categories || []).map(item => ({ key: item?.id, value: item?.name }));
 
@@ -95,7 +97,8 @@ const EditTransportationForm = (props) => {
             activity_type_id: formik.values.activityType,
             year: formik.values.year,
             mode_of_transport_id: formik.values.modeOfTransport,
-            vehicle_type_id: formik.values.vehicleType,
+            vehicle_type_id: emissionFactorDataset.find((item) => item.key === formik.values.emissionFactorDataset)?.value !== 'Custom emission factor'
+                ? formik.values.vehicleType :  null,
             amount: parseFloat(formik.values.amount),
             month: formik.values.month,
             unit: formik.values.unit,
@@ -113,7 +116,8 @@ const EditTransportationForm = (props) => {
             activity_type_id: formik.values.activityType,
             year: formik.values.year,
             mode_of_transport_id: formik.values.modeOfTransport,
-            vehicle_type_id: formik.values.vehicleType,
+            vehicle_type_id: emissionFactorDataset.find((item) => item.key === formik.values.emissionFactorDataset)?.value !== 'Custom emission factor'
+                ? formik.values.vehicleType :  null,
             amount: parseFloat(formik.values.amount),
             month: formik.values.month,
             unit: formik.values.unit,
@@ -166,7 +170,8 @@ const EditTransportationForm = (props) => {
                                 name="activityType"
                                 label="Activity Type"
                                 fullWidth
-                                options={activityTypes}
+                                options={emissionFactorDataset.find((item) => item.key === formik.values.emissionFactorDataset)?.value !== 'Custom emission factor'
+                                    ? activityTypes : customActivityTypes }
                                 selectedValue={formik.values.activityType || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -210,6 +215,7 @@ const EditTransportationForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.modeOfTransport && formik.errors.modeOfTransport}
                             />
+                            { emissionFactorDataset.find((item) => item.key === formik.values.emissionFactorDataset)?.value !== 'Custom emission factor' && (
                             <CeroSelect
                                 required
                                 id="vehicleType"
@@ -221,7 +227,7 @@ const EditTransportationForm = (props) => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.vehicleType && formik.errors.vehicleType}
-                            />
+                            />)}
                             <CeroInput
                                 required
                                 id="amount"
@@ -239,7 +245,8 @@ const EditTransportationForm = (props) => {
                                 name="unit"
                                 label="Unit"
                                 fullWidth
-                                options={units}
+                                options={emissionFactorDataset.find((item) => item.key === formik.values.emissionFactorDataset)?.value !== 'Custom emission factor'
+                                ? units : customUnits }
                                 selectedValue={formik.values.unit || ''}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

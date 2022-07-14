@@ -29,14 +29,6 @@ const EditPurchasedElectricityForm = (props) => {
     const [typesOfEmissionFactors, setTypesOfEmissionFactors] = useState([]);
     const [displayWarning, setDisplayWarning] = useState(false);
 
-    const isCalculateDone = useSelector(state => state.emission.updatePurchasedElectricity.isCalculateDone)
-    const updateEmissionData = useSelector(state => state.emission.updatePurchasedElectricity)
-    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
-    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
-    const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
-    const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
-    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
-
     const formik = useFormik({
         initialValues: {
             facility: emissionData.facility_id || '',
@@ -46,10 +38,21 @@ const EditPurchasedElectricityForm = (props) => {
             typeOfEmissionFactor: emissionData.type_of_emission_factors_id || '',
             unit: emissionData.unit || '',
             amount: emissionData.amount || '',
+            customEmissionType: emissionData.custom_type_emission_id || '',
         },
         validationSchema: editPurchasedElectricityValidation,
         onSubmit: () => { },
     });
+
+    const isCalculateDone = useSelector(state => state.emission.updatePurchasedElectricity.isCalculateDone)
+    const updateEmissionData = useSelector(state => state.emission.updatePurchasedElectricity)
+    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
+    const facilitiesList = facilitiesData.map(item => ({ key: item?.id, value: item?.name }));
+    const calculationApproach = (emissionInputs.calculation_approaches || []).map(item => ({ key: item?.id, value: item?.name }));
+    const units = (emissionInputs.units || []).map(item => ({ key: item?.name, value: item?.name }));
+    const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
+    const customEmissionTypes = (emissionInputs.custom_types_of_emissions || []).filter(item => item.scope_activity === (emissionInputs.calculation_approaches || []).find(item => item.id === formik.values.calculationApproach)?.scope_activity)
+    .map(item => ({ key: item?.id, value: item?.name }));
 
     useEffect(() => {
         const selectedTypesOfEmissionFactors = (emissionInputs.types_of_emission_factors || [])
@@ -71,7 +74,6 @@ const EditPurchasedElectricityForm = (props) => {
             onCancel();
         } else if (updateEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus())
         }
     }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
 
@@ -94,6 +96,8 @@ const EditPurchasedElectricityForm = (props) => {
             year: formik.values.year,
             month: formik.values.month,
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
+            custom_type_emission_id: typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor'
+                ? formik.values.customEmissionType : null,
             unit: formik.values.unit + '',
             amount: parseFloat(formik.values.amount),
             save: false
@@ -109,6 +113,8 @@ const EditPurchasedElectricityForm = (props) => {
             year: formik.values.year,
             month: formik.values.month,
             type_of_emission_factors_id: formik.values.typeOfEmissionFactor,
+            custom_type_emission_id: typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor'
+                ? formik.values.customEmissionType : null,
             unit: formik.values.unit + '',
             amount: parseFloat(formik.values.amount),
             save: true
@@ -218,6 +224,19 @@ const EditPurchasedElectricityForm = (props) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.unit && formik.errors.unit}
                             />
+                            {typesOfEmissionFactors.find((item) => item.key === formik.values.typeOfEmissionFactor)?.value === 'Custom emission factor' && (<CeroSelect
+                                required
+                                id="customEmissionType"
+                                key="customEmissionType"
+                                name="customEmissionType"
+                                label="Custom Emission Type"
+                                fullWidth
+                                options={customEmissionTypes}
+                                selectedValue={formik.values.customEmissionType || ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.customEmissionType && formik.errors.customEmissionType}
+                            />)}
                         </Grid>
                     </Grid>
                     <CeroButton

@@ -27,6 +27,7 @@ const AddMobileCombustionForm = (props) => {
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
     const activityTypesData = useSelector(state => state.emission.mobileCombustionInputs.data.activity_types);
     const fuelSourceData = useSelector(state => state.emission.mobileCombustionInputs.data.fuel_sources);
+    const customFuelSourceData = useSelector(state => state.emission.mobileCombustionInputs.data.custom_fuel_sources);
     const vehicleTypeData = useSelector(state => state.emission.mobileCombustionInputs.data.vehicle_types);
     const fuelUnitData = useSelector(state => state.emission.mobileCombustionInputs.data.units);
     const addEmissionData = useSelector(state => state.emission.addMobileCombustion)
@@ -55,6 +56,7 @@ const AddMobileCombustionForm = (props) => {
     const fuelUnits = filteredUnitData.map(unit => ({ key: unit.name, value: unit.name }))
     const vehicleTypes = filteredVehicleType.map(item => ({ key: item.id, value: item.name }));
     const fuelSource = fuelSourceData.map(item => ({ key: item.id, value: item.name }));
+    const customFuelSource = customFuelSourceData.map(item => ({ key: item.id, value: item.name }));
     const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
 
     useEffect(() => {
@@ -69,7 +71,6 @@ const AddMobileCombustionForm = (props) => {
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
-            dispatch(resetAddCombustionStatus())
         }
     }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])
 
@@ -97,7 +98,8 @@ const AddMobileCombustionForm = (props) => {
             month: formik.values.month,
             activity_type_id: formik.values.activityType,
             fuel_source_id: formik.values.fuelSource,
-            vehicle_type_id: formik.values.vehicleType,
+            vehicle_type_id: activityType.find((item) => item.key === formik.values.activityType)?.value !== 'Custom emission factor'
+            ? formik.values.vehicleType : null,
             amount: parseFloat(formik.values.amountOfFuel),
             unit: formik.values.fuelUnit,
             save: true
@@ -142,7 +144,7 @@ const AddMobileCombustionForm = (props) => {
                                 name="fuelSource"
                                 label="Fuel Source"
                                 fullWidth
-                                options={fuelSource}
+                                options={fuelSource.length ? activityType.find((item) => item.key === formik.values.activityType)?.value !== 'Custom emission factor' ? fuelSource : customFuelSource : [{ name: 'select' }]}
                                 selectedValue={formik.values.fuelSource}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -182,6 +184,7 @@ const AddMobileCombustionForm = (props) => {
                                 error={formik.touched.year && formik.errors.year}
                                 options={yearList}
                             />
+                            { activityType.find((item) => item.key === formik.values.activityType)?.value !== 'Custom emission factor' && (
                             <CeroSelect
                                 required
                                 id="vehicleType"
@@ -193,7 +196,7 @@ const AddMobileCombustionForm = (props) => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.vehicleType && formik.errors.vehicleType}
-                            />
+                            />)}
                             <CeroSelect
                                 required
                                 id="fuelUnit"

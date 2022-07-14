@@ -83,12 +83,15 @@ export function* addPurchasedElectricity(action) {
             method: 'POST',
             payload: requestData
         })
+        console.log('requestData', requestData)
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
+        console.log('requestData2', requestData)
     } catch (err) {
+        console.log('error', err)
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_FAILURE,
@@ -106,7 +109,7 @@ export function* addRefrigerants(action) {
         })
         yield put({
             type: ActionTypes.ADD_REFRIGERANTS_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -127,7 +130,7 @@ export function* updateRefrigerants(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_REFRIGERANTS_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -148,7 +151,7 @@ export function* addWaterDischarge(action) {
         })
         yield put({
             type: ActionTypes.ADD_WATER_DISCHARGE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -190,7 +193,7 @@ export function* addWasteCombustion(action) {
         })
         yield put({
             type: ActionTypes.ADD_WASTE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -211,7 +214,7 @@ export function* updatePurchasedElectricity(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_PURCHASED_ELECTRICITY_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -232,7 +235,7 @@ export function* updateStationaryCombustion(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_STATIONARY_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -253,7 +256,7 @@ export function* updateMobileCombustion(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_MOBILE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -274,7 +277,7 @@ export function* updateWaterDischargeCombustion(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_WATER_DISCHARGE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -295,7 +298,7 @@ export function* updateWaterConsumptionCombustion(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_WATER_CONSUMPTION_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -316,7 +319,7 @@ export function* updateWasteCombustion(action) {
         })
         yield put({
             type: ActionTypes.UPDATE_WASTE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -357,7 +360,7 @@ export function* addStationaryCombustion(action) {
         })
         yield put({
             type: ActionTypes.ADD_STATIONARY_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -378,7 +381,7 @@ export function* addMobileCombustion(action) {
         })
         yield put({
             type: ActionTypes.ADD_MOBILE_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -418,7 +421,7 @@ export function* addTransportationCombustion(action) {
         })
         yield put({
             type: ActionTypes.ADD_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -439,7 +442,7 @@ export function* editTransportationCombustion(action) {
         })
         yield put({
             type: ActionTypes.EDIT_TRANSPORTATION_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {

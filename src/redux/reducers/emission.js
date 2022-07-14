@@ -115,6 +115,11 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: ''
     },
+    customFuelList: {
+        data: [],
+        status: STATUS.IDLE,
+        message: ''
+    },
     fuelUnits: {
         data: [],
         status: STATUS.IDLE,
@@ -124,6 +129,7 @@ export const emissionState = {
         data: {
             activity_types: [],
             fuel_sources: [],
+            custom_fuel_sources: [],
             vehicle_types: [],
             units: []
         },
@@ -319,7 +325,7 @@ const emissionActions = {
                     addPurchasedElectricity: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -343,7 +349,7 @@ const emissionActions = {
                     addRefrigerants: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -367,7 +373,7 @@ const emissionActions = {
                     addWasteCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -391,7 +397,7 @@ const emissionActions = {
                     updateRefrigerants: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -415,7 +421,7 @@ const emissionActions = {
                     addWaterDischarge: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -439,7 +445,7 @@ const emissionActions = {
                     addWaterConsumption: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -463,7 +469,7 @@ const emissionActions = {
                     updatePurchasedElectricity: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -487,7 +493,7 @@ const emissionActions = {
                     updateStationaryCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -511,7 +517,7 @@ const emissionActions = {
                     updateMobileCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -535,7 +541,7 @@ const emissionActions = {
                     updateWaterDischargeCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -559,7 +565,7 @@ const emissionActions = {
                     updateWaterConsumptionCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -583,7 +589,7 @@ const emissionActions = {
                     updateWasteCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -649,7 +655,7 @@ const emissionActions = {
                     addStationaryCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -673,7 +679,7 @@ const emissionActions = {
                     addMobileCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -697,7 +703,7 @@ const emissionActions = {
                     addTransportationCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -721,7 +727,7 @@ const emissionActions = {
                     editTransportationCombustion: {
                         data: { $set: payload },
                         status: { $set: status },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -741,6 +747,9 @@ const emissionActions = {
                     fuelList: {
                         status: { $set: STATUS.RUNNING }
                     },
+                    customFuelList: {
+                        status: { $set: STATUS.RUNNING }
+                    },
                     fuelUnits: {
                         status: { $set: STATUS.RUNNING }
                     }
@@ -751,6 +760,10 @@ const emissionActions = {
                         data: { $set: payload.fuels },
                         status: { $set: STATUS.SUCCESS }
                     },
+                    customFuelList: {
+                        data: { $set: payload.custom_fuels },
+                        status: { $set: STATUS.SUCCESS }
+                    },
                     fuelUnits: {
                         data: { $set: payload.units },
                         status: { $set: STATUS.SUCCESS }
@@ -759,6 +772,10 @@ const emissionActions = {
             [ActionTypes.GET_EMISSION_FUEL_LIST_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     fuelList: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    },
+                    customFuelList: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     },
@@ -912,7 +929,7 @@ const emissionActions = {
                     addDevelopmentTraining: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -935,7 +952,7 @@ const emissionActions = {
                     addEmployeeHealth: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -958,7 +975,7 @@ const emissionActions = {
                     addWorkerSafetyTraining: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -981,7 +998,7 @@ const emissionActions = {
                     addDescriminationIncident: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1004,7 +1021,7 @@ const emissionActions = {
                     addSupplierHumanRightsTraining: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1027,7 +1044,7 @@ const emissionActions = {
                     addSocialHumanRightsTraining: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1050,7 +1067,7 @@ const emissionActions = {
                     addSupplierScreening: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1073,7 +1090,7 @@ const emissionActions = {
                     addLocalCommunities: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1096,7 +1113,7 @@ const emissionActions = {
                     addPoliticalContributions: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1119,7 +1136,7 @@ const emissionActions = {
                     addCorruptionDisclosure: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1142,7 +1159,7 @@ const emissionActions = {
                     addCorruptionTraining: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1165,7 +1182,7 @@ const emissionActions = {
                     addCompetitiveDisclosure: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1188,7 +1205,7 @@ const emissionActions = {
                     addFinancialAssistance: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },
@@ -1211,7 +1228,7 @@ const emissionActions = {
                     addUploadFileEmission: {
                         data: { $set: payload },
                         status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !payload.save }
+                        isCalculateDone: { $set: !save }
                     }
                 })
             },

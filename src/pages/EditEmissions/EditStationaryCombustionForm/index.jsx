@@ -31,12 +31,14 @@ const EditStationaryCombustionForm = (props) => {
     const updateEmissionData = useSelector(state => state.emission.updateStationaryCombustion)
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
     const fuelData = useSelector(state => state.emission.fuelList.data);
+    const customFuelData = useSelector(state => state.emission.customFuelList.data);
     const fuelUnitData = useSelector(state => state.emission.fuelUnits.data);
 
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
     const fuelList = fuelData.map(item => ({ key: item.id, value: item.name }));
     const fuelUnits = fuelUnitData.map(item => ({ key: item.name, value: item.name }));
     const yearList = sampleYear.map(item => ({ id: item.key, label: item.value }));
+    const customFuelList = customFuelData.map(item => ({ key: item.id, value: item.name }));
 
     const formik = useFormik({
         initialValues: {
@@ -78,11 +80,16 @@ const EditStationaryCombustionForm = (props) => {
         }
     }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
 
+    const onChangeCustomEmissionType = (e) => {
+        formik.handleChange(e);
+        formik.setFieldValue('fuel', '');
+    }
+
     const onCalculate = () => {
         const requestData = {
             id: emissionId,
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
+            custom_emission: formik.values.emissionType === "yes",
             year: formik.values.year,
             month: formik.values.month,
             fuel_id: formik.values.fuel,
@@ -97,7 +104,7 @@ const EditStationaryCombustionForm = (props) => {
         const requestData = {
             id: emissionId,
             facility_id: formik.values.facility,
-            emission_type: formik.values.emissionType,
+            custom_emission: formik.values.emissionType === "yes",
             year: formik.values.year,
             month: formik.values.month,
             fuel_id: formik.values.fuel,
@@ -152,7 +159,7 @@ const EditStationaryCombustionForm = (props) => {
                                 name="fuel"
                                 label="Fuel"
                                 fullWidth
-                                options={fuelList}
+                                options={formik.values.emissionType === "yes" ? customFuelList : fuelList}
                                 selectedValue={formik.values.fuel}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -179,7 +186,7 @@ const EditStationaryCombustionForm = (props) => {
                                 fullWidth
                                 options={[{ key: "yes", value: "Yes" }, { key: "no", value: "No" }]}
                                 selectedValue={formik.values.emissionType}
-                                onChange={formik.handleChange}
+                                onChange={onChangeCustomEmissionType}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.emissionType && formik.errors.emissionType}
                             />

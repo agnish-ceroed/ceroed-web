@@ -13,9 +13,6 @@ export const updateMobileCombustionValidation = yup.object({
     activityType: yup
         .string('Activity Type is required')
         .required('Activity Type is required'),
-    vehicleType: yup
-        .string('Vehicle Type is required')
-        .required('Vehicle Type is required'),
     fuelSource: yup
         .string('Fuel Source is required')
         .required('Fuel Source is required'),

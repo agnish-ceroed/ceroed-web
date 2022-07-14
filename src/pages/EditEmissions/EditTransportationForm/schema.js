@@ -19,9 +19,6 @@ export const addTransportationCombutionValidation = yup.object({
     modeOfTransport: yup
         .string('Mode of transport is required')
         .required('Mode of transport is required'),
-    vehicleType: yup
-        .string('Vehicle type unit is required')
-        .required('Vehicle type unit is required'),
     amount: yup
         .string('Amount of activity type is required')
         .required('Amount of activity type is required'),
