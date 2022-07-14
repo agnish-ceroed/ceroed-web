@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 
 import { userLogin } from "../../redux/actions";
 import { STATUS } from '../../redux/constants';
+import { rolesEnum } from '../../layouts/DashboardLayout/pages';
 import CeroButton from '../../components/CeroButton';
 import CeroInput from '../../components/CeroInput'
 import ValidationSchema from './ValidationSchema';
@@ -50,7 +51,7 @@ const Login = () => {
                 </Box>
                 <Paper className={classes.loginCard}>
                     <Typography component="h1" variant="h5" align='center' marginBottom={6}>
-                        Login
+                        {userType === rolesEnum.AUDITOR ? 'Auditor Login' : 'Login'}
                     </Typography>
                     <CeroInput
                         required
