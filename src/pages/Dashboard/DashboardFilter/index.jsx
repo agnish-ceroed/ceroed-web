@@ -30,7 +30,7 @@ const DashboardFilter = (props) => {
             filterValue.duration = filterPeriod;
         }
         if (facility && facility !== 'all') {
-            filterValue.facility = facility;
+            filterValue.facility_id = facility;
         }
         if (filterStartYear) {
             filterValue.start_year = filterStartYear
@@ -63,7 +63,7 @@ const DashboardFilter = (props) => {
                 <Grid item sm={3} md={2}>
                     <CeroDropdown
                         id="facility"
-                        label="Facility Type"
+                        label="Facility"
                         fullWidth
                         options={facilitiesList}
                         onChange={({ target }) => setFacility(target.value)}
@@ -73,7 +73,7 @@ const DashboardFilter = (props) => {
                 <Grid item sm={3} md={2}>
                     <CeroDropdown
                         id="period"
-                        label="Select Period"
+                        label="Duration"
                         fullWidth
                         options={selectionPeriod}
                         onChange={({ target }) => setPeriod(target.value)}

@@ -9,6 +9,7 @@ import { sampleYear } from "../../constants";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
+import { Typography } from '@mui/material';
 
 const savedPage = {
   // To be used from the api response
@@ -73,10 +74,13 @@ const EmissionList = () => {
   return (
     <DashboardLayout>
       <Container className={classes.container}>
+        <Typography variant='h6' component='span'>
+          Topics
+        </Typography>
         <EmissionHeader
           onApplyFilter={onApplyFilter}
           onAddData={() => navigate(`/emissions/add/${emissionType}`)}
-          emissionType={emissionType || "stationary_combustion"}
+          emissionType={emissionType || 'stationary_combustion'}
           setEmissionType={(type) => navigate(`/emissions/${type}`)}
           filter={filter}
         />

@@ -9,6 +9,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import FactoryIcon from '@mui/icons-material/Factory';
 
 export const rolesEnum = {
     ADMIN: 'admin',
@@ -22,79 +23,103 @@ export const rolesEnum = {
 const allUser = [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.AUDITOR, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
 
 export const sideMenuItems = [
-    {
-        text: 'Dashboard',
-        icon: <DashboardOutlinedIcon/>,
-        path: '/dashboard',
-        roles: [rolesEnum.ADMIN, rolesEnum.APPROVER, rolesEnum.AUDITOR, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.SUSTAINABILITY_MANAGER]
-    },
-    {
-        text: 'Emissions',
-        icon: <MoreHorizIcon/>,
-        path: '/emissions',
-        roles: [rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.SUSTAINABILITY_MANAGER]
-    },
-    {
-        text: 'Simulations',
-        icon: <MailOutlineIcon/>,
-        path: '/simulations',
-        roles: []
-    },
-    {
-        text: 'Goals',
-        icon: <FlagOutlined/>,
-        path: '/goals',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
-    },
-    {
-        text: 'Reports',
-        icon: <AssessmentOutlined/>,
-        path: '/reports',
-        roles: [rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER]
-    },
-    {
-        text: 'Benchmarking',
-        icon: <ViewColumnOutlinedIcon/>,
-        path: '/benchmarking',
-        roles: []
-    },
-    {
-        text: 'Facilities',
-        icon: <CategoryIcon/>,
-        path: '/facilities',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]
-    },
-    {
-        text: 'User Management',
-        icon: <PeopleAltIcon/>,
-        path: '/users',
-        roles: [rolesEnum.ADMIN]
-    },
-    {
-        text: 'Companies',
-        icon: <ApartmentIcon/>,
-        path: '/companies',
-        roles: [rolesEnum.AUDITOR]
-    },
-    {
-        text: 'Approval status',
-        icon: <ViewColumnOutlinedIcon/>,
-        path: '/approval-status',
-        roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER, rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER]
-    },
-    {
-        text: 'Audit status',
-        icon: <ViewColumnOutlinedIcon/>,
-        path: '/audit-status',
-        roles: [rolesEnum.SUSTAINABILITY_MANAGER]
-    },
-    {
-        text: 'Tickets',
-        icon: <ConfirmationNumberOutlined/>,
-        path: '/tickets',
-        roles: allUser
-    },
-]
+  {
+    text: 'Dashboard',
+    icon: <DashboardOutlinedIcon />,
+    path: '/dashboard',
+    roles: [
+      rolesEnum.ADMIN,
+      rolesEnum.APPROVER,
+      rolesEnum.AUDITOR,
+      rolesEnum.FACILITY_MANAGER,
+      rolesEnum.BUSINESS_USER,
+      rolesEnum.SUSTAINABILITY_MANAGER
+    ]
+  },
+  {
+    text: 'Topics',
+    icon: <MoreHorizIcon />,
+    path: '/emissions',
+    roles: [
+      rolesEnum.APPROVER,
+      rolesEnum.FACILITY_MANAGER,
+      rolesEnum.BUSINESS_USER,
+      rolesEnum.SUSTAINABILITY_MANAGER
+    ]
+  },
+  {
+    text: 'Simulations',
+    icon: <MailOutlineIcon />,
+    path: '/simulations',
+    roles: []
+  },
+  {
+    text: 'Goals',
+    icon: <FlagOutlined />,
+    path: '/goals',
+    roles: [
+      rolesEnum.ADMIN,
+      rolesEnum.SUSTAINABILITY_MANAGER,
+      rolesEnum.APPROVER,
+      rolesEnum.FACILITY_MANAGER,
+      rolesEnum.BUSINESS_USER
+    ]
+  },
+  {
+    text: 'Reports',
+    icon: <AssessmentOutlined />,
+    path: '/reports',
+    roles: [rolesEnum.SUSTAINABILITY_MANAGER, rolesEnum.APPROVER]
+  },
+  {
+    text: 'Benchmarking',
+    icon: <ViewColumnOutlinedIcon />,
+    path: '/benchmarking',
+    roles: []
+  },
+  {
+    text: 'Facilities',
+    icon: <FactoryIcon/>,
+    path: '/facilities',
+    roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]
+  },
+  {
+    text: 'User Management',
+    icon: <PeopleAltIcon />,
+    path: '/users',
+    roles: [rolesEnum.ADMIN]
+  },
+  {
+    text: 'Companies',
+    icon: <ApartmentIcon />,
+    path: '/companies',
+    roles: [rolesEnum.AUDITOR]
+  },
+  {
+    text: 'Approval status',
+    icon: <ViewColumnOutlinedIcon />,
+    path: '/approval-status',
+    roles: [
+      rolesEnum.ADMIN,
+      rolesEnum.SUSTAINABILITY_MANAGER,
+      rolesEnum.APPROVER,
+      rolesEnum.FACILITY_MANAGER,
+      rolesEnum.BUSINESS_USER
+    ]
+  },
+  {
+    text: 'Audit status',
+    icon: <ViewColumnOutlinedIcon />,
+    path: '/audit-status',
+    roles: [rolesEnum.SUSTAINABILITY_MANAGER]
+  },
+  {
+    text: 'Tickets',
+    icon: <ConfirmationNumberOutlined />,
+    path: '/tickets',
+    roles: allUser
+  }
+];
 
 export const settingsOption = [
     {

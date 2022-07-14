@@ -5,14 +5,14 @@ export const updateMobileCombustionValidation = yup.object({
         .string('Facility is required')
         .required('Facility is required'),
     month: yup
-        .string('Year is required')
-        .required('Year is required'),
+        .string('Month is required')
+        .required('Month is required'),
     year: yup
         .string('Year is required')
         .required('Year is required'),
-    activityType: yup
-        .string('Activity Type is required')
-        .required('Activity Type is required'),
+    vehicleType: yup
+        .string('Vehicle Type is required')
+        .required('Vehicle Type is required'),
     fuelSource: yup
         .string('Fuel Source is required')
         .required('Fuel Source is required'),

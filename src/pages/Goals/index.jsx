@@ -9,7 +9,7 @@ const Goals = () => {
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                <Typography variant="h4" component="h4" >Goals</Typography>
+                <Typography variant="h6" component="h4" >Goals</Typography>
             </Container>
         </DashboardLayout>
     );

@@ -82,7 +82,7 @@ const Reports = () => {
   return (
     <DashboardLayout>
       <Container className={classes.container}>
-        <Typography variant="h7" component="span">
+        <Typography variant="h6" component="span">
           Reports
         </Typography>
         <Box className={classes.buttonContainer}>

@@ -1,9 +1,9 @@
 export const STATUS = {
-  IDLE: "idle",
-  RUNNING: "running",
-  READY: "ready",
-  SUCCESS: "success",
-  ERROR: "error",
+  IDLE: 'idle',
+  RUNNING: 'running',
+  READY: 'ready',
+  SUCCESS: 'success',
+  ERROR: 'error'
 };
 
 // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
@@ -14,12 +14,15 @@ export const APIEndpoints = {
   SIGN_UP: `${API_BASE_URL}/business/signup`,
   LOGOUT: `${API_BASE_URL}/log_out`,
   CHANGE_PASSWORD: `${API_BASE_URL}/business/change_password`,
-  SET_EMAIL_CONFIRMED: (userId, code) => `${API_BASE_URL}/business/confirm-email/${userId}/${code}`,
+  SET_EMAIL_CONFIRMED: (userId, code) =>
+    `${API_BASE_URL}/business/confirm-email/${userId}/${code}`,
   USER_INVITE_LOGIN: `${API_BASE_URL}/business/set-password`,
 
-  GET_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/account-details`,
+  GET_ACCOUNT_DETAILS: (role) =>
+    `${API_BASE_URL}/${role}/account/account-details`,
   UPDATE_ACCOUNT_DETAILS: (role) => `${API_BASE_URL}/${role}/account/update`,
-  GET_USER_COMPANY_DETAILS: (role) => `${API_BASE_URL}/${role}/company/company-details`,
+  GET_USER_COMPANY_DETAILS: (role) =>
+    `${API_BASE_URL}/${role}/company/company-details`,
   UPDATE_COMPANY_DETAILS: `${API_BASE_URL}/business/company/company-details`,
 
   FORGOT_PASSWORD: `${API_BASE_URL}/business/forgot_password`,
@@ -86,13 +89,17 @@ export const APIEndpoints = {
   DELETE_EMISSIONS: (emissionId) =>
     `${API_BASE_URL}/business/emissions/${emissionId}`,
   LIST_EMISSION_COMMENTS: (emissionId) =>
-  `${API_BASE_URL}/business/comments/${emissionId}`,
+    `${API_BASE_URL}/business/comments/${emissionId}`,
   ADD_EMISSION_COMMENT: (emissionId) =>
-  `${API_BASE_URL}/business/comment/${emissionId}`,
-  LIST_EMISSION_AUDIT_TRAILS: (emissionId) => `${API_BASE_URL}/business/audit-trails/${emissionId}`,
-  LIST_EMISSION_FILES: (emissionId) => `${API_BASE_URL}/business/attachment/${emissionId}`,
-  UPLOAD_EMISSION_ATTACHEMENT: (emissionId) => `${API_BASE_URL}/business/attachment/${emissionId}`,
-  DELETE_EMISSION_ATTACHEMENT: (emissionId, attachementId) => `${API_BASE_URL}/business/attachment/${emissionId}/${attachementId}`,
+    `${API_BASE_URL}/business/comment/${emissionId}`,
+  LIST_EMISSION_AUDIT_TRAILS: (emissionId) =>
+    `${API_BASE_URL}/business/audit-trails/${emissionId}`,
+  LIST_EMISSION_FILES: (emissionId) =>
+    `${API_BASE_URL}/business/attachment/${emissionId}`,
+  UPLOAD_EMISSION_ATTACHEMENT: (emissionId) =>
+    `${API_BASE_URL}/business/attachment/${emissionId}`,
+  DELETE_EMISSION_ATTACHEMENT: (emissionId, attachementId) =>
+    `${API_BASE_URL}/business/attachment/${emissionId}/${attachementId}`,
 
   GET_INDUSTRY_TYPES: `${API_BASE_URL}/business/listings/industry_types`,
   GET_COUNTRY_LIST: `${API_BASE_URL}/business/listings/countries`,
@@ -126,84 +133,84 @@ export const APIEndpoints = {
   GET_COMPANY_AUDIT_HISTORY: (companyId) =>
     `${API_BASE_URL}/auditor/company/${companyId}/company-audit-history`,
   GET_COMPANY_AUDIT_DETAILS: (companyId) =>
-  `${API_BASE_URL}/auditor/company/${companyId}/company-audit-summary`,
+    `${API_BASE_URL}/auditor/company/${companyId}/company-audit-summary`,
   APPROVE_COMPANY_AUDIT: (companyId, auditId) =>
-  `${API_BASE_URL}/auditor/company/${companyId}/approve-audit-status/${auditId}`,
+    `${API_BASE_URL}/auditor/company/${companyId}/approve-audit-status/${auditId}`,
 
   GET_APPROVAL_SUMMARY: (year, facility) =>
     `${API_BASE_URL}/business/approval-statuses/${year}/${facility}`,
   GET_APPROVAL_DETAILS: (year, facility) =>
-  `${API_BASE_URL}/business/approval-statuses-overview/${year}`,
-  GET_APPROVAL_MONTHLY_DETAILS:
-  `${API_BASE_URL}/business/monthly-approval-status-summary`,
-  GET_APPROVAL_MONTHLY_SUMMARY:
-  `${API_BASE_URL}/business/monthly-approval-status-summary-overview`,
-  GET_DASHBOARD_STATISTICS:
-  `${API_BASE_URL}/business/dashboard-statistics`,
+    `${API_BASE_URL}/business/approval-status-overview/${year}`,
+  GET_APPROVAL_MONTHLY_DETAILS: `${API_BASE_URL}/business/monthly-approval-status-summary`,
+  GET_APPROVAL_MONTHLY_SUMMARY: `${API_BASE_URL}/business/monthly-approval-status-summary-overview`,
+  GET_DASHBOARD_STATISTICS: `${API_BASE_URL}/business/dashboard-statistics`,
   GET_AUDIT_SUMMARY: `${API_BASE_URL}/business/audit-statuses`,
   GET_FACILITY_TOPIC_EMISSION: `${API_BASE_URL}/business/graph/facilities-drill-down-emission-details`,
   GET_DASHBOARD_SUMMARY: `${API_BASE_URL}/auditor/dashboard-summary`,
   GET_FUEL_SOURCE_EMISSION: `${API_BASE_URL}/business/graph/fuel-sources-target-sankey`,
   MARK_ALL_READ_AUDITOR_NOTIFICATIONS: `${API_BASE_URL}/auditor/notifications/mark-all-read`,
   MARK_ALL_READ: `${API_BASE_URL}/business/notifications/mark-all-read`,
-  MARK_AS_READ_AUDITOR_NOTIFICATIONS: (id) => `${API_BASE_URL}/auditor/notifications/mark-read/${id}`,
-  MARK_AS_READ: (id) => `${API_BASE_URL}/business/notifications/mark-read/${id}`,
-  LIST_NOTIFICATIONS: (unread = true) => `${API_BASE_URL}/business/notifications?unread=${unread}`,
-  LIST_AUDITOR_NOTIFICATIONS: (unread = true) => `${API_BASE_URL}/auditor/notifications?unread=${unread}`,
+  MARK_AS_READ_AUDITOR_NOTIFICATIONS: (id) =>
+    `${API_BASE_URL}/auditor/notifications/mark-read/${id}`,
+  MARK_AS_READ: (id) =>
+    `${API_BASE_URL}/business/notifications/mark-read/${id}`,
+  LIST_NOTIFICATIONS: (unread = true) =>
+    `${API_BASE_URL}/business/notifications?unread=${unread}`,
+  LIST_AUDITOR_NOTIFICATIONS: (unread = true) =>
+    `${API_BASE_URL}/auditor/notifications?unread=${unread}`,
 
   GET_YEARLY_AUDIT_SUMMARY: (year) =>
-  `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
+    `${API_BASE_URL}/business/yearly-audit-status-summary?year=${year}`,
   GET_YEARLY_AUDIT_SUMMARY_OVERVIEW: (year) =>
-  `${API_BASE_URL}/business/yearly-audit-status-summary-overview?year=${year}`,
+    `${API_BASE_URL}/business/yearly-audit-status-summary-overview?year=${year}`,
   GET_ALL_QUESTIONS: (payload) =>
-  `${API_BASE_URL}/business/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
+    `${API_BASE_URL}/business/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
   GET_ALL_AUDITOR_QUESTIONS: (payload) =>
-  `${API_BASE_URL}/auditor/company/${payload.company}/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
+    `${API_BASE_URL}/auditor/company/${payload.company}/audit-qualitative-questionnaires?audit_status_id=${payload.id}`,
   GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW: (companyId) =>
-  `${API_BASE_URL}/auditor/company/${companyId}/yearly-audit-status-summary-overview`,
+    `${API_BASE_URL}/auditor/company/${companyId}/yearly-audit-status-summary-overview`,
   GET_AUDIT_SUMMARY_BY_ID: (id) =>
-  `${API_BASE_URL}/business/yearly-audit-status-summary?audit_status_id=${id}`,
+    `${API_BASE_URL}/business/yearly-audit-status-summary?audit_status_id=${id}`,
 
   REQUEST_AUDIT: (audit_status_id) =>
     `${API_BASE_URL}/business/yearly-audit-summary-assign-to-audit/${audit_status_id}`,
 
-    ANSWER_QUALITATIVE_QUESTION: (audit_status_id) =>
+  ANSWER_QUALITATIVE_QUESTION: (audit_status_id) =>
     `${API_BASE_URL}/business/audit-qualitative-qa-data/${audit_status_id}`,
 
-    SUBMIT_APPROVAL: (status_id) =>
+  SUBMIT_APPROVAL: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval_summary-assign-to-submit/${status_id}`,
 
-    REQUEST_APPROVAL: (status_id) =>
+  REQUEST_APPROVAL: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval_summary-assign-to-approve/${status_id}`,
 
-    APPROVE_REQUEST: (status_id) =>
+  APPROVE_REQUEST: (status_id) =>
     `${API_BASE_URL}/business/monthly-approval-summary-approve/${status_id}`,
 
-    CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
-    LIST_TICKETS: (payload) =>
+  CREATE_TICKET: `${API_BASE_URL}/business/tickets/`,
+  LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/business/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
-    LIST_SCOPE_TICKETS: (scope, scopeId) => `${API_BASE_URL}/business/tickets/scope/${scope}/${scopeId}`,
-    COMPANY_LIST_TICKETS: (payload) =>
+  LIST_SCOPE_TICKETS: (scope, scopeId) =>
+    `${API_BASE_URL}/business/tickets/scope/${scope}/${scopeId}`,
+  COMPANY_LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.company}/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
-    COMPANY_CREATE_TICKET: (payload) =>
+  COMPANY_CREATE_TICKET: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/`,
-    GET_TICKET_DETAILS: (payload) =>
+  GET_TICKET_DETAILS: (payload) =>
     `${API_BASE_URL}/business/tickets/${payload.id}`,
-    GET_COMPANY_TICKET_DETAILS: (payload) =>
+  GET_COMPANY_TICKET_DETAILS: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/${payload.id}`,
-    COMPANY_CLOSE_TICKET: (payload) =>
+  COMPANY_CLOSE_TICKET: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/${payload.id}/close`,
-    COMPANY_ADD_RESPONSE: (payload) =>
+  COMPANY_ADD_RESPONSE: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.companyId}/tickets/response/${payload.id}`,
-    ADD_RESPONSE: (payload) =>
+  ADD_RESPONSE: (payload) =>
     `${API_BASE_URL}/business/tickets/response/${payload.id}`,
-    CLOSE_TICKET: (payload) =>
+  CLOSE_TICKET: (payload) =>
     `${API_BASE_URL}/business/tickets/${payload.id}/close`,
 
-    LIST_REPORTS: `${API_BASE_URL}/business/reports/`,
-    GET_REPORT_DETAILS: (id) =>
-    `${API_BASE_URL}/business/reports/${id}`,
-    CREATE_REPORT: `${API_BASE_URL}/business/reports/create-report`,
-    UPDATE_REPORT: (id) => `${API_BASE_URL}/business/reports/update-report/${id}`,
-    
+  LIST_REPORTS: `${API_BASE_URL}/business/reports/`,
+  GET_REPORT_DETAILS: (id) => `${API_BASE_URL}/business/reports/${id}`,
+  CREATE_REPORT: `${API_BASE_URL}/business/reports/create-report`,
+  UPDATE_REPORT: (id) => `${API_BASE_URL}/business/reports/update-report/${id}`
 };

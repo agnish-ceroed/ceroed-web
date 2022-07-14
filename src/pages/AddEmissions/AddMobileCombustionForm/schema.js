@@ -5,8 +5,8 @@ export const addMobileCombustionValidation = yup.object({
         .string('Facility is required')
         .required('Facility is required'),
     month: yup
-        .string('Year is required')
-        .required('Year is required'),
+        .string('Month is required')
+        .required('Month is required'),
     year: yup
         .string('Year is required')
         .required('Year is required'),

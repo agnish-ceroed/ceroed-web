@@ -12,24 +12,34 @@ const UserTable = (props) => {
     const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
     const [deleteUser, setDeleteUser] = useState()
 
-    const tableColumns = [{
+    const tableColumns = [
+      {
         columnKey: 'email',
         columnId: 'email',
-        columnHeader: 'Email',
-    }, {
+        columnHeader: 'Email'
+      },
+      {
         columnKey: 'name',
         columnId: 'name',
-        columnHeader: 'Name',
-    }, {
+        columnHeader: 'Name'
+      },
+      {
         columnKey: 'role',
         columnId: 'role',
-        columnHeader: 'Role',
-    }, {
+        columnHeader: 'Role'
+      },
+      {
+        columnKey: 'logged_in',
+        columnId: 'logged_in',
+        columnHeader: 'Logged In'
+      },
+      {
         columnKey: 'action',
         columnId: 'action',
         columnHeader: '',
         align: 'right'
-    }]
+      }
+    ];
 
     const handleDelete = (user) => {
         setOpenDeletePrompt(true)

@@ -45,7 +45,7 @@ const Dashboard = () => {
                 <Grid xs={6} item>
                     <GeographicalChart filter={filter} />
                 </Grid>
-                <Grid xs={6} item>
+                <Grid xs={12} item>
                     <EmissionMonthChart filter={filter} />
                 </Grid>
             </Grid>

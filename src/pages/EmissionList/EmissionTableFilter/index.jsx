@@ -63,7 +63,7 @@ const EmissionTableFilter = (props) => {
       filterValue.filterType = filterType;
     }
     if (facility !== 'all') {
-      filterValue.facity_id = facility;
+      filterValue.facility_id = facility;
     }
     onApplyFilter(filterValue);
   };
