@@ -6,6 +6,7 @@ import { Container } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { clearEmissionList, getEmissionList } from "../../redux/actions";
 import { sampleYear } from "../../constants";
+import { rolesEnum } from "../../layouts/DashboardLayout/pages";
 import EmissionTable from "./EmissionTable";
 import EmissionHeader from "./EmissionHeader";
 import useStyles from "./styles";
@@ -27,9 +28,12 @@ const EmissionList = () => {
   const selectedMonth = queryParams.get("month");
   const selectedFacility = queryParams.get("facility");
   const selectedYear = queryParams.get("year");
+  const company = queryParams.get("company");
 
   const emissionData = useSelector((state) => state.emission.emissionList.data);
   const emissionDataStatus = useSelector((state) => state.emission.emissionList.status);
+  const role = useSelector((state) => state.auth.role);
+  const isAuditor = role === rolesEnum.AUDITOR;
 
   const emissionType = type;
 
@@ -64,7 +68,7 @@ const EmissionList = () => {
     if(!filterRequest.facility_id) {
       delete filterRequest.facility_id;
     }
-    dispatch(getEmissionList(emissionType, filterRequest));
+    dispatch(getEmissionList(emissionType, filterRequest, isAuditor, company));
   };
 
   const onApplyFilter = (filter) => {
@@ -83,12 +87,15 @@ const EmissionList = () => {
           emissionType={emissionType || 'stationary_combustion'}
           setEmissionType={(type) => navigate(`/emissions/${type}`)}
           filter={filter}
+          isDisabled={isAuditor}
         />
         <EmissionTable
           emissionData={emissionData}
           dataStatus={emissionDataStatus}
           onLoadMore={onLoadMore}
           emissionType={emissionType}
+          isAuditor={isAuditor}
+          company={company}
         />
       </Container>
     </DashboardLayout>

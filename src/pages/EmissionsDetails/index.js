@@ -39,6 +39,8 @@ const EmissionsDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  const company = queryParams.get("company");
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -51,18 +53,19 @@ const EmissionsDetails = () => {
 
   const userRole = useSelector(state => state.auth.userInfo.role);
   const isDeleteEnable = [rolesEnum.FACILITY_MANAGER, rolesEnum.BUSINESS_USER, rolesEnum.APPROVER].includes(userRole)
+  const isAuditor = userRole === rolesEnum.AUDITOR;
 
   const { type, id } = useParams();
 
   const onCancel = () => {
-    navigate("/emissions/" + type);
+    navigate(-1);
   };
 
   useEffect(() => {
     type &&
       type &&
-      dispatch(getEmission({ emissionType: type, emissionId: id }));
-  }, [type, id, dispatch]);
+      dispatch(getEmission({ emissionType: type, emissionId: id, isAuditor, company }));
+  }, [type, id, dispatch, isAuditor, company]);
 
   return (
     <DashboardLayout>
@@ -80,6 +83,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "mobile_combustion" && (
@@ -89,6 +94,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "stationary_combustion" && (
@@ -98,6 +105,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "refrigerants" && (
@@ -107,6 +116,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "transportation" && (
@@ -116,6 +127,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "water_consumption" && (
@@ -125,6 +138,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "water_discharge" && (
@@ -134,6 +149,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "waste" && (
@@ -143,6 +160,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "development_training" && (
@@ -152,6 +171,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "employee_health_safety_incident_record" && (
@@ -161,6 +182,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "worker_safety_training_procedures" && (
@@ -170,6 +193,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "employees_turnover" && (
@@ -179,6 +204,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "age_based_statistics" && (
@@ -188,6 +215,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "gender_based_statistics" && (
@@ -197,6 +226,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "discrimination_incident_record" && (
@@ -206,6 +237,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "supplier_screening" && (
@@ -215,6 +248,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "operational_human_rights_training" && (
@@ -224,6 +259,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "social_engagement_human_rights_training" && (
@@ -233,6 +270,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "local_communities" && (
@@ -242,6 +281,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "political_contributions" && (
@@ -251,6 +292,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "anti_corruption_disclosure" && (
@@ -260,6 +303,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "anti_corruption_training" && (
@@ -269,6 +314,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "anti_competitive_disclosure" && (
@@ -278,6 +325,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "subsidies_financial_assistance" && (
@@ -287,6 +336,8 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
             {type === "tax" && (
@@ -296,12 +347,14 @@ const EmissionsDetails = () => {
                 emissionData={emissionData}
                 isDeleteEnable={isDeleteEnable}
                 setIsDrawerOpen={setIsDrawerOpen}
+                isAuditor={isAuditor}
+                company={company}
               />
             )}
           </>
         )}
       </Container>
-      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="emission" scopeId={id}/>
+      <CreateTicketDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} scope="emission" scopeId={id} companyId={company}/>
     </DashboardLayout>
   );
 };

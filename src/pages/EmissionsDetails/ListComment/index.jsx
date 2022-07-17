@@ -11,7 +11,7 @@ import CeroButton from '../../../components/CeroButton';
 import { STATUS } from '../../../redux/constants';
 import useStyles from "./styles";
 
-const ListComments = ({emissionId}) => {
+const ListComments = ({emissionId,  isAuditor, company}) => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ListComments = ({emissionId}) => {
     const addCommentState = useSelector((state) => state.emissionComment.addEmissionComment);
 
     useEffect(() => {
-        dispatch(listEmissionComments(emissionId));
+        dispatch(listEmissionComments({emissionId, isAuditor, company}));
         return () => {
             dispatch(resetListEmissionComments());
         }
@@ -67,7 +67,7 @@ const ListComments = ({emissionId}) => {
                 classes.commentButton
                 )}
                 onClick={onAddComment}
-                disabled={!comment || addCommentState.status === STATUS.RUNNING}
+                disabled={!comment || addCommentState.status === STATUS.RUNNING || isAuditor}
             />
         </Box>
         <Box className={classes.commentContainer} >

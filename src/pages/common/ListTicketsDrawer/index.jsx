@@ -23,7 +23,8 @@ const ListTicketDrawer = (props) => {
   }, [ticketList.status, enqueueSnackbar]);
 
   useEffect(() => {
-    dispatch(listScopeTickets({ scope: props.scope, scopeId: props.scopeId }));
+    const {isAuditor, company} = props
+    dispatch(listScopeTickets({ scope: props.scope, scopeId: props.scopeId, isAuditor, company }));
     return () => {
         dispatch(resetListScopeTickets());
     }

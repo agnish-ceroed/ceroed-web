@@ -17,7 +17,7 @@ import { STATUS } from '../../../redux/constants';
 import useStyles from "./styles";
 import CeroConfirmDrawer from '../../../components/CeroConfirmDrawer';
 
-const ListEmissionFiles = ({emissionId}) => {
+const ListEmissionFiles = ({emissionId, isAuditor, company}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
@@ -30,7 +30,7 @@ const ListEmissionFiles = ({emissionId}) => {
     const deleteAttachementState = useSelector((state) => state.emission.deleteAttachement);
 
     useEffect(() => {
-        dispatch(listEmissionFiles(emissionId));
+        dispatch(listEmissionFiles({emissionId, isAuditor, company}));
         return () => {
             dispatch(clearListEmissionFiles);
             dispatch(clearUploadEmissionAttachement());
@@ -77,7 +77,7 @@ const ListEmissionFiles = ({emissionId}) => {
 
     return <Box className={classes.listContainer}>
         <Box>
-        <Button variant="contained" component="label" color="primary">
+        <Button variant="contained" component="label" color="primary" disabled={isAuditor}>
             {uploadAttachementState.status === STATUS.RUNNING ? (
                 <>
                     <RefreshIcon/> Uploading

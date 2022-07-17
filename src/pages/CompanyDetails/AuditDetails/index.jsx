@@ -87,6 +87,10 @@ const AuditDetails = () => {
     }
   ];
 
+  const onSelectData = (row) => {
+    navigate(`/emissions/${row.type}/?year=${year||auditDetails.year}&company=${company}`);
+  };
+
   useEffect(() => {
     company &&
       (id || year) &&
@@ -176,7 +180,7 @@ const AuditDetails = () => {
               data={summaryData[topicKeys[0]] || []}
               hasMore={false}
               loading={false}
-              onSelectRow={() => {}}
+              onSelectRow={onSelectData}
             />
           </Container>
         )}
@@ -194,7 +198,7 @@ const AuditDetails = () => {
               data={getWaterData(summaryData[topicKeys[1]] || [])}
               hasMore={false}
               loading={false}
-              onSelectRow={() => {}}
+              onSelectRow={onSelectData}
             />
           </Container>
         )}

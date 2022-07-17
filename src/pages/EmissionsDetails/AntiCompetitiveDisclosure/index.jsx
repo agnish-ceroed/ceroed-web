@@ -173,13 +173,13 @@ const AntiCompetitiveDisclosure = (props) => {
       >
         <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
           <Tab label="Comments" id="comments" />
-          <Tab label="Audit History" id="audit-history" />
           <Tab label="Attachment" id="files" />
+          <Tab label="Audit History" id="audit-history" />
         </Tabs>
       </Box>
       {value === 0 && <ListComments emissionId={emissionId} />}
-      {value === 1 && <ListAuditTrails emissionId={emissionId} />}
-      {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
+      {value === 2 && <ListAuditTrails emissionId={emissionId} />}
+      {value === 1 && <ListEmissionFiles emissionId={emissionId} />}
       {displayWarning && (
         <CeroConfirmDrawer
           isOpen={displayWarning}

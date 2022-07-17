@@ -19,7 +19,7 @@ const facilityAllowedEmissionTypes = [
 ];
 
 const EmissionTableFilter = (props) => {
-  const { onAddData, onApplyFilter, filter } = props;
+  const { onAddData, onApplyFilter, filter, isDisabled } = props;
   const classes = useStyles();
 
   const facilitiesData = useSelector(
@@ -85,6 +85,7 @@ const EmissionTableFilter = (props) => {
           options={sampleYear}
           onChange={({ target }) => setYear(target.value)}
           selectedValue={filterYear}
+          disabled={isDisabled}
         />
       </Grid>
       {filterYear && (
@@ -96,6 +97,7 @@ const EmissionTableFilter = (props) => {
             options={monthOptions}
             onChange={({ target }) => setMonth(target.value)}
             selectedValue={filterMonth}
+            disabled={isDisabled}
           />
         </Grid>
       )}
@@ -118,6 +120,7 @@ const EmissionTableFilter = (props) => {
             options={facilitiesList}
             onChange={({ target }) => setFacility(target.value)}
             selectedValue={facility}
+            disabled={isDisabled}
           />
         </Grid>
       )}
@@ -128,21 +131,21 @@ const EmissionTableFilter = (props) => {
           value={searchText}
         />
       </Grid> */}
-      <Grid item xs={1.5}>
+      {!isDisabled && <Grid item xs={1.5}>
         <CeroButton
           buttonText="Clear"
           className={classes.button}
           onClick={onClear}
         />
-      </Grid>
-      <Grid item xs={1.5}>
+      </Grid>}
+      {!isDisabled && <Grid item xs={1.5}>
         <CeroButton
           buttonText="Apply"
           className={classes.button}
           onClick={onApply}
         />
-      </Grid>
-      <Grid item xs={2.5}>
+      </Grid>}
+      {!isDisabled && <Grid item xs={2.5}>
         <Grid container alignItems="center" justifyContent="flex-end">
           <Grid item xs={9}>
             <CeroButton
@@ -152,7 +155,7 @@ const EmissionTableFilter = (props) => {
             />
           </Grid>
         </Grid>
-      </Grid>
+      </Grid>}
     </Grid>
   );
 };

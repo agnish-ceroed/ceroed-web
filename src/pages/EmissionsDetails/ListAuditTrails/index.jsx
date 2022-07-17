@@ -6,7 +6,7 @@ import { clearListEmissionAuditTrails, listEmissionAuditTrails } from '../../../
 import AuditTrailCell from './AuditTrailCell';
 import useStyles from "./styles";
 
-const ListAuditTrails = ({emissionId}) => {
+const ListAuditTrails = ({emissionId, isAuditor, company}) => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const ListAuditTrails = ({emissionId}) => {
     const auditList = useSelector((state) => state.emission.listAuditTrails.data);
 
     useEffect(() => {
-        dispatch(listEmissionAuditTrails(emissionId));
+        dispatch(listEmissionAuditTrails({emissionId, isAuditor, company}));
         return () => {
             dispatch(clearListEmissionAuditTrails);
         }

@@ -17,6 +17,7 @@ const CeroDropdown = (props) => {
                 onChange={props.onChange}
                 className={classes.input}
                 classes={{ select: classes.select }}
+                disabled={props.disabled}
                 MenuProps={{
                     classes: { paper: classes.paperRoot }
                 }}

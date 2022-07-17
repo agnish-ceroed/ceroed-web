@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         borderRadius: 4,
         cursor: 'pointer',
+    },
+    disabled: {
+        pointerEvents: 'none',
+        opacity: '0.6'
     }
 }));
 

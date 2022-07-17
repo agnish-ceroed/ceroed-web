@@ -233,8 +233,7 @@ const CurrentYearApproval = () => {
           isRequestAuditVisible={
             auditYearlySummary &&
             auditYearlySummary.actions &&
-            auditYearlySummary.actions.perform_request_audit &&
-            auditYearlySummary.actions.auditor_id
+            auditYearlySummary.actions.perform_request_audit
           }
           onRequestAudit={onRequestAudit}
           isLoading={requestAuditStatus === STATUS.RUNNING}

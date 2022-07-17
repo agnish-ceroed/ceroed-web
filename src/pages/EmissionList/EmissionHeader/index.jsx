@@ -13,12 +13,14 @@ const EmissionHeader = (props) => {
       <EmissionSelection
         emissionType={props.emissionType}
         onSelectEmission={props.setEmissionType}
+        isDisabled={props.isDisabled}
       />
       <EmissionTableFilter
         emissionType={props.emissionType}
         onAddData={props.onAddData}
         onApplyFilter={props.onApplyFilter}
         filter={props.filter}
+        isDisabled={props.isDisabled}
       />
     </Box>
   );

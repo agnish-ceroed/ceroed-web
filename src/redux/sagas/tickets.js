@@ -109,7 +109,9 @@ export function* listTickets({ payload }) {
 
 export function* listScopeTickets({ payload }) {
   try {
-    const response = yield call(request, APIEndpoints.LIST_SCOPE_TICKETS(payload.scope, payload.scopeId), {
+    const {scope, scopeId, isAuditor, company} = payload
+    const apiEndpoint = isAuditor ? APIEndpoints.LIST_AUDITOR_SCOPE_TICKETS(scope, scopeId, company) : APIEndpoints.LIST_SCOPE_TICKETS(scope, scopeId)
+    const response = yield call(request, apiEndpoint, {
       method: "GET",
     });
     yield put({

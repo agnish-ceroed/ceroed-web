@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { Box, Typography, IconButton } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
@@ -28,7 +29,7 @@ const EmissionSelection = (props) => {
 
     return (
         <Box className={classes.container}>
-            <Box className={classes.emissionType} onClick={() => setIsOpenEmissionType(true)} >
+            <Box className={props.isDisabled ? clsx(classes.disabled, classes.emissionType) : classes.emissionType} onClick={() => setIsOpenEmissionType(true)} >
                 <Typography >{subEmissionSelected?.title}</Typography>
                 <CreateIcon />
             </Box>

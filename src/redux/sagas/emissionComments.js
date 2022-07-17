@@ -6,8 +6,9 @@ import { APIEndpoints } from '../constants';
 
 export function* listEmissionComments(action) {
     try {
-        const { emissionId } = action.payload
-        const response = yield call(request, APIEndpoints.LIST_EMISSION_COMMENTS(emissionId), {
+        const { emissionId, isAuditor, company } = action.payload
+        const apiEndpoint = isAuditor ? APIEndpoints.LIST_AUDITOR_EMISSION_COMMENTS(emissionId, company) : APIEndpoints.LIST_EMISSION_COMMENTS(emissionId)
+        const response = yield call(request, apiEndpoint, {
             method: 'GET',
         })
         yield put({

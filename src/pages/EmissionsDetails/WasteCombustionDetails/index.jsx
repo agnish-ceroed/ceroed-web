@@ -23,7 +23,7 @@ const WasteCombustionDetails = (props) => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
-    const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen } = props
+    const { emissionId, emissionData, onCancel, isDeleteEnable, setIsDrawerOpen, isAuditor, company } = props
 
     const [value, setValue] = useState(0);
     const [showTickets, setShowTickets] = useState(false);
@@ -70,15 +70,17 @@ const WasteCombustionDetails = (props) => {
             <Box className={classes.innerContainer}>
                 <Box className={classes.header}>
                     <Typography variant="h6" component="div" >Waste Combustion</Typography>
-                    <CeroButton
-                        variant="outlined"
-                        buttonText="Raise a ticket"
-                        className={classes.buttonSecondary}
-                        onClick={() => setIsDrawerOpen(true)}
-                    />
-                    <IconButton onClick={onclickShowTickets}>
-                        <AssignmentIcon />
-                    </IconButton>
+                    <Box>
+                        <CeroButton
+                            variant="outlined"
+                            buttonText="Raise a ticket"
+                            className={classes.buttonSecondary}
+                            onClick={() => setIsDrawerOpen(true)}
+                        />
+                        <IconButton onClick={onclickShowTickets}>
+                            <AssignmentIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
                 <Box className={classes.topContainer}>
                     <Grid container direction={'row'} wrap='nowrap' justifyContent={'space-between'} spacing={8}>
@@ -116,24 +118,25 @@ const WasteCombustionDetails = (props) => {
                 <CeroButton
                     buttonText="Update"
                     className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onUpdateWasteCombustion} />
+                    onClick={onUpdateWasteCombustion}
+                    disabled={isAuditor} />
             </Box>
             <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
                     <Tab label="Comments" id="comments" />
-                    <Tab label="Audit History" id="audit-history" />
                     <Tab label="Attachment" id="files" />
+                    {!isAuditor && <Tab label="Audit History" id="audit-history" />}
                 </Tabs>
             </Box>
-            {value === 0 && <ListComments emissionId={emissionId} />}
-            {value === 1 && <ListAuditTrails emissionId={emissionId} />}
-            {value === 2 && <ListEmissionFiles emissionId={emissionId} />}
+            {value === 0 && <ListComments emissionId={emissionId} isAuditor={isAuditor} company={company} />}
+            {value === 2 && <ListAuditTrails emissionId={emissionId} isAuditor={isAuditor} company={company} />}
+            {value === 1 && <ListEmissionFiles emissionId={emissionId} isAuditor={isAuditor} company={company} />}
             {displayWarning && <CeroConfirmDrawer
                 isOpen={displayWarning}
                 onClose={() => setDisplayWarning(false)}
                 onConfirm={onConfirmDelete}
             />}
-            {showTickets && <ListTicketDrawer isOpen={showTickets} scope="emission" scopeId={emissionId} onClose={onCloseTickets} />}
+            {showTickets && <ListTicketDrawer isOpen={showTickets} scope="emission" scopeId={emissionId} onClose={onCloseTickets} isAuditor={isAuditor} company={company} />}
         </Container>
     )
 }

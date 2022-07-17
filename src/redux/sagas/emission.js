@@ -15,13 +15,14 @@ const uploadFileEmissionUrlMap = {
 
 export function* getEmissionList(action) {
     try {
-        const { emissionType, filter } = action.payload
+        const { emissionType, filter, isAuditor, company } = action.payload
         const payload = filter
+        const apiEndpoint = isAuditor ? APIEndpoints.GET_AUDITOR_EMISSION_LIST(emissionType, company) : APIEndpoints.GET_EMISSION_LIST(emissionType)
         if(!payload.month)
             delete(payload.month)
         if(!payload.facility_id)
             delete(payload.facility_id)
-        const response = yield call(request, APIEndpoints.GET_EMISSION_LIST(emissionType), {
+        const response = yield call(request, apiEndpoint, {
             method: 'GET',
             payload,
         })
@@ -40,8 +41,9 @@ export function* getEmissionList(action) {
 
 export function* getEmission(action) {
     try {
-        const { emissionType, emissionId } = action.payload
-        const response = yield call(request, APIEndpoints.GET_EMISSION(emissionType, emissionId), {
+        const { emissionType, emissionId, isAuditor, company } = action.payload
+        const apiEndpoint = isAuditor ? APIEndpoints.GET_AUDITOR_EMISSION(emissionType, emissionId, company) : APIEndpoints.GET_EMISSION(emissionType, emissionId)
+        const response = yield call(request, apiEndpoint, {
             method: 'GET',
         })
         yield put({
@@ -475,8 +477,9 @@ export function* getMobileCombustionInputs(action) {
 
 export function* listAuditTrails(action) {
     try {
-        const { emissionId } = action.payload
-        const response = yield call(request, APIEndpoints.LIST_EMISSION_AUDIT_TRAILS(emissionId), {
+        const { emissionId, isAuditor, company } = action.payload
+        const apiEndpoint = isAuditor ? APIEndpoints.LIST_AUDITOR_EMISSION_AUDIT_TRAILS(emissionId, company) : APIEndpoints.LIST_EMISSION_AUDIT_TRAILS(emissionId)
+        const response = yield call(request, apiEndpoint, {
             method: 'GET',
         })
         yield put({
@@ -494,8 +497,9 @@ export function* listAuditTrails(action) {
 
 export function* listEmissionFiles(action) {
     try {
-        const { emissionId } = action.payload
-        const response = yield call(request, APIEndpoints.LIST_EMISSION_FILES(emissionId), {
+        const { emissionId, isAuditor, company } = action.payload
+        const apiEndpoint = isAuditor ? APIEndpoints.LIST_AUDITOR_EMISSION_FILES(emissionId, company) : APIEndpoints.LIST_EMISSION_FILES(emissionId)
+        const response = yield call(request, apiEndpoint, {
             method: 'GET',
         })
         yield put({

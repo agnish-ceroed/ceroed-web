@@ -34,7 +34,7 @@ import { STATUS } from '../../../redux/constants';
 const EmissionTable = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const { emissionType, emissionData, onLoadMore, dataStatus } = props
+    const { emissionType, emissionData, onLoadMore, dataStatus, isAuditor, company } = props
 
     const getTableColumn = {
         stationary_combustion: StationaryColumns,
@@ -67,7 +67,8 @@ const EmissionTable = (props) => {
     }
 
     const onSelectEmissionData = (emission) => {
-        navigate(`/emissions/${emissionType}/details/${emission.id}`);
+        isAuditor ? navigate(`/emissions/${emissionType}/details/${emission.id}/?company=${company}`):
+         navigate(`/emissions/${emissionType}/details/${emission.id}`);
     };
 
     const onEditEmissionData = (e, emission) => {

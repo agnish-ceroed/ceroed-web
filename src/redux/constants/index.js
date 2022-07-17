@@ -6,7 +6,8 @@ export const STATUS = {
   ERROR: 'error'
 };
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-staging.azurewebsites.net';
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
@@ -29,8 +30,12 @@ export const APIEndpoints = {
 
   GET_EMISSION_LIST: (emissionType) =>
     `${API_BASE_URL}/business/emissions/${emissionType}`,
+  GET_AUDITOR_EMISSION_LIST: (emissionType, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/emissions/${emissionType}`,
   GET_EMISSION: (emissionType, emissionId) =>
     `${API_BASE_URL}/business/emissions/${emissionType}/${emissionId}`,
+  GET_AUDITOR_EMISSION: (emissionType, emissionId, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/emissions/${emissionType}/${emissionId}`,
   GET_EMISSION_FUEL_LIST: (emissionType) =>
     `${API_BASE_URL}/business/emission-input-format/${emissionType}`,
   GET_EMISSION_INPUT_FORMAT: (emissionType) =>
@@ -89,12 +94,18 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/emissions/${emissionId}`,
   LIST_EMISSION_COMMENTS: (emissionId) =>
     `${API_BASE_URL}/business/comments/${emissionId}`,
+  LIST_AUDITOR_EMISSION_COMMENTS: (emissionId, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/emissions/comments/${emissionId}`,
   ADD_EMISSION_COMMENT: (emissionId) =>
     `${API_BASE_URL}/business/comment/${emissionId}`,
   LIST_EMISSION_AUDIT_TRAILS: (emissionId) =>
     `${API_BASE_URL}/business/audit-trails/${emissionId}`,
+  LIST_AUDITOR_EMISSION_AUDIT_TRAILS: (emissionId, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/audit-trails/${emissionId}`,
   LIST_EMISSION_FILES: (emissionId) =>
     `${API_BASE_URL}/business/attachment/${emissionId}`,
+  LIST_AUDITOR_EMISSION_FILES: (emissionId, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/emissions/attachments/${emissionId}`,
   UPLOAD_EMISSION_ATTACHEMENT: (emissionId) =>
     `${API_BASE_URL}/business/attachment/${emissionId}`,
   DELETE_EMISSION_ATTACHEMENT: (emissionId, attachementId) =>
@@ -191,6 +202,8 @@ export const APIEndpoints = {
     `${API_BASE_URL}/business/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
   LIST_SCOPE_TICKETS: (scope, scopeId) =>
     `${API_BASE_URL}/business/tickets/scope/${scope}/${scopeId}`,
+  LIST_AUDITOR_SCOPE_TICKETS: (scope, scopeId, company) =>
+    `${API_BASE_URL}/auditor/company/${company}/tickets/scope/${scope}/${scopeId}`,
   COMPANY_LIST_TICKETS: (payload) =>
     `${API_BASE_URL}/auditor/company/${payload.company}/tickets/?ticket_type=${payload.ticketType}&ticket_status=${payload.ticketStatus}&year=${payload.year}`,
   COMPANY_CREATE_TICKET: (payload) =>
