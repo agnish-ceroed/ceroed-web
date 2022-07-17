@@ -10,6 +10,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import FactoryIcon from '@mui/icons-material/Factory';
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 
 export const rolesEnum = {
     ADMIN: 'admin',
@@ -118,6 +119,12 @@ export const sideMenuItems = [
     icon: <ConfirmationNumberOutlined />,
     path: '/tickets',
     roles: allUser
+  },
+  {
+    text: 'Assesment Cycles',
+    icon: <EventNoteOutlinedIcon />,
+    path: '/assesment-cycles',
+    roles: [rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]
   }
 ];
 

@@ -38,6 +38,8 @@ import { rolesEnum, sideMenuItems } from '../layouts/DashboardLayout/pages';
 import ReportDetails from '../pages/Reports/ReportDetails';
 import UserInviteLogin from '../pages/UserInviteLogin';
 import QualitativeData from '../pages/QualitativeData';
+import AssessmentDetails from '../pages/AssessmentDetails';
+import AssessmentYearlyDetails from '../pages/AssessmentDetails/AssessmentYearlyDetails';
 
 const RootNavigation = () => {
     const role = useSelector((state) => state.auth.role);
@@ -307,6 +309,22 @@ const RootNavigation = () => {
                         element={
                             <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]}>
                                 <Facilities />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/assesment-cycles"
+                        element={
+                            <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]}>
+                                <AssessmentDetails />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/assesment-cycles/details/"
+                        element={
+                            <PrivateRoute redirectTo="/" rolesAllowed={[rolesEnum.ADMIN, rolesEnum.SUSTAINABILITY_MANAGER]}>
+                                <AssessmentYearlyDetails />
                             </PrivateRoute>
                         }
                     />

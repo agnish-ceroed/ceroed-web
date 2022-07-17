@@ -13,6 +13,7 @@ import audit from "./audit";
 import tickets from "./tickets";
 import reports from "./reports";
 import emissionComments from "./emissionComments";
+import assessment from "./assessment";
 
 /**
  * rootSaga
@@ -32,5 +33,6 @@ export default function* root() {
     fork(tickets),
     fork(reports),
     fork(emissionComments),
+    fork(assessment),
   ]);
 }

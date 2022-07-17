@@ -211,5 +211,9 @@ export const APIEndpoints = {
   LIST_REPORTS: `${API_BASE_URL}/business/reports/`,
   GET_REPORT_DETAILS: (id) => `${API_BASE_URL}/business/reports/${id}`,
   CREATE_REPORT: `${API_BASE_URL}/business/reports/create-report`,
-  UPDATE_REPORT: (id) => `${API_BASE_URL}/business/reports/update-report/${id}`
+  UPDATE_REPORT: (id) => `${API_BASE_URL}/business/reports/update-report/${id}`,
+  LIST_ASSESSMENT_CYCLE: `${API_BASE_URL}/business/list-company-assessment-cycle`,
+  GET_ASSESSMENT_DETAILS: (year) => `${API_BASE_URL}/business/company_assessment_cycle/${year}`,
+  CREATE_ASSESSMENT_CYCLE: `${API_BASE_URL}/business/add-company-assessment-cycle`,
+  UPDATE_ASSESSMENT_CYCLE: (id) => `${API_BASE_URL}/business/update-company-calender/${id}`,
 };
