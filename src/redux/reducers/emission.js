@@ -237,6 +237,16 @@ export const emissionState = {
         data: {},
         status: STATUS.IDLE,
         message: '' 
+    },
+    getNonEmissionDetails: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '' 
+    },
+    updateNonEmissionDetails: {
+        data: {},
+        status: STATUS.IDLE,
+        message: '' 
     }
 }
 
@@ -1235,6 +1245,59 @@ const emissionActions = {
             [ActionTypes.ADD_UPLOAD_FILE_EMISSION_FAILURE]: (state, { payload }) =>
                 immutable(state, {
                     addUploadFileEmission: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+
+            [ActionTypes.GET_NON_EMISSION_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    getNonEmissionDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.GET_NON_EMISSION_DETAILS_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    getNonEmissionDetails: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !save }
+                    }
+                })
+            },
+            [ActionTypes.GET_NON_EMISSION_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    getNonEmissionDetails: {
+                        message: { $set: parseError(payload) },
+                        status: { $set: STATUS.ERROR }
+                    }
+                }),
+            [ActionTypes.CLEAR_GET_NON_EMISSION_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    getNonEmissionDetails: {
+                        status: { $set: STATUS.IDLE },
+                        data: { $set: {} }
+                    }
+                }),
+
+            [ActionTypes.UPDATE_NON_EMISSION_DETAILS]: (state, { payload }) =>
+                immutable(state, {
+                    updateNonEmissionDetails: {
+                        status: { $set: STATUS.RUNNING }
+                    }
+                }),
+            [ActionTypes.UPDATE_NON_EMISSION_DETAILS_SUCCESS]: (state, { payload, save }) => {
+                return immutable(state, {
+                    updateNonEmissionDetails: {
+                        data: { $set: payload },
+                        status: { $set: STATUS.SUCCESS },
+                        isCalculateDone: { $set: !save }
+                    }
+                })
+            },
+            [ActionTypes.UPDATE_NON_EMISSION_DETAILS_FAILURE]: (state, { payload }) =>
+                immutable(state, {
+                    updateNonEmissionDetails: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
                     }

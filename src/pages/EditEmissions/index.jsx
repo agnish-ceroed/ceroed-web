@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { Container } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import _ from "lodash";
 
 import { getEmission, getEmissionInputFormat } from '../../redux/actions';
-
+import { rolesEnum } from "../../layouts/DashboardLayout/pages";
 import DashboardLayout from '../../layouts/DashboardLayout'
 import EditWasteCombustion from "./EditWasteCombustion";
 import EditPurchasedElectricityForm from './EditPurchasedElectricityForm';
@@ -14,9 +15,17 @@ import EditWaterDistributionForm from "./EditWaterDistributionForm";
 import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
 import EditTransportationForm from "./EditTransportationForm";
 import EditRefrigerantsForm from "./EditRefrigerantsForm";
+import EditUploadEmissionForm from "./EditUploadEmissionForm";
 import useStyles from "./styles";
-import { rolesEnum } from "../../layouts/DashboardLayout/pages";
-import _ from "lodash";
+
+const uploadFileEmissions = [
+    'employees_turnover',
+    'age_based_statistics',
+    'gender_based_statistics',
+    'board_diversity',
+    'management_diversity',
+    'tax',
+];
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -130,6 +139,14 @@ const EditEmissions = () => {
                                 facilitiesData={facilitiesData}
                                 emissionInputs={emissionInputs}
                                 emissionData={emissionData}
+                            />
+                        )}
+                        {uploadFileEmissions.includes(emissionType) && (
+                            <EditUploadEmissionForm
+                                isDeleteEnable={isDeleteEnable}
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                emissionType={emissionType}
                             />
                         )}
                     </>

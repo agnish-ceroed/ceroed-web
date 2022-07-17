@@ -13,6 +13,15 @@ const uploadFileEmissionUrlMap = {
     tax: APIEndpoints.ADD_TAX
 }
 
+const nonEmissionDetailsMap = {
+    employees_turnover: 'employees-turnover',
+    age_based_statistics: 'age-based-statistics',
+    gender_based_statistics: 'gender-based-statistics',
+    board_diversity: 'board-diversity',
+    management_diversity: 'management-diversity',
+    tax: 'tax'
+}
+
 export function* getEmissionList(action) {
     try {
         const { emissionType, filter, isAuditor, company } = action.payload
@@ -174,7 +183,7 @@ export function* addWaterConsumption(action) {
         })
         yield put({
             type: ActionTypes.ADD_WATER_CONSUMPTION_COMBUSTION_SUCCESS,
-            payload: response,
+            payload: response.emission,
             save: requestData.save
         })
     } catch (err) {
@@ -840,6 +849,47 @@ export function* addUploadFileEmissions(action) {
     }
 }
 
+export function* getNonEmissionDetails(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, 
+            APIEndpoints.GET_NON_EMISSION_DETAILS(requestData.id, nonEmissionDetailsMap[requestData.emissionType]), {
+            method: 'GET',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.GET_NON_EMISSION_DETAILS_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.GET_NON_EMISSION_DETAILS_FAILURE,
+            payload: err
+        })
+    }
+}
+export function* updateNonEmissionDetails(action) {
+    try {
+        const { requestData } = action.payload;
+        const response = yield call(request, 
+            APIEndpoints.UPDATE_NON_EMISSION_DETAILS(requestData.id, nonEmissionDetailsMap[requestData.emissionType]), {
+            method: 'GET',
+            payload: requestData
+        })
+        yield put({
+            type: ActionTypes.UPDATE_NON_EMISSION_DETAILS_SUCCESS,
+            payload: response,
+        })
+    } catch (err) {
+        /* istanbul ignore next */
+        yield put({
+            type: ActionTypes.UPDATE_NON_EMISSION_DETAILS_FAILURE,
+            payload: err
+        })
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -884,5 +934,7 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE, addAntiCompetitiveDisclosure),
         takeLatest(ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE, addFinancialAssistance),
         takeLatest(ActionTypes.ADD_UPLOAD_FILE_EMISSION, addUploadFileEmissions),
+        takeLatest(ActionTypes.GET_NON_EMISSION_DETAILS, getNonEmissionDetails),
+        takeLatest(ActionTypes.UPDATE_NON_EMISSION_DETAILS, updateNonEmissionDetails),
     ])
 }
