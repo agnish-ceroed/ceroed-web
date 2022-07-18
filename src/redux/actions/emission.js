@@ -49,8 +49,6 @@ export const {
     addAntiCompetitiveDisclosure,
     addSubsidiesFinancialAssistance,
     addUploadFileEmission,
-    getNonEmissionDetails,
-    clearGetNonEmissionDetails,
     updateNonEmissionDetails,
 } = createActions({
     [ActionTypes.GET_EMISSION_LIST]: (emissionType, filter, isAuditor, company) => ({ emissionType, filter, isAuditor, company }),
@@ -99,7 +97,5 @@ export const {
     [ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE]: (requestData) => ({ requestData }),
     [ActionTypes.ADD_UPLOAD_FILE_EMISSION]: (requestData) => ({ requestData }),
-    [ActionTypes.GET_NON_EMISSION_DETAILS]: (requestData) => ({ requestData }),
-    [ActionTypes.CLEAR_GET_NON_EMISSION_DETAILS]: () => ({ }),
-    [ActionTypes.UPDATE_NON_EMISSION_DETAILS]: () => ({ }),
+    [ActionTypes.UPDATE_NON_EMISSION_DETAILS]: (requestData) => ({ requestData }),
 })

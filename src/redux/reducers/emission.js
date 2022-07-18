@@ -238,11 +238,6 @@ export const emissionState = {
         status: STATUS.IDLE,
         message: '' 
     },
-    getNonEmissionDetails: {
-        data: {},
-        status: STATUS.IDLE,
-        message: '' 
-    },
     updateNonEmissionDetails: {
         data: {},
         status: STATUS.IDLE,
@@ -1247,36 +1242,6 @@ const emissionActions = {
                     addUploadFileEmission: {
                         message: { $set: parseError(payload) },
                         status: { $set: STATUS.ERROR }
-                    }
-                }),
-
-            [ActionTypes.GET_NON_EMISSION_DETAILS]: (state, { payload }) =>
-                immutable(state, {
-                    getNonEmissionDetails: {
-                        status: { $set: STATUS.RUNNING }
-                    }
-                }),
-            [ActionTypes.GET_NON_EMISSION_DETAILS_SUCCESS]: (state, { payload, save }) => {
-                return immutable(state, {
-                    getNonEmissionDetails: {
-                        data: { $set: payload },
-                        status: { $set: STATUS.SUCCESS },
-                        isCalculateDone: { $set: !save }
-                    }
-                })
-            },
-            [ActionTypes.GET_NON_EMISSION_DETAILS_FAILURE]: (state, { payload }) =>
-                immutable(state, {
-                    getNonEmissionDetails: {
-                        message: { $set: parseError(payload) },
-                        status: { $set: STATUS.ERROR }
-                    }
-                }),
-            [ActionTypes.CLEAR_GET_NON_EMISSION_DETAILS]: (state, { payload }) =>
-                immutable(state, {
-                    getNonEmissionDetails: {
-                        status: { $set: STATUS.IDLE },
-                        data: { $set: {} }
                     }
                 }),
 

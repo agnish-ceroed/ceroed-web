@@ -6,7 +6,8 @@ export const STATUS = {
   ERROR: 'error'
 };
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-development.azurewebsites.net';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ceroed-api-cd-staging.azurewebsites.net';
 
 export const APIEndpoints = {
   LOGIN: `${API_BASE_URL}/business/token`,
@@ -75,8 +76,7 @@ export const APIEndpoints = {
   ADD_BOARD_DIVERSITY: `${API_BASE_URL}/business/emissions/board-diversity`,
   ADD_MANAGEMENT_DIVERSITY: `${API_BASE_URL}/business/emissions/management-diversity`,
   ADD_TAX: `${API_BASE_URL}/business/emissions/tax`,
-  GET_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emission/${emissionType}/${emissionId}`,
-  UPDATE_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emission/${emissionType}/${emissionId}`,
+  UPDATE_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emissions/${emissionType}/${emissionId}`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

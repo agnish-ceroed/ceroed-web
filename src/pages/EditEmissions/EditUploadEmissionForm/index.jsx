@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 
 import { STATUS } from "../../../redux/constants";
 import { updateUploadValidation } from './schema';
-import { resetAddCombustionStatus, deleteEmissions, updateNonEmissionDetails, getNonEmissionDetails, clearGetNonEmissionDetails } from '../../../redux/actions';
+import { resetAddCombustionStatus, deleteEmissions, updateNonEmissionDetails } from '../../../redux/actions';
 
 import CeroButton from '../../../components/CeroButton';
 import CeroEpochDatePicker from '../../../components/CeroDateTimePicker/CeroEpochDatePicker';
@@ -30,34 +30,21 @@ const EditUploadEmissionForm = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const { emissionId, onCancel } = props;
+    const { emissionId, emissionData, emissionType, onCancel } = props;
 
     const [displayWarning, setDisplayWarning] = useState(false);
 
     const updateEmissionData = useSelector(state => state.emission.updateNonEmissionDetails)
-    const getNonEmissionData = useSelector(state => state.emission.getNonEmissionDetails)
     const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
 
-   
     const formik = useFormik({
         initialValues: {
-            date: getNonEmissionData.data.date || '',
-            content: getNonEmissionData.data.content || '',
+            date: emissionData.date ? dayjs(emissionData.date, "DD/MM/YYYY").valueOf()/1000 : '',
+            content: emissionData.content || '',
         },
         validationSchema: updateUploadValidation,
         onSubmit: () => { },
     });
-
-    useEffect(() => {
-        const requestData = {
-            id: emissionId,
-            emissionType: props.emissionType,
-        }
-        dispatch(getNonEmissionDetails(requestData));
-        return () => {
-            dispatch(clearGetNonEmissionDetails());
-        }
-    },[]);
 
     useEffect(() => {
         if (updateEmissionData.status === STATUS.SUCCESS) {
@@ -82,7 +69,7 @@ const EditUploadEmissionForm = (props) => {
     const onUpdateDetails = () => {
         const requestData = {
             id: emissionId,
-            emissionType: props.emissionType,
+            emissionType: emissionType,
             date: dayjs(formik.values.date * 1000).format("DD/MM/YYYY"),
             content: formik.values.content,
             save: true,

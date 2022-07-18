@@ -849,32 +849,12 @@ export function* addUploadFileEmissions(action) {
     }
 }
 
-export function* getNonEmissionDetails(action) {
-    try {
-        const { requestData } = action.payload;
-        const response = yield call(request, 
-            APIEndpoints.GET_NON_EMISSION_DETAILS(requestData.id, nonEmissionDetailsMap[requestData.emissionType]), {
-            method: 'GET',
-            payload: requestData
-        })
-        yield put({
-            type: ActionTypes.GET_NON_EMISSION_DETAILS_SUCCESS,
-            payload: response,
-        })
-    } catch (err) {
-        /* istanbul ignore next */
-        yield put({
-            type: ActionTypes.GET_NON_EMISSION_DETAILS_FAILURE,
-            payload: err
-        })
-    }
-}
 export function* updateNonEmissionDetails(action) {
     try {
         const { requestData } = action.payload;
         const response = yield call(request, 
             APIEndpoints.UPDATE_NON_EMISSION_DETAILS(requestData.id, nonEmissionDetailsMap[requestData.emissionType]), {
-            method: 'GET',
+            method: 'PUT',
             payload: requestData
         })
         yield put({
@@ -934,7 +914,6 @@ export default function* root() {
         takeLatest(ActionTypes.ADD_ANTI_COMPETITIVE_DISCLOSURE, addAntiCompetitiveDisclosure),
         takeLatest(ActionTypes.ADD_SUBSIDIES_FINANCIAL_ASSISTANCE, addFinancialAssistance),
         takeLatest(ActionTypes.ADD_UPLOAD_FILE_EMISSION, addUploadFileEmissions),
-        takeLatest(ActionTypes.GET_NON_EMISSION_DETAILS, getNonEmissionDetails),
         takeLatest(ActionTypes.UPDATE_NON_EMISSION_DETAILS, updateNonEmissionDetails),
     ])
 }
