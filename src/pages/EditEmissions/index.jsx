@@ -26,21 +26,6 @@ const uploadFileEmissions = [
     'management_diversity',
     'tax',
 ];
-<<<<<<< HEAD
-
-const emissions = [
-    'stationary_combustion',
-    'mobile_combustion',
-    'refrigerants',
-    'transportation',
-    'water',
-    'waste',
-    'purchased_electricity',
-    'water_consumption',
-    'water_discharge'
-]
-=======
->>>>>>> f7cb9af08d251955c00267a35bf16edae9560be6
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -64,18 +49,14 @@ const EditEmissions = () => {
     };
 
     useEffect(() => {
-        if(emissionType) {
-            if(emissions.includes(emissionType)) {
-                dispatch(getEmissionInputFormat(emissionType))
-            }
-            dispatch(getEmission({ emissionType, emissionId }))
-        }
+        emissionType && dispatch(getEmissionInputFormat(emissionType))
+        emissionType && emissionId && dispatch(getEmission({ emissionType, emissionId }))
     }, [emissionType, emissionId, dispatch])
 
     return (
         <DashboardLayout>
             <Container className={classes.container}>
-                {(emissionDataStatus === "running" || (emissions.includes(emissionType) && _.isEmpty(emissionInputs))) ? (
+                {(emissionDataStatus === "running" || _.isEmpty(emissionInputs)) ? (
                     <div>Loading</div>
                 ) : emissionDataStatus === "error" ? (
                     <div>Something went wrong, reload again</div>
@@ -166,10 +147,6 @@ const EditEmissions = () => {
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 emissionType={emissionType}
-<<<<<<< HEAD
-                                emissionData={emissionData}
-=======
->>>>>>> f7cb9af08d251955c00267a35bf16edae9560be6
                             />
                         )}
                     </>

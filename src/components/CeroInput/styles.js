@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        minHeight: 60,
+        height: 60,
         margin: theme.spacing(3, 0),
         display: 'flex',
         flexDirection: 'column',

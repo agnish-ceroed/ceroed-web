@@ -75,7 +75,8 @@ export const APIEndpoints = {
   ADD_BOARD_DIVERSITY: `${API_BASE_URL}/business/emissions/board-diversity`,
   ADD_MANAGEMENT_DIVERSITY: `${API_BASE_URL}/business/emissions/management-diversity`,
   ADD_TAX: `${API_BASE_URL}/business/emissions/tax`,
-  UPDATE_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emissions/${emissionType}/${emissionId}`,
+  GET_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emission/${emissionType}/${emissionId}`,
+  UPDATE_NON_EMISSION_DETAILS: (emissionId, emissionType) => `${API_BASE_URL}/business/emission/${emissionType}/${emissionId}`,
   EDIT_TRANSPORTATION_COMBUSTION: (emissionId) =>
     `${API_BASE_URL}/business/emissions/transportation/${emissionId}`,
   UPDATE_PURCHASED_ELECTRICITY: (emissionId) =>

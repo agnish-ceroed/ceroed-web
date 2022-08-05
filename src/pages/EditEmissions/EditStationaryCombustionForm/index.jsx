@@ -45,7 +45,7 @@ const EditStationaryCombustionForm = (props) => {
             facility: emissionData.facility_id || '',
             year: emissionData.year || '',
             month: emissionData.month || '',
-            emissionType: emissionData.custom_emission ? 'yes' : 'no',
+            emissionType: emissionData.emission_type || 'no',
             fuel: emissionData.fuel_id || '',
             fuelUnit: emissionData.unit || '',
             amountOfFuel: emissionData.amount || ''
