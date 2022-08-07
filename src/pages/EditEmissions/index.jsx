@@ -16,6 +16,7 @@ import EditWaterConsumptionForm from "./EditWaterConsumptionForm";
 import EditTransportationForm from "./EditTransportationForm";
 import EditRefrigerantsForm from "./EditRefrigerantsForm";
 import EditUploadEmissionForm from "./EditUploadEmissionForm";
+import EditEmployeesHealthForm from "./EditEmployeesHealthForm";
 import useStyles from "./styles";
 
 const uploadFileEmissions = [
@@ -26,7 +27,6 @@ const uploadFileEmissions = [
     'management_diversity',
     'tax',
 ];
-<<<<<<< HEAD
 
 const emissions = [
     'stationary_combustion',
@@ -39,8 +39,6 @@ const emissions = [
     'water_consumption',
     'water_discharge'
 ]
-=======
->>>>>>> f7cb9af08d251955c00267a35bf16edae9560be6
 
 const EditEmissions = () => {
     const classes = useStyles();
@@ -160,16 +158,22 @@ const EditEmissions = () => {
                                 emissionData={emissionData}
                             />
                         )}
+                        {emissionType === "employee_health_safety_incident_record" && (
+                            <EditEmployeesHealthForm
+                                isDeleteEnable={isDeleteEnable}
+                                onCancel={onCancel}
+                                emissionId={emissionId}
+                                facilitiesData={facilitiesData}
+                                emissionData={emissionData}
+                            />
+                        )}
                         {uploadFileEmissions.includes(emissionType) && (
                             <EditUploadEmissionForm
                                 isDeleteEnable={isDeleteEnable}
                                 onCancel={onCancel}
                                 emissionId={emissionId}
                                 emissionType={emissionType}
-<<<<<<< HEAD
                                 emissionData={emissionData}
-=======
->>>>>>> f7cb9af08d251955c00267a35bf16edae9560be6
                             />
                         )}
                     </>
