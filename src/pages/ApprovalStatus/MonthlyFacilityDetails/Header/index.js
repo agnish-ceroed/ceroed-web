@@ -32,12 +32,24 @@ const Header = ({
     (state) => state.approval.submitApproval.status
   );
 
+  const submitApprovalError = useSelector(
+    (state) => state.approval.submitApproval.message
+  );
+
   const requestApprovalStatus = useSelector(
     (state) => state.approval.requestApproval.status
   );
 
+  const requestApprovalError = useSelector(
+    (state) => state.approval.requestApproval.message
+  );
+
   const approveRequestStatus = useSelector(
     (state) => state.approval.approveRequest.status
+  );
+
+  const approveRequestError = useSelector(
+    (state) => state.approval.approveRequest.message
   );
 
   const [filterYear, setYear] = useState(selectedYear);
@@ -93,9 +105,9 @@ const Header = ({
       });
     } else if (submitApprovalStatus === STATUS.ERROR) {
       dispatch(resetApprovalData());
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(submitApprovalError.message || "Something went wrong", { variant: "error" });
     }
-  }, [submitApprovalStatus, dispatch, enqueueSnackbar]);
+  }, [submitApprovalStatus, dispatch, enqueueSnackbar, submitApprovalError.message]);
 
   useEffect(() => {
     if (requestApprovalStatus === STATUS.SUCCESS) {
@@ -105,9 +117,9 @@ const Header = ({
       });
     } else if (requestApprovalStatus === STATUS.ERROR) {
       dispatch(resetApprovalData());
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(requestApprovalError.message || "Something went wrong", { variant: "error" });
     }
-  }, [requestApprovalStatus, dispatch, enqueueSnackbar]);
+  }, [requestApprovalStatus, dispatch, enqueueSnackbar, requestApprovalError.message]);
 
   useEffect(() => {
     if (approveRequestStatus === STATUS.SUCCESS) {
@@ -117,9 +129,9 @@ const Header = ({
       });
     } else if (approveRequestStatus === STATUS.ERROR) {
       dispatch(resetApprovalData());
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(approveRequestError.message || "Something went wrong", { variant: "error" });
     }
-  }, [approveRequestStatus, dispatch, enqueueSnackbar]);
+  }, [approveRequestError.message, approveRequestStatus, dispatch, enqueueSnackbar]);
 
   return (
     <Container className={classes.headerContainer}>
