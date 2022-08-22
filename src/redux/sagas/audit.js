@@ -20,7 +20,7 @@ export function* getAuditSummaryList() {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_AUDIT_SUMMARY_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -42,7 +42,7 @@ export function* getYearlyAuditSummary({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_YEARLY_AUDIT_SUMMARY_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -64,7 +64,7 @@ export function* getYearlyAuditSummaryOverview({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_YEARLY_AUDIT_SUMMARY_OVERVIEW_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -84,7 +84,7 @@ export function* getAllquestions({ payload }) {
   } catch (err) {
     yield put({
       type: ActionTypes.GET_ALL_QUESTIONS_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -110,7 +110,7 @@ export function* getYearlyAuditStatusSummaryOverview({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_YEARLY_AUDIT_STATUS_SUMMARY_OVERVIEW_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -134,7 +134,7 @@ export function* requestAudit({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.REQUEST_AUDIT_FAILURE,
-      payload: err.error,
+      payload: err,
     });
   }
 }
@@ -163,7 +163,7 @@ export function* answerQualitativeQuestion({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.ANSWER_QUALITATIVE_QUESTION_FAILURE,
-      payload: err.error,
+      payload: err,
     });
     /* istanbul ignore next */
     yield put({

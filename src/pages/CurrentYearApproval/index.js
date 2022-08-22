@@ -42,6 +42,9 @@ const CurrentYearApproval = () => {
   const requestAuditStatus = useSelector(
     (state) => state.audit.requestAudit.status
   );
+  const requestAuditError = useSelector(
+    (state) => state.audit.requestAudit.message
+  );
 
   const onSelectData = (row) => {
     navigate(`/emissions/${row.type}/?year=${year}`);
@@ -131,9 +134,9 @@ const CurrentYearApproval = () => {
       });
     } else if (requestAuditStatus === STATUS.ERROR) {
       dispatch(resetRequestAuditData());
-      enqueueSnackbar('Something went wrong', { variant: 'error' });
+      enqueueSnackbar(requestAuditError.message || 'Something went wrong', { variant: 'error' });
     }
-  }, [requestAuditStatus, dispatch, enqueueSnackbar]);
+  }, [requestAuditStatus, dispatch, enqueueSnackbar, requestAuditError.message]);
 
   const onApplyFilter = (year) => {
     navigate(`/audit-status/current-year-approval/${year}`);

@@ -3,6 +3,7 @@ import immutable from "immutability-helper";
 
 import { ActionTypes } from "../constants/actions";
 import { STATUS } from "../constants";
+import { parseError } from '../../services/client';
 
 export const auditState = {
   auditSummaryList: {
@@ -66,7 +67,7 @@ const auditActions = {
         immutable(state, {
           auditSummaryList: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -87,7 +88,7 @@ const auditActions = {
         immutable(state, {
           auditYearlySummary: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -108,7 +109,7 @@ const auditActions = {
         immutable(state, {
           auditYearlySummaryOverview: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -129,7 +130,7 @@ const auditActions = {
         immutable(state, {
           questionsList: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -150,7 +151,7 @@ const auditActions = {
         immutable(state, {
           auditStatusYearlySummaryOverview: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -182,7 +183,7 @@ const auditActions = {
         immutable(state, {
           answerQuestion: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -225,7 +226,7 @@ const auditActions = {
         immutable(state, {
           requestAudit: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
