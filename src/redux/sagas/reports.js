@@ -76,7 +76,7 @@ export function* createReport({ payload }) {
     });
     yield put({
       type: ActionTypes.GET_ALL_REPORTS,
-      payload: { year: "" },
+      payload: { },
     });
     yield put({
       type: ActionTypes.CREATE_REPORT_SUCCESS,
