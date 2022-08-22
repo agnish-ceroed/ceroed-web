@@ -94,7 +94,7 @@ export function* addPurchasedElectricity(action) {
             method: 'POST',
             payload: requestData
         })
-        console.log('requestData', requestData)
+
         yield put({
             type: ActionTypes.ADD_PURCHASED_ELECTRICITY_SUCCESS,
             payload: response.emission,

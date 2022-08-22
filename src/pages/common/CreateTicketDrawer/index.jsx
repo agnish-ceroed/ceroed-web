@@ -20,6 +20,7 @@ const CreateTicketDrawer = (props) => {
   const { ticketData, isOpen, scope, scopeId, companyId } = props;
   const userList = useSelector((state) => state.listings.assigneeList.data);
   const createTicketDetailsStatus = useSelector((state) => state.ticket.createTicketDetails.status);
+  const createTicketError = useSelector((state) => state.ticket.createTicketDetails.message);
 
   const isButtonLoading = createTicketDetailsStatus === STATUS.RUNNING
 
@@ -62,10 +63,10 @@ const CreateTicketDrawer = (props) => {
         dispatch(resetTicketStatus())
         onClose();
     } else if (createTicketDetailsStatus === STATUS.ERROR) {
-        enqueueSnackbar("Something went wrong", { variant: 'error' });
+        enqueueSnackbar(createTicketError.message || "Something went wrong", { variant: 'error' });
         dispatch(resetTicketStatus())
     }
-}, [createTicketDetailsStatus, enqueueSnackbar, onClose, dispatch])
+}, [createTicketDetailsStatus, enqueueSnackbar, onClose, dispatch, createTicketError.message])
 
   useEffect(() => {
     !companyId && dispatch(listAssignee());

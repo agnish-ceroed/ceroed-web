@@ -3,6 +3,7 @@ import immutable from "immutability-helper";
 
 import { ActionTypes } from "../constants/actions";
 import { STATUS } from "../constants";
+import { parseError } from '../../services/client';
 
 export const ticketState = {
   listTickets: {
@@ -65,7 +66,7 @@ const ticketActions = {
         immutable(state, {
           listTickets: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -87,7 +88,7 @@ const ticketActions = {
         immutable(state, {
           listScopeTickets: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
       [ActionTypes.RESET_LIST_SCOPE_TICKETS]: (state, { payload }) =>
@@ -116,7 +117,7 @@ const ticketActions = {
         immutable(state, {
           createTicketDetails: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -137,7 +138,7 @@ const ticketActions = {
         immutable(state, {
           closeTicketDetails: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -158,7 +159,7 @@ const ticketActions = {
         immutable(state, {
           deleteTicketDetails: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -179,7 +180,7 @@ const ticketActions = {
         immutable(state, {
           ticketDetails: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
@@ -200,7 +201,7 @@ const ticketActions = {
         immutable(state, {
           addResponse: {
             status: { $set: STATUS.ERROR },
-            message: { $set: payload },
+            message: { $set: parseError(payload) },
           },
         }),
 
