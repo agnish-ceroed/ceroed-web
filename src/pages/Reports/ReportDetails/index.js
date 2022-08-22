@@ -34,6 +34,9 @@ const ReportDetails = () => {
   const deleteReportStatus = useSelector(
     (state) => state.reports.deleteReport.status
   );
+  const deleteReportError = useSelector(
+    (state) => state.reports.deleteReport.message
+  );
 
   const onDeleteReport = () => {
     id && dispatch(deleteReport(id));
@@ -49,10 +52,10 @@ const ReportDetails = () => {
       dispatch(resetReportStatus());
       navigate("/reports");
     } else if (deleteReportStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(deleteReportError.message || "Something went wrong", { variant: "error" });
       dispatch(resetReportStatus());
     }
-  }, [deleteReportStatus, enqueueSnackbar, dispatch, navigate]);
+  }, [deleteReportStatus, enqueueSnackbar, dispatch, navigate, deleteReportError.message]);
 
   useEffect(() => {
     id && dispatch(getReportDetails(id));

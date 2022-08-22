@@ -19,7 +19,7 @@ export function* getReportList({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_ALL_REPORTS_FAILURE,
-      payload: err.message,
+      payload: err,
     });
   }
 }
@@ -41,7 +41,7 @@ export function* getReportDetails({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.GET_REPORT_DETAILS_FAILURE,
-      payload: err.message,
+      payload: err,
     });
   }
 }
@@ -63,7 +63,7 @@ export function* deleteReport({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.DELETE_REPORT_FAILURE,
-      payload: err.message,
+      payload: err,
     });
   }
 }
@@ -86,7 +86,7 @@ export function* createReport({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.CREATE_REPORT_FAILURE,
-      payload: err.message,
+      payload: err,
     });
   }
 }
@@ -112,7 +112,7 @@ export function* updateReport({ payload }) {
     /* istanbul ignore next */
     yield put({
       type: ActionTypes.UPDATE_REPORT_FAILURE,
-      payload: err.message,
+      payload: err,
     });
   }
 }

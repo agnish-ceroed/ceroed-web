@@ -35,6 +35,7 @@ const CreateReportDrawer = (props) => {
   const topicList = useSelector((state) => state.listings.topicList.data);
   const topicFetchStatus = useSelector((state) => state.listings.topicList.status);
   const createReportStatus = useSelector((state) => state.reports.createReport.status );
+  const createReportError = useSelector((state) => state.reports.createReport.message );
 
   const isButtonLoading = createReportStatus === STATUS.RUNNING;
 
@@ -89,10 +90,10 @@ const CreateReportDrawer = (props) => {
       dispatch(resetReportStatus());
       onClose();
     } else if (createReportStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(createReportError.message || "Something went wrong", { variant: "error" });
       dispatch(resetReportStatus());
     }
-  }, [createReportStatus, enqueueSnackbar, onClose, dispatch]);
+  }, [createReportStatus, enqueueSnackbar, onClose, dispatch, createReportError.message]);
 
   useEffect(() => {
     if(topicFetchStatus === STATUS.SUCCESS) {
