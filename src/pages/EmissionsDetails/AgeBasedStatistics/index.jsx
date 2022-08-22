@@ -58,7 +58,7 @@ const AgeBasedStatistics = (props) => {
       dispatch(resetAddCombustionStatus());
       onCancel();
     } else if (deleteEmissionData.status === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(deleteEmissionData.message.message || "Something went wrong", { variant: "error" });
       dispatch(resetAddCombustionStatus());
     }
   }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch]);
