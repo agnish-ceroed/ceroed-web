@@ -70,7 +70,7 @@ const AddPurchasedElectricityForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel('purchased_electricity');
         } else if (addEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(addEmissionData.message.message || "Something went wrong", { variant: 'error' });
         }
     }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
 
