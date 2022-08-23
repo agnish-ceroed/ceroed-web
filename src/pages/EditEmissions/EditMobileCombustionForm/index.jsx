@@ -73,7 +73,7 @@ const EditMobileCombustionForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (updateEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(updateEmissionData.message.message || "Something went wrong", { variant: 'error' });
         }
     }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
 
@@ -83,7 +83,7 @@ const EditMobileCombustionForm = (props) => {
             onCancel();
             dispatch(resetAddCombustionStatus())
         } else if (deleteEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(deleteEmissionData.message.message || "Something went wrong", { variant: 'error' });
         }
     }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])
 

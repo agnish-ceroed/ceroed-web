@@ -50,7 +50,7 @@ const EditEmployeesHealthForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (updateEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(updateEmissionData.message.message || "Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
     }, [updateEmissionData, enqueueSnackbar, onCancel, dispatch])
@@ -61,7 +61,7 @@ const EditEmployeesHealthForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (deleteEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(deleteEmissionData.message.message || "Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
     }, [deleteEmissionData, enqueueSnackbar, onCancel, dispatch])

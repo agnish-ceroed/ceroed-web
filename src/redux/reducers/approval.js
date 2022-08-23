@@ -3,6 +3,7 @@ import immutable from 'immutability-helper'
 
 import { ActionTypes } from '../constants/actions';
 import { STATUS } from '../constants'
+import { parseError } from '../../services/client';
 // import { parseError } from '../../services/client';
 
 export const approvalState = {
@@ -63,7 +64,7 @@ const approvalActions = {
                 immutable(state, {
                     approvalSummaryList: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload }
+                        message:  { $set: parseError(payload) },
                     }
                 }),
                 
@@ -105,7 +106,7 @@ const approvalActions = {
                 immutable(state, {
                     approvalMonthlyDetails: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload }
+                        message:  { $set: parseError(payload) },
                     }
                 }),
 
@@ -126,7 +127,7 @@ const approvalActions = {
                 immutable(state, {
                     approvalMonthlySummary: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload }
+                        message:  { $set: parseError(payload) },
                     }
                 }),
 
@@ -170,7 +171,7 @@ const approvalActions = {
                     immutable(state, {
                     submitApproval: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload },
+                        message:  { $set: parseError(payload) },
                     },
                     }),
 
@@ -214,7 +215,7 @@ const approvalActions = {
                     immutable(state, {
                     requestApproval: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload },
+                        message:  { $set: parseError(payload) },
                     },
                     }),
 
@@ -258,7 +259,7 @@ const approvalActions = {
                     immutable(state, {
                     approveRequest: {
                         status: { $set: STATUS.ERROR },
-                        message: { $set: payload },
+                        message: { $set: parseError(payload) },
                     },
                     }),
 

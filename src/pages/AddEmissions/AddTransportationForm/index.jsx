@@ -71,7 +71,7 @@ const AddTransportationForm = (props) => {
             dispatch(resetAddCombustionStatus());
             onCancel('transportation');
         } else if (addEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(addEmissionData.message.message || "Something went wrong", { variant: 'error' });
         }
     }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
 

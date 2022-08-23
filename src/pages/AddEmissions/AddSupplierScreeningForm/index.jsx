@@ -38,7 +38,7 @@ const AddSupplierScreeningForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel();
         } else if (addEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(addEmissionData.message.message || "Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
     }, [addEmissionData, dispatch, enqueueSnackbar, onCancel])

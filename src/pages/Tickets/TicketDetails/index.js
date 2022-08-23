@@ -64,8 +64,14 @@ const TicketDetails = () => {
   const closeTicketDetailsStatus = useSelector(
     (state) => state.ticket.closeTicketDetails.status
   );
+  const closeTicketDetailsError = useSelector(
+    (state) => state.ticket.closeTicketDetails.message
+  );
   const deleteTicketDetailsStatus = useSelector(
     (state) => state.ticket.deleteTicketDetails.status
+  );
+  const deleteTicketDetailsError = useSelector(
+    (state) => state.ticket.deleteTicketDetails.message
   );
   const addCommentStatus = useSelector(
     (state) => state.ticket.addResponse.status
@@ -105,10 +111,10 @@ const TicketDetails = () => {
       dispatch(resetTicketStatus());
       navigate("/tickets");
     } else if (closeTicketDetailsStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(closeTicketDetailsError.message || "Something went wrong", { variant: "error" });
       dispatch(resetTicketStatus());
     }
-  }, [closeTicketDetailsStatus, enqueueSnackbar, dispatch, navigate]);
+  }, [closeTicketDetailsStatus, enqueueSnackbar, dispatch, navigate, closeTicketDetailsError.message]);
 
   useEffect(() => {
     if (deleteTicketDetailsStatus === STATUS.SUCCESS) {
@@ -116,10 +122,10 @@ const TicketDetails = () => {
       dispatch(resetTicketStatus());
       navigate("/tickets");
     } else if (deleteTicketDetailsStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(deleteTicketDetailsError.message || "Something went wrong", { variant: "error" });
       dispatch(resetTicketStatus());
     }
-  }, [deleteTicketDetailsStatus, enqueueSnackbar, dispatch, navigate]);
+  }, [deleteTicketDetailsStatus, enqueueSnackbar, dispatch, navigate, deleteTicketDetailsError.message]);
 
   useEffect(() => {
     id && dispatch(getTicketDetails({ id, companyId }));

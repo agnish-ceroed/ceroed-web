@@ -20,7 +20,7 @@ export function* getApprovalSummaryList(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.GET_APPROVAL_SUMMARY_FAILURE,
-            payload: err.error
+            payload: err
         })
     }
 }
@@ -38,7 +38,7 @@ export function* getApprovalDetails(action) {
         /* istanbul ignore next */
         yield put({
             type: ActionTypes.GET_APPROVAL_DETAILS_FAILURE,
-            payload: err.error
+            payload: err
         })
     }
 }
@@ -70,7 +70,7 @@ export function* getApprovalMonthlyDetails({payload}) {
     } catch (err) {
         yield put({
             type: ActionTypes.GET_APPROVAL_MONTHLY_DETAILS_FAILURE,
-            payload: err.error
+            payload: err
         })
     }
 }
@@ -101,7 +101,7 @@ export function* getApprovalMonthlySummary({payload}) {
     } catch (err) {
         yield put({
             type: ActionTypes.GET_APPROVAL_MONTHLY_SUMMARY_FAILURE,
-            payload: err.error
+            payload: err
         })
     }
 }
@@ -125,7 +125,7 @@ export function* submitApproval({payload}) {
       /* istanbul ignore next */
       yield put({
         type: ActionTypes.SUBMIT_APPROVAL_FAILURE,
-        payload: err.error,
+        payload: err,
       });
     }
   }
@@ -149,7 +149,7 @@ export function* requestApproval({payload}) {
       /* istanbul ignore next */
       yield put({
         type: ActionTypes.REQUEST_APPROVAL_FAILURE,
-        payload: err.error,
+        payload: err,
       });
     }
   }
@@ -173,7 +173,7 @@ export function* approveRequest({payload}) {
       /* istanbul ignore next */
       yield put({
         type: ActionTypes.APPROVE_REQUEST_FAILURE,
-        payload: err.error,
+        payload: err,
       });
     }
   }

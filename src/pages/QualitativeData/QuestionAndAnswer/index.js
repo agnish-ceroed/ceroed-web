@@ -26,6 +26,10 @@ const AnswerArea = ({ questionItem, classes, onCancel, countryList }) => {
     (state) => state.audit.answerQuestion.status
   );
 
+  const questionAnswerError = useSelector(
+    (state) => state.audit.answerQuestion.message
+  );
+
   const { question_type, lookup_field, keys } = questionItem;
   const isMultiple = question_type === "multiselect";
   const defaultValue =
@@ -58,9 +62,9 @@ const AnswerArea = ({ questionItem, classes, onCancel, countryList }) => {
       enqueueSnackbar("Answer updated successfully", { variant: "success" });
       onCancel();
     } else if (questionAnswerStatus === STATUS.ERROR) {
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(questionAnswerError.message || "Something went wrong", { variant: "error" });
     }
-  }, [questionAnswerStatus, dispatch, enqueueSnackbar, onCancel]);
+  }, [questionAnswerStatus, dispatch, enqueueSnackbar, onCancel, questionAnswerError.message]);
 
   return (
     <Box className={classes.answerArea}>

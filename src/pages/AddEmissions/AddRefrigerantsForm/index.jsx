@@ -67,7 +67,7 @@ const AddRefrigerantsForm = (props) => {
             dispatch(resetAddCombustionStatus())
             onCancel('refrigerants');
         } else if (addEmissionData.status === STATUS.ERROR) {
-            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            enqueueSnackbar(addEmissionData.message.message || "Something went wrong", { variant: 'error' });
             dispatch(resetAddCombustionStatus())
         }
     }, [addEmissionData, enqueueSnackbar, dispatch, onCancel])
