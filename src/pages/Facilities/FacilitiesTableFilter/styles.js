@@ -4,6 +4,10 @@ const useStyles = makeStyles((theme) => ({
     filterContainer: {
         height: 40
     },
+    searchTextContainer: {
+        height: 36,
+        minHeight: 36
+    },
     button: {
         width: '100%',
         fontWeight: '600',

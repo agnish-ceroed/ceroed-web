@@ -45,7 +45,9 @@ const FacilitiesTableFilter = (props) => {
                     <SearchBox
                         placeholder="Search"
                         onChange={({ target }) => setSearchText(target.value)}
-                        value={searchText} />
+                        value={searchText}
+                        classes={{container: classes.searchTextContainer}}
+                         />
                 </Grid>
                 <Grid item xs={1.5}>
                     <CeroButton
