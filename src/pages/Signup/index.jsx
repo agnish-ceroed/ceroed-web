@@ -70,14 +70,15 @@ const Signup = () => {
     return (
         <Grid container justifyContent='center' alignContent='center' className={classes.signup}>
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-                <Box className={classes.logo}>
+                {/* <Box className={classes.logo}>
                     <CeroEdLogo />
-                </Box>
+                </Box> */}
                 <Paper variant="outlined" className={classes.signupContainer}>
-                    <Typography component="h1" variant="h4" fontWeight={400} align="center">
+                    <Typography component="h1" variant="h4" fontWeight={600} color="#78350F" align="center">
                         Sign up
                     </Typography>
-                    <Stepper activeStep={activeStep} className={classes.stepper}>
+                    <Stepper activeStep={activeStep} className={classes.stepper} sx={{'.MuiStepLabel-root .Mui-active': { color: "#78350F" },
+                            '& .MuiStepLabel-root .Mui-completed': { color: "#78350F" }}}>
                         {steps.map((label) => (
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>

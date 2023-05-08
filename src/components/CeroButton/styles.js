@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.Primary,
         '&:hover .MuiIconButton-root .MuiButton-outlined': {
             borderColor: theme.palette.Primary.border,
-            background: theme.palette.Primary.background,
+            background: theme.palette.Primary.main,
         },
     },
 }));

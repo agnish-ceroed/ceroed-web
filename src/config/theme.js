@@ -16,11 +16,11 @@ const theme = createTheme({
             darkBlue: '#334D6E'
         },
         Primary: {
-            main: '#F15927',
+            main: '#78350F',
             dark: '#B72300',
-            light: '#FF8B54',
-            background: '#FEF2EE',
-            border: '#E99D84',
+            light: '#DDCAC3',
+            background: '#78350F',
+            border: '#52250F',
             contrastText: '#FFFFFF',
         },
         Secondary: {
@@ -55,6 +55,14 @@ const theme = createTheme({
             textDark: '#621B16',
             lightBg: '#FEECEB',
             border: '#EB928C',
+            contrastText: '#FFFFFF',
+        },
+        Success: {
+            main: '#2E7D32',
+            dark: '#1B5E20',
+            light: '#4CAF50',
+            background: '#2E7D32',
+            border: '#E99D84',
             contrastText: '#FFFFFF',
         },
         Actions: {

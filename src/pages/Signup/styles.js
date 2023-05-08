@@ -20,7 +20,15 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     stepper: {
-        padding: theme.spacing(10, 0)
+        padding: theme.spacing(10, 0),
+        "& .MuiStepIcon-active": { color: "#78350F" },
+      "& .MuiStepIcon-completed": { color: "#78350F" },
+    },
+    stepperButton : {
+        " .css-sghohy-MuiButtonBase-root-MuiButton-root" : {
+            color : '#000000 !important',
+            backgroundColor : '#000000 !important'
+        }
     },
     cardFooter: {
         display: 'flex',
@@ -29,7 +37,14 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(0, 2),
-    }
+        
+    },
+    root: {
+        "& .MuiStepIcon-active": { color: theme.palette.Primary.main },
+        "& .MuiStepIcon-completed": { color: theme.palette.Primary.main},
+        "& .Mui-disabled .MuiStepIcon-root": { color: "cyan" },
+        
+      }
 }));
 
 export default useStyles;
