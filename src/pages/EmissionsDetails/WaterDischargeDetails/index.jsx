@@ -115,11 +115,12 @@ const WaterDischargeDetails = (props) => {
                     buttonText={<DeleteOutlineIcon />}
                     className={clsx(classes.button, classes.deleteButton)}
                     onClick={() => setDisplayWarning(true)} />}
-                <CeroButton
+                {emissionData.status !== 'approved' && (<CeroButton
                     buttonText="Update"
                     className={clsx(classes.button, classes.buttonPrimary)}
                     onClick={onUpdatePurchasedElectricity}
                     disabled={isAuditor} />
+                )}
             </Box>
             <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="emission tabs">

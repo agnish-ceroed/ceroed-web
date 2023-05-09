@@ -160,11 +160,13 @@ const SocialEngagementHumanRightsTraining = (props) => {
             onClick={() => setDisplayWarning(true)}
           />
         )}
-        <CeroButton
-          buttonText="Update"
-          className={clsx(classes.button, classes.buttonPrimary)}
-          onClick={onUpdatePurchasedElectricity}
-        />
+        {emissionData.status !== 'approved' && (
+          <CeroButton
+            buttonText="Update"
+            className={clsx(classes.button, classes.buttonPrimary)}
+            onClick={onUpdatePurchasedElectricity}
+          />
+        )}
       </Box>
       <Box
         className={classes.tabContainer}

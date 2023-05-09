@@ -128,7 +128,7 @@ const AddFacilityDrawer = (props) => {
                     options={countryList}
                     isOptionEqualToValue={(option, value) => option.label === value}
                 />
-                <CeroSelect
+                {gridRegionList?.length && (<CeroSelect
                     id="gridRegion"
                     name="gridRegion"
                     label="Grid region"
@@ -138,7 +138,7 @@ const AddFacilityDrawer = (props) => {
                     onChange={facilityForm.handleChange}
                     onBlur={facilityForm.handleBlur}
                     error={facilityForm.errors.gridRegion}
-                />
+                />)}
             </Box>
         )
     };

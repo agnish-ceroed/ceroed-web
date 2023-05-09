@@ -29,7 +29,9 @@ const StationaryCombustionDetails = (props) => {
     const [showTickets, setShowTickets] = useState(false);
     const [displayWarning, setDisplayWarning] = useState(false);
 
-    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions)
+    const deleteEmissionData = useSelector(state => state.emission.deleteEmissions);
+
+    console.log('data', emissionData);
 
     useEffect(() => {
         if (deleteEmissionData.status === STATUS.SUCCESS) {
@@ -118,11 +120,13 @@ const StationaryCombustionDetails = (props) => {
                     buttonText={<DeleteOutlineIcon />}
                     className={clsx(classes.button, classes.deleteButton)}
                     onClick={() => setDisplayWarning(true)} />}
-                <CeroButton
-                    buttonText="Update"
-                    className={clsx(classes.button, classes.buttonPrimary)}
-                    onClick={onUpdatePurchasedElectricity} 
-                    disabled={isAuditor} />
+                {emissionData.status !== 'approved' && (
+                    <CeroButton
+                        buttonText="Update"
+                        className={clsx(classes.button, classes.buttonPrimary)}
+                        onClick={onUpdatePurchasedElectricity} 
+                        disabled={isAuditor} />
+                )}
             </Box>
             <Box className={classes.tabContainer} sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="emission tabs">
