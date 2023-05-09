@@ -100,9 +100,11 @@ const EmissionTable = (props) => {
         action: (
             <Box className={classes.actionContainer}>
                 {/* <CeroButton className={classes.button} buttonText={item.status} /> */}
-                <IconButton className={classes.editIcon} onClick={(e) => onEditEmissionData(e, item.id)}>
-                    <CreateIcon />
-                </IconButton>
+                {item.status !== 'approved' && (
+                    <IconButton className={classes.editIcon} onClick={(e) => onEditEmissionData(e, item.id)}>
+                        <CreateIcon />
+                    </IconButton>
+                )}
             </Box>
         ),
     }));

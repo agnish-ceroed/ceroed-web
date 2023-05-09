@@ -46,6 +46,8 @@ const RootNavigation = () => {
     const redirectLink = sideMenuItems.find(item => !_.isEmpty(item.roles.find(userRole => userRole === role)))?.path
     const allRoles = Object.keys(rolesEnum).map(item => rolesEnum[item])
 
+    console.log('redirectLink', redirectLink);
+
     return (
         <BrowserRouter>
             <Suspense fallback={<div>Loading</div>} >
@@ -77,7 +79,7 @@ const RootNavigation = () => {
                     <Route
                         path="/signup"
                         element={
-                            <PublicRoute>
+                            <PublicRoute redirectTo={redirectLink || '/emissions'}>
                                 <Signup />
                             </PublicRoute>
                         }

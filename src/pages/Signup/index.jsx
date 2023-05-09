@@ -28,7 +28,7 @@ const Signup = () => {
     useEffect(() => {
         if (signupData.status === STATUS.SUCCESS) {
             enqueueSnackbar('Successfully Signed up', { variant: 'success' });
-            navigate('/emissions');
+            // navigate('/emissions');
         } else if (signupData.status === STATUS.ERROR) {
             enqueueSnackbar(signupData.message, { variant: 'error' });
             setActiveStep(0)
