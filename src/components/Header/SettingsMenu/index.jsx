@@ -87,19 +87,19 @@ const SettingsMenu = () => {
         <MenuItem onClick={() => navigateToPage("/profile")}>
           <Avatar /> My Profile
         </MenuItem>
-        <Divider />
+        <MenuItem onClick={() => navigateToPage("/help")}>
+          <ListItemIcon>
+            <LockResetOutlined fontSize="small" />
+          </ListItemIcon>
+          Help
+        </MenuItem>
         <MenuItem onClick={() => navigateToPage("/settings")}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={() => navigateToPage("/change-password")}>
-          <ListItemIcon>
-            <LockResetOutlined fontSize="small" />
-          </ListItemIcon>
-          Change Password
-        </MenuItem>
+        <Divider />
         <MenuItem onClick={() => dispatch(userLogout())}>
           <ListItemIcon>
             <Logout fontSize="small" />

@@ -46,17 +46,6 @@ const SideMenu = ({options, secondaryOptions}) => {
                         <ListItemText primary={menuItem.text} className={location.pathname.includes(menuItem.path) ? classes.activeOption : classes.menuText}/>
                 </ListItem>)}
             </List>
-            <Box className={classes.secodaryOptions}>
-                <List>
-                    {secondaryOptions.map(menuItem => <ListItem 
-                        key={menuItem.text} 
-                        button 
-                        onClick={() => navigate(menuItem.path)}>
-                            <ListItemIcon className={location.pathname === menuItem.path ? classes.activeOption : classes.icon}>{menuItem.icon}</ListItemIcon>
-                            <ListItemText primary={menuItem.text} className={location.pathname === menuItem.path ? classes.activeOption : classes.menuText}/>
-                    </ListItem>)}
-                </List>
-            </Box>
         </Drawer>
     </Box>
 };

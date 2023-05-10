@@ -128,7 +128,7 @@ const AddFacilityDrawer = (props) => {
                     options={countryList}
                     isOptionEqualToValue={(option, value) => option.label === value}
                 />
-                {gridRegionList?.length && (<CeroSelect
+                {!!gridRegionList?.length && (<CeroSelect
                     id="gridRegion"
                     name="gridRegion"
                     label="Grid region"
