@@ -78,7 +78,8 @@ const UserDetails = (props) => {
                     onClick={handleNext}
                     buttonText={'Next'}
                     disabled={!userDetailsForm.isValid}
-                    classes={{ root: classes.button }}
+                    // classes={{ root: classes.button }}
+                    className={classes.button}
                 />
             </Box>
         </>

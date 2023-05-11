@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Grid, Typography, Box, Chip } from "@mui/material";
+import { Container, Grid, Typography, Box, Chip,CircularProgress } from "@mui/material";
 
 import { sampleYear } from "../../../constants";
 import CeroDropdown from "../../../components/CeroDropdown";
@@ -67,7 +67,7 @@ const Header = ({
           />
           {isRequestAuditVisible && (
             <CeroButton
-              buttonText={isLoading ? "Loading..." : "Request audit"}
+              buttonText={isLoading ? <CircularProgress/> : "Request audit"}
               className={classes.buttonPrimary}
               onClick={onRequestAudit}
               disabled={isLoading}

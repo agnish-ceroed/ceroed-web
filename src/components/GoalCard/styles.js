@@ -8,12 +8,13 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         margin: theme.spacing(1, 0),
         '&.MuiPaper-root:hover': {
-            background: theme.palette.Secondary.background
+            background: theme.palette.Primary.light
         },
+        borderColor:theme.palette.Primary.main
     },
     active: {
         '&.MuiPaper-root': {
-            background: theme.palette.Secondary.background
+            background: theme.palette.Primary.light
         },
     }
 }));

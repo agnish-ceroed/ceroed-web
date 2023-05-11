@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Typography, Grid, Box } from "@mui/material";
+import { Container, Typography, Grid, Box,CircularProgress } from "@mui/material";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroDropdown from "../../components/CeroDropdown";
@@ -183,7 +183,7 @@ const Tickets = () => {
           <Box className={classes.loader}>
             <Typography variant="h7" component="span">
               {ticketListStatus === STATUS.RUNNING
-                ? "Loading..."
+                ? <CircularProgress/>
                 : ticketListStatus === STATUS.ERROR
                 ? "Something went wrong. Please try again later"
                 : ""}

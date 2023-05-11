@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Box, IconButton, Chip } from "@mui/material";
+import { Container, Box, IconButton, Chip,CircularProgress } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router";
@@ -69,7 +69,7 @@ const Header = ({
       <Box className={classes.ticketContainer}>
         {isApproveAuditVisible && (
           <CeroButton
-            buttonText={isLoading ? "Loading..." : "Approve audit"}
+            buttonText={isLoading ? <CircularProgress/> : "Approve audit"}
             className={classes.buttonPrimary}
             onClick={onApproveAudit}
             disabled={isLoading}

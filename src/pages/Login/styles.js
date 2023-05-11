@@ -22,21 +22,32 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(7, 0, 5, 0),
         background:theme.palette.Primary.background,
         width:"100%",
+        "&:hover": {
+            backgroundColor:theme.palette.Primary.dark,
+            color:theme.palette.Primary.contrastText
+          },
     },
     buttonActive: {
         margin: theme.spacing(2, 0, 5, 0),
         background:theme.palette.Primary.background,
         width:"100%",
-        borderRadius:"0 !important"
+        borderRadius:"0 !important",
+        "&:hover": {
+            backgroundColor:theme.palette.Primary.dark,
+            color:theme.palette.Primary.contrastText
+          },
     },
     buttonInactive: {
         margin: theme.spacing(2, 0, 5, 0),
         color:theme.palette.Primary.main,
         background:theme.palette.Primary.light,
         width:"100%",
-        borderRadius:"0 !important"
+        borderRadius:"0 !important",
+        "&:hover": {
+            backgroundColor:theme.palette.Primary.dark,
+            color:theme.palette.Primary.contrastText
+          },
     },
-    
     forgotLink: {
         display: 'block',
         paddingBottom: theme.spacing(2),

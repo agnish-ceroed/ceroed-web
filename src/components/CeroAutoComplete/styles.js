@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0),
         display: 'flex',
         flexDirection: 'column',
+        '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+            border: `1px solid ${theme.palette.Primary.main}`,
+        },
     },
     text: {
         fontSize: 12,

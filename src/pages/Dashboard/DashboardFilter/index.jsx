@@ -7,11 +7,14 @@ import { months, sampleYear, selectionPeriod } from "../../../constants";
 import CeroDropdown from "../../../components/CeroDropdown";
 import CeroButton from "../../../components/CeroButton";
 import useStyles from "./styles";
+import SearchBox from "../../../components/SearchBox/index";
 
 
 const DashboardFilter = (props) => {
     const { onApplyFilter } = props;
     const classes = useStyles();
+
+    const [searchText,setSearchText] = useState('');
 
     const facilitiesData = useSelector(state => state.listings.listFacilities.data);
     const facilitiesList = facilitiesData.map(item => ({ key: item.id, value: item.name }));
@@ -60,6 +63,12 @@ const DashboardFilter = (props) => {
     return (
         <>
             <Grid className={classes.filterContainer} container columnSpacing={2} alignItems="center" wrap="nowrap">
+                <Grid item sm={3} md={2} border="none">
+                <SearchBox
+                        placeholder="Search here..."
+                        onChange={({ target }) => setSearchText(target.value)}
+                        value={searchText} />
+                </Grid>
                 <Grid item sm={3} md={2}>
                     <CeroDropdown
                         id="facility"

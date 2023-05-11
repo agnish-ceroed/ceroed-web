@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, CircularProgress } from '@mui/material';
 import _ from 'lodash';
 import { useSnackbar } from 'notistack';
 
@@ -154,7 +154,7 @@ const AuditDetails = () => {
           <Box className={classes.loader}>
             <Typography variant='h7' component='span'>
               {auditDetails === STATUS.RUNNING
-                ? 'Loading...'
+                ? <CircularProgress/>
                 : auditDetails === STATUS.ERROR
                 ? 'Something went wrong. Please try again later'
                 : ''}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, IconButton, Chip, Typography } from "@mui/material";
+import { Box, IconButton, Chip, Typography,CircularProgress } from "@mui/material";
 import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 import {
@@ -122,7 +122,7 @@ const EmissionTable = (props) => {
                 <Box className={classes.loader}>
                     <Typography variant="h7" component="span">
                     {dataStatus === STATUS.RUNNING
-                        ? "Loading..."
+                        ? <CircularProgress/>
                         : dataStatus === STATUS.ERROR
                         ? "Something went wrong. Please try again later"
                         : ""}

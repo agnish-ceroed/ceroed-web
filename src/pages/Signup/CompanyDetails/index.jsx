@@ -133,7 +133,7 @@ const CompanyDetails = (props) => {
         <CeroButton
           onClick={props.onBack}
           buttonText='Back'
-          className={classes.button}
+          className={classes.backButton}
         />
         <CeroButton
           variant="contained"

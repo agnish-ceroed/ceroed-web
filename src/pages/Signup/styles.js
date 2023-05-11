@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(0, 2),
+        background:theme.palette.Primary.background,
+        "&:hover": {
+            backgroundColor:theme.palette.Primary.light,
+            color:theme.palette.Primary.main
+          },
         
     },
     root: {

@@ -120,7 +120,7 @@ const Login = () => {
               disabled={!loginForm.dirty || !loginForm.isValid}
             />
             <Link to="/signup" className={classes.newUser}>
-            <Box component="span" color="#000" fontWeight={450} fontSize={12}>Don't have an account?</Box>
+            <Box component="span" color="#000" fontWeight={450} fontSize={12}>Don't have an account? </Box>
               <Box component="span" fontSize={14} fontWeight={600}>Sign Up</Box> 
             </Link>
             <Typography align="center" mt={12} sx={{ fontStyle: 'italic',fontWeight:500,fontSize:"12px" }}>&copy;2023 CeroED,Inc.All rights reserved.</Typography>
