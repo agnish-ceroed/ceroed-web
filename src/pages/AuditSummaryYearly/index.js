@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, Typography, Chip } from "@mui/material";
+import { Box, Container, Typography, Chip,CircularProgress } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import { auditStatus } from "../../constants";
@@ -105,7 +105,7 @@ const AuditSummaryYearly = () => {
           <Box className={classes.loader}>
             <Typography variant="h7" component="span">
               {auditSummaryStatus === STATUS.RUNNING
-                ? "Loading..."
+                ? <CircularProgress/>
                 : auditSummaryStatus === STATUS.ERROR
                 ? "Something went wrong. Please try again later"
                 : ""}
