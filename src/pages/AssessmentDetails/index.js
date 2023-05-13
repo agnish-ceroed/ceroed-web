@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography,CircularProgress } from "@mui/material";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import CeroTable from "../../components/CeroTable";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +84,7 @@ const AssessmentDetails = () => {
           <Box className={classes.loader}>
             <Typography variant="h7" component="span">
               {assessmentListStatus === STATUS.RUNNING
-                ? "Loading..."
+                ? <CircularProgress/>
                 : assessmentListStatus === STATUS.ERROR
                 ? "Something went wrong. Please try again later"
                 : ""}

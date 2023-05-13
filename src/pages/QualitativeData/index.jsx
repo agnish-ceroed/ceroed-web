@@ -6,7 +6,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Container,
-  Typography,
+  Typography,CircularProgress
 } from "@mui/material";
 import { Box } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -155,7 +155,7 @@ const QualitativeData = () => {
           <Box className={classes.loader}>
             <Typography variant="h7" component="span">
               {questionsListStatus === STATUS.RUNNING
-                ? "Loading..."
+                ? <CircularProgress/>
                 : questionsListStatus === STATUS.ERROR
                 ? "Something went wrong. Please try again later"
                 : ""}

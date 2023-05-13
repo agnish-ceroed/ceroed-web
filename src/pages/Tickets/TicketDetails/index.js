@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useSnackbar } from "notistack";
-import { Container, Typography, Box, Chip } from "@mui/material";
+import { Container, Typography, Box, Chip,CircularProgress } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 
 import DashboardLayout from "../../../layouts/DashboardLayout";
@@ -239,7 +239,7 @@ const TicketDetails = () => {
           <Box className={classes.loader}>
             <Typography variant="h7" component="span">
               {ticketDetailsStatus === STATUS.RUNNING
-                ? "Loading..."
+                ? <CircularProgress/>
                 : ticketDetailsStatus === STATUS.ERROR
                 ? "Something went wrong. Please try again later"
                 : ""}
